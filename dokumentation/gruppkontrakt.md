@@ -3,36 +3,51 @@
 ## Tidigare grupparbeteserfarenheter
 - Vilka är respektive gruppmedlems top 3 sämsta erfarenheter med grupparbeten? Vilka "negativa förväntningar" kommer ni in i detta med?
 
-> Exempel: Personer gör inte det dom har lovat inom utsatt tid, och säger att "dom jobbar på det", men det blir aldrig klart.
+: Skjuter fram uppgifterna, alla medlemmar deltar inte i arbetet, dålig kommunikation. 
 
-> [!TIP]
-> Det är bra att få ur sig de negativa förväntningarna och att diskutera öppet kring tidigare erfarenheter. Ju öppnare ni är i er kommunikation nu, desto bättre grupparbete kommer ni att få. På en arbetsplats kanske man känner varandra redan och det finns andra "krav". Av någon anledning beter sig många annorlunda i en skolmiljö när det gäller grupparbeten :thinking:
+> Exempel: Personer gör inte det dom har lovat inom utsatt tid, och säger att "dom jobbar på det", men det blir aldrig klart.
 
 ## Mötestider
 Vilka dagar och tider jobbar vi gemensamt?
 
-Ni ska planera in:
-
-- Daily standup _varje vardag_. Det får gärna vara samma tid så att det är lätt att komma ihåg, men det är upp till gruppen att bestämma. Ni ska fylla i en loggbok dagligen med er daily.
-- Tid för backlog refining varje vecka (cirka 1 h).
-- Tid för sprint planning varje vecka (cirka 1-2 h).
-- Tid för retrospektiv varje vecka (cirka 1 h).
+: Daily standup vardagar klockan 10.00 eller i direkt anslutning efter lektion.
+: Backlog refining fredagar direkt efter daily standup. 
+: Sprint planning måndag direkt efter daily standup. 
+: Retrospektiv torsdagar i direkt anslutning efter lektion.
 
 ## Möteskanaler & format
 - Hur träffas vi? Discord, Teams, på någon fysisk plats…
+  : Teams
 - Kamera av/på?
+  : Kamera på
 - Ska man komma förberedd eller går vi gemensamt igenom vad som ska göras på mötet?
+  : Gruppen går gemensamt igenom vad som ska tas upp på mötet, mötet startas med en öppen fråga om någon har någon specifikt att ta upp.
 - Definiera vad som är "brådskande", och hur man kommunicerar om något är brådskande. SMS? Telefonsamtal?
+  : Brådskande definieras som något som riskerar förseningar av inlämningar eller deadlines. I första hand kontakt via Teams.
+  Vid extremt brådskande telefon eller sms. 
 - Befinner vi oss alla i samma tidszon?
+  : Ja. 
 
 ## Kommunikation
 - Via vilka kanaler kommunicerar vi?
+  : Kommunikation sker i första hand i Teams. Vid brådskande ärenden sms eller telefon.
+  
 - Vilka tider kommunicerar vi?
+  : OK att kommunicera i chatten oavsett tid.
+  
 - Inom vilken tidsfrist kan man förvänta sig svar/återkoppling?
+  : Kan förväntas svar mellan 9-15 på vardagar.
+  
 - Hur meddelar man förhinder? I hur god tid meddelar man förhinder?
+  : Förhinder meddelas så fort som möjligt i Teams-chatten alternativt iMessagegruppen.
+  
 - Överväg att dela er mail/telefonnummer så att ni faktiskt kan nå varandra.
+  
 - Hur föredrar vi att jobba? Live-koda tillsammans? På egen hand? Ska vi göra kod-merges ihop?
+  : I första hand jobbar var och en för sig men om man behöver hjälp ska man inte vara rädd för att fråga om hjälp - en gruppmedlem kan kanske hjälpa till att lösa problem genom att live-koda tillsammans.
+
 - Vem ansvarar för att dokumentera daily standup i repot? (Rotera gärna denna roll med någon frekvens så att inte en person gör det enbart).
+  : Scrum Master för den aktuella dagen ansvarar för att Daily standup dokumenteras i repot. 
 
 ## Personlighetstyp
 > Det kan kännas obekvämt att diskutera följande, men det är en grund för ett bra samarbete att dels ha lite självinsikt, men också förståelse för hur ens gruppmedlemmar fungerar i olika situationer.
@@ -57,16 +72,38 @@ Vilken roll brukar varje gruppmedlem ta på sig i ett grupparbete? Vilken roll h
 - **Pepparen:** Positiv, empatisk, skapar god stämning.
 - **Dörrvakten/Processledaren:** Säkerställer deltagande, hanterar diskussionen.
 
+Alma: - **Experten/Specialisten:** Djup kunskap, fokuserad, analytisk & - **Informationssökaren:** Nyfiken, faktabaserad, samlar data
+Rasmus: - **Lagspelaren/Samordnaren:** Samarbetsvillig, diplomatisk, stöttande & - **Innovatören/Idésprutan:** Kreativ, fantasifull, ser nya lösningar.
+Kimi: - **Lagspelaren/Samordnaren:** Samarbetsvillig, diplomatisk, stöttande
+Alda: - **Planeraren/Genomföraren:** Organiserad, praktisk, pålitlig & - **Slutföraren/Kvalitetssäkraren:** Noggrann, detaljfokuserad, avslutar i tid.
+Linn: - **Lagspelaren/Samordnaren:** Samarbetsvillig, diplomatisk, stöttande. & - **Planeraren/Genomföraren:** Organiserad, praktisk, pålitlig
+Isabelle: - **Ledaren:** Drivande, dynamisk, tar initiativ & - **Lagspelaren/Samordnaren:** Samarbetsvillig, diplomatisk, stöttande
+
 ## Uppgiftsfördelning
 - Hur fördelas uppgifter?
+  : Fördelas under daily stand ups, scrum master är ytterst ansvarig för att se till att alla story points tilldelas. 
+  
 - Hur kommunicerar man när man tar på sig en uppgift utanför daily standupen, eller ska man vänta till standupen?
+  : Fråga ställs i chatten om uppgiften kan tas innan planerad start.
+  
 - Vad är definitionen på "klar"?
+  : När en uppgift flyttas från In Review till Done anses uppgiften vara klar.
+  
 - Hur granskar vi varandras kod?
+  : Minst 2st gruppmedlemmar ska reviewa koden som ligger granskning. 
 
 ## Övriga förväntningar
 - Vilken ambitionsnivå har vi?
+  : Klara kraven för godkänt - vid mån av tid: bygga en snygg och portfoliovänlig sida. 
+  
 - Hur mycket förväntas man delta/hur aktivt ska man vara?
+  : Motsvarande heltidssysselsättning, 40 timmar i veckan.
+  
 - Vad blir konsekvenserna om man inte är aktiv i projektet? Hur många kontaktförsök gör man? Hur snabbt ska personen återkomma som inte varit aktiv/gått att nå? Hur fort tar man kontakt med läraren om någon inte dyker upp/gör det man kommit överens om?
+  : Efter utebliven kontakt dag 1: Kontakta medlemmen. 
+  : Efter fortsatt utebliven kontakt dag 2: Meddela gruppmedlemmen att Jenni kommer att kontaktas.
+  : Dag 3: Kontakta Jenni.
+  
 - Vad är du bra på?
 - Vad är du sämre på?
 - Finns det något du rent tekniskt vill träna extra på? HTMl, CSS, git? Projektledning?
@@ -74,13 +111,20 @@ Vilken roll brukar varje gruppmedlem ta på sig i ett grupparbete? Vilken roll h
 ## Scrum master
 Fördela dagarna så jämt det går i gruppen och kom överens om vem som är scrum master.
 
-T.ex. om ni är 4 personer i gruppen så kan en person vara scrum master i 3 dagar, och sedan går turen över till nästa person.
+4 dagar per person. 
 
 ## Kodstandard
 - Hur skriver vi våra commit-meddelanden? Ska vi följa någon särskild standard (t.ex. Conventional Commits eller använda gitmoji).
+  : Initialer följt av beskrivning. Commit skrivs på engelska.  
+  
 - Hur indenterar vi vår kod?
+  : 4 whitespace, enkla citattecken. 
+  
 - Vilket språk använder vi i vår kod, för t.ex. CSS-selektorer?
+  : Engelska. Camelcase för JS relaterat, kebabcase för CSS klasser. 
+  
 - Hur kommenterar vi vår kod?
+  : Blockkommentarer på engelska, inline kommentarer är bra för förklaring men inget måste. 
 
 ## Övrigt
 Om ni vill ta upp någonting utöver det fördefinierade. Skriv gärna en egen rubrik.
