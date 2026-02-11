@@ -1,4 +1,4 @@
-# Gruppkontrakt GRUPPNAMN
+# Gruppkontrakt The Dopefish Admirers
 
 ## Tidigare grupparbeteserfarenheter
 - Vilka är respektive gruppmedlems top 3 sämsta erfarenheter med grupparbeten? Vilka "negativa förväntningar" kommer ni in i detta med?
@@ -32,6 +32,7 @@ Vilka dagar och tider jobbar vi gemensamt?
 - Via vilka kanaler kommunicerar vi?
   : Kommunikation sker i första hand i Teams. Vid brådskande ärenden sms eller telefon.
   : Alma iMessage - 0733399327 isakvent@icloud.com
+  : Isabelle iMessage - 0739150940 isabellereynolds@hotmail.com
   
 - Vilka tider kommunicerar vi?
   : OK att kommunicera i chatten oavsett tid.
@@ -75,10 +76,15 @@ Vilken roll brukar varje gruppmedlem ta på sig i ett grupparbete? Vilken roll h
 - **Dörrvakten/Processledaren:** Säkerställer deltagande, hanterar diskussionen.
 
 Alma: Experten/Specialisten & Informationssökaren
+
 Rasmus: - **Lagspelaren/Samordnaren:** Samarbetsvillig, diplomatisk, stöttande & - **Innovatören/Idésprutan:** Kreativ, fantasifull, ser nya lösningar.
+
 Kimi: - **Lagspelaren/Samordnaren:** Samarbetsvillig, diplomatisk, stöttande
+
 Alda: - **Planeraren/Genomföraren:** Organiserad, praktisk, pålitlig & - **Slutföraren/Kvalitetssäkraren:** Noggrann, detaljfokuserad, avslutar i tid.
+
 Linn: - **Lagspelaren/Samordnaren:** Samarbetsvillig, diplomatisk, stöttande. & - **Planeraren/Genomföraren:** Organiserad, praktisk, pålitlig
+
 Isabelle: - **Ledaren:** Drivande, dynamisk, tar initiativ & - **Lagspelaren/Samordnaren:** Samarbetsvillig, diplomatisk, stöttande
 
 ## Uppgiftsfördelning
@@ -108,19 +114,32 @@ Isabelle: - **Ledaren:** Drivande, dynamisk, tar initiativ & - **Lagspelaren/Sam
   
 - Vad är du bra på?
   : Alma - Estetik & grafisk formgivning (t.ex rita SVG ikoner och implementera dessa i websidor); "Metakognition" (tänka på att tänka, föreställa hur UX och UI kanske upplevs an någon annan); mönsterigenkänning
+  
   : Linn - Estetik och CSS (t.ex. färg, form, layout).
+  
   : Alda - bra på att strukturera HTML och bra på layout, samt design med CSS
+
+  : Isabelle - ta initiativ, följa upp och strukturera arbete. Korrekturläsning / kontroll av text, tänka ur ett UX och tillgänglighetsperspektiv, strukturera HTML. 
   
 - Vad är du sämre på?
   : Alma - ledarskap; känslosamma konflikter eller bråk inom grupper; spontanitet (folk kan förklara att jag beter mig som att jag är tagen på sängen)
+  
   : Linn - kommunikation vid stress; kan bli rak/kort vilket kan upplevas otrevligt men handlar om att jag försöker va effektiv i en stressig situation (säg gärna till! tar det bra och tycker viktigt de känns bra för alla. Tycker bara skönt när folk känner de kan säga vad de känner).
          - Installationer
+  
   : Alda - är inte lika bekväm med att kommunicera i video eller muntligt som när jag chattar. Därför kan det ibland hända att jag tvekar att ställa frågor eller be om hjälp, även när jag egentligen behöver det. Detta gör att jag ibland löser problem själv istället för att ta hjälp direkt.
+
+  : Isabelle - Svårt att hålla fokus på en sak. Påbörjar något, börjar tänka på hur det påverkar något annat osv osv. Vill lösa alla problem samtidigt så kan bli spretigt när jag försöker problemlösa. 
+  
   
 - Finns det något du rent tekniskt vill träna extra på? HTMl, CSS, git? Projektledning?
   : Alma - TypeScript, OOP (om möjligheten finns), Github versionshantering
+  
   : Linn - TypeScript, JS, Github versionshantering, installationer
+  
   : Alda - JavaScript, TypeScript, GitHub, veta mer om CSS (räknar med att det kommer utvecklas mer med tiden genom övning och projekt)
+
+  : Isabelle - TypeScript, JavaScript, Github
 
 ## Scrum master
 Fördela dagarna så jämt det går i gruppen och kom överens om vem som är scrum master.
@@ -148,3 +167,4 @@ Om ni vill ta upp någonting utöver det fördefinierade. Skriv gärna en egen r
 - [Alma Isaksson](https://github.com/MidnattLantern)
 - [Linn Boekhout] (https://github.com/Linboe)
 - [Alda Catovic](https://github.com/aldacat-fed)
+- [Isabelle Reynolds](https://github.com/isabelletherese)
