@@ -1,6 +1,6 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/PLwZQtiP)
 
-Live link; 
+Live link: (medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers)[https://medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers/]
 
 Developed by The Dopefish Admirers team:
 
