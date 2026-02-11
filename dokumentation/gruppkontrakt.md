@@ -31,6 +31,7 @@ Vilka dagar och tider jobbar vi gemensamt?
 ## Kommunikation
 - Via vilka kanaler kommunicerar vi?
   : Kommunikation sker i första hand i Teams. Vid brådskande ärenden sms eller telefon.
+  : Alma iMessage - 0733399327 isakvent@icloud.com
   
 - Vilka tider kommunicerar vi?
   : OK att kommunicera i chatten oavsett tid.
@@ -51,6 +52,7 @@ Vilka dagar och tider jobbar vi gemensamt?
 
 ## Personlighetstyp
 > Det kan kännas obekvämt att diskutera följande, men det är en grund för ett bra samarbete att dels ha lite självinsikt, men också förståelse för hur ens gruppmedlemmar fungerar i olika situationer.
+- Alma Isaksson [INFJ](https://www.16personalities.com/profiles/6bd4352c69bad)
 
 Hurdant reagerar varje gruppmedlem vid stress?
 - Flyr situationen, slutar delta, ignorerar situationen/grupparbetet
@@ -72,7 +74,7 @@ Vilken roll brukar varje gruppmedlem ta på sig i ett grupparbete? Vilken roll h
 - **Pepparen:** Positiv, empatisk, skapar god stämning.
 - **Dörrvakten/Processledaren:** Säkerställer deltagande, hanterar diskussionen.
 
-Alma: - **Experten/Specialisten:** Djup kunskap, fokuserad, analytisk & - **Informationssökaren:** Nyfiken, faktabaserad, samlar data
+Alma: Experten/Specialisten & Informationssökaren
 Rasmus: - **Lagspelaren/Samordnaren:** Samarbetsvillig, diplomatisk, stöttande & - **Innovatören/Idésprutan:** Kreativ, fantasifull, ser nya lösningar.
 Kimi: - **Lagspelaren/Samordnaren:** Samarbetsvillig, diplomatisk, stöttande
 Alda: - **Planeraren/Genomföraren:** Organiserad, praktisk, pålitlig & - **Slutföraren/Kvalitetssäkraren:** Noggrann, detaljfokuserad, avslutar i tid.
@@ -105,8 +107,13 @@ Isabelle: - **Ledaren:** Drivande, dynamisk, tar initiativ & - **Lagspelaren/Sam
   : Dag 3: Kontakta Jenni.
   
 - Vad är du bra på?
+  : Alma - Estetik & grafisk formgivning (t.ex rita SVG ikoner och implementera dessa i websidor); "Metakognition" (tänka på att tänka, föreställa hur UX och UI kanske upplevs an någon annan); mönsterigenkänning
+  
 - Vad är du sämre på?
+  : Alma - ledarskap; känslosamma konflikter eller bråk inom grupper; spontanitet (folk kan förklara att jag beter mig som att jag är tagen på sängen)
+  
 - Finns det något du rent tekniskt vill träna extra på? HTMl, CSS, git? Projektledning?
+  : Alma - TypeScript, OOP (om möjligheten finns), Github versionshantering
 
 ## Scrum master
 Fördela dagarna så jämt det går i gruppen och kom överens om vem som är scrum master.
@@ -131,3 +138,4 @@ Om ni vill ta upp någonting utöver det fördefinierade. Skriv gärna en egen r
 
 ## Underskrifter
 - [Förnamn Efternamn](https://github.com/ditt-github-användarnamn)
+- [Alma Isaksson](https://github.com/MidnattLantern)
