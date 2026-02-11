@@ -108,12 +108,16 @@ Isabelle: - **Ledaren:** Drivande, dynamisk, tar initiativ & - **Lagspelaren/Sam
   
 - Vad är du bra på?
   : Alma - Estetik & grafisk formgivning (t.ex rita SVG ikoner och implementera dessa i websidor); "Metakognition" (tänka på att tänka, föreställa hur UX och UI kanske upplevs an någon annan); mönsterigenkänning
+  : Linn - Estetik och CSS (t.ex. färg, form, layout).
   
 - Vad är du sämre på?
   : Alma - ledarskap; känslosamma konflikter eller bråk inom grupper; spontanitet (folk kan förklara att jag beter mig som att jag är tagen på sängen)
+  : Linn - kommunikation vid stress; kan bli rak/kort vilket kan upplevas otrevligt men handlar om att jag försöker va effektiv i en stressig situation (säg gärna till! tar det bra och tycker viktigt de känns bra för alla. Tycker bara skönt när folk känner de kan säga vad de känner).
+         - Installationer 
   
 - Finns det något du rent tekniskt vill träna extra på? HTMl, CSS, git? Projektledning?
   : Alma - TypeScript, OOP (om möjligheten finns), Github versionshantering
+  : Linn - TypeScript, JS, Github versionshantering, installationer
 
 ## Scrum master
 Fördela dagarna så jämt det går i gruppen och kom överens om vem som är scrum master.
@@ -139,3 +143,4 @@ Om ni vill ta upp någonting utöver det fördefinierade. Skriv gärna en egen r
 ## Underskrifter
 - [Förnamn Efternamn](https://github.com/ditt-github-användarnamn)
 - [Alma Isaksson](https://github.com/MidnattLantern)
+- [Linn Boekhout] (https://github.com/Linboe)
