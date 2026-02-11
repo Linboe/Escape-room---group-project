@@ -109,15 +109,18 @@ Isabelle: - **Ledaren:** Drivande, dynamisk, tar initiativ & - **Lagspelaren/Sam
 - Vad är du bra på?
   : Alma - Estetik & grafisk formgivning (t.ex rita SVG ikoner och implementera dessa i websidor); "Metakognition" (tänka på att tänka, föreställa hur UX och UI kanske upplevs an någon annan); mönsterigenkänning
   : Linn - Estetik och CSS (t.ex. färg, form, layout).
+  : Alda - bra på att strukturera HTML och bra på layout, samt design med CSS
   
 - Vad är du sämre på?
   : Alma - ledarskap; känslosamma konflikter eller bråk inom grupper; spontanitet (folk kan förklara att jag beter mig som att jag är tagen på sängen)
   : Linn - kommunikation vid stress; kan bli rak/kort vilket kan upplevas otrevligt men handlar om att jag försöker va effektiv i en stressig situation (säg gärna till! tar det bra och tycker viktigt de känns bra för alla. Tycker bara skönt när folk känner de kan säga vad de känner).
-         - Installationer 
+         - Installationer
+  : Alda - är inte lika bekväm med att kommunicera i video eller muntligt som när jag chattar. Därför kan det ibland hända att jag tvekar att ställa frågor eller be om hjälp, även när jag egentligen behöver det. Detta gör att jag ibland löser problem själv istället för att ta hjälp direkt.
   
 - Finns det något du rent tekniskt vill träna extra på? HTMl, CSS, git? Projektledning?
   : Alma - TypeScript, OOP (om möjligheten finns), Github versionshantering
   : Linn - TypeScript, JS, Github versionshantering, installationer
+  : Alda - JavaScript, TypeScript, GitHub, veta mer om CSS (räknar med att det kommer utvecklas mer med tiden genom övning och projekt)
 
 ## Scrum master
 Fördela dagarna så jämt det går i gruppen och kom överens om vem som är scrum master.
@@ -144,3 +147,4 @@ Om ni vill ta upp någonting utöver det fördefinierade. Skriv gärna en egen r
 - [Förnamn Efternamn](https://github.com/ditt-github-användarnamn)
 - [Alma Isaksson](https://github.com/MidnattLantern)
 - [Linn Boekhout] (https://github.com/Linboe)
+- [Alda Catovic](https://github.com/aldacat-fed)
