@@ -122,6 +122,8 @@ Isabelle: - **Ledaren:** Drivande, dynamisk, tar initiativ & - **Lagspelaren/Sam
   : Isabelle - ta initiativ, följa upp och strukturera arbete. Korrekturläsning / kontroll av text, tänka ur ett UX och tillgänglighetsperspektiv, strukturera HTML.
 
   : Rasmus - Hålla god stämning och se till att det händer saker. Rent tekniskt tycker jag det är kul med HTML och CSS och tycker att jag blivit rätt bra på det.
+
+  : Kimi - Lyssna vid behov, vara stöttande och vara till hjälp om det behövs.
   
 - Vad är du sämre på?
   : Alma - ledarskap; känslosamma konflikter eller bråk inom grupper; spontanitet (folk kan förklara att jag beter mig som att jag är tagen på sängen)
@@ -134,7 +136,8 @@ Isabelle: - **Ledaren:** Drivande, dynamisk, tar initiativ & - **Lagspelaren/Sam
   : Isabelle - Svårt att hålla fokus på en sak. Påbörjar något, börjar tänka på hur det påverkar något annat osv osv. Vill lösa alla problem samtidigt så kan bli spretigt när jag försöker problemlösa.
 
   : Rasmus - Hålla fokus på en och samma grej för länge, vill gärna vidare snabbt - ibland kan kvalité och granskning bli lidande. Javascript har jag inte greppat.
-  
+
+  : Kimi - Fråga om hjälp vid behov, vara i en ledar position. Fokusera på en sak i taget.
   
 - Finns det något du rent tekniskt vill träna extra på? HTMl, CSS, git? Projektledning?
   : Alma - TypeScript, OOP (om möjligheten finns), Github versionshantering
@@ -146,6 +149,8 @@ Isabelle: - **Ledaren:** Drivande, dynamisk, tar initiativ & - **Lagspelaren/Sam
   : Isabelle - TypeScript, JavaScript, Github
 
   : Rasmus - TypeScript, JavaScript, Github, projektstruktur
+
+  : Kimi - TypeScript, JavaScript, Github
 
 ## Scrum master
 Fördela dagarna så jämt det går i gruppen och kom överens om vem som är scrum master.
@@ -174,3 +179,4 @@ Om ni vill ta upp någonting utöver det fördefinierade. Skriv gärna en egen r
 - [Linn Boekhout] (https://github.com/Linboe)
 - [Alda Catovic](https://github.com/aldacat-fed)
 - [Isabelle Reynolds](https://github.com/isabelletherese)
+- [Kimi Leminaho](https://github.com/Prxjec-t)
