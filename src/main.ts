@@ -1,11 +1,10 @@
 import './style.scss'
 import './components/cheat-codes/cheat-codes'
-
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-    <div>
-        <h1>Strange woods (working title)</h1>
-    </div>
-`
+import './scenes/sign-in-scene/sign-in-scene'
+import './scenes/main-menu-scene/main-menu-scene'
+import './scenes/game-session-scene/game-session-scene'
+import './scenes/game-over-scene/game-over-scene'
+import './scenes/about-scene/about-scene'
 
 // please check the document in this link:
 // https://medieinstitutet-my.sharepoint.com/:w:/g/personal/alda_catovic_medieinstitutet_se/IQApMQpuaX8YToqheHZBk5Y4AQvnQa3uXsRg0XzjSP18ehU?rtime=AQuzKQlr3kg
@@ -19,6 +18,61 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
  * For the first engine architecture scrap, there will be cheat code buttons
  */
 
-/** Cheact code view (uesd for development)
- * Make a cheat code script that display buttons to test the logic
+/** Session states
+ * room x is unlocked boolean
+ * You can only revisit previous rooms after beating room 6, and all the hourglasses are remembered
+ * Session states and localstrage memory not to be confused with each other
+ * Session states is like the RAM
+ * Localstorage is like the SSD
  */
+const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement | null;
+
+function initializeMain() {
+    if (!sceneWrapper) return;
+    sceneWrapper.innerHTML = `<h1>Strange woods (working title)</h1>`
+}
+initializeMain();
+
+/*
+const sketching = [
+    {
+        name: 'vera',
+        sessionTimer: 13290,
+        room1: {
+            isUnlocked: true,
+            foundEscape: false,
+            roomTimer: 198420,
+            artifact1: {
+                relevant: true,
+                found: false
+            },
+            artifact2: {
+                relevant: false,
+                found: false
+            },
+            artifact3: {
+                relevant: false,
+                found: true
+            }
+        },
+        room2: {
+            isUnlocked: true,
+            foundEscape: false,
+            roomTimer: 198420,
+            artifact1: {
+                relevant: true,
+                found: false
+            },
+            artifact2: {
+                relevant: false,
+                found: false
+            },
+            artifact3: {
+                relevant: false,
+                found: true
+            }
+        }
+        // repeat for all 6 rooms
+    }
+]
+*/
