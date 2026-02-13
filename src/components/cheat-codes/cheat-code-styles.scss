@@ -1,0 +1,26 @@
+// TODO: Discuss if style-sheets should be centralized in one styles directory at src level, or next to each TS file's directory level (like this one)
+.show-cheat-codes-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    font-size: 2.3rem;
+    padding: 0;
+}
+
+.cheat-codes-wrapper {
+    position: fixed;
+    top: 5px;
+    left: 100px;
+
+    button {
+        background-color: rgba($color: black, $alpha: 0.3);
+        backdrop-filter: blur(1px);
+        text-shadow: 0 1px 2px black;
+    }
+}

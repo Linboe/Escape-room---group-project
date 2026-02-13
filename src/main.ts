@@ -1,24 +1,24 @@
 import './style.scss'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import './components/cheat-codes/cheat-codes'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
+    <div>
+        <h1>Strange woods (working title)</h1>
     </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
 `
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+// please check the document in this link:
+// https://medieinstitutet-my.sharepoint.com/:w:/g/personal/alda_catovic_medieinstitutet_se/IQApMQpuaX8YToqheHZBk5Y4AQvnQa3uXsRg0XzjSP18ehU?rtime=AQuzKQlr3kg
+
+/** Pseudo engine architecture (scrap)
+ * Each room has an enterable state, unlocked when conditions met, trigger with a unlockRoom() function 
+ * The progress bar could also be used as a quicktravel, trigger with a travelTo() function
+ * Some sort of state knowing what room the player is currently at
+ * Consider storing scores and time in localstorage
+ * Each artifact has a relevancy metadata: true if needed to complete the escape, false if not
+ * For the first engine architecture scrap, there will be cheat code buttons
+ */
+
+/** Cheact code view (uesd for development)
+ * Make a cheat code script that display buttons to test the logic
+ */
