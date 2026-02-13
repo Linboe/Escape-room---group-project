@@ -6,6 +6,8 @@ import { renderGameOverScene } from '../../scenes/game-over-scene/game-over-scen
 import { renderGameSessionScene } from '../../scenes/game-session-scene/game-session-scene';
 import { renderMainMenuScene } from '../../scenes/main-menu-scene/main-menu-scene';
 import { renderSignInScene } from '../../scenes/sign-in-scene/sign-in-scene';
+import { saveMyStringState } from '../../store/database/local-storage-database';
+import { changeMySessionStringState, logMySessionStringState, logSessionBooleanState, toggleMySessionBooleanState } from '../../store/session/session-memory';
 import './cheat-code-styles.scss';
 import {createCheatButton} from './cheat-codes-helper';
 
@@ -23,7 +25,13 @@ const cheatButtons = {
     cheatRenderMainMenuScene: createCheatButton('render main menu scene', renderMainMenuScene),
     cheatRenderAboutScene: createCheatButton('render about scene', renderAboutScene),
     cheatRenderGameSessionScene: createCheatButton('render game session scene', renderGameSessionScene),
-    cheatRenderGameOverScene: createCheatButton('render game over scene', renderGameOverScene)
+    cheatRenderGameOverScene: createCheatButton('render game over scene', renderGameOverScene),
+    cheatCheckMySessionString: createCheatButton('check my session string', logMySessionStringState),
+    cheatSetMySessionStringToFoo: createCheatButton('set my session string to Foo', setSessionStringToFoo),
+    cheatSetMySessionStringToBar: createCheatButton('set my session string to Bar', setSessionStringToBar),
+    cheatCheckMySessionBoolean: createCheatButton('check my session boolean', logSessionBooleanState),
+    cheatToggleMySessionBoolean: createCheatButton('toggle my session boolean', toggleMySessionBooleanState),
+    cheatSaveMyStringToDB: createCheatButton('save my string to DB', saveMyStringState)
 }
 // ===================================
 
@@ -33,9 +41,14 @@ const cheatButtons = {
 function specialCheatCode1() {
     console.log(`run special cheat code 1`);
 }
-
 function specialCheatCode2() {
     console.log('run special cheat code 2');
+}
+function setSessionStringToFoo() {
+    changeMySessionStringState('Foo'); // an example why special local cheat functions may be needed
+}
+function setSessionStringToBar() {
+    changeMySessionStringState('Bar');
 }
 // =============================
 
@@ -54,7 +67,13 @@ function toggleCheatCodeButtons() {
             cheatButtons.cheatRenderMainMenuScene,
             cheatButtons.cheatRenderAboutScene,
             cheatButtons.cheatRenderGameSessionScene,
-            cheatButtons.cheatRenderGameOverScene
+            cheatButtons.cheatRenderGameOverScene,
+            cheatButtons.cheatCheckMySessionString,
+            cheatButtons.cheatSetMySessionStringToFoo,
+            cheatButtons.cheatSetMySessionStringToBar,
+            cheatButtons.cheatCheckMySessionBoolean,
+            cheatButtons.cheatToggleMySessionBoolean,
+            cheatButtons.cheatSaveMyStringToDB
             // ==================================================
         );
     } else {
