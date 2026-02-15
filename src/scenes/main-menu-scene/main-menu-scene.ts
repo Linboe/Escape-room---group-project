@@ -8,5 +8,11 @@ export function renderMainMenuScene() {
     if (!sceneWrapper) return;
     sceneWrapper.innerHTML = ``; // reset
 
-    sceneWrapper.innerHTML = `<h1>Main menu scene</h1>`;
+    // innerHTML method
+//    sceneWrapper.innerHTML = `<h2>Main menu scene</h2>`;
+
+    // Imperative DOM building method
+    const h2PlaceholderText = document.createElement('h2');
+    h2PlaceholderText.textContent = 'Main menu scene';
+    sceneWrapper.append(h2PlaceholderText);
 }

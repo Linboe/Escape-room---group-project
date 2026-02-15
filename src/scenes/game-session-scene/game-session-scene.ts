@@ -8,5 +8,11 @@ export function renderGameSessionScene() {
     if (!sceneWrapper) return;
     sceneWrapper.innerHTML = ``; // reset
 
-    sceneWrapper.innerHTML = `<h1>Game session scene</h1>`;
+    // innerHTML method
+//    sceneWrapper.innerHTML = `<h2>Game session scene</h2>`;
+
+    // Imperative DOM building method
+    const h2PlaceholderText = document.createElement('h2');
+    h2PlaceholderText.textContent = 'Game session scene';
+    sceneWrapper.append(h2PlaceholderText);
 }

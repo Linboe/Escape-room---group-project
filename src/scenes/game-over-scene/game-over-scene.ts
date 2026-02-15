@@ -8,5 +8,11 @@ export function renderGameOverScene() {
     if (!sceneWrapper) return;
     sceneWrapper.innerHTML = ``; // reset
 
-    sceneWrapper.innerHTML = `<h1>Game over scene</h1>`;
+    // innerHTML method
+//    sceneWrapper.innerHTML = `<h2>Game over scene</h2>`;
+
+    // Imperative DOM building method
+    const h2PlaceholderText = document.createElement('h2');
+    h2PlaceholderText.textContent = 'Game over scene';
+    sceneWrapper.append(h2PlaceholderText);
 }
