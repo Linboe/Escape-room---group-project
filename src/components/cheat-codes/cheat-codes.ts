@@ -8,6 +8,7 @@ import { renderMainMenuScene } from '../../scenes/main-menu-scene/main-menu-scen
 import { renderSignInScene } from '../../scenes/sign-in-scene/sign-in-scene';
 import { saveMyStringState } from '../../store/database/local-storage-database';
 import { changeMySessionStringState, logMySessionStringState, logSessionBooleanState, toggleMySessionBooleanState } from '../../store/session/session-memory';
+import { renderStatusBar } from '../status-bar/status-bar';
 import './cheat-code-styles.scss';
 import {createCheatButton} from './cheat-codes-helper';
 
@@ -31,7 +32,8 @@ const cheatButtons = {
     cheatSetMySessionStringToBar: createCheatButton('set my session string to Bar', setSessionStringToBar),
     cheatCheckMySessionBoolean: createCheatButton('check my session boolean', logSessionBooleanState),
     cheatToggleMySessionBoolean: createCheatButton('toggle my session boolean', toggleMySessionBooleanState),
-    cheatSaveMyStringToDB: createCheatButton('save my string to DB', saveMyStringState)
+    cheatSaveMyStringToDB: createCheatButton('save my string to DB', saveMyStringState),
+    cheatRenderStatusBar: createCheatButton('render status bar', renderStatusBar)
 }
 // ===================================
 
@@ -73,7 +75,8 @@ function toggleCheatCodeButtons() {
             cheatButtons.cheatSetMySessionStringToBar,
             cheatButtons.cheatCheckMySessionBoolean,
             cheatButtons.cheatToggleMySessionBoolean,
-            cheatButtons.cheatSaveMyStringToDB
+            cheatButtons.cheatSaveMyStringToDB,
+            cheatButtons.cheatRenderStatusBar
             // ==================================================
         );
     } else {

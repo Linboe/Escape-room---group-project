@@ -1,3 +1,5 @@
+import './sign-in-scene.scss'
+
 console.log('connected sign in scene');
 
 const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement | null;

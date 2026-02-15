@@ -1,3 +1,5 @@
+import './main-menu-scene.scss'
+
 console.log('connected main menu scene');
 
 const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement | null;

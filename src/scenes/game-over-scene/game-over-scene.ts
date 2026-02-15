@@ -1,3 +1,5 @@
+import './game-over-scene.scss'
+
 console.log('connected game over scene');
 
 const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement | null;

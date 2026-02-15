@@ -1,4 +1,4 @@
-import './style.scss'
+import './styles/style.scss'
 import './components/cheat-codes/cheat-codes'
 import './scenes/sign-in-scene/sign-in-scene'
 import './scenes/main-menu-scene/main-menu-scene'

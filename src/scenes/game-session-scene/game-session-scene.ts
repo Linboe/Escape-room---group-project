@@ -1,3 +1,5 @@
+import './game-session-scene.scss'
+
 console.log('connected game session scene');
 
 const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement | null;
