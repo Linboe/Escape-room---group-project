@@ -1,18 +1,63 @@
-import './main-menu-scene.scss'
+import './main-menu-scene.scss';
 
 console.log('connected main menu scene');
 
-const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement | null;
+const sceneWrapper: HTMLDivElement | null =
+  document.getElementById('sceneWrapper');
 
 export function renderMainMenuScene() {
-    if (!sceneWrapper) return;
-    sceneWrapper.innerHTML = ``; // reset
+  if (!sceneWrapper) return;
+  sceneWrapper.innerHTML = ``; // reset
 
-    // innerHTML method
-//    sceneWrapper.innerHTML = `<h2>Main menu scene</h2>`;
+  sceneWrapper.innerHTML = `
+        <div class="main-menu">
+            <h1>Main-menu</h1>
+            <div class="menu-buttons">
+                <button id="start-game" class="menu-btn primary">▶ Starta Spel</button>
+                <button id="load-game" class="menu-btn">💾 Ladda Sparat Spel</button>
+                <button id="settings" class="menu-btn">⚙️ Inställningar</button>
+                <button id="about" class="menu-btn">ℹ️ Om Spelet</button>
+                <button id="logout" class="menu-btn secondary">🚪 Logga Ut</button>
+            </div>
+        </div>
+    `;
 
-    // Imperative DOM building method
-    const h2PlaceholderText = document.createElement('h2');
-    h2PlaceholderText.textContent = 'Main menu scene';
-    sceneWrapper.append(h2PlaceholderText);
+  /* -------------- Btn & Event Listeners ------------------
+  ----------------------------------------------------------
+
+const startGameBtn: HTMLButtonElement | null = document.getElementById('start-game');
+const loadGameBtn: HTMLButtonElement | null = document.getElementById('load-game');
+const settingsBtn: HTMLButtonElement | null = document.getElementById('settings');
+const aboutBtn: HTMLButtonElement | null = document.getElementById('about');
+const logoutBtn: HTMLButtonElement | null = document.getElementById('logout');
+
+startGameBtn?.addEventListener('click', handleStartGame); //? betyder om det inte är null
+loadGameBtn?.addEventListener('click', handleLoadGame);
+settingsBtn?.addEventListener('click', handleSettings);
+aboutBtn?.addEventListener('click', handleAbout);
+logoutBtn?.addEventListener('click', handleLogout);
+
+
+  /* ---------------- Handler function  --------------------
+  ----------------------------------------------------------
+    
+function handleStartGame() {
+    console.log('Starta spel'); //Byter scen, t.ex. renderGameSessionScene();
+}
+
+function handleLoadGame() {
+    console.log('Ladda sparat spel'); //Visa sparade spel
+}
+
+function handleSettings() {
+    console.log('Inställningar'); //Visa inställningar (ljud, ljus, grafik)
+}
+
+function handleAbout() {
+    console.log('Om spelet'); //info om spelet, ny sida?
+}
+
+function handleLogout() {
+    console.log('Logga ut'); //tillbaka till login
+*/
 }
