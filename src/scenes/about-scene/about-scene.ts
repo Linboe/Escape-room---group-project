@@ -1,3 +1,4 @@
+import { renderMainMenuScene } from '../main-menu-scene/main-menu-scene';
 import './about-scene.scss'
 
 console.log('connected about scene');
@@ -5,14 +6,74 @@ console.log('connected about scene');
 const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement | null;
 
 export function renderAboutScene() {
-    if (!sceneWrapper) return;
+    if (!sceneWrapper) {
+        console.error('sceneWrapper element not found');
+        return;
+    }
     sceneWrapper.innerHTML = ``; // reset
 
-    // innerHTML method
-//    sceneWrapper.innerHTML = `<h2>About scene</h2>`;
+    // Container
+    const aboutContainer = document.createElement('div');
+    aboutContainer.classList.add('about-container');
 
-    // Imperative DOM building method
-    const h2PlaceholderText = document.createElement('h2');
-    h2PlaceholderText.textContent = 'About scene';
-    sceneWrapper.append(h2PlaceholderText);
+    // Title
+    const title = document.createElement('h2');
+    title.textContent = 'About Strange Woods';
+    aboutContainer.append(title);
+
+    // Story
+    const storySection = document.createElement('section');
+    const storyTitle = document.createElement('h3');
+    storyTitle.textContent = 'The Story';
+
+    const storyText = document.createElement('p');
+    storyText.textContent = 
+       'Strange Woods is a mysterious forest filled with secrets and wonders. It is said that those who enter may never return, but some brave souls have ventured in and discovered incredible things.';
+    storySection.append(storyTitle, storyText);
+
+    // How to play
+    const instrSection = document.createElement('section');
+    const instrTitle = document.createElement('h3');
+    instrTitle.textContent = 'How to Play';
+    const instrList = document.createElement('ul');
+
+    const instructions = [
+        'Keep an eye on the timer – you have limited time to escape the forest (60 minutes).',
+        'Solve rooms to collect artifacts.',
+        'All artifacts are needed to complete the final room.'  //TODO: Lägg till fler instruktioner senare
+    ]
+
+    instructions.forEach(text => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        instrList.append(li);
+    });
+
+    instrSection.append(instrTitle, instrList);
+
+    // Credits (gruppmedlemmar & bilder)
+    const creditSection = document.createElement('section');
+    const creditTitle = document.createElement('h3');
+    creditTitle.textContent = 'Credits';
+
+    const devText = document.createElement('p');
+    devText.textContent = 'Created by: Alma Isaksson, Alda Catovic, Isabelle Theres Elisabeth Reynolds , Kimi Leminaho, Linn Boekhout and Rasmus Andreas Fransson'; 
+
+    const photoCredits = document.createElement('p');
+    photoCredits.innerHTML = '<em>Images: Sources and credits will be added.</em>'; //TODO: Lägg till mer info om bilderna, t.ex. länkar eller specifika användare, fråga gruppen
+
+    creditSection.append(creditTitle, devText, photoCredits);
+
+    // Back button
+    const backBtn = document.createElement('button');
+    backBtn.id = 'backToMenuBtn';
+    backBtn.textContent = 'Back to main menu';
+    backBtn.addEventListener('click', () => {
+        console.log('Back to main menu clicked');
+        renderMainMenuScene(); // koppla när menyn finns fråga Alma hur
+    });
+
+    // Lägg till alla sektioner i containern och sedan i wrapper
+    aboutContainer.append(storySection, instrSection, creditSection, backBtn);
+    sceneWrapper.append(aboutContainer);
 }
