@@ -1,19 +1,16 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>the-dopefish-admirers</title>
-  </head>
-  <body>
     <head>
-      <span>The Dopefish Admirers</span>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>the-dopefish-admirers</title>
     </head>
-    <main>
-      <h1>Hello World</h1>
-    </main>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+    <body>
+        <button id="showCheatCodesButton" class="show-cheat-codes-button" title="Show cheat codes (dev)">🪬</button> <!-- disable before production -->
+        <div id="cheatCodesWrapper" class="cheat-codes-wrapper"></div>
+        <div id="statusBarWrapper" class="status-bar-wrapper"></div>
+        <div id="sceneWrapper"></div>
+        <script type="module" src="/src/main.ts"></script>
+    </body>
 </html>
