@@ -1,18 +1,35 @@
 import './game-session-scene.scss';
+import placeholderImage from '../../assets/placeholder-image.jpg';
 
-console.log('connected game session scene');
+/** pseudo
+ * wrapper for background image
+ * wrapper for displaying appending text
+ * wrapper for the player to click and select actions
+ * background image is a reference to a variable
+ * title text is a reference to a variable
+ */
+
+let backgroundImage: string | null = null;
 
 const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement | null;
 
 export function renderGameSessionScene() {
-  if (!sceneWrapper) return;
-  sceneWrapper.innerHTML = ''; // reset
+    if (!sceneWrapper || !backgroundImage) return;
+    sceneWrapper.innerHTML = ''; // reset
 
-  // innerHTML method
-  //    sceneWrapper.innerHTML = `<h2>Game session scene</h2>`;
+    const backgroundImageElement = document.createElement('img');
+    backgroundImageElement.src = backgroundImage;
+    backgroundImageElement.loading = 'lazy';
+    backgroundImageElement.alt = 'Image of an overgrown train station';
 
-  // Imperative DOM building method
-  const h2PlaceholderText = document.createElement('h2');
-  h2PlaceholderText.textContent = 'Game session scene';
-  sceneWrapper.append(h2PlaceholderText);
+    const roomTitleText = document.createElement('h2');
+    roomTitleText.textContent = 'Abandoned Train-station'; //placeholder name
+
+    sceneWrapper.append(roomTitleText, backgroundImageElement);
 }
+
+function initializeGameSession() {
+    console.log('initialize game session rendition');
+    backgroundImage = placeholderImage;
+}
+initializeGameSession();
