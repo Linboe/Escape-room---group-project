@@ -29,7 +29,7 @@ export function renderAboutScene() {
     const storyText = document.createElement('p');
     storyText.textContent = 
        'Strange Woods is a mysterious forest filled with secrets and wonders. It is said that those who enter may never return, but some brave souls have ventured in and discovered incredible things.';
-    storySection.append(storyTitle, storyText);
+    storySection.append(storyTitle, storyText); //TODO: Lägg till mer story senare
 
     // How to play
     const instrSection = document.createElement('section');
@@ -38,7 +38,7 @@ export function renderAboutScene() {
     const instrList = document.createElement('ul');
 
     const instructions = [
-        'Keep an eye on the timer – you have limited time to escape the forest (60 minutes).',
+        'Keep an eye on the timer - you have limited time to escape the forest (60 minutes).',
         'Solve rooms to collect artifacts.',
         'All artifacts are needed to complete the final room.'  //TODO: Lägg till fler instruktioner senare
     ]
@@ -60,7 +60,7 @@ export function renderAboutScene() {
     devText.textContent = 'Created by: Alma Isaksson, Alda Catovic, Isabelle Theres Elisabeth Reynolds , Kimi Leminaho, Linn Boekhout and Rasmus Andreas Fransson'; 
 
     const photoCredits = document.createElement('p');
-    photoCredits.innerHTML = '<em>Images: Sources and credits will be added.</em>'; //TODO: Lägg till mer info om bilderna, t.ex. länkar eller specifika användare, fråga gruppen
+    photoCredits.innerHTML = '<em>Images: Sources will be added.</em>'; //TODO: Lägg till mer info om bilderna, t.ex. länkar eller specifika användare, fråga gruppen
 
     creditSection.append(creditTitle, devText, photoCredits);
 
@@ -70,7 +70,7 @@ export function renderAboutScene() {
     backBtn.textContent = 'Back to main menu';
     backBtn.addEventListener('click', () => {
         console.log('Back to main menu clicked');
-        renderMainMenuScene(); // koppla när menyn finns fråga Alma hur
+        renderMainMenuScene(); 
     });
 
     // Lägg till alla sektioner i containern och sedan i wrapper
