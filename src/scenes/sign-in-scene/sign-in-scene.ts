@@ -1,5 +1,9 @@
+<<<<<<< isabelle-sign-in-dom
 import { renderMainMenuScene } from '../main-menu-scene/main-menu-scene';
 import './sign-in-scene.scss'
+=======
+import './sign-in-scene.scss';
+>>>>>>> main
 
 console.log('connected sign in scene');
 
@@ -7,6 +11,7 @@ const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement |
 
 export function renderSignInScene() {
   if (!sceneWrapper) return;
+<<<<<<< isabelle-sign-in-dom
   sceneWrapper.innerHTML = ``; // reset
 
   sceneWrapper.innerHTML = `<h2>Sign in scene</h2>
@@ -51,4 +56,15 @@ export function renderSignInScene() {
       errorSpan?.classList.remove('hidden');
     }
   }
+=======
+  sceneWrapper.innerHTML = ''; // reset
+
+  // innerHTML method
+  //    sceneWrapper.innerHTML = `<h2>Sign in scene</h2>`;
+
+  // Imperative DOM building method
+  const h2PlaceholderText = document.createElement('h2');
+  h2PlaceholderText.textContent = 'Sign in scene';
+  sceneWrapper.append(h2PlaceholderText);
+>>>>>>> main
 }
