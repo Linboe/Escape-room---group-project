@@ -1,5 +1,5 @@
 import { renderMainMenuScene } from '../main-menu-scene/main-menu-scene';
-import './about-scene.scss'
+import './about-scene.scss';
 
 console.log('connected about scene');
 
