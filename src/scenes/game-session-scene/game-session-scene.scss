@@ -2,9 +2,8 @@
   display: flex;
   flex-direction: column-reverse;
   position: relative;
-  width: 100%;
-  min-height: calc(100vh - 56px); //56 px is the status bar
-  max-width: 500px;
+  width: 100vw;
+  height: calc(100vh - 56px); //56 px is the status bar
   overflow: hidden;
 }
 
@@ -62,4 +61,17 @@
     border-radius: 0;
     background-color: rgba(0,0,0,0.7);
     backdrop-filter: blu(1.5px);
+}
+
+@media screen and (min-width: 768px) {
+    .game-session-wrapper {
+        max-width: 768px;
+    }
+    .player-interaction-buttons-wrapper {
+        flex-direction: row;
+
+        button {
+            width: 100%;
+        }
+    }
 }
