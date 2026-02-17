@@ -1,41 +1,50 @@
 import './game-session-scene.scss';
 import placeholderImage from '../../assets/placeholder-image.jpg';
 
+// TODO: Discuss with team where script index should live
 let scriptIndex = 2;
 
+// TODO: Discuss with team where room data should live
 const constantRoomData = {
     roomTitleText: 'Abandoned Train-station',
     backgroundImage: placeholderImage,
     backgroundImageScreenReader: 'Image of an overgrown train station',
 };
 
+// TODO: Discuss with team where script data should live
 const scriptData = [
     {
         textEvent: 'You enter what seem to have been a train station... What will you do?',
         buttonEvents: [
             {
-                text: 'event 1 button 1'
+                label: 'test 1', // displayed in the UI
+                functionMarker: 'script-1-test-1' // to know what function to call
             },
             {
-                text: 'event 1 button 2'
-            },
+                label: 'test 2',
+                functionMarker: 'script-1-test-2'
+            }
         ]
     },
     {
         textEvent: "The train doesn't seem to be comming", // eslint-disable-line
         buttonEvents: [
             {
-                text: 'event 2 button 1'
+                label: 'test 1',
+                functionMarker: 'script-2-test-1'
             },
             {
-                text: 'event 2 button 2'
+                label: 'test 2',
+                functionMarker: 'script-2-test-2'
             },
             {
-                text: 'event 2 button 3'
+                label: 'test 3',
+                functionMarker: 'script-2-test-3'
             },
             {
-                text: 'event 2 button 4'
-            }
+                label: 'test 4',
+                functionMarker: 'script-2-test-4'
+            },
         ]
     },
     {
@@ -43,6 +52,12 @@ const scriptData = [
         buttonEvents: []
     },
 ];
+
+function pushEventButton(event: Event) {
+    const clickedButton = event.currentTarget as HTMLElement;
+    if (!clickedButton) return;
+    console.log(clickedButton.dataset.functionMarker);
+}
 
 const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement | null;
 
@@ -77,24 +92,14 @@ export function renderGameSessionScene() {
     console.log(buttonEvents.length);
 
     for (let i: number = 0; i < buttonEvents.length; i++) {
-        console.log(buttonEvents[i].text);
+        console.log(buttonEvents[i]);
         const newActionButton = document.createElement('button');
-        newActionButton.innerText = buttonEvents[i].text;
+        newActionButton.innerText = buttonEvents[i].label;
         newActionButton.classList.add('interaction-button');
+        newActionButton.dataset.functionMarker = buttonEvents[i].functionMarker;
+        newActionButton.addEventListener('click', pushEventButton);
         playerInteractionButtonsWrapper.append(newActionButton);
     }
-    /*
-    const actionButtonPlaceholder1 = document.createElement('button');
-    actionButtonPlaceholder1.innerText = 'button 1';
-    actionButtonPlaceholder1.classList.add('interaction-button');
-
-    const actionButtonPlaceholder2 = document.createElement('button');
-    actionButtonPlaceholder2.innerText = 'button 2';
-    actionButtonPlaceholder2.classList.add('interaction-button');
-
-    playerInteractionButtonsWrapper.append(actionButtonPlaceholder1, actionButtonPlaceholder2);
-    */
-    
 
     gameSessionWrapper.append(roomTitleTextElement, eventTextElement, playerInteractionButtonsWrapper, backgroundImageElement);
     sceneWrapper.append(gameSessionWrapper);
