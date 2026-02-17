@@ -1,5 +1,5 @@
 import { renderMainMenuScene } from '../main-menu-scene/main-menu-scene';
-import './sign-in-scene.scss'
+import './sign-in-scene.scss';
 
 console.log('connected sign in scene');
 
