@@ -3,7 +3,7 @@ import placeholderImage from '../../assets/placeholder-image.jpg';
 import { renderGameOverScene } from '../game-over-scene/game-over-scene';
 
 // TODO: Discuss with team where script index should live
-let scriptIndex = 3;
+let scriptIndex: number = 0;
 
 // TODO: Discuss with team where room data should live
 const constantRoomData = {
@@ -19,7 +19,7 @@ const scriptData = [
         eventMarker: 'enter-train-station',
         buttonEvents: [
             {
-                label: 'Action A',
+                label: 'Action A (next script)',
                 buttonMarker: 'action-a'
             },
             {
@@ -41,7 +41,7 @@ const scriptData = [
                 buttonMarker: 'action-b'
             },
             {
-                label: 'Action C',
+                label: 'Action C (next script)',
                 buttonMarker: 'action-c'
             },
             {
@@ -76,6 +76,7 @@ function pushEventButton(event: Event) {
     switch (_functionMarker) {
         case 'enter-train-station-action-a':
             console.log("There's a train station and the player performed action A"); // eslint-disable-line
+            nextScript();
             break;
         case 'enter-train-station-action-b':
             console.log("There's a train station and the player performed action B"); // eslint-disable-line
@@ -88,6 +89,7 @@ function pushEventButton(event: Event) {
             break;
         case 'train-not-comming-action-c':
             console.log("The train isn't comming and the player performed action C"); // eslint-disable-line
+            nextScript();
             break;
         case 'train-not-comming-action-d':
             console.log("The train isn't comming and the player performed action D"); // eslint-disable-line
@@ -97,7 +99,12 @@ function pushEventButton(event: Event) {
             renderGameOverScene();
             break;
     }
+}
 
+function nextScript() {
+    scriptIndex++;
+    console.log('script index is now:', scriptIndex);
+    reRenderSameRoom();
 }
 
 const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement | null;
@@ -111,7 +118,7 @@ export function renderGameSessionScene() {
     gameSessionWrapper.classList.add('game-session-wrapper');
 
     const roomTitleTextElement = document.createElement('h2');
-    roomTitleTextElement.textContent = constantRoomData.roomTitleText; //placeholder name
+    roomTitleTextElement.textContent = constantRoomData.roomTitleText;
     roomTitleTextElement.classList.add('room-title-text');
 
     const backgroundImageElement = document.createElement('img');
@@ -121,30 +128,80 @@ export function renderGameSessionScene() {
     backgroundImageElement.classList.add('room-background-image');
 
     const eventTextElement = document.createElement('p');
-    eventTextElement.innerText = scriptData[scriptIndex].textEvent; // placeholder
+    eventTextElement.id = 'eventTextElement';
+    eventTextElement.innerText = scriptData[scriptIndex].textEvent;
     eventTextElement.classList.add('event-text');
 
     const playerInteractionButtonsWrapper = document.createElement('div');
     playerInteractionButtonsWrapper.classList.add('player-interaction-buttons-wrapper');
+    playerInteractionButtonsWrapper.id = 'playerInteractionButtonsWrapper';
 
     // placeholder interact buttons
-
     const _eventMarker = scriptData[scriptIndex].eventMarker;
     const buttonEvents = scriptData[scriptIndex].buttonEvents;
-    console.log(buttonEvents.length);
 
-    for (let i: number = 0; i < buttonEvents.length; i++) {
-        const _buttonMarker = buttonEvents[i].buttonMarker;
-        const newActionButton = document.createElement('button');
+    if (buttonEvents.length === 0) {
+        console.log('no buttons');
+        const nextScriptButton = document.createElement('button');
+        nextScriptButton.innerText = 'next';
+        nextScriptButton.classList.add('next-script-button');
+        nextScriptButton.addEventListener('click', nextScript);
 
-        newActionButton.innerText = buttonEvents[i].label;
-        newActionButton.classList.add('interaction-button');
-        newActionButton.dataset.functionMarker = `${_eventMarker}-${_buttonMarker}`;
-        newActionButton.addEventListener('click', pushEventButton);
+        playerInteractionButtonsWrapper.append(nextScriptButton);
+    } else {
+        for (let i: number = 0; i < buttonEvents.length; i++) {
+            const _buttonMarker = buttonEvents[i].buttonMarker;
+            const newActionButton = document.createElement('button');
 
-        playerInteractionButtonsWrapper.append(newActionButton);
+            newActionButton.innerText = buttonEvents[i].label;
+            newActionButton.classList.add('interaction-button');
+            newActionButton.dataset.functionMarker = `${_eventMarker}-${_buttonMarker}`;
+            newActionButton.addEventListener('click', pushEventButton);
+
+            playerInteractionButtonsWrapper.append(newActionButton);
+        }
     }
+
 
     gameSessionWrapper.append(roomTitleTextElement, eventTextElement, playerInteractionButtonsWrapper, backgroundImageElement);
     sceneWrapper.append(gameSessionWrapper);
+}
+
+function reRenderSameRoom() {
+    console.log('re render same room');
+    if (!sceneWrapper) return;
+
+    const newEventText = document.getElementById('eventTextElement') as HTMLParagraphElement | null;
+    if (!newEventText) return;
+
+    const playerInteractionButtonsWrapper = document.getElementById('playerInteractionButtonsWrapper') as HTMLDivElement | null;
+    if (!playerInteractionButtonsWrapper) return;
+    playerInteractionButtonsWrapper.innerHTML = ``; // eslint-disable-line
+
+    const _eventMarker = scriptData[scriptIndex].eventMarker;
+    const buttonEvents = scriptData[scriptIndex].buttonEvents;
+
+    if (buttonEvents.length === 0) {
+        console.log('no buttons');
+        const nextScriptButton = document.createElement('button');
+        nextScriptButton.innerText = 'next';
+        nextScriptButton.classList.add('next-script-button');
+        nextScriptButton.addEventListener('click', nextScript);
+
+        playerInteractionButtonsWrapper.append(nextScriptButton);
+    } else {
+        for (let i: number = 0; i < buttonEvents.length; i++) {
+            const _buttonMarker = buttonEvents[i].buttonMarker;
+            const newActionButton = document.createElement('button');
+
+            newActionButton.innerText = buttonEvents[i].label;
+            newActionButton.classList.add('interaction-button');
+            newActionButton.dataset.functionMarker = `${_eventMarker}-${_buttonMarker}`;
+            newActionButton.addEventListener('click', pushEventButton);
+
+            playerInteractionButtonsWrapper.append(newActionButton);
+        }
+    }
+
+    newEventText.innerText = scriptData[scriptIndex].textEvent;
 }

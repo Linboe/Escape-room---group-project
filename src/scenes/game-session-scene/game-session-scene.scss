@@ -57,10 +57,10 @@
     margin: 10px;
 }
 
-.interaction-button {
+.interaction-button, .next-script-button {
     border-radius: 0;
     background-color: rgba(0,0,0,0.7);
-    backdrop-filter: blu(1.5px);
+    backdrop-filter: blur(1.5px);
 }
 
 @media screen and (min-width: 768px) {
