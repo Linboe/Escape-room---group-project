@@ -20,20 +20,23 @@ const cheatCodesWrapper = document.getElementById('cheatCodesWrapper') as HTMLDi
 // Create and store cheat buttons here
 // ===================================
 const cheatButtons = {
-  cheatButton1: createCheatButton('cheat test 1', specialCheatCode1),
-  cheatButton2: createCheatButton('cheat test 2', specialCheatCode2),
-  cheatRenderSignInScene: createCheatButton('render sign in scene', renderSignInScene),
-  cheatRenderMainMenuScene: createCheatButton('render main menu scene', renderMainMenuScene),
-  cheatRenderAboutScene: createCheatButton('render about scene', renderAboutScene),
-  cheatRenderGameSessionScene: createCheatButton('render game session scene', renderGameSessionScene),
-  cheatRenderGameOverScene: createCheatButton('render game over scene', renderGameOverScene),
-  cheatCheckMySessionString: createCheatButton('check my session string', logMySessionStringState),
-  cheatSetMySessionStringToFoo: createCheatButton('set my session string to Foo', setSessionStringToFoo),
-  cheatSetMySessionStringToBar: createCheatButton('set my session string to Bar', setSessionStringToBar),
-  cheatCheckMySessionBoolean: createCheatButton('check my session boolean', logSessionBooleanState),
-  cheatToggleMySessionBoolean: createCheatButton('toggle my session boolean', toggleMySessionBooleanState),
-  cheatSaveMyStringToDB: createCheatButton('save my string to DB', saveMyStringState),
-  cheatRenderStatusBar: createCheatButton('render status bar', renderStatusBar)
+    cheatButton1: createCheatButton('cheat test 1', specialCheatCode1),
+    cheatButton2: createCheatButton('cheat test 2', specialCheatCode2),
+    cheatRenderSignInScene: createCheatButton('render sign in scene', renderSignInScene),
+    cheatRenderMainMenuScene: createCheatButton('render main menu scene', renderMainMenuScene),
+    cheatRenderAboutScene: createCheatButton('render about scene', renderAboutScene),
+    cheatRenderGameSessionScene: createCheatButton('render game session scene', renderGameSessionScene),
+    cheatRenderGameOverScene: createCheatButton(
+        'render game over scene',
+        () => renderGameOverScene(12345) // ersätt med riktig score
+    ),
+    cheatCheckMySessionString: createCheatButton('check my session string', logMySessionStringState),
+    cheatSetMySessionStringToFoo: createCheatButton('set my session string to Foo', setSessionStringToFoo),
+    cheatSetMySessionStringToBar: createCheatButton('set my session string to Bar', setSessionStringToBar),
+    cheatCheckMySessionBoolean: createCheatButton('check my session boolean', logSessionBooleanState),
+    cheatToggleMySessionBoolean: createCheatButton('toggle my session boolean', toggleMySessionBooleanState),
+    cheatSaveMyStringToDB: createCheatButton('save my string to DB', saveMyStringState),
+    cheatRenderStatusBar: createCheatButton('render status bar', renderStatusBar)
 };
 // ===================================
 
@@ -41,16 +44,16 @@ const cheatButtons = {
 // Local special cheat functions
 // =============================
 function specialCheatCode1() {
-  console.log('run special cheat code 1');
+    console.log('run special cheat code 1');
 }
 function specialCheatCode2() {
-  console.log('run special cheat code 2');
+    console.log('run special cheat code 2');
 }
 function setSessionStringToFoo() {
-  changeMySessionStringState('Foo'); // an example why special local cheat functions may be needed
+    changeMySessionStringState('Foo'); // an example why special local cheat functions may be needed
 }
 function setSessionStringToBar() {
-  changeMySessionStringState('Bar');
+    changeMySessionStringState('Bar');
 }
 // =============================
 
