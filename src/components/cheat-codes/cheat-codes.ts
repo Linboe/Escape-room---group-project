@@ -25,7 +25,7 @@ const cheatButtons = {
     cheatRenderSignInScene: createCheatButton('render sign in scene', renderSignInScene),
     cheatRenderMainMenuScene: createCheatButton('render main menu scene', renderMainMenuScene),
     cheatRenderAboutScene: createCheatButton('render about scene', renderAboutScene),
-    cheatRenderGameSessionScene: createCheatButton('render game session scene', renderGameSessionScene),
+    cheatRenderGameSessionScene: createCheatButton('render game session scene',() => renderGameSessionScene(1)), // ersätt med riktig room id),
     cheatRenderGameOverScene: createCheatButton('render game over scene',() => renderGameOverScene(12345) // ersätt med riktig score
     
     ),
@@ -53,6 +53,7 @@ const cheatButtons = {
         'render room 6',
         () => renderGameSessionScene(6)
     ),
+
     cheatCheckMySessionString: createCheatButton('check my session string', logMySessionStringState),
     cheatSetMySessionStringToFoo: createCheatButton('set my session string to Foo', setSessionStringToFoo),
     cheatSetMySessionStringToBar: createCheatButton('set my session string to Bar', setSessionStringToBar),
@@ -68,14 +69,18 @@ const cheatButtons = {
 // =============================
 function specialCheatCode1() {
     console.log('run special cheat code 1');
+    console.log('run special cheat code 1');
 }
 function specialCheatCode2() {
+    console.log('run special cheat code 2');
     console.log('run special cheat code 2');
 }
 function setSessionStringToFoo() {
     changeMySessionStringState('Foo'); // an example why special local cheat functions may be needed
+    changeMySessionStringState('Foo'); // an example why special local cheat functions may be needed
 }
 function setSessionStringToBar() {
+    changeMySessionStringState('Bar');
     changeMySessionStringState('Bar');
 }
 // =============================

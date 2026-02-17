@@ -18,11 +18,14 @@ export function renderStatusBar() {
     const spanStatusBarElement = document.createElement('span');
     spanStatusBarElement.textContent = 'Status Bar';
 
+
     const spanTimerElement = document.createElement('span');
     spanTimerElement.textContent = 'i.e timer';
 
+
     const spanRoomsElement = document.createElement('span');
     spanRoomsElement.textContent = 'i.e rooms';
+
 
     // compile
     pWrapperElement.append(spanStatusBarElement, spanTimerElement, spanRoomsElement);
