@@ -177,9 +177,9 @@ export function renderHighScore(): void {
     content = `
       <div class="highscore-container">
         <h2 class="highscore-title">🏆 Top 10 Highscores</h2>
-        <ol class="highscore-list">
+        <ul class="highscore-list">
           ${listItems}
-        </ol>
+        </ul>
         <button id="backToMenuBtn">Back to Main Menu</button>
       </div>
     `;
@@ -196,6 +196,32 @@ export function renderHighScore(): void {
       // renderMainMenuScene();
     });
   }
+
+  /*
+ // TEMPORÄR TESTDATA - TA BORT SENARE!
+function addMockData() {
+  const mockScores = [
+    {name: "Alice", score: 245},
+    {name: "Bob", score: 180},
+    {name: "Charlie", score: 320},
+    {name: "Diana", score: 150},
+    {name: "Rasmus", score: 200}
+    {name: "Alma", score: 245},
+    {name: "Linn", score: 180},
+    {name: "Alda", score: 320},
+    {name: "Kimi", score: 250},
+    {name: "Eve", score: 200}
+  ];
+  localStorage.setItem('escaperoom_highscores', JSON.stringify(mockScores));
+}
+
+// Kör bara första gången
+if (!localStorage.getItem('escaperoom_highscores')) {
+  addMockData();
+}
+
+renderHighscore();
+ */
 }
 
 /*Alternative to only show the list (not whole scene)
