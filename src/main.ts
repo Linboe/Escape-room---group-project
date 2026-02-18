@@ -5,12 +5,13 @@ import './scenes/main-menu-scene/main-menu-scene';
 import './scenes/game-session-scene/game-session-scene';
 import './scenes/game-over-scene/game-over-scene';
 import './scenes/about-scene/about-scene';
+import './components/high-score/high-score';
 
 // please check the document in this link:
 // https://medieinstitutet-my.sharepoint.com/:w:/g/personal/alda_catovic_medieinstitutet_se/IQApMQpuaX8YToqheHZBk5Y4AQvnQa3uXsRg0XzjSP18ehU?rtime=AQuzKQlr3kg
 
 /** Pseudo engine architecture (scrap)
- * Each room has an enterable state, unlocked when conditions met, trigger with a unlockRoom() function 
+ * Each room has an enterable state, unlocked when conditions met, trigger with a unlockRoom() function
  * The progress bar could also be used as a quicktravel, trigger with a travelTo() function
  * Some sort of state knowing what room the player is currently at
  * Consider storing scores and time in localstorage
@@ -25,7 +26,9 @@ import './scenes/about-scene/about-scene';
  * Session states is like the RAM
  * Localstorage is like the SSD
  */
-const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement | null;
+const sceneWrapper = document.getElementById(
+  'sceneWrapper',
+) as HTMLDivElement | null;
 
 function initializeMain() {
   if (!sceneWrapper) return;
