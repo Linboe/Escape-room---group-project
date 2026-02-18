@@ -63,7 +63,127 @@ let sessionMemory = [
         relevant: false,
         found: true
       }
+    },
+    room3: {
+      isUnlocked: true,
+      foundEscape: false,
+      roomTimer: 198420,
+      artifact1: {
+        relevant: true,
+        found: false
+      },
+      artifact2: {
+        relevant: false,
+        found: false
+      },
+      artifact3: {
+        relevant: false,
+        found: true
+      }
+    },
+    room4: {
+      isUnlocked: true,
+      foundEscape: false,
+      roomTimer: 198420,
+      artifact1: {
+        relevant: true,
+        found: false
+      },
+      artifact2: {
+        relevant: false,
+        found: false
+      },
+      artifact3: {
+        relevant: false,
+        found: true
+      }
+    },
+    room5: {
+      isUnlocked: true,
+      foundEscape: false,
+      roomTimer: 198420,
+      artifact1: {
+        relevant: true,
+        found: false
+      },
+      artifact2: {
+        relevant: false,
+        found: false
+      },
+      artifact3: {
+        relevant: false,
+        found: true
+      }
+    },
+    room6: {
+      isUnlocked: true,
+      foundEscape: false,
+      roomTimer: 198420,
+      artifact1: {
+        relevant: true,
+        found: false
+      },
+      artifact2: {
+        relevant: false,
+        found: false
+      },
+      artifact3: {
+        relevant: false,
+        found: true
+      }
     }
-    // repeat for all 6 rooms
   }
 ];
+
+// GET
+let currentRoom: number = 0; //0-5
+let progress: number = 0; //0-6
+let isGameCompleted: boolean = false;
+
+export function getCurrentRoom(): number {
+  return currentRoom;
+}
+
+export function getProgress(): number {
+  return progress;
+}
+
+export function getIsGameCompleted(): boolean {
+  return isGameCompleted;
+}
+
+// SET
+export function setCurrentRoom(room: number) {
+  currentRoom = room;
+}
+
+export function setProgress(value: number) {
+  progress = value;
+}
+
+export function setGameCompleted(value: boolean) {
+  isGameCompleted = value;
+}
+
+// GAME LOGIC
+export function completeRoom() {
+  if (isGameCompleted) return;
+
+  progress++;
+
+  if (progress >= 6) {
+    progress = 6;
+    isGameCompleted = true;
+    console.log('Congratulations! You have completed the game!');
+  } else {
+    currentRoom++;
+    console.log(`You have completed room ${currentRoom}. Progress:${progress}/6`);
+  }
+}
+
+// RESET
+export function resetSessionMemory () {
+  currentRoom = 0;
+  progress = 0;
+  isGameCompleted = false;
+}
