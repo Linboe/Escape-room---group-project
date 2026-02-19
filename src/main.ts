@@ -28,7 +28,7 @@ import './scenes/about-scene/about-scene';
 const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement | null;
 
 function initializeMain() {
-  if (!sceneWrapper) return;
-  sceneWrapper.innerHTML = '<h1>Strange woods (working title)</h1>';
+    if (!sceneWrapper) return;
+    sceneWrapper.innerHTML = '<h1>Strange woods (working title)</h1>';
 }
 initializeMain();

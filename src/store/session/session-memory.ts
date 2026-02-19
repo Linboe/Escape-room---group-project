@@ -6,64 +6,64 @@ let mySessionStringState: string = 'Hello world'; // export
 let mySessionBooleanState: boolean = false;
 
 export function changeMySessionStringState(newString: string) {
-  mySessionStringState = newString;
+    mySessionStringState = newString;
 }
 export function logMySessionStringState() {
-  console.log(`My session string is "${mySessionStringState}"`);
+    console.log(`My session string is "${mySessionStringState}"`);
 }
 export function getMySessionStringState(): string { // making a variable accessible across other TS files
-  return mySessionStringState;
+    return mySessionStringState;
 }
 export function toggleMySessionBooleanState() {
-  mySessionBooleanState = !mySessionBooleanState;
+    mySessionBooleanState = !mySessionBooleanState;
 }
 export function logSessionBooleanState() {
-  console.log(`My session boolean is: ${mySessionBooleanState}`);
+    console.log(`My session boolean is: ${mySessionBooleanState}`);
 }
 export function getMySessionBooleanState(): boolean {
-  return mySessionBooleanState;
+    return mySessionBooleanState;
 }
 
 // early suggestion (example)
 // @ts-ignore
-let sessionMemory = [
-  {
-    name: 'vera',
-    sessionTimer: 13290,
-    room1: {
-      isUnlocked: true,
-      foundEscape: false,
-      roomTimer: 198420,
-      artifact1: {
-        relevant: true,
-        found: false
-      },
-      artifact2: {
-        relevant: false,
-        found: false
-      },
-      artifact3: {
-        relevant: false,
-        found: true
-      }
-    },
-    room2: {
-      isUnlocked: true,
-      foundEscape: false,
-      roomTimer: 198420,
-      artifact1: {
-        relevant: true,
-        found: false
-      },
-      artifact2: {
-        relevant: false,
-        found: false
-      },
-      artifact3: {
-        relevant: false,
-        found: true
-      }
-    }
+let sessionMemory = [ // eslint-disable-line
+    {
+        name: 'vera',
+        sessionTimer: 13290,
+        room1: {
+            isUnlocked: true,
+            foundEscape: false,
+            roomTimer: 198420,
+            artifact1: {
+                relevant: true,
+                found: false
+            },
+            artifact2: {
+                relevant: false,
+                found: false
+            },
+            artifact3: {
+                relevant: false,
+                found: true
+            }
+        },
+        room2: {
+            isUnlocked: true,
+            foundEscape: false,
+            roomTimer: 198420,
+            artifact1: {
+                relevant: true,
+                found: false
+            },
+            artifact2: {
+                relevant: false,
+                found: false
+            },
+            artifact3: {
+                relevant: false,
+                found: true
+            }
+        }
     // repeat for all 6 rooms
-  }
+    }
 ];
