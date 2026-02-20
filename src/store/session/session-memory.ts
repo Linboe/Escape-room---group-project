@@ -2,7 +2,7 @@
 // This is the directory where you store JavaScript logic states
 
 // all varibles are part of scaffolding architecture, to check that everything is wired
-let mySessionStringState: string = "Hello world"; // export 
+let mySessionStringState: string = 'Hello world'; // export 
 let mySessionBooleanState: boolean = false;
 
 export function changeMySessionStringState(newString: string) {
@@ -26,7 +26,7 @@ export function getMySessionBooleanState(): boolean {
 
 // early suggestion (example)
 // @ts-ignore
-let sessionMemory = [
+let sessionMemory = [ // eslint-disable-line
     {
         name: 'vera',
         sessionTimer: 13290,
@@ -64,6 +64,6 @@ let sessionMemory = [
                 found: true
             }
         }
-        // repeat for all 6 rooms
+    // repeat for all 6 rooms
     }
-]
+];

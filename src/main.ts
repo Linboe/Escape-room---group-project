@@ -1,10 +1,10 @@
-import './styles/style.scss'
-import './components/cheat-codes/cheat-codes'
-import './scenes/sign-in-scene/sign-in-scene'
-import './scenes/main-menu-scene/main-menu-scene'
-import './scenes/game-session-scene/game-session-scene'
-import './scenes/game-over-scene/game-over-scene'
-import './scenes/about-scene/about-scene'
+import './styles/style.scss';
+import './components/cheat-codes/cheat-codes';
+import './scenes/sign-in-scene/sign-in-scene';
+import './scenes/main-menu-scene/main-menu-scene';
+import './scenes/game-session-scene/game-session-scene';
+import './scenes/game-over-scene/game-over-scene';
+import './scenes/about-scene/about-scene';
 
 // please check the document in this link:
 // https://medieinstitutet-my.sharepoint.com/:w:/g/personal/alda_catovic_medieinstitutet_se/IQApMQpuaX8YToqheHZBk5Y4AQvnQa3uXsRg0XzjSP18ehU?rtime=AQuzKQlr3kg
@@ -29,6 +29,6 @@ const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement |
 
 function initializeMain() {
     if (!sceneWrapper) return;
-    sceneWrapper.innerHTML = `<h1>Strange woods (working title)</h1>`
+    sceneWrapper.innerHTML = '<h1>Strange woods (working title)</h1>';
 }
 initializeMain();

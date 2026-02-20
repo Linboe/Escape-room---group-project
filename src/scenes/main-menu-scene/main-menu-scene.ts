@@ -14,11 +14,11 @@ export function renderMainMenuScene() {
         <div class="main-menu">
             <h1>Main-menu</h1>
             <div class="menu-buttons">
-                <button id="start-game" class="menu-btn primary">▶ Starta Spel</button>
-                <button id="load-game" class="menu-btn">💾 Ladda Sparat Spel</button>
-                <button id="settings" class="menu-btn">⚙️ Inställningar</button>
-                <button id="about" class="menu-btn">ℹ️ Om Spelet</button>
-                <button id="logout" class="menu-btn secondary">🚪 Logga Ut</button>
+                <button id="start-game" class="menu-btn primary">▶ Start game</button>
+                <button id="load-game" class="menu-btn">💾 Load game</button>
+                <button id="settings" class="menu-btn">⚙️ Settings</button>
+                <button id="about" class="menu-btn">ℹ️ About</button>
+                <button id="logout" class="menu-btn secondary">🚪 Log out</button>
             </div>
         </div>
     `;
