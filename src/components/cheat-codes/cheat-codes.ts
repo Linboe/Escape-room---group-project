@@ -34,14 +34,14 @@ const cheatButtons = {
     cheatToggleMySessionBoolean: createCheatButton('toggle my session boolean', toggleMySessionBooleanState),
     cheatSaveMyStringToDB: createCheatButton('save my string to DB', saveMyStringState),
     cheatRenderStatusBar: createCheatButton('render status bar', renderStatusBar)
-}
+};
 // ===================================
 
 // =============================
 // Local special cheat functions
 // =============================
 function specialCheatCode1() {
-    console.log(`run special cheat code 1`);
+    console.log('run special cheat code 1');
 }
 function specialCheatCode2() {
     console.log('run special cheat code 2');
@@ -63,8 +63,8 @@ function toggleCheatCodeButtons() {
             // ==================================================
             // Append cheat buttons here, disable to hide from UI
             // ==================================================
-//            cheatButtons.cheatButton1,
-//            cheatButtons.cheatButton2,
+            //            cheatButtons.cheatButton1,
+            //            cheatButtons.cheatButton2,
             cheatButtons.cheatRenderSignInScene,
             cheatButtons.cheatRenderMainMenuScene,
             cheatButtons.cheatRenderAboutScene,
@@ -80,6 +80,6 @@ function toggleCheatCodeButtons() {
             // ==================================================
         );
     } else {
-        cheatCodesWrapper.innerHTML = ``
+        cheatCodesWrapper.innerHTML = '';
     }
 }
