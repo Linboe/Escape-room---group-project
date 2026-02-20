@@ -25,7 +25,7 @@ const cheatButtons = {
     cheatRenderSignInScene: createCheatButton('render sign in scene', renderSignInScene),
     cheatRenderMainMenuScene: createCheatButton('render main menu scene', renderMainMenuScene),
     cheatRenderAboutScene: createCheatButton('render about scene', renderAboutScene),
-    cheatRenderGameSessionScene: createCheatButton('render game session scene',() => renderGameSessionScene(1)), // ersätt med riktig room id),
+    cheatRenderGameSessionScene: createCheatButton('render game session scene', renderGameSessionScene),
     cheatRenderGameOverScene: createCheatButton('render game over scene',() => renderGameOverScene(12345) // ersätt med riktig score
     
     ),
@@ -101,6 +101,16 @@ function toggleCheatCodeButtons() {
             cheatButtons.cheatRenderRoom5,
             cheatButtons.cheatRenderRoom6,
 
+        // ======================
+        // DEV – ROOMS
+        // ======================
+            cheatButtons.cheatRenderRoom1,
+            cheatButtons.cheatRenderRoom2,
+            cheatButtons.cheatRenderRoom3,
+            cheatButtons.cheatRenderRoom4,
+            cheatButtons.cheatRenderRoom5,
+            cheatButtons.cheatRenderRoom6,
+
             // ==================================================
             // Append cheat buttons here, disable to hide from UI
             // ==================================================
@@ -118,6 +128,7 @@ function toggleCheatCodeButtons() {
             cheatButtons.cheatToggleMySessionBoolean,
             cheatButtons.cheatSaveMyStringToDB,
             cheatButtons.cheatRenderStatusBar
+        // ==================================================
         // ==================================================
         );
     } else {
