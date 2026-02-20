@@ -26,9 +26,32 @@ const cheatButtons = {
     cheatRenderMainMenuScene: createCheatButton('render main menu scene', renderMainMenuScene),
     cheatRenderAboutScene: createCheatButton('render about scene', renderAboutScene),
     cheatRenderGameSessionScene: createCheatButton('render game session scene', renderGameSessionScene),
-    cheatRenderGameOverScene: createCheatButton(
-        'render game over scene',
-        () => renderGameOverScene(12345) // ersätt med riktig score
+    cheatRenderGameOverScene: createCheatButton('render game over scene',() => renderGameOverScene(12345) // ersätt med riktig score
+    
+    ),
+    cheatRenderRoom1: createCheatButton(
+        'render room 1',
+        () => renderGameSessionScene(1)
+    ),
+    cheatRenderRoom2: createCheatButton(
+        'render room 2',
+        () => renderGameSessionScene(2)
+    ),
+    cheatRenderRoom3: createCheatButton(
+        'render room 3',
+        () => renderGameSessionScene(3)
+    ),
+    cheatRenderRoom4: createCheatButton(
+        'render room 4',
+        () => renderGameSessionScene(4)
+    ),
+    cheatRenderRoom5: createCheatButton(
+        'render room 5',
+        () => renderGameSessionScene(5)
+    ),
+    cheatRenderRoom6: createCheatButton(
+        'render room 6',
+        () => renderGameSessionScene(6)
     ),
     cheatCheckMySessionString: createCheatButton('check my session string', logMySessionStringState),
     cheatSetMySessionStringToFoo: createCheatButton('set my session string to Foo', setSessionStringToFoo),
@@ -59,30 +82,40 @@ function setSessionStringToBar() {
 
 showCheatCodesButton?.addEventListener('click', toggleCheatCodeButtons);
 function toggleCheatCodeButtons() {
-  showCheatCodes = !showCheatCodes;
-  if (!cheatCodesWrapper) return;
-  if (showCheatCodes) {
-    cheatCodesWrapper.append(
-      // ==================================================
-      // Append cheat buttons here, disable to hide from UI
-      // ==================================================
-      //            cheatButtons.cheatButton1,
-      //            cheatButtons.cheatButton2,
-      cheatButtons.cheatRenderSignInScene,
-      cheatButtons.cheatRenderMainMenuScene,
-      cheatButtons.cheatRenderAboutScene,
-      cheatButtons.cheatRenderGameSessionScene,
-      cheatButtons.cheatRenderGameOverScene,
-      cheatButtons.cheatCheckMySessionString,
-      cheatButtons.cheatSetMySessionStringToFoo,
-      cheatButtons.cheatSetMySessionStringToBar,
-      cheatButtons.cheatCheckMySessionBoolean,
-      cheatButtons.cheatToggleMySessionBoolean,
-      cheatButtons.cheatSaveMyStringToDB,
-      cheatButtons.cheatRenderStatusBar
-      // ==================================================
-    );
-  } else {
-    cheatCodesWrapper.innerHTML = '';
-  }
+    showCheatCodes = !showCheatCodes;
+    if (!cheatCodesWrapper) return;
+    if (showCheatCodes) {
+        cheatCodesWrapper.append(
+        // ======================
+        // DEV – ROOMS
+        // ======================
+            cheatButtons.cheatRenderRoom1,
+            cheatButtons.cheatRenderRoom2,
+            cheatButtons.cheatRenderRoom3,
+            cheatButtons.cheatRenderRoom4,
+            cheatButtons.cheatRenderRoom5,
+            cheatButtons.cheatRenderRoom6,
+
+            // ==================================================
+            // Append cheat buttons here, disable to hide from UI
+            // ==================================================
+            //            cheatButtons.cheatButton1,
+            //            cheatButtons.cheatButton2,
+            cheatButtons.cheatRenderSignInScene,
+            cheatButtons.cheatRenderMainMenuScene,
+            cheatButtons.cheatRenderAboutScene,
+            cheatButtons.cheatRenderGameSessionScene,
+            cheatButtons.cheatRenderGameOverScene,
+            cheatButtons.cheatCheckMySessionString,
+            cheatButtons.cheatSetMySessionStringToFoo,
+            cheatButtons.cheatSetMySessionStringToBar,
+            cheatButtons.cheatCheckMySessionBoolean,
+            cheatButtons.cheatToggleMySessionBoolean,
+            cheatButtons.cheatSaveMyStringToDB,
+            cheatButtons.cheatRenderStatusBar
+        // ==================================================
+        );
+    } else {
+        cheatCodesWrapper.innerHTML = '';
+    }
 }
