@@ -101,9 +101,9 @@ function toggleCheatCodeButtons() {
             cheatButtons.cheatRenderRoom5,
             cheatButtons.cheatRenderRoom6,
 
-        // ======================
-        // DEV – ROOMS
-        // ======================
+            // ======================
+            // DEV – ROOMS
+            // ======================
             cheatButtons.cheatRenderRoom1,
             cheatButtons.cheatRenderRoom2,
             cheatButtons.cheatRenderRoom3,
