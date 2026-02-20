@@ -2,8 +2,9 @@ import './main-menu-scene.scss';
 
 console.log('connected main menu scene');
 
-const sceneWrapper: HTMLDivElement | null =
-  document.getElementById('sceneWrapper');
+const sceneWrapper = document.getElementById(
+  'sceneWrapper',
+) as HTMLButtonElement | null;
 
 export function renderMainMenuScene() {
   if (!sceneWrapper) return;
@@ -22,25 +23,25 @@ export function renderMainMenuScene() {
         </div>
     `;
 
-  /* -------------- Btn & Event Listeners ------------------
-  ----------------------------------------------------------
-
-const startGameBtn: HTMLButtonElement | null = document.getElementById('start-game');
-const loadGameBtn: HTMLButtonElement | null = document.getElementById('load-game');
-const settingsBtn: HTMLButtonElement | null = document.getElementById('settings');
-const aboutBtn: HTMLButtonElement | null = document.getElementById('about');
-const logoutBtn: HTMLButtonElement | null = document.getElementById('logout');
+  //-------------- Btn & Event Listeners ------------------
+  //----------------------------------------------------------
+  /*
+const startGameBtn = document.getElementById('start-game') as HTMLButtonElement | null;
+const loadGameBtn = document.getElementById('load-game') as HTMLButtonElement | null;
+const settingsBtn = document.getElementById('settings') as HTMLButtonElement | null;
+const aboutBtn = document.getElementById('about') as HTMLButtonElement | null;
+const logoutBtn = document.getElementById('logout') as HTMLButtonElement | null;
 
 startGameBtn?.addEventListener('click', handleStartGame); //? betyder om det inte är null
 loadGameBtn?.addEventListener('click', handleLoadGame);
 settingsBtn?.addEventListener('click', handleSettings);
 aboutBtn?.addEventListener('click', handleAbout);
 logoutBtn?.addEventListener('click', handleLogout);
+*/
 
-
-  /* ---------------- Handler function  --------------------
-  ----------------------------------------------------------
-    
+  // ---------------- Handler function  --------------------
+  //----------------------------------------------------------
+  /*    
 function handleStartGame() {
     console.log('Starta spel'); //Byter scen, t.ex. renderGameSessionScene();
 }
