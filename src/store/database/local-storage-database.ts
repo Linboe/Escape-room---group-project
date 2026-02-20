@@ -4,6 +4,6 @@ import { getMySessionStringState } from '../session/session-memory';
 
 // part of scaffolding, to check that everything is wired
 export function saveMyStringState() {
-  localStorage.setItem('my-string-state', getMySessionStringState());
-  console.log('check your browser\'s localstorage');
+    localStorage.setItem('my-string-state', getMySessionStringState());
+    console.log('check your browser\'s localstorage');
 }
