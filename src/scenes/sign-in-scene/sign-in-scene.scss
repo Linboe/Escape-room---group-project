@@ -1,4 +1,4 @@
-fieldset {
+.sign-in-wrapper {
     display: flex;
     flex-direction: column;
     border: 1px solid white;
@@ -14,13 +14,6 @@ fieldset {
         background-color: white;
         color: black;
     }
-}
-
-label {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    text-align: center;
 }
 
 .error-span {
