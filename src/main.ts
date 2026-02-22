@@ -5,6 +5,12 @@ import './scenes/main-menu-scene/main-menu-scene';
 import './scenes/game-session-scene/game-session-scene';
 import './scenes/game-over-scene/game-over-scene';
 import './scenes/about-scene/about-scene';
+import { loadGameFromLocalStorage } from './store/database/local-storage-database';
+import { renderStatusBar } from './components/status-bar/status-bar';
+import { getCurrentRoom, getIsGameCompleted } from './store/session/session-memory';
+import { renderGameSessionScene } from './scenes/game-session-scene/game-session-scene';
+import { renderMainMenuScene } from './scenes/main-menu-scene/main-menu-scene';
+import { renderGameOverScene } from './scenes/game-over-scene/game-over-scene';
 
 // please check the document in this link:
 // https://medieinstitutet-my.sharepoint.com/:w:/g/personal/alda_catovic_medieinstitutet_se/IQApMQpuaX8YToqheHZBk5Y4AQvnQa3uXsRg0XzjSP18ehU?rtime=AQuzKQlr3kg
@@ -32,3 +38,19 @@ function initializeMain() {
     sceneWrapper.innerHTML = '<h1>Strange woods (working title)</h1>';
 }
 initializeMain();
+
+loadGameFromLocalStorage();
+renderStatusBar();
+
+// Navigera rätt efter refresh
+const isCompleted = getIsGameCompleted();
+const currentRoom = getCurrentRoom();
+
+if (isCompleted) {
+  renderGameOverScene();          // spelet var klart
+} else if (currentRoom > 0) {
+  renderGameSessionScene();       // fortsätt där man var
+} else {
+  renderMainMenuScene();          // inget sparat spel → meny
+}
+

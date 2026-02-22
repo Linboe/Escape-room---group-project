@@ -1,4 +1,6 @@
-import "./status-bar.scss";
+
+import './status-bar.scss';
+import { getProgress } from '../../store/session/session-memory';
 
 const statusBarWrapper = document.getElementById(
   "statusBarWrapper",
@@ -8,10 +10,6 @@ export function renderStatusBar() {
   if (!statusBarWrapper) return;
   statusBarWrapper.innerHTML = ``; // reset
 
-  // innerHTML method
-  //   statusBarWrapper.innerHTML = `<p class="status-bar"><span>Status bar</span><span>i.e timer</span><span>i.e rooms</span></p>`;
-
-  // Imperative DOM building method
   // parent
   const pWrapperElement = document.createElement("p");
   pWrapperElement.classList.add("status-bar");
@@ -67,13 +65,11 @@ export function renderStatusBar() {
 
   startCountdown(900);
 
-  const spanRoomsElement = document.createElement("span");
-  // spanRoomsElement.textContent = "i.e rooms";
+  const spanTimerElement = document.createElement('span');
+  spanTimerElement.textContent = 'Timer: 00:00'; 
 
-  let currentRoom = "The Forest";
-
-  const roomName = currentRoom;
-  spanRoomsElement.textContent = `You are in: ${roomName}`;
+  const spanRoomsElement = document.createElement('span');
+  spanRoomsElement.textContent = `Progress: ${getProgress()}/6`;
 
   // compile
   pWrapperElement.append(
