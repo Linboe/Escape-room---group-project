@@ -6,22 +6,22 @@ let mySessionStringState: string = 'Hello world'; // export
 let mySessionBooleanState: boolean = false;
 
 export function changeMySessionStringState(newString: string) {
-  mySessionStringState = newString;
+    mySessionStringState = newString;
 }
 export function logMySessionStringState() {
-  console.log(`My session string is "${mySessionStringState}"`);
+    console.log(`My session string is "${mySessionStringState}"`);
 }
 export function getMySessionStringState(): string { // making a variable accessible across other TS files
-  return mySessionStringState;
+    return mySessionStringState;
 }
 export function toggleMySessionBooleanState() {
-  mySessionBooleanState = !mySessionBooleanState;
+    mySessionBooleanState = !mySessionBooleanState;
 }
 export function logSessionBooleanState() {
-  console.log(`My session boolean is: ${mySessionBooleanState}`);
+    console.log(`My session boolean is: ${mySessionBooleanState}`);
 }
 export function getMySessionBooleanState(): boolean {
-  return mySessionBooleanState;
+    return mySessionBooleanState;
 }
 
 // early suggestion (example)

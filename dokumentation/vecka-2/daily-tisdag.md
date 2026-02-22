@@ -4,20 +4,20 @@ Dagens scrum master: Alma Isaksson.
 
 ## Alda Catovic
 ### Vad gjorde jag i måndags?
-JObbade på avbout scenen, gjorde klart den, redo att reviewas och pushas
+Jobbade på about scenenen, gjorde klart den, redo att review:as och pushas.
 
 ### Vad ska jag göra idag?
-Inga idéer på uppgifter
+Inga idéer på uppgifter.
 
 ### Eventuella hinder?
 Inga.
 
 ## Alma Isaksson
 ### Vad gjorde jag i måndags?
-JObbade på game session scenen, blev inte klar
+Jobbade på game session scenen, blev inte klar.
 
 ### Vad ska jag göra idag?
-JObba visare på game session scenen
+Jobba visare på game session scenen.
 
 ### Eventuella hinder?
 Inga.
