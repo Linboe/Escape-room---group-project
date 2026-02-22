@@ -42,6 +42,7 @@ initializeMain();
 loadGameFromLocalStorage();
 renderStatusBar();
 
+
 // Navigera rätt efter refresh
 const isCompleted = getIsGameCompleted();
 const currentRoom = getCurrentRoom();

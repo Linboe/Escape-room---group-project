@@ -11,6 +11,7 @@ import { renderStatusBar } from "../../components/status-bar/status-bar";
 import { getIsGameCompleted } from "../../store/session/session-memory";
 import { renderGameOverScene } from "../game-over-scene/game-over-scene";
 import { constantRoomData, scriptData } from "./placeholder-data";
+import { startStatusBarTimers } from "../../components/status-bar/status-bar";
 
 console.log("connected game session scene");
 
@@ -22,6 +23,8 @@ export function renderGameSessionScene() {
   if (!sceneWrapper) return;
   sceneWrapper.innerHTML = ""; // reset
 
+  startStatusBarTimers(); // starta timers när spelet börjar
+  
   // Imperative DOM building method
   const h2PlaceholderText = document.createElement("h2");
   h2PlaceholderText.textContent = "Game session scene";
