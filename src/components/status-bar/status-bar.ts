@@ -6,77 +6,52 @@ const statusBarWrapper = document.getElementById(
   "statusBarWrapper",
 ) as HTMLDivElement;
 
+// Skapa elementen utanför så att timern kan nå dem utan att starta om
+const spanTimerElement = document.createElement("span");
+const spanCountUpElement = document.createElement("span");
+
 export function renderStatusBar() {
   if (!statusBarWrapper) return;
-  statusBarWrapper.innerHTML = ``; // reset
+  statusBarWrapper.innerHTML = ``; 
 
-  // parent
   const pWrapperElement = document.createElement("p");
   pWrapperElement.classList.add("status-bar");
 
-  // children
   const spanStatusBarElement = document.createElement("span");
-  spanStatusBarElement.textContent = "Status Bar";
-
-  const spanTimerElement = document.createElement("span");
-  spanTimerElement.textContent = "i.e timer";
-
-  const spanCountUpElement = document.createElement("span");
-  spanCountUpElement.textContent = "Elapsed: 0:00";
-
-  function startCountUp() {
-    let secondsElapsed = 0; // Seconds counting upwards
-    const targetSeconds = 90 * 60; // Counts up to 90 minutes
-
-    const interval = setInterval(() => {
-      secondsElapsed++;
-
-      const minutes = Math.floor(secondsElapsed / 60);
-      const seconds = secondsElapsed % 60;
-      const formattedTime = `${minutes}:${seconds.toString().padStart(2, "0")}`;
-
-      spanCountUpElement.textContent = `Elapsed Time: ${formattedTime}`;
-
-      if (secondsElapsed >= targetSeconds) {
-        clearInterval(interval);
-        spanCountUpElement.textContent = "90 Minutes Reached!";
-      }
-    }, 1000);
-  }
-
-  startCountUp();
-
-  function startCountdown(roomTime: number) {
-    let time = roomTime;
-
-    const interval = setInterval(() => {
-      const minutes = Math.floor(time / 60);
-      const seconds = time % 60;
-
-      const formattedTime = `${minutes}:${seconds.toString().padStart(2, "0")}`;
-      spanTimerElement.textContent = "Room Time Left: " + formattedTime;
-
-      if (--time < 0) {
-        clearInterval(interval);
-        spanTimerElement.textContent = "Time's up!";
-      }
-    }, 1000);
-  }
-
-  startCountdown(900);
-
-  const spanTimerElement = document.createElement('span');
-  spanTimerElement.textContent = 'Timer: 00:00'; 
+  spanStatusBarElement.textContent = "Strange Woods"; 
 
   const spanRoomsElement = document.createElement('span');
   spanRoomsElement.textContent = `Progress: ${getProgress()}/6`;
 
-  // compile
+  // Lägg till allt i containern
   pWrapperElement.append(
     spanStatusBarElement,
     spanTimerElement,
     spanCountUpElement,
-    spanRoomsElement,
+    spanRoomsElement
   );
   statusBarWrapper.append(pWrapperElement);
+}
+
+// Dessa körs bara EN gång när spelet startar
+export function startGlobalTimers() {
+    // Din countdown (900 sekunder = 15 minuter per rum?)
+    let time = 900;
+    setInterval(() => {
+        if (time >= 0) {
+            const mins = Math.floor(time / 60);
+            const secs = time % 60;
+            spanTimerElement.textContent = `Room Time: ${mins}:${secs.toString().padStart(2, "0")}`;
+            time--;
+        }
+    }, 1000);
+
+    // Din countup (total tid i spelet)
+    let secondsElapsed = 0;
+    setInterval(() => {
+        secondsElapsed++;
+        const mins = Math.floor(secondsElapsed / 60);
+        const secs = secondsElapsed % 60;
+        spanCountUpElement.textContent = `Total: ${mins}:${secs.toString().padStart(2, "0")}`;
+    }, 1000);
 }
