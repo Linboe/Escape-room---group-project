@@ -1,7 +1,7 @@
 // This folder is a part of architectual scaffolding. The structure of localstorage is not yet decided
 // This is the directory where you fetch, read, json.strinfigy between localstorage and javascript states
-import { getMySessionStringState } from '../session/session-memory';
 import {
+  getMySessionStringState,
   getCurrentRoom,
   setCurrentRoom,
   getProgress,

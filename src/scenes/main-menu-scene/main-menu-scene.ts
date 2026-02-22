@@ -85,4 +85,4 @@ function handleAbout() {
 function handleLogout() {
     console.log('Logga ut'); //tillbaka till login
 */
-}
+
