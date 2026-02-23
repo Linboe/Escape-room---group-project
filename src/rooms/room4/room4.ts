@@ -1,18 +1,25 @@
 import './room4.scss';
 import backgroundImage from '../../assets/alternative/soaked-alt-1.jpg';
-import { getRoom4CrossroadsMonumentIsBeaten, getRoom4EventMarker, getRoom4HasCliffArtifact, getRoom4HasLadder, getRoom4HasRavineArtifact, getRoom4RavineMonumentIsBeaten, getRoom4StoryEventButtons, getRoom4TextEvent, getRoom4TitleText, handleRoom4ClickStoryEventButton } from './room4-story-controller';
+import { getRoom4CliffMonumentIsBeaten, getRoom4CrossroadsMonumentIsBeaten, getRoom4EventMarker, getRoom4HasCliffArtifact, getRoom4HasLadder, getRoom4HasRavineArtifact, getRoom4RavineMonumentIsBeaten, getRoom4StoryEventButtons, getRoom4TextEvent, getRoom4TitleText, handleRoom4ClickStoryEventButton } from './room4-story-controller';
 
 export function room4(sceneWrapper: HTMLDivElement | null, nextRoom: () => void) {
     if (!sceneWrapper) return;
 
+    sceneWrapper.classList.add('scene-wrapper');
     sceneWrapper.innerHTML = ''; // reset
     sceneWrapper.append(initRenderRoom4());
     reRenderRoom4();
 
-    const escapeRoomButton: HTMLButtonElement | null = document.querySelector('#escapeRoom4Button');
-    escapeRoomButton?.addEventListener('click', () => {
+    const escapeRoom4Button = document.createElement('button');
+    if (!escapeRoom4Button) return;
+    escapeRoom4Button.textContent = 'Escape The silent tide';
+    escapeRoom4Button.addEventListener('click', () => {
         nextRoom(); // Proceed to room 5
     });
+    escapeRoom4Button.classList.add('escape-room-4-button');
+    escapeRoom4Button.id = 'escapeRoom4Button';
+    escapeRoom4Button.disabled = true;
+    sceneWrapper.append(escapeRoom4Button);
 }
 
 function initRenderRoom4() {
@@ -95,6 +102,7 @@ export function reRenderRoom4() { // accessible for story-controller
                         newStoryEventButton.removeAttribute('disabled');
                     }
                     break;
+                // Monuments work the opposite: gatekept when beaten
                 case 'crossroads-monument-is-beaten':
                     if (!getRoom4CrossroadsMonumentIsBeaten()) {
                         newStoryEventButton.removeAttribute('disabled');
@@ -102,6 +110,11 @@ export function reRenderRoom4() { // accessible for story-controller
                     break;
                 case 'ravine-monument-is-beaten':
                     if (!getRoom4RavineMonumentIsBeaten()) {
+                        newStoryEventButton.removeAttribute('disabled');
+                    }
+                    break;
+                case 'cliff-monument-is-beaten':
+                    if (!getRoom4CliffMonumentIsBeaten()) {
                         newStoryEventButton.removeAttribute('disabled');
                     }
                     break;

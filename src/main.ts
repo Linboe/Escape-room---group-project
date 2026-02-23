@@ -1,5 +1,5 @@
 import './components/cheat-codes/cheat-codes';
-import './styles/style.scss'
+import './styles/style.scss';
 import { state } from './state/gamestate';
 import { renderSignInScene } from './scenes/sign-in-scene/sign-in-scene';
 import { renderMainMenuScene } from './scenes/main-menu-scene/main-menu-scene';
@@ -33,26 +33,26 @@ import { renderAboutScene } from './scenes/about-scene/about-scene';
  * Localstorage is like the SSD
  */
 
-const sceneWrapper: HTMLDivElement | null = document.querySelector("#sceneWrapper");
+const sceneWrapper: HTMLDivElement | null = document.querySelector('#sceneWrapper');
 
 export function render() {
     switch (state.screen) {
-        case "login":
+        case 'login':
             renderSignInScene(sceneWrapper, render);
             break;
-        case "menu":
+        case 'menu':
             renderMainMenuScene(sceneWrapper, render);
             break;
-        case "room":
+        case 'room':
             renderNextRoom();
             break;
-        case "victory":
+        case 'victory':
             renderVictory();
             break;
-        case "gameover":
+        case 'gameover':
             renderGameOverScene();
             break;
-        case "about":
+        case 'about':
             renderAboutScene();
     }
 }
@@ -76,6 +76,7 @@ export function renderNextRoom() { // TODO koppla på timers
 
 function renderVictory() {
     if (!sceneWrapper) return;
+    // TODO: Translate to English
     sceneWrapper.innerHTML = `
         <h2>🎉 Grattis!</h2>
         <p>Du klarade alla rum!</p>
@@ -85,7 +86,7 @@ function renderVictory() {
     const backToMenuBtn: HTMLButtonElement | null = document.querySelector('#backToMenu');
 
     backToMenuBtn?.addEventListener('click', () => {
-        state.screen = "menu";
+        state.screen = 'menu';
         render();
 
     });

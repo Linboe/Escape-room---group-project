@@ -18,6 +18,13 @@
     height: 100%;
 }
 
+.scene-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .room-title-text {
     position: absolute;
     width: 100%;
@@ -63,10 +70,16 @@
 }
 
 button:disabled {
-  border: none;
-  cursor: default;
-  visibility: hidden;
-  position: absolute;
+    border: none;
+    cursor: default;
+    visibility: hidden;
+    position: absolute;
+
+}
+
+.escape-room-4-button {
+    z-index: 2;
+    position: absolute;
 }
 
 @media screen and (min-width: 768px) {

@@ -1,0 +1,16 @@
+[
+    {
+        "textEvent": "(Cliff Monument Minigame/ puzzle)",
+        "eventMarker": "inspect-cliff-monument",
+        "buttonEvents": [
+            {
+                "label": "Win minigame",
+                "buttonMarker": "win"
+            },
+            {
+                "label": "Lose minigame",
+                "buttonMarker": "lose"
+            }
+        ]
+    }
+]

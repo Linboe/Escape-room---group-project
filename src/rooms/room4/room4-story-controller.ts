@@ -9,6 +9,7 @@ import climbTreeStory from '../../data/stories-data/room4-story/climb-tree.json'
 
 // crossroads stories
 import atCrossroadsStory from '../../data/stories-data/room4-story/at-crossroads-story/at-crossroads.json';
+import escapeStory from '../../data/stories-data/room4-story/at-crossroads-story/escape.json';
 
 // crossroads monument stories
 import atCrossroadsMonumentStory from '../../data/stories-data/room4-story/at-crossroads-story/at-crossroads-monument-story/at-crossroads-monument.json';
@@ -23,6 +24,13 @@ import ravineLadderStory from '../../data/stories-data/room4-story/at-crossroads
 import inspectRavineMonumentStory from '../../data/stories-data/room4-story/at-crossroads-story/at-ravine-story/inspect-ravine-monument-story/inspect-ravine-monument.json';
 import ravineMonumentWinStory from '../../data/stories-data/room4-story/at-crossroads-story/at-ravine-story/inspect-ravine-monument-story/ravine-monument-win.json';
 import ravineMonumentLoseStory from '../../data/stories-data/room4-story/at-crossroads-story/at-ravine-story/inspect-ravine-monument-story/ravine-monument-lose.json';
+
+// cliff stories
+import atCliffStory from '../../data/stories-data/room4-story/at-crossroads-story/at-cliff-story/at-cliff.json';
+import cliffLadderStory from '../../data/stories-data/room4-story/at-crossroads-story/at-cliff-story/cliff-ladder.json';
+import inspectCliffMonumentStory from '../../data/stories-data/room4-story/at-crossroads-story/at-cliff-story/inspect-cliff-monument-story/inspect-cliff-monument.json';
+import cliffMonumentWinStory from '../../data/stories-data/room4-story/at-crossroads-story/at-cliff-story/inspect-cliff-monument-story/cliff-monument-win.json';
+import cliffMonumentLoseStory from '../../data/stories-data/room4-story/at-crossroads-story/at-cliff-story/inspect-cliff-monument-story/cliff-monument-lose.json';
 
 let room4StoryToUse: ScriptEvent[] = room4Story;
 let room4StoryIndex: number = 0;
@@ -100,13 +108,16 @@ function enterRavine() {
     reRenderRoom4();
 }
 function enterCliff() {
-    console.log('enter cliff');
+    room4StoryToUse = atCliffStory;
+    room4StoryIndex = 0;
+    updateRoom4StoryController();
+    reRenderRoom4();
 }
-function escapeWithRavineMonument() {
-    console.log('escape with ravine monument');
-}
-function escapeWithCliffMonument() {
-    console.log('escape with cliff monument');
+function escapeWithAnyArtifact() {
+    room4StoryToUse = escapeStory;
+    room4StoryIndex = 0;
+    updateRoom4StoryController();
+    reRenderRoom4();
 }
 
 // crossroads monument specific events - consider converting to a Class
@@ -167,6 +178,46 @@ function ravineMonumentLose() {
     reRenderRoom4();
 }
 
+// cliff specific events - consider converting to a Class
+function ladderToClimbCliff() {
+    room4StoryToUse = cliffLadderStory;
+    room4StoryIndex = 0;
+    updateRoom4StoryController();
+    reRenderRoom4();
+}
+function atCliffMonument() {
+    room4StoryToUse = cliffLadderStory;
+    room4StoryIndex = 2;
+    updateRoom4StoryController();
+    reRenderRoom4();
+}
+function inspectCliffMonument() {
+    room4StoryToUse = inspectCliffMonumentStory;
+    room4StoryIndex = 0;
+    updateRoom4StoryController();
+    reRenderRoom4();
+}
+function cliffMonumentLose() {
+    room4StoryToUse = cliffMonumentLoseStory;
+    room4StoryIndex = 0;
+    updateRoom4StoryController();
+    reRenderRoom4();
+}
+function cliffMonumentWin() {
+    room4StoryToUse = cliffMonumentWinStory;
+    room4StoryIndex = 0;
+    updateRoom4StoryController();
+    reRenderRoom4();
+}
+
+// escape the silent tide
+function escapeTheSilentTide() {
+    console.log('Escaped the silent tide');
+    const escapeRoom4Button = document.getElementById('escapeRoom4Button');
+    if (!escapeRoom4Button) return;
+    escapeRoom4Button.removeAttribute('disabled');
+}
+
 // multi-use events - consider converting to a Class
 function returnToCrossroads() {
     room4StoryToUse = atCrossroadsStory;
@@ -213,10 +264,10 @@ export function handleRoom4ClickStoryEventButton(event: Event) {
             enterCliff();
             return;
         case 'at-crossroads-use-cliff-artifact':
-            escapeWithCliffMonument();
+            escapeWithAnyArtifact();
             return;
         case 'at-crossroads-use-ravine-artifact':
-            escapeWithRavineMonument();
+            escapeWithAnyArtifact();
             return;
 
         // crossroad monument events
@@ -280,6 +331,42 @@ export function handleRoom4ClickStoryEventButton(event: Event) {
             room4HasRavineArtifact = true;
             room4RavineMonumentIsBeaten = true;
             returnToCrossroads();
+            return;
+
+        // cliff events
+        case 'at-cliff-turn-around':
+            returnToCrossroads();
+            return;
+        case 'at-cliff-place-ladder-on-wall':
+            ladderToClimbCliff();
+            return;
+        case 'cliff-summit-turn-around':
+            returnToCrossroads();
+            return;
+        case 'cliff-summit-inspect-monument':
+            inspectCliffMonument();
+            return;
+        case 'inspect-cliff-monument-lose':
+            cliffMonumentLose();
+            return;
+        case 'cliff-monument-failed-exit':
+            atCliffMonument();
+            return;
+        case 'cliff-monument-failed-try-again':
+            inspectCliffMonument();
+            return;
+        case 'inspect-cliff-monument-win':
+            cliffMonumentWin();
+            return;
+        case 'cliff-monument-win-turn-back-continue':
+            room4HasCliffArtifact = true;
+            room4CliffMonumentIsBeaten = true;
+            returnToCrossroads();
+            return;
+
+        // escape
+        case 'escape-continue':
+            escapeTheSilentTide();
             return;
 
         // default
