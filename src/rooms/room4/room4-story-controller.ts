@@ -56,6 +56,31 @@ export const getRoom4CrossroadsMonumentIsBeaten = () => room4CrossroadsMonumentI
 export const getRoom4RavineMonumentIsBeaten = () => room4RavineMonumentIsBeaten; // consider moving to store directory
 export const getRoom4CliffMonumentIsBeaten = () => room4CliffMonumentIsBeaten; // consider moving to store directory
 
+function refreshRoom4UI(storyIndex: number = 0, newTitleText?: string) {
+    room4StoryIndex = storyIndex;
+    if (newTitleText) {
+        room4TitleText = newTitleText;
+    }
+    updateRoom4StoryController();
+    reRenderRoom4();
+}
+
+function resetRoom4() {
+    room4StoryToUse = room4Story;
+    room4StoryIndex = 0;
+    room4TitleText = 'The silent tide';
+    room4TextEvent = '';
+    room4EventMarker = '';
+    room4StoryEventButtons = [];
+    room4HasLadder = false;
+    room4HasCliffArtifact = false;
+    room4HasRavineArtifact = false;
+    room4CrossroadsMonumentIsBeaten = false;
+    room4RavineMonumentIsBeaten = false;
+    room4CliffMonumentIsBeaten = false;
+    refreshRoom4UI();
+}
+
 function turnPage() {
     room4StoryIndex++;
     updateRoom4StoryController();
@@ -65,149 +90,103 @@ function turnPage() {
 // Enter the silent tide specific events - consider converting to a Class
 function attemptSwim() {
     room4StoryToUse = attemptSwimStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI();
 }
 function attemptSwimContinue() {
     room4StoryToUse = room4Story;
-    room4StoryIndex = 2;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI(2);
 }
 function climbTree() {
     room4StoryToUse = climbTreeStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI();
 }
 function climbTreeContinue() {
     room4StoryToUse = room4Story;
-    room4StoryIndex = 2;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI(2);
 }
 function enterCrossroads() {
     room4StoryToUse = atCrossroadsStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI(0, 'Crossroads');
 }
 
 // crossroads specific events - consider converting to a Class
 function enterCrossroadsMonument() {
     room4StoryToUse = atCrossroadsMonumentStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI(0, 'Crossroads | Monument');
 }
 function enterRavine() {
     room4StoryToUse = atRavineStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI(0, 'Crossroads | Ravine');
 }
 function enterCliff() {
     room4StoryToUse = atCliffStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI(0, 'Crossroads | Cliff');
 }
 function escapeWithAnyArtifact() {
     room4StoryToUse = escapeStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI();
 }
 
 // crossroads monument specific events - consider converting to a Class
 function inspectCrossroadsMonument() {
     room4StoryToUse = inspectCrossroadsMonumentStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI();
 }
 function crossroadsMonumentWin() {
     room4StoryToUse = crossroadsMonumentWinStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI();
 }
 function crossroadsMonumentLose() {
     room4StoryToUse = crossroadsMonumentLoseStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI();
 }
 
 // ravine specific events - consider converting to a Class
 function attemptJumpAcrossRavine() {
     room4StoryToUse = ravineJumpStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI();
 }
 function useLadderAsBridge() {
     room4StoryToUse = ravineLadderStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI(0, 'Crossroads | Ravine | Monument');
 }
 function atRavineMonument() {
     room4StoryToUse = ravineLadderStory;
-    room4StoryIndex = 1;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI(1);
 }
 function inspectRavineMonument() {
     room4StoryToUse = inspectRavineMonumentStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI();
 }
 function ravineMonumentWin() {
     room4StoryToUse = ravineMonumentWinStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI();
 }
 function ravineMonumentLose() {
     room4StoryToUse = ravineMonumentLoseStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI();
 }
 
 // cliff specific events - consider converting to a Class
 function ladderToClimbCliff() {
     room4StoryToUse = cliffLadderStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI(0, 'Crossroads | Cliff | Monument');
 }
 function atCliffMonument() {
     room4StoryToUse = cliffLadderStory;
-    room4StoryIndex = 2;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI(2);
 }
 function inspectCliffMonument() {
     room4StoryToUse = inspectCliffMonumentStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI();
 }
 function cliffMonumentLose() {
     room4StoryToUse = cliffMonumentLoseStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI();
 }
 function cliffMonumentWin() {
     room4StoryToUse = cliffMonumentWinStory;
-    room4StoryIndex = 0;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI();
 }
 
 // escape the silent tide
@@ -221,9 +200,7 @@ function escapeTheSilentTide() {
 // multi-use events - consider converting to a Class
 function returnToCrossroads() {
     room4StoryToUse = atCrossroadsStory;
-    room4StoryIndex = 1;
-    updateRoom4StoryController();
-    reRenderRoom4();
+    refreshRoom4UI(1, 'Crossroads');
 }
 
 export function handleRoom4ClickStoryEventButton(event: Event) {
@@ -306,7 +283,7 @@ export function handleRoom4ClickStoryEventButton(event: Event) {
             useLadderAsBridge();
             return;
         case 'ravine-trip-continue':
-            console.log('game over');
+            resetRoom4();
             renderGameOverScene();
             return;
         case 'across-ravine-turn-around':
