@@ -1,0 +1,14 @@
+[
+  { "id": 1, "pairId": 1, "value": "A" },
+  { "id": 2, "pairId": 1, "value": "A" },
+  { "id": 3, "pairId": 2, "value": "B" },
+  { "id": 4, "pairId": 2, "value": "B" },
+  { "id": 5, "pairId": 3, "value": "C" },
+  { "id": 6, "pairId": 3, "value": "C" },
+  { "id": 7, "pairId": 4, "value": "D" },
+  { "id": 8, "pairId": 4, "value": "D" },
+  { "id": 9, "pairId": 5, "value": "E" },
+  { "id": 10, "pairId": 5, "value": "E" },
+  { "id": 11, "pairId": 6, "value": "F" },
+  { "id": 12, "pairId": 6, "value": "F" }
+]
