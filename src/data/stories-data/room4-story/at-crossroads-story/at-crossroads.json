@@ -4,7 +4,7 @@
     },
     {
         "textEvent": "To your left, you notice a ravine, and something peculiar on the other side.\nIn front of you, there's a strange monument.\nTo your right, there's a cliff. What's on top of the cliff? ",
-        "eventMarker": "walk-deeper",
+        "eventMarker": "at-crossroads",
         "buttonEvents": [
             {
                 "label": "Approach the ravine",
@@ -12,7 +12,7 @@
             },
             {
                 "label": "Approach the monument",
-                "buttonMarker": "approach-central-monument"
+                "buttonMarker": "approach-crossroads-monument"
             },
             {
                 "label": "Approach the cliff",

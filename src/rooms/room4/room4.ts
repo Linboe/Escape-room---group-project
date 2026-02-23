@@ -1,6 +1,6 @@
 import './room4.scss';
 import backgroundImage from '../../assets/alternative/soaked-alt-1.jpg';
-import { getRoom4EventMarker, getRoom4HasCliffArtifact, getRoom4HasLadder, getRoom4HasRavineArtifact, getRoom4StoryEventButtons, getRoom4TextEvent, getRoom4TitleText, handleRoom4ClickStoryEventButton } from './room4-story-controller';
+import { getRoom4CrossroadsMonumentIsBeaten, getRoom4EventMarker, getRoom4HasCliffArtifact, getRoom4HasLadder, getRoom4HasRavineArtifact, getRoom4RavineMonumentIsBeaten, getRoom4StoryEventButtons, getRoom4TextEvent, getRoom4TitleText, handleRoom4ClickStoryEventButton } from './room4-story-controller';
 
 export function room4(sceneWrapper: HTMLDivElement | null, nextRoom: () => void) {
     if (!sceneWrapper) return;
@@ -55,12 +55,11 @@ export function reRenderRoom4() { // accessible for story-controller
     if (!eventTextElement) return;
     eventTextElement.textContent = getRoom4TextEvent();
 
-    const storyEventButtonsWrapperElement = document.getElementById('storyEventButtonsWrapper');
+    const storyEventButtonsWrapperElement = document.getElementById('storyEventButtonsWrapper') as HTMLDivElement | null;
     if (!storyEventButtonsWrapperElement) return;
     storyEventButtonsWrapperElement.innerHTML = ''; // reset
 
     const room4StoryEventButtons = getRoom4StoryEventButtons();
-
     for (let i: number = 0; i < room4StoryEventButtons.length; i++) {
         const _buttonMarker = room4StoryEventButtons[i].buttonMarker;
         const _eventMarker = getRoom4EventMarker();
@@ -93,6 +92,16 @@ export function reRenderRoom4() { // accessible for story-controller
                     break;
                 case 'need-ravine-artifact':
                     if (getRoom4HasRavineArtifact()) {
+                        newStoryEventButton.removeAttribute('disabled');
+                    }
+                    break;
+                case 'crossroads-monument-is-beaten':
+                    if (!getRoom4CrossroadsMonumentIsBeaten()) {
+                        newStoryEventButton.removeAttribute('disabled');
+                    }
+                    break;
+                case 'ravine-monument-is-beaten':
+                    if (!getRoom4RavineMonumentIsBeaten()) {
                         newStoryEventButton.removeAttribute('disabled');
                     }
                     break;
