@@ -1,6 +1,6 @@
 import './room4.scss';
 import backgroundImage from '../../assets/alternative/soaked-alt-1.jpg';
-import { getRoom4EventMarker, getRoom4StoryEventButtons, getRoom4TextEvent, getRoom4TitleText, handleRoom4ClickStoryEventButton } from './room4-story-controller';
+import { getRoom4EventMarker, getRoom4HasCliffArtifact, getRoom4HasLadder, getRoom4HasRavineArtifact, getRoom4StoryEventButtons, getRoom4TextEvent, getRoom4TitleText, handleRoom4ClickStoryEventButton } from './room4-story-controller';
 
 export function room4(sceneWrapper: HTMLDivElement | null, nextRoom: () => void) {
     if (!sceneWrapper) return;
@@ -59,18 +59,46 @@ export function reRenderRoom4() { // accessible for story-controller
     if (!storyEventButtonsWrapperElement) return;
     storyEventButtonsWrapperElement.innerHTML = ''; // reset
 
-    console.log(getRoom4StoryEventButtons());
     const room4StoryEventButtons = getRoom4StoryEventButtons();
 
     for (let i: number = 0; i < room4StoryEventButtons.length; i++) {
         const _buttonMarker = room4StoryEventButtons[i].buttonMarker;
         const _eventMarker = getRoom4EventMarker();
+        const _conditionalMarker = room4StoryEventButtons[i].conditionalMarker;
 
         const newStoryEventButton = document.createElement('button');
+        // dataset for event marker need to look different whether it has a specific event
         if (room4StoryEventButtons[i].buttonMarker === 'no-event-next') {
             newStoryEventButton.dataset.functionMarker = 'no-event-next';
         } else {
             newStoryEventButton.dataset.functionMarker = `${_eventMarker}-${_buttonMarker}`;
+        }
+
+        // give conditional marker & gatekeep buttons that does not meet the given condition(s)
+        if (_conditionalMarker) {
+            newStoryEventButton.disabled = true;
+            newStoryEventButton.dataset.conditionalMarker = _conditionalMarker;
+
+            // revert the gatekept button if condition is met
+            switch (_conditionalMarker) {
+                case 'has-ladder':
+                    if (getRoom4HasLadder()) {
+                        newStoryEventButton.removeAttribute('disabled');
+                    }
+                    break;
+                case 'need-cliff-artifact':
+                    if (getRoom4HasCliffArtifact()) {
+                        newStoryEventButton.removeAttribute('disabled');
+                    }
+                    break;
+                case 'need-ravine-artifact':
+                    if (getRoom4HasRavineArtifact()) {
+                        newStoryEventButton.removeAttribute('disabled');
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         newStoryEventButton.innerText = room4StoryEventButtons[i].label!;

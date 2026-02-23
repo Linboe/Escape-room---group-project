@@ -1,7 +1,6 @@
 export type ButtonEvent = {
     label?: string;
     buttonMarker?: string;
-    conditional?: boolean;
     conditionalMarker?: string;
 };
 

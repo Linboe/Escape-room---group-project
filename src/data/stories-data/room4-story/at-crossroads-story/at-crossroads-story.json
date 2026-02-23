@@ -1,0 +1,33 @@
+[
+    {
+        "textEvent": "You walk deeper..."
+    },
+    {
+        "textEvent": "To your left, you notice a ravine, and something peculiar on the other side.\nIn front of you, there's a strange monument.\nTo your right, there's a cliff. What's on top of the cliff? ",
+        "eventMarker": "walk-deeper",
+        "buttonEvents": [
+            {
+                "label": "Approach the ravine",
+                "buttonMarker": "approach-ravine"
+            },
+            {
+                "label": "Approach the monument",
+                "buttonMarker": "approach-central-monument"
+            },
+            {
+                "label": "Approach the cliff",
+                "buttonMarker": "approach-cliff"
+            },
+            {
+                "label": "use the cliff artifact's buoyancy",
+                "buttonMarker": "use-cliff-artifact",
+                "conditionalMarker": "need-cliff-artifact"
+            },
+            {
+                "label": "use the ravine artifact's buoyancy",
+                "buttonMarker": "use-ravine-artifact",
+                "conditionalMarker": "need-ravine-artifact"
+            }
+        ]
+    }
+]

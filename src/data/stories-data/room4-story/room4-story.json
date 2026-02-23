@@ -1,23 +1,17 @@
 [
     {
-        "textEvent": "The sky shift more distorted as you step deeper into the woods. Not unusual at this point, you say to yourself. But why is the air so thick?"
+        "textEvent": "The sky shift more distorted as you step deeper into the woods. Not unusual at this point, you say to yourself. But why is the air so thick?\nThe sky above seem to be unusually close. Did the sky always have a border? And why is the border so warped?"
     },
     {
-        "textEvent": "Eventually, you notice the sky above you seem to be unusually close. Did the sky always have a border? And why is the border so warped?"
-    },
-    {
-        "textEvent": "No, that's not the sky, that's the water's surface. You realize the air, or rather the oxygen level is getting thicker and thicker for every second."
-    },
-    {
-        "textEvent": "You try to swim to the surface, but your strokes act as if you were on land. You can still breathe though, but not for much longer. You have to find your way out before choking underwater."
+        "textEvent": "No, that's not the sky, that's the water's surface. Despite being underwater, you can still breathe, but not for long, you can feel the air, or rather the oxygen level getting thicker.\nYou have to find your way out before choking underwater."
     },
     {
         "textEvent": "The air is getting thicker, what will you do?",
         "eventMarker": "enter-silent-tide",
         "buttonEvents": [
             {
-                "label": "Attempt stroke towards the surface",
-                "buttonMarker": "attempt-stroke"
+                "label": "Attempt to swim towards the surface",
+                "buttonMarker": "attempt-swim"
             },
             {
                 "label": "Climb the nearest best tree",
@@ -25,7 +19,7 @@
             },
             {
                 "label": "Walk deeper",
-                "buttonMarker": "walk-deeper"
+                "buttonMarker": "go-to-crossroads"
             }
         ]
     }
