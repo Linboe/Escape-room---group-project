@@ -46,6 +46,31 @@ const cheatButtons = {
     console.log('Showing game over scene');
   }),
 
+  /*cheatRenderRoom1: createCheatButton(
+        'render room 1',
+        () => renderGameSessionScene(1)
+    ),
+    cheatRenderRoom2: createCheatButton(
+        'render room 2',
+        () => renderGameSessionScene(2)
+    ),
+    cheatRenderRoom3: createCheatButton(
+        'render room 3',
+        () => renderGameSessionScene(3)
+    ),
+    cheatRenderRoom4: createCheatButton(
+        'render room 4',
+        () => renderGameSessionScene(4)
+    ),
+    cheatRenderRoom5: createCheatButton(
+        'render room 5',
+        () => renderGameSessionScene(5)
+    ),
+    cheatRenderRoom6: createCheatButton(
+        'render room 6',
+        () => renderGameSessionScene(6)
+    ),*/
+
     cheatCheckMySessionString: createCheatButton('check my session string', logMySessionStringState),
     cheatSetMySessionStringToFoo: createCheatButton('set my session string to Foo', setSessionStringToFoo),
     cheatSetMySessionStringToBar: createCheatButton('set my session string to Bar', setSessionStringToBar),
@@ -79,6 +104,26 @@ function toggleCheatCodeButtons() {
     if (!cheatCodesWrapper) return;
     if (showCheatCodes) {
         cheatCodesWrapper.append(
+
+             // ======================
+        // DEV – ROOMS
+        // ======================
+            /*cheatButtons.cheatRenderRoom1,
+            cheatButtons.cheatRenderRoom2,
+            cheatButtons.cheatRenderRoom3,
+            cheatButtons.cheatRenderRoom4,
+            cheatButtons.cheatRenderRoom5,
+            cheatButtons.cheatRenderRoom6,
+
+            // ======================
+            // DEV – ROOMS
+            // ======================
+            cheatButtons.cheatRenderRoom1,
+            cheatButtons.cheatRenderRoom2,
+            cheatButtons.cheatRenderRoom3,
+            cheatButtons.cheatRenderRoom4,
+            cheatButtons.cheatRenderRoom5,
+            cheatButtons.cheatRenderRoom6,*/
             // ==================================================
             // Append cheat buttons here, disable to hide from UI
             // ==================================================
