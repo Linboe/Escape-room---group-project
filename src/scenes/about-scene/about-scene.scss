@@ -1,0 +1,43 @@
+.about-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.about-container h2 {
+  margin: 0 0 8px 0;
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.about-container h3 {
+  margin: 16px 0 4px 0;
+  font-size: 1.1rem;
+}
+
+.about-container p,
+.about-container li {
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.about-container ul {
+  padding-left: 18px;
+  margin: 8px 0;
+}
+
+.about-container section {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#backToMenuBtn {
+  margin-top: 24px;
+  align-self: flex-start;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}

@@ -1,4 +1,6 @@
 import './game-over-scene.scss';
+//import { state } from '../../state/gamestate';
+//import { render } from '../../main';
 
 console.log('connected game over scene');
 
