@@ -33,17 +33,17 @@ const cheatButtons = {
     cheatButton2: createCheatButton('cheat test 2', specialCheatCode2),
 
     cheatRenderSignInScene: createCheatButton('render sign in scene', () => {
-        state.screen = "login";
+        state.screen = 'login';
         render();
     }),
 
     cheatRenderMainMenuScene: createCheatButton('render main menu scene', () => {
-        state.screen = "menu";
+        state.screen = 'menu';
         render();
     }),
 
     cheatRenderAboutScene: createCheatButton('render about scene', () => {
-        state.screen = "about";
+        state.screen = 'about';
         render();
     }),
 
