@@ -1,4 +1,5 @@
-import { renderMainMenuScene } from '../main-menu-scene/main-menu-scene';
+import { state } from '../../state/gamestate';
+import { render } from '../../main';
 import './about-scene.scss';
 
 console.log('connected about scene');
@@ -57,7 +58,7 @@ export function renderAboutScene() {
     creditTitle.textContent = 'Credits';
 
     const devText = document.createElement('p');
-    devText.textContent = 'Created by: Alma Isaksson, Alda Catovic, Isabelle Theres Elisabeth Reynolds , Kimi Leminaho, Linn Boekhout and Rasmus Andreas Fransson'; 
+    devText.textContent = 'Created by: Alma Isaksson, Alda Catovic, Isabelle Reynolds , Kimi Leminaho, Linn Boekhout and Rasmus Andreas Fransson'; 
 
     const photoCredits = document.createElement('p');
     photoCredits.innerHTML = '<em>Images: Sources will be added.</em>'; //TODO: Lägg till mer info om bilderna, t.ex. länkar eller specifika användare, fråga gruppen
@@ -70,7 +71,8 @@ export function renderAboutScene() {
     backBtn.textContent = 'Back to main menu';
     backBtn.addEventListener('click', () => {
         console.log('Back to main menu clicked');
-        renderMainMenuScene(); 
+        state.screen = "menu";
+        render();
     });
 
     // Lägg till alla sektioner i containern och sedan i wrapper

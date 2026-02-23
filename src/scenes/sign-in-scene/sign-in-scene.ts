@@ -1,55 +1,48 @@
-import { renderMainMenuScene } from '../main-menu-scene/main-menu-scene';
 import './sign-in-scene.scss';
+import { state } from '../../state/gamestate';
 
 console.log('connected sign in scene');
 
-const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement | null;
+export function renderSignInScene(
+  sceneWrapper: HTMLDivElement | null,
+  render: () => void
+) {
 
-export function renderSignInScene() {
   if (!sceneWrapper) return;
 
-  sceneWrapper.innerHTML = ``; // reset
-
   sceneWrapper.innerHTML = `<h2>Sign in scene</h2>
-   <fieldset>
-    <legend> Log in:</legend>
-    <label> 
-        <span>Username: </span>
-        <input type="text" placeholder="Username" required></input>
+      <h2>Sign in</h2>
+      <div class="sign-in-wrapper">
+        <p> Insert your nickname and start the game to set a new highscore / solve the puzzle</p>
+        <input id="usernameInput" placeholder="Username"/>
         <span id="errorSpan" class="hidden error-span">
           <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="white" aria-hidden="true"><path d="M505.5-298.29q10.5-10.29 10.5-25.5t-10.29-25.71q-10.29-10.5-25.5-10.5t-25.71 10.29q-10.5 10.29-10.5 25.5t10.29 25.71q10.29 10.5 25.5 10.5t25.71-10.29ZM444-432h72v-240h-72v240Zm36.28 336Q401-96 331-126t-122.5-82.5Q156-261 126-330.96t-30-149.5Q96-560 126-629.5q30-69.5 82.5-122T330.96-834q69.96-30 149.5-30t149.04 30q69.5 30 122 82.5T834-629.28q30 69.73 30 149Q864-401 834-331t-82.5 122.5Q699-156 629.28-126q-69.73 30-149 30Zm-.28-72q130 0 221-91t91-221q0-130-91-221t-221-91q-130 0-221 91t-91 221q0 130 91 221t221 91Zm0-312Z"/></svg>
           Please choose an username
         </span>
-    </label>
-    <button type="submit" id="signIn">Log in</button>
-   </fieldset>`;
+        <button id="signInBtn">Start Game</button>
+      </div>
+      `;
 
   // --------------- DOM ELEMENTS ----------------
   // ----------------------------------------------
 
-  const signInBtn: HTMLButtonElement | null = document.querySelector('#signIn');
+  const usernameInput: HTMLInputElement | null = document.querySelector('#usernameInput');
+  const signInBtn: HTMLButtonElement | null = document.querySelector('#signInBtn');
   const errorSpan: HTMLElement | null = document.querySelector('#errorSpan');
-
-  // ------------- EVENT LISTENERS ---------------
-  // ----------------------------------------------
-
-  signInBtn?.addEventListener('click', handleSignIn);
 
   // ------ EVENT HANDLERS & FUNCTIONS ---------
   // ----------------------------------------------
 
-  function handleSignIn(event: Event) {
-    event.preventDefault();
 
-    const usernameInput: HTMLInputElement | null = document.querySelector('input');
+  signInBtn?.addEventListener('click', () => {
 
     if (usernameInput && usernameInput.value.trim() !== "") {
       errorSpan?.classList.add('hidden');
-      console.log(usernameInput.value); // saveUsername(usernameInput.value); för att spara i localStorage
-
-      renderMainMenuScene();
+      state.username = usernameInput.value.trim();
+      state.screen = "menu";
+      render();
     } else {
       errorSpan?.classList.remove('hidden');
     }
-  }
-}
+  })
+};
