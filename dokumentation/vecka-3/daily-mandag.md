@@ -1,6 +1,6 @@
 Dagens scrum master: Linn Boekhout.
 
-![bild](backlog-23-2-26.png)
+![bild](./backlog-23-2-26.png)
 
 Alda Catovic (inte här men uppdaterat oss via teams i förväg med info om nedan)
 Vad gjorde jag i fredags?
