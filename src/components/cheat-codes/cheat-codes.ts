@@ -10,9 +10,16 @@ import { saveMyStringState } from '../../store/database/local-storage-database';
 import { changeMySessionStringState, logMySessionStringState, logSessionBooleanState, toggleMySessionBooleanState } from '../../store/session/session-memory';
 import { renderStatusBar } from '../status-bar/status-bar';
 import './cheat-code-styles.scss';
-import {createCheatButton} from './cheat-codes-helper';
+import { createCheatButton } from './cheat-codes-helper';
 import { state } from '../../state/gamestate';
 import { render } from '../../main';
+import { renderNextRoom } from '../../main';
+import { room1 } from '../../rooms/room1/room1';
+import { room2 } from '../../rooms/room2/room2';
+import { room3 } from '../../rooms/room3/room3';
+import { room4 } from '../../rooms/room4/room4';
+import { room5 } from '../../rooms/room5/room5';
+import { room6 } from '../../rooms/room6/room6';
 
 let showCheatCodes: boolean = false;
 const showCheatCodesButton = document.getElementById('showCheatCodesButton') as HTMLButtonElement | null;
@@ -26,50 +33,50 @@ const cheatButtons = {
     cheatButton2: createCheatButton('cheat test 2', specialCheatCode2),
 
     cheatRenderSignInScene: createCheatButton('render sign in scene', () => {
-    state.screen = "login";
-    render();
-  }),
+        state.screen = "login";
+        render();
+    }),
 
     cheatRenderMainMenuScene: createCheatButton('render main menu scene', () => {
-    state.screen = "menu";
-    render();
-  }),
+        state.screen = "menu";
+        render();
+    }),
 
     cheatRenderAboutScene: createCheatButton('render about scene', () => {
-    state.screen = "about";
-    render();
-  }),
-    
-    cheatRenderGameOverScene: createCheatButton('render game over scene', () => {
-    //state.screen = "gameover";
-    //render();
-    console.log('Showing game over scene');
-  }),
+        state.screen = "about";
+        render();
+    }),
 
-  /*cheatRenderRoom1: createCheatButton(
+    cheatRenderGameOverScene: createCheatButton('render game over scene', () => {
+        //state.screen = "gameover";
+        //render();
+        console.log('Showing game over scene');
+    }),
+
+    cheatRenderRoom1: createCheatButton(
         'render room 1',
-        () => renderGameSessionScene(1)
+        () => room1(document.querySelector('#sceneWrapper'), renderNextRoom)
     ),
     cheatRenderRoom2: createCheatButton(
         'render room 2',
-        () => renderGameSessionScene(2)
+        () => room2(document.querySelector('#sceneWrapper'), renderNextRoom)
     ),
     cheatRenderRoom3: createCheatButton(
         'render room 3',
-        () => renderGameSessionScene(3)
+        () => room3(document.querySelector('#sceneWrapper'), renderNextRoom)
     ),
     cheatRenderRoom4: createCheatButton(
         'render room 4',
-        () => renderGameSessionScene(4)
+        () => room4(document.querySelector('#sceneWrapper'), renderNextRoom)
     ),
     cheatRenderRoom5: createCheatButton(
         'render room 5',
-        () => renderGameSessionScene(5)
+        () => room5(document.querySelector('#sceneWrapper'), renderNextRoom)
     ),
     cheatRenderRoom6: createCheatButton(
         'render room 6',
-        () => renderGameSessionScene(6)
-    ),*/
+        () => room6(document.querySelector('#sceneWrapper'), renderNextRoom)
+    ),
 
     cheatCheckMySessionString: createCheatButton('check my session string', logMySessionStringState),
     cheatSetMySessionStringToFoo: createCheatButton('set my session string to Foo', setSessionStringToFoo),
@@ -105,10 +112,10 @@ function toggleCheatCodeButtons() {
     if (showCheatCodes) {
         cheatCodesWrapper.append(
 
-             // ======================
-        // DEV – ROOMS
-        // ======================
-            /*cheatButtons.cheatRenderRoom1,
+            // ======================
+            // DEV – ROOMS
+            // ======================
+            cheatButtons.cheatRenderRoom1,
             cheatButtons.cheatRenderRoom2,
             cheatButtons.cheatRenderRoom3,
             cheatButtons.cheatRenderRoom4,
@@ -123,7 +130,7 @@ function toggleCheatCodeButtons() {
             cheatButtons.cheatRenderRoom3,
             cheatButtons.cheatRenderRoom4,
             cheatButtons.cheatRenderRoom5,
-            cheatButtons.cheatRenderRoom6,*/
+            cheatButtons.cheatRenderRoom6,
             // ==================================================
             // Append cheat buttons here, disable to hide from UI
             // ==================================================
