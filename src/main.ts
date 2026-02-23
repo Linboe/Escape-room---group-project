@@ -5,12 +5,12 @@ import { renderSignInScene } from './scenes/sign-in-scene/sign-in-scene';
 import { renderMainMenuScene } from './scenes/main-menu-scene/main-menu-scene';
 import { renderGameOverScene } from './scenes/game-over-scene/game-over-scene';
 
-import { room1 } from './rooms/room1';
-import { room2 } from './rooms/room2';
-import { room3 } from './rooms/room3';
-import { room4 } from './rooms/room4';
-import { room5 } from './rooms/room5';
-import { room6 } from './rooms/room6';
+import { room1 } from './rooms/room1/room1';
+import { room2 } from './rooms/room2/room2';
+import { room3 } from './rooms/room3/room3';
+import { room4 } from './rooms/room4/room4';
+import { room5 } from './rooms/room5/room5';
+import { room6 } from './rooms/room6/room6';
 import { renderAboutScene } from './scenes/about-scene/about-scene';
 
 // please check the document in this link:

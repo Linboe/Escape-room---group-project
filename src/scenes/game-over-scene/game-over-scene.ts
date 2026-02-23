@@ -1,6 +1,6 @@
 import './game-over-scene.scss';
-//import { state } from '../../state/gamestate';
-//import { render } from '../../main';
+import { state } from '../../state/gamestate';
+import { render } from '../../main';
 
 console.log('connected game over scene');
 
@@ -33,8 +33,9 @@ export function renderGameOverScene(score: number = 0) {
     const mainMenuButton = document.createElement('button');
     mainMenuButton.textContent = 'Main Menu';
     mainMenuButton.addEventListener('click', () => {
-        // Logic to navigate back to the main menu
-        console.log('Main Menu button clicked');
+        if (state.screen === "gameover")
+        state.screen = "menu"; 
+        render();
     });
 
     const loggOutButton = document.createElement('button');
@@ -42,6 +43,9 @@ export function renderGameOverScene(score: number = 0) {
     loggOutButton.addEventListener('click', () => {
         // Logic to log out the user
         console.log('Log Out button clicked');
+         if (state.screen === "gameover")
+        state.screen = "login"; 
+        render();
     });
 
     container.appendChild(retryButton);
