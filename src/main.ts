@@ -1,5 +1,5 @@
 import './components/cheat-codes/cheat-codes';
-import './styles/style.scss'
+import './styles/style.scss';
 import { state } from './state/gamestate';
 import { renderSignInScene } from './scenes/sign-in-scene/sign-in-scene';
 import { renderMainMenuScene } from './scenes/main-menu-scene/main-menu-scene';
