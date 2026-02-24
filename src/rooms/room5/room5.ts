@@ -2,10 +2,14 @@ import './room5.scss';
 import cardsData from '../../data/cardsData.json';
 
 /** Memory
- * 12 kort i JSON (cards.json med id, bild)
- * shuffle-funktion
- * state: vilka kort som är vända, matchade, antal försök/tid
- * rendera korten
+ * x kort i JSON (cards.json med id, bild)
+ * x shuffle-funktion
+ * x state: vilka kort som är vända, matchade, antal försök/tid
+ * x rendera korten
+ * x bild fram och baksida
+ *   animation när rätt match
+ *   animation när alla rätt - få artefakten
+ *   skriva storyn - sammanfoga med Almas idé
  */
 
 // ---------------------------------------------------------------
@@ -14,10 +18,14 @@ import cardsData from '../../data/cardsData.json';
 type Card = {
   id: number;
   pairId: number;
-  value: string;
+  value: string; //URL till bild
   isFlipped: boolean;
   isMatched: boolean;
 };
+
+// State
+let selectedCards: Card[] = [];
+let cards: Card[] = []; // Globalt för renderCards
 
 // ---------------------------------------------------------------
 // ------------- Function returning array of cards  --------------
@@ -38,29 +46,83 @@ function shuffleCards(cards: Card[]): Card[] {
   return cards.sort(() => Math.random() - 0.5); // math.random ger slumpmässigt tal mellan 0 och 1. minus 0.5 --> negativt=byt ej plats el positivit=byt plats
 }
 
+// Vänd kort
+function flipCard(card: Card): void {
+  if (card.isFlipped || card.isMatched) return;
+  if (selectedCards.length === 2) return;
+
+  card.isFlipped = true;
+  selectedCards.push(card);
+  renderCards(cards);
+
+  if (selectedCards.length === 2) {
+    checkMatch();
+  }
+}
+
+// Kolla match
+function checkMatch(): void {
+  const [first, second] = selectedCards;
+  if (!first || !second) return;
+
+  if (first.pairId === second.pairId) {
+    // Match!
+    first.isMatched = true;
+    second.isMatched = true;
+    selectedCards = [];
+    renderCards(cards); // visa framsida på matchade kort
+  } else {
+    setTimeout(() => {
+      first.isFlipped = false;
+      second.isFlipped = false;
+      selectedCards = [];
+      renderCards(cards); // vänd tillbaka baksida
+    }, 1000);
+  }
+}
+
 // ---------------------------------------------------------------
 // ------------------------ Render cards  ------------------------
 // ---------------------------------------------------------------
-
 function renderCards(cards: Card[]): void {
   const board = document.getElementById('board') as HTMLDivElement;
-  board.innerHTML = cards
-    .map((card) => `<div class="card" data-id="${card.id}">?</div>`)
-    .join('');
+  const cardBack =
+    '/fed25d-js-intro-grupparbete-the-dopefish-admirers/img/cardBack2.jpg'; // bas-path för baksidan
+
+  // Skapa korten EN gång
+  if (board.childElementCount === 0) {
+    board.innerHTML = cards
+      .map(
+        (card) => `<div class="card" data-id="${card.id}">
+         <img src="${cardBack}" class="cardImage" />
+        </div>`,
+      )
+      .join('');
+
+    // Lägg på click-event en gång
+    const cardElements = board.querySelectorAll('.card');
+    cardElements.forEach((el) => {
+      const id = Number((el as HTMLElement).dataset.id);
+      const card = cards.find((c) => c.id === id);
+      if (card) {
+        el.addEventListener('click', () => flipCard(card));
+      }
+    });
+  }
+
+  // Uppdatera bilder baserat på state
+  cards.forEach((card) => {
+    const img = board.querySelector(
+      `.card[data-id="${card.id}"] img`,
+    ) as HTMLImageElement;
+    if (img) {
+      img.src = img.src =
+        card.isFlipped || card.isMatched ? card.value : cardBack;
+    }
+  });
 }
 // -------------------------- Inner-HMTL -------------------------
 // ---------------------------------------------------------------
-
-export function renderRoom5Scene() {
-  const sceneWrapper = document.getElementById('sceneWrapper');
-  if (!sceneWrapper) return;
-
-  sceneWrapper.innerHTML = `
-    <section class="room room-5">
-      <h1>Room 5</h1>
-    </section>
-  `;
-}
 
 export function room5(sceneWrapper: HTMLDivElement | null, next: () => void) {
   if (!sceneWrapper) return;
@@ -78,67 +140,8 @@ export function room5(sceneWrapper: HTMLDivElement | null, next: () => void) {
   `;
 
   // Rendera memory-korten
-  const cards = shuffleCards(initCards());
+  cards = shuffleCards(initCards());
   renderCards(cards);
-
-  // State
-  let selectedCards: Card[] = [];
-
-  // Kolla match
-  function checkMatch(): void {
-    const [first, second] = selectedCards;
-
-    if (first.pairId === second.pairId) {
-      // Match!
-      first.isMatched = true;
-      second.isMatched = true;
-      selectedCards = [];
-    } else {
-      // Ingen match — vänd tillbaka efter delay
-      setTimeout(() => {
-        first.isFlipped = false;
-        second.isFlipped = false;
-
-        document.querySelectorAll('.card').forEach((el) => {
-          const id = Number((el as HTMLElement).dataset.id);
-          if (id === first.id || id === second.id) {
-            el.textContent = '?';
-          }
-        });
-
-        selectedCards = [];
-      }, 1000);
-    }
-  }
-
-  // Vänd kort
-  function flipCard(card: Card, element: HTMLElement): void {
-    if (card.isFlipped || card.isMatched) return;
-    if (selectedCards.length === 2) return;
-
-    card.isFlipped = true;
-    element.textContent = card.value;
-    selectedCards.push(card);
-
-    if (selectedCards.length === 2) {
-      checkMatch();
-    }
-  }
-
-  // Event listeners på korten
-  function addCardListeners(cards: Card[]): void {
-    const cardElements = document.querySelectorAll('.card');
-    cardElements.forEach((element) => {
-      element.addEventListener('click', () => {
-        const id = Number((element as HTMLElement).dataset.id);
-        const card = cards.find((c) => c.id === id);
-        if (!card) return;
-        flipCard(card, element as HTMLElement);
-      });
-    });
-  }
-
-  addCardListeners(cards);
 
   // Knapp-logik
   const buttons = document.querySelectorAll('.option');
