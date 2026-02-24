@@ -1,0 +1,16 @@
+[
+    {
+        "textEvent": "(Ravine Monument Minigame/ puzzle)",
+        "eventMarker": "inspect-ravine-monument",
+        "buttonEvents": [
+            {
+                "label": "Win minigame",
+                "buttonMarker": "win"
+            },
+            {
+                "label": "Lose minigame",
+                "buttonMarker": "lose"
+            }
+        ]
+    }
+]

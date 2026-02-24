@@ -6,11 +6,17 @@
 //import { renderGameSessionScene } from '../../scenes/game-session-scene/game-session-scene';
 //import { renderMainMenuScene } from '../../scenes/main-menu-scene/main-menu-scene';
 //import { renderSignInScene } from '../../scenes/sign-in-scene/sign-in-scene';
+//import { renderHighScore } from '../high-score/high-score';
 import { saveMyStringState } from '../../store/database/local-storage-database';
-import { changeMySessionStringState, logMySessionStringState, logSessionBooleanState, toggleMySessionBooleanState } from '../../store/session/session-memory';
+import {
+    changeMySessionStringState,
+    logMySessionStringState,
+    logSessionBooleanState,
+    toggleMySessionBooleanState,
+} from '../../store/session/session-memory';
 import { renderStatusBar } from '../status-bar/status-bar';
 import './cheat-code-styles.scss';
-import { createCheatButton } from './cheat-codes-helper';
+import {  createCheatButton  } from './cheat-codes-helper';
 import { state } from '../../state/gamestate';
 import { render } from '../../main';
 import { renderNextRoom } from '../../main';
@@ -22,8 +28,12 @@ import { room5 } from '../../rooms/room5/room5';
 import { room6 } from '../../rooms/room6/room6';
 
 let showCheatCodes: boolean = false;
-const showCheatCodesButton = document.getElementById('showCheatCodesButton') as HTMLButtonElement | null;
-const cheatCodesWrapper = document.getElementById('cheatCodesWrapper') as HTMLDivElement | null;
+const showCheatCodesButton = document.getElementById(
+    'showCheatCodesButton',
+) as HTMLButtonElement | null;
+const cheatCodesWrapper = document.getElementById(
+    'cheatCodesWrapper',
+) as HTMLDivElement | null;
 
 // ===================================
 // Create and store cheat buttons here
@@ -33,17 +43,17 @@ const cheatButtons = {
     cheatButton2: createCheatButton('cheat test 2', specialCheatCode2),
 
     cheatRenderSignInScene: createCheatButton('render sign in scene', () => {
-        state.screen = "login";
+        state.screen = 'login';
         render();
     }),
 
     cheatRenderMainMenuScene: createCheatButton('render main menu scene', () => {
-        state.screen = "menu";
+        state.screen = 'menu';
         render();
     }),
 
     cheatRenderAboutScene: createCheatButton('render about scene', () => {
-        state.screen = "about";
+        state.screen = 'about';
         render();
     }),
 
