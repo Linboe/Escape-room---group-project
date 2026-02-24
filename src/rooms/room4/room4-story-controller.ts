@@ -1,0 +1,372 @@
+import type { ButtonEvent, ScriptEvent } from './models';
+import { reRenderRoom4 } from './room4';
+import { renderGameOverScene } from '../../scenes/game-over-scene/game-over-scene';
+
+// enter silent tide stories
+import room4Story from '../../data/stories-data/room4-story/room4-story.json';
+import attemptSwimStory from '../../data/stories-data/room4-story/attempt-swim.json';
+import climbTreeStory from '../../data/stories-data/room4-story/climb-tree.json';
+
+// crossroads stories
+import atCrossroadsStory from '../../data/stories-data/room4-story/at-crossroads-story/at-crossroads.json';
+import escapeStory from '../../data/stories-data/room4-story/at-crossroads-story/escape.json';
+
+// crossroads monument stories
+import atCrossroadsMonumentStory from '../../data/stories-data/room4-story/at-crossroads-story/at-crossroads-monument-story/at-crossroads-monument.json';
+import inspectCrossroadsMonumentStory from '../../data/stories-data/room4-story/at-crossroads-story/at-crossroads-monument-story/inspect-crossroads-monument-story/inspect-crossroads-monument.json';
+import crossroadsMonumentWinStory from '../../data/stories-data/room4-story/at-crossroads-story/at-crossroads-monument-story/inspect-crossroads-monument-story/crossroads-monument-win.json';
+import crossroadsMonumentLoseStory from '../../data/stories-data/room4-story/at-crossroads-story/at-crossroads-monument-story/inspect-crossroads-monument-story/crossroads-monument-lose.json';
+
+// ravine stories
+import atRavineStory from '../../data/stories-data/room4-story/at-crossroads-story/at-ravine-story/at-ravine.json';
+import ravineJumpStory from '../../data/stories-data/room4-story/at-crossroads-story/at-ravine-story/ravine-jump.json';
+import ravineLadderStory from '../../data/stories-data/room4-story/at-crossroads-story/at-ravine-story/ravine-ladder.json';
+import inspectRavineMonumentStory from '../../data/stories-data/room4-story/at-crossroads-story/at-ravine-story/inspect-ravine-monument-story/inspect-ravine-monument.json';
+import ravineMonumentWinStory from '../../data/stories-data/room4-story/at-crossroads-story/at-ravine-story/inspect-ravine-monument-story/ravine-monument-win.json';
+import ravineMonumentLoseStory from '../../data/stories-data/room4-story/at-crossroads-story/at-ravine-story/inspect-ravine-monument-story/ravine-monument-lose.json';
+
+// cliff stories
+import atCliffStory from '../../data/stories-data/room4-story/at-crossroads-story/at-cliff-story/at-cliff.json';
+import cliffLadderStory from '../../data/stories-data/room4-story/at-crossroads-story/at-cliff-story/cliff-ladder.json';
+import inspectCliffMonumentStory from '../../data/stories-data/room4-story/at-crossroads-story/at-cliff-story/inspect-cliff-monument-story/inspect-cliff-monument.json';
+import cliffMonumentWinStory from '../../data/stories-data/room4-story/at-crossroads-story/at-cliff-story/inspect-cliff-monument-story/cliff-monument-win.json';
+import cliffMonumentLoseStory from '../../data/stories-data/room4-story/at-crossroads-story/at-cliff-story/inspect-cliff-monument-story/cliff-monument-lose.json';
+
+let room4StoryToUse: ScriptEvent[] = room4Story;
+let room4StoryIndex: number = 0;
+let room4TitleText: string = 'The silent tide';
+let room4TextEvent: string = '';
+let room4EventMarker: string = '';
+let room4StoryEventButtons: ButtonEvent[] = [];
+let room4HasLadder: boolean = false; // consider moving to store directory
+let room4HasCliffArtifact: boolean = false; // consider moving to store directory
+let room4HasRavineArtifact: boolean = false; // consider moving to store directory
+let room4CrossroadsMonumentIsBeaten: boolean = false; // consider moving to store directory
+let room4RavineMonumentIsBeaten: boolean = false; // consider moving to store directory
+let room4CliffMonumentIsBeaten: boolean = false; // consider moving to store directory
+
+export const getRoom4TitleText = () => room4TitleText;
+export const getRoom4TextEvent = () => room4TextEvent;
+export const getRoom4EventMarker = () => room4EventMarker;
+export const getRoom4StoryEventButtons = () => room4StoryEventButtons;
+export const getRoom4HasLadder = () => room4HasLadder; // consider moving to store directory
+export const getRoom4HasCliffArtifact = () => room4HasCliffArtifact; // consider moving to store directory
+export const getRoom4HasRavineArtifact = () => room4HasRavineArtifact; // consider moving to store directory
+export const getRoom4CrossroadsMonumentIsBeaten = () => room4CrossroadsMonumentIsBeaten; // consider moving to store directory
+export const getRoom4RavineMonumentIsBeaten = () => room4RavineMonumentIsBeaten; // consider moving to store directory
+export const getRoom4CliffMonumentIsBeaten = () => room4CliffMonumentIsBeaten; // consider moving to store directory
+
+function refreshRoom4UI(storyIndex: number = 0, newTitleText?: string) {
+    room4StoryIndex = storyIndex;
+    if (newTitleText) {
+        room4TitleText = newTitleText;
+    }
+    updateRoom4StoryController();
+    reRenderRoom4();
+}
+
+function resetRoom4() {
+    room4StoryToUse = room4Story;
+    room4StoryIndex = 0;
+    room4TitleText = 'The silent tide';
+    room4TextEvent = '';
+    room4EventMarker = '';
+    room4StoryEventButtons = [];
+    room4HasLadder = false;
+    room4HasCliffArtifact = false;
+    room4HasRavineArtifact = false;
+    room4CrossroadsMonumentIsBeaten = false;
+    room4RavineMonumentIsBeaten = false;
+    room4CliffMonumentIsBeaten = false;
+    refreshRoom4UI();
+}
+
+function turnPage() {
+    room4StoryIndex++;
+    updateRoom4StoryController();
+    reRenderRoom4();
+}
+
+// Enter the silent tide specific events - consider converting to a Class
+function attemptSwim() {
+    room4StoryToUse = attemptSwimStory;
+    refreshRoom4UI();
+}
+function attemptSwimContinue() {
+    room4StoryToUse = room4Story;
+    refreshRoom4UI(2);
+}
+function climbTree() {
+    room4StoryToUse = climbTreeStory;
+    refreshRoom4UI();
+}
+function climbTreeContinue() {
+    room4StoryToUse = room4Story;
+    refreshRoom4UI(2);
+}
+function enterCrossroads() {
+    room4StoryToUse = atCrossroadsStory;
+    refreshRoom4UI(0, 'Crossroads');
+}
+
+// crossroads specific events - consider converting to a Class
+function enterCrossroadsMonument() {
+    room4StoryToUse = atCrossroadsMonumentStory;
+    refreshRoom4UI(0, 'Crossroads | Monument');
+}
+function enterRavine() {
+    room4StoryToUse = atRavineStory;
+    refreshRoom4UI(0, 'Crossroads | Ravine');
+}
+function enterCliff() {
+    room4StoryToUse = atCliffStory;
+    refreshRoom4UI(0, 'Crossroads | Cliff');
+}
+function escapeWithAnyArtifact() {
+    room4StoryToUse = escapeStory;
+    refreshRoom4UI();
+}
+
+// crossroads monument specific events - consider converting to a Class
+function inspectCrossroadsMonument() {
+    room4StoryToUse = inspectCrossroadsMonumentStory;
+    refreshRoom4UI();
+}
+function crossroadsMonumentWin() {
+    room4StoryToUse = crossroadsMonumentWinStory;
+    refreshRoom4UI();
+}
+function crossroadsMonumentLose() {
+    room4StoryToUse = crossroadsMonumentLoseStory;
+    refreshRoom4UI();
+}
+
+// ravine specific events - consider converting to a Class
+function attemptJumpAcrossRavine() {
+    room4StoryToUse = ravineJumpStory;
+    refreshRoom4UI();
+}
+function useLadderAsBridge() {
+    room4StoryToUse = ravineLadderStory;
+    refreshRoom4UI(0, 'Crossroads | Ravine | Monument');
+}
+function atRavineMonument() {
+    room4StoryToUse = ravineLadderStory;
+    refreshRoom4UI(1);
+}
+function inspectRavineMonument() {
+    room4StoryToUse = inspectRavineMonumentStory;
+    refreshRoom4UI();
+}
+function ravineMonumentWin() {
+    room4StoryToUse = ravineMonumentWinStory;
+    refreshRoom4UI();
+}
+function ravineMonumentLose() {
+    room4StoryToUse = ravineMonumentLoseStory;
+    refreshRoom4UI();
+}
+
+// cliff specific events - consider converting to a Class
+function ladderToClimbCliff() {
+    room4StoryToUse = cliffLadderStory;
+    refreshRoom4UI(0, 'Crossroads | Cliff | Monument');
+}
+function atCliffMonument() {
+    room4StoryToUse = cliffLadderStory;
+    refreshRoom4UI(2);
+}
+function inspectCliffMonument() {
+    room4StoryToUse = inspectCliffMonumentStory;
+    refreshRoom4UI();
+}
+function cliffMonumentLose() {
+    room4StoryToUse = cliffMonumentLoseStory;
+    refreshRoom4UI();
+}
+function cliffMonumentWin() {
+    room4StoryToUse = cliffMonumentWinStory;
+    refreshRoom4UI();
+}
+
+// escape the silent tide
+function escapeTheSilentTide() {
+    console.log('Escaped the silent tide');
+    const escapeRoom4Button = document.getElementById('escapeRoom4Button');
+    if (!escapeRoom4Button) return;
+    escapeRoom4Button.removeAttribute('disabled');
+}
+
+// multi-use events - consider converting to a Class
+function returnToCrossroads() {
+    room4StoryToUse = atCrossroadsStory;
+    refreshRoom4UI(1, 'Crossroads');
+}
+
+export function handleRoom4ClickStoryEventButton(event: Event) {
+    const clickedStoryEventButton = event.currentTarget as HTMLElement;
+    const _functionMarker = clickedStoryEventButton.dataset.functionMarker;
+
+    switch(_functionMarker) {
+        // no event next
+        case 'no-event-next':
+            turnPage();
+            return;
+
+        // enter the silent tide events
+        case 'enter-silent-tide-attempt-swim':
+            attemptSwim();
+            return;
+        case 'cannot-swim-towards-surface-continue':
+            attemptSwimContinue();
+            return;
+        case 'enter-silent-tide-climb-tree':
+            climbTree();
+            return;
+        case 'cannot-climb-tree-continue':
+            climbTreeContinue();
+            return;
+        case 'enter-silent-tide-go-to-crossroads':
+            enterCrossroads();
+            return;
+
+        // crossroad events
+        case 'at-crossroads-approach-ravine':
+            enterRavine();
+            return;
+        case 'at-crossroads-approach-crossroads-monument':
+            enterCrossroadsMonument();
+            return;
+        case 'at-crossroads-approach-cliff':
+            enterCliff();
+            return;
+        case 'at-crossroads-use-cliff-artifact':
+            escapeWithAnyArtifact();
+            return;
+        case 'at-crossroads-use-ravine-artifact':
+            escapeWithAnyArtifact();
+            return;
+
+        // crossroad monument events
+        case 'crossroads-monument-turn-around':
+            returnToCrossroads();
+            return;
+        case 'crossroads-monument-inspect-tablet':
+            inspectCrossroadsMonument();
+            return;
+        case 'inspect-crossroads-monument-win':
+            crossroadsMonumentWin();
+            return;
+        case 'inspect-crossroads-monument-lose':
+            crossroadsMonumentLose();
+            return;
+        case 'crossroads-monument-win-turn-back-continue':
+            room4HasLadder = true;
+            room4CrossroadsMonumentIsBeaten = true;
+            returnToCrossroads();
+            return;
+        case 'crossroads-monument-failed-try-again':
+            inspectCrossroadsMonument();
+            return;
+        case 'crossroads-monument-failed-exit':
+            enterCrossroadsMonument();
+            return;
+
+        // ravine events
+        case 'at-ravine-attempt-jump-across':
+            attemptJumpAcrossRavine();
+            return;
+        case 'at-ravine-turn-around':
+            returnToCrossroads();
+            return;
+        case 'at-ravine-use-ladder-as-bridge':
+            useLadderAsBridge();
+            return;
+        case 'ravine-trip-continue':
+            resetRoom4();
+            renderGameOverScene();
+            return;
+        case 'across-ravine-turn-around':
+            returnToCrossroads();
+            return;
+        case 'across-ravine-inspect-monument':
+            inspectRavineMonument();
+            return;
+        case 'inspect-ravine-monument-lose':
+            ravineMonumentLose();
+            return;
+        case 'ravine-monument-failed-exit':
+            atRavineMonument();
+            return;
+        case 'ravine-monument-failed-try-again':
+            inspectRavineMonument();
+            return;
+        case 'inspect-ravine-monument-win':
+            ravineMonumentWin();
+            return;
+        case 'ravine-monument-win-turn-back-continue':
+            room4HasRavineArtifact = true;
+            room4RavineMonumentIsBeaten = true;
+            returnToCrossroads();
+            return;
+
+        // cliff events
+        case 'at-cliff-turn-around':
+            returnToCrossroads();
+            return;
+        case 'at-cliff-place-ladder-on-wall':
+            ladderToClimbCliff();
+            return;
+        case 'cliff-summit-turn-around':
+            returnToCrossroads();
+            return;
+        case 'cliff-summit-inspect-monument':
+            inspectCliffMonument();
+            return;
+        case 'inspect-cliff-monument-lose':
+            cliffMonumentLose();
+            return;
+        case 'cliff-monument-failed-exit':
+            atCliffMonument();
+            return;
+        case 'cliff-monument-failed-try-again':
+            inspectCliffMonument();
+            return;
+        case 'inspect-cliff-monument-win':
+            cliffMonumentWin();
+            return;
+        case 'cliff-monument-win-turn-back-continue':
+            room4HasCliffArtifact = true;
+            room4CliffMonumentIsBeaten = true;
+            returnToCrossroads();
+            return;
+
+        // escape
+        case 'escape-continue':
+            escapeTheSilentTide();
+            return;
+
+        // default
+        default:
+            return;
+    }
+}
+
+function updateRoom4StoryController() {
+    const currentStoryObject = room4StoryToUse[room4StoryIndex];
+    room4TextEvent = currentStoryObject.textEvent!;
+    room4EventMarker = currentStoryObject.eventMarker!;
+    if (currentStoryObject.buttonEvents) { // fetch event buttons
+        room4StoryEventButtons = currentStoryObject.buttonEvents;
+    } else { // if there are not event buttons, make one that flips to the next page
+        room4StoryEventButtons = [
+            {
+                label: 'Next',
+                buttonMarker: 'no-event-next'
+            },
+        ];
+    }
+}
+
+// initialize
+updateRoom4StoryController();

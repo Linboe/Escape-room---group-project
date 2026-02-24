@@ -1,0 +1,16 @@
+[
+    {
+        "textEvent": "(Crossroads Monument Minigame/ puzzle)",
+        "eventMarker": "inspect-crossroads-monument",
+        "buttonEvents": [
+            {
+                "label": "Win minigame",
+                "buttonMarker": "win"
+            },
+            {
+                "label": "Lose minigame",
+                "buttonMarker": "lose"
+            }
+        ]
+    }
+]
