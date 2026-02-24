@@ -16,18 +16,22 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
     sceneWrapper.innerHTML = `
     <section class="room room-2">
+      <div class="room-frame">
         <div class="game-session-wrapper">
             <h2>Rum 2</h2>
 
             <div class="game-session-style">
-                <p>Välj rätt kod:</p>
-                <button class="option">1111</button>
-                <button class="option">2222</button>
-                <button class="option">3333 rätt knapp</button>
-                <button class="option">4444</button>
+                <p class="instruction-style">Välj rätt kod:</p>
+                <div class="options-wrapper">
+                  <button class="option">1111</button>
+                  <button class="option">2222</button>
+                  <button class="option">3333 rätt knapp</button>
+                  <button class="option">4444</button>
+                </div>
                 <p id="message"></p>
             </div>
         </div>
+      </div>
     </section>
     `;
 
