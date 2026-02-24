@@ -48,9 +48,15 @@ const cheatButtons = {
     }),
 
     cheatRenderGameOverScene: createCheatButton('render game over scene', () => {
-        //state.screen = "gameover";
-        //render();
+        state.screen = "gameover";
+        render();
         console.log('Showing game over scene');
+    }),
+
+    cheatRenderVictoryScene: createCheatButton('render victory scene', () => {
+        state.screen = "victory";
+        render();
+        console.log('Showing victory scene');
     }),
 
     cheatRenderRoom1: createCheatButton(
@@ -73,10 +79,19 @@ const cheatButtons = {
         'render room 5',
         () => room5(document.querySelector('#sceneWrapper'), renderNextRoom)
     ),
-    cheatRenderRoom6: createCheatButton(
+      cheatRenderRoom6: createCheatButton(
         'render room 6',
         () => room6(document.querySelector('#sceneWrapper'), renderNextRoom)
     ),
+
+    /*cheatRenderRoom6: createCheatButton( // BUGG
+        'render room 6',
+        () => {
+            state.currentRoom =5; 
+            state.screen = 'room';
+            render();
+        }
+    ),*/
 
     cheatCheckMySessionString: createCheatButton('check my session string', logMySessionStringState),
     cheatSetMySessionStringToFoo: createCheatButton('set my session string to Foo', setSessionStringToFoo),
@@ -140,6 +155,7 @@ function toggleCheatCodeButtons() {
             cheatButtons.cheatRenderMainMenuScene,
             cheatButtons.cheatRenderAboutScene,
             cheatButtons.cheatRenderGameOverScene,
+            cheatButtons.cheatRenderVictoryScene,
             cheatButtons.cheatCheckMySessionString,
             cheatButtons.cheatSetMySessionStringToFoo,
             cheatButtons.cheatSetMySessionStringToBar,

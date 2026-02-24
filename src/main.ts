@@ -57,19 +57,24 @@ export function render() {
     }
 }
 
-let currentRoom = 0;
 const allRooms = [room1, room2, room3, room4, room5, room6];
 
 export function renderNextRoom() { // TODO koppla på timers
-    if (currentRoom >= allRooms.length) {
+    console.log("renderNextRoom called. currentRoom:", state.currentRoom);
+
+    if (state.currentRoom >= allRooms.length) {
+        console.log("GOING TO VICTORY");
         state.screen = 'victory';
         render();
         return;
     }
 
-    const room = allRooms[currentRoom];
+    const room = allRooms[state.currentRoom];
+
     room(sceneWrapper, () => {
-        currentRoom++;
+        console.log("Room completed:", state.currentRoom);
+        if (state.screen === 'victory') return; 
+        state.currentRoom++;
         renderNextRoom();
     });
 }
@@ -85,6 +90,7 @@ function renderVictory() {
     const backToMenuBtn: HTMLButtonElement | null = document.querySelector('#backToMenu');
 
     backToMenuBtn?.addEventListener('click', () => {
+        state.currentRoom = 0;
         state.screen = "menu";
         render();
 
