@@ -83,12 +83,8 @@ function renderVictory() {
     const backToMenuBtn: HTMLButtonElement | null = document.querySelector('#backToMenu');
 
     backToMenuBtn?.addEventListener('click', () => {
-<<<<<<< isabelle-room2
         state.currentRoom = 0;
         state.screen = "menu";
-=======
-        state.screen = 'menu';
->>>>>>> main
         render();
 
     });
