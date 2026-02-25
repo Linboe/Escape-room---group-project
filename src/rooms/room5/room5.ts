@@ -8,7 +8,9 @@ import cardsData from '../../data/cardsData.json';
  * x rendera korten
  * x bild fram och baksida
  *   animation när rätt match
- *   animation när alla rätt - få artefakten
+ *   animation när alla rätt
+ *   animation när man får artefakten
+ *   aktivera gå vidare knapp efter man fått artefakten
  *   skriva storyn - sammanfoga med Almas idé
  */
 
@@ -43,17 +45,18 @@ function initCards(): Card[] {
 // ---------------------------------------------------------------
 
 function shuffleCards(cards: Card[]): Card[] {
+  //tar emot en array av indata-kort och retunerar en lista av kort
   return cards.sort(() => Math.random() - 0.5); // math.random ger slumpmässigt tal mellan 0 och 1. minus 0.5 --> negativt=byt ej plats el positivit=byt plats
 }
 
 // Vänd kort
 function flipCard(card: Card): void {
-  if (card.isFlipped || card.isMatched) return;
-  if (selectedCards.length === 2) return;
+  if (card.isFlipped || card.isMatched) return; //om kortet är vänt eller matchat retunera pga - så ej kan klicka på samma kort 2 ggr
+  if (selectedCards.length === 2) return; //kan vända max 2 kort i taget
 
   card.isFlipped = true;
   selectedCards.push(card);
-  renderCards(cards);
+  renderCards(cards); //visar att kortet vänds
 
   if (selectedCards.length === 2) {
     checkMatch();
@@ -62,14 +65,13 @@ function flipCard(card: Card): void {
 
 // Kolla match
 function checkMatch(): void {
-  const [first, second] = selectedCards;
+  const [first, second] = selectedCards; //plockar ut de vända korten ur arrayen
   if (!first || !second) return;
 
   if (first.pairId === second.pairId) {
-    // Match!
-    first.isMatched = true;
+    first.isMatched = true; //markeras som matchad så de EJ kan väljas igen
     second.isMatched = true;
-    selectedCards = [];
+    selectedCards = []; //tömmer listan på valda kort så anv kan välja 2 nya
     renderCards(cards); // visa framsida på matchade kort
   } else {
     setTimeout(() => {
@@ -87,23 +89,24 @@ function checkMatch(): void {
 function renderCards(cards: Card[]): void {
   const board = document.getElementById('board') as HTMLDivElement;
   const cardBack =
-    '/fed25d-js-intro-grupparbete-the-dopefish-admirers/img/cardBack2.jpg'; // bas-path för baksidan
+    '/fed25d-js-intro-grupparbete-the-dopefish-admirers/img/cardBack2.jpg'; // bild kort-baksida
 
-  // Skapa korten EN gång
   if (board.childElementCount === 0) {
+    // Skapa korten EN gång pga endast dess state/visuella ska uppdateras - om ej denna skapas alla kort om från scratch = massa problem
     board.innerHTML = cards
       .map(
         (card) => `<div class="card" data-id="${card.id}">
          <img src="${cardBack}" class="cardImage" />
         </div>`,
       )
-      .join('');
+      .join(''); //alla kort strängar till en HTML-sträng på skärmen
 
     // Lägg på click-event en gång
     const cardElements = board.querySelectorAll('.card');
     cardElements.forEach((el) => {
-      const id = Number((el as HTMLElement).dataset.id);
-      const card = cards.find((c) => c.id === id);
+      //el - enskilda kort-elementet som loopen jobbar med, el=html-kort
+      const id = Number((el as HTMLElement).dataset.id); //Hämtar kortets data-id från HTML-elementet (som sattes när korten skapades) och omvandlar det till ett nummer.
+      const card = cards.find((c) => c.id === id); //Letar upp rätt Card-objekt i arrayen som matchar det id:t. Kopplar alltså ihop HTML-elementet med sitt Card-objekt.
       if (card) {
         el.addEventListener('click', () => flipCard(card));
       }
@@ -116,8 +119,11 @@ function renderCards(cards: Card[]): void {
       `.card[data-id="${card.id}"] img`,
     ) as HTMLImageElement;
     if (img) {
-      img.src = img.src =
-        card.isFlipped || card.isMatched ? card.value : cardBack;
+      if (card.isFlipped || card.isMatched) {
+        img.src = card.value;
+      } else {
+        img.src = cardBack;
+      }
     }
   });
 }
