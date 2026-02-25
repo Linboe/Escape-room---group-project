@@ -29,6 +29,7 @@ export function checkCellElement(event: Event) {
 // =================
 // Validation helper
 // =================
+// Note: 2x3 box validation is not implemented, multiple solutions may be possible depending on the setup
 function validationCheckAllCellsAreFilled() { // serving validateTable()
     const sudokuTableState = getGameSessionSudokuTableState();
 
