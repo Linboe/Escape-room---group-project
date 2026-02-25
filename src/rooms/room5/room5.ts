@@ -23,6 +23,7 @@ type Card = {
   value: string; //URL till bild
   isFlipped: boolean;
   isMatched: boolean;
+  justMatched?: boolean; //för puls-animation
 };
 
 // State
@@ -71,8 +72,20 @@ function checkMatch(): void {
   if (first.pairId === second.pairId) {
     first.isMatched = true; //markeras som matchad så de EJ kan väljas igen
     second.isMatched = true;
+
+    // trigga puls-animation
+    first.justMatched = true;
+    second.justMatched = true;
+
     selectedCards = []; //tömmer listan på valda kort så anv kan välja 2 nya
     renderCards(cards); // visa framsida på matchade kort
+
+    // Ta bort puls efter animationen (för att kunna trigga igen om behövs)
+    setTimeout(() => {
+      first.justMatched = false;
+      second.justMatched = false;
+      renderCards(cards);
+    }, 600);
   } else {
     setTimeout(() => {
       first.isFlipped = false;
@@ -123,6 +136,21 @@ function renderCards(cards: Card[]): void {
         img.src = card.value;
       } else {
         img.src = cardBack;
+      }
+
+      // Lägg till animation och glow utan att ändra img-query
+
+      const cardElement = img.parentElement as HTMLDivElement;
+      if (!cardElement) return;
+
+      // Permanent glow på matchade kort
+      cardElement.classList.toggle('matched', card.isMatched);
+
+      // Puls-animation ENDAST om kortet just matchades
+      if (card.justMatched) {
+        cardElement.classList.add('pulse');
+      } else {
+        cardElement.classList.remove('pulse');
       }
     }
   });
