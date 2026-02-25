@@ -16,7 +16,7 @@ Nej.
 Reviewade Linns kod i pull request, kom på minispel till rum - sudoku.
 
 ### Vad ska jag göra idag?
-Koda spelet.
+Koda på spelet.
 
 ### Eventuella hinder?
 Nej.
