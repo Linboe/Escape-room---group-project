@@ -1,0 +1,34 @@
+.mini-sudoku-game-container {
+    position: absolute;
+    background-color: rgba($color: #000000, $alpha: 0.7);
+    backdrop-filter: blur(2px);
+    padding: 10px;
+
+    tbody tr {
+        display: flex;
+        flex-direction: row;
+
+        td {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            justify-content: center;
+            align-self: center;
+            width: 40px;
+            height: 40px;
+
+            select { // https://stackoverflow.com/questions/16603979/how-to-remove-the-default-arrow-icon-from-a-dropdown-list-select-element
+                width: 100%;
+                height: 100%;
+                appearance: none;
+                text-indent: 3px;
+                text-overflow: '';
+                font-size: 1.5rem;
+                border-color: rgba($color: white, $alpha: 0.5);
+            }
+            select:hover {
+                cursor: context-menu;
+            }
+        }
+    }
+}
