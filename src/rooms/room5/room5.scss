@@ -15,7 +15,7 @@
   width: 100%;
 }
 
-.board {
+.room-5 .board {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 4px;
@@ -23,7 +23,7 @@
   max-width: 400px;
   margin: 0 auto;
   position: relative;
-  left: -15px;
+  left: -16px;
 }
 
 .room-5 .game-session-style {
@@ -46,6 +46,7 @@
   background-color: #676d6b;
   position: relative;
   display: block;
+  border: 1px solid white;
 }
 
 .card img {
@@ -59,8 +60,8 @@
 }
 
 .matched {
-  box-shadow: 0 0 4px 1px rgb(160, 228, 160);
-  border: 0.5px solid rgb(111, 179, 120);
+  box-shadow: 0 0 4px 1px rgb(0, 255, 0);
+  border: 0.5px solid rgb(52, 252, 79);
 }
 
 .pulse {
