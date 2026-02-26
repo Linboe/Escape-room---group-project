@@ -31,6 +31,11 @@ import cliffLadderStory from '../../data/stories-data/room4-story/at-crossroads-
 import inspectCliffMonumentStory from '../../data/stories-data/room4-story/at-crossroads-story/at-cliff-story/inspect-cliff-monument-story/inspect-cliff-monument.json';
 import cliffMonumentWinStory from '../../data/stories-data/room4-story/at-crossroads-story/at-cliff-story/inspect-cliff-monument-story/cliff-monument-win.json';
 import cliffMonumentLoseStory from '../../data/stories-data/room4-story/at-crossroads-story/at-cliff-story/inspect-cliff-monument-story/cliff-monument-lose.json';
+//import { closeMiniSudokuGameSession, getGameSessionBeatenState, renderMiniSudoku, validateTable } from './puzzle/mini-sudoku';
+import { closeMiniSudokuGameSession, renderMiniSudoku } from './puzzle/mini-sudoku';
+import { setTableToUse } from './puzzle/mini-sudoku-setup';
+import { getGameSessionBeatenState } from './puzzle/mini-sudoku-states';
+import { validateTable } from './puzzle/mini-sudoku-helper';
 
 let room4StoryToUse: ScriptEvent[] = room4Story;
 let room4StoryIndex: number = 0;
@@ -129,6 +134,8 @@ function escapeWithAnyArtifact() {
 
 // crossroads monument specific events - consider converting to a Class
 function inspectCrossroadsMonument() {
+    setTableToUse('table1');
+    renderMiniSudoku();
     room4StoryToUse = inspectCrossroadsMonumentStory;
     refreshRoom4UI();
 }
@@ -139,6 +146,18 @@ function crossroadsMonumentWin() {
 function crossroadsMonumentLose() {
     room4StoryToUse = crossroadsMonumentLoseStory;
     refreshRoom4UI();
+}
+function crossroadsMonumentCheck() {
+    validateTable();
+    if (getGameSessionBeatenState()) {
+        room4StoryToUse = crossroadsMonumentWinStory;
+        closeMiniSudokuGameSession();
+        refreshRoom4UI();
+    } else {
+        room4StoryToUse = crossroadsMonumentLoseStory;
+        closeMiniSudokuGameSession();
+        refreshRoom4UI();
+    }
 }
 
 // ravine specific events - consider converting to a Class
@@ -155,6 +174,8 @@ function atRavineMonument() {
     refreshRoom4UI(1);
 }
 function inspectRavineMonument() {
+    setTableToUse('table2');
+    renderMiniSudoku();
     room4StoryToUse = inspectRavineMonumentStory;
     refreshRoom4UI();
 }
@@ -165,6 +186,18 @@ function ravineMonumentWin() {
 function ravineMonumentLose() {
     room4StoryToUse = ravineMonumentLoseStory;
     refreshRoom4UI();
+}
+function ravineMonumentCheck() {
+    validateTable();
+    if (getGameSessionBeatenState()) {
+        room4StoryToUse = ravineMonumentWinStory;
+        closeMiniSudokuGameSession();
+        refreshRoom4UI();
+    } else {
+        room4StoryToUse = ravineMonumentLoseStory;
+        closeMiniSudokuGameSession();
+        refreshRoom4UI();
+    }
 }
 
 // cliff specific events - consider converting to a Class
@@ -177,6 +210,8 @@ function atCliffMonument() {
     refreshRoom4UI(2);
 }
 function inspectCliffMonument() {
+    setTableToUse('table3');
+    renderMiniSudoku();
     room4StoryToUse = inspectCliffMonumentStory;
     refreshRoom4UI();
 }
@@ -188,10 +223,21 @@ function cliffMonumentWin() {
     room4StoryToUse = cliffMonumentWinStory;
     refreshRoom4UI();
 }
+function cliffMonumentCheck() {
+    validateTable();
+    if (getGameSessionBeatenState()) {
+        room4StoryToUse = cliffMonumentWinStory;
+        closeMiniSudokuGameSession();
+        refreshRoom4UI();
+    } else {
+        room4StoryToUse = cliffMonumentLoseStory;
+        closeMiniSudokuGameSession();
+        refreshRoom4UI();
+    }
+}
 
 // escape the silent tide
 function escapeTheSilentTide() {
-    console.log('Escaped the silent tide');
     const escapeRoom4Button = document.getElementById('escapeRoom4Button');
     if (!escapeRoom4Button) return;
     escapeRoom4Button.removeAttribute('disabled');
@@ -260,6 +306,9 @@ export function handleRoom4ClickStoryEventButton(event: Event) {
         case 'inspect-crossroads-monument-lose':
             crossroadsMonumentLose();
             return;
+        case 'inspect-crossroads-monument-check':
+            crossroadsMonumentCheck();
+            return;
         case 'crossroads-monument-win-turn-back-continue':
             room4HasLadder = true;
             room4CrossroadsMonumentIsBeaten = true;
@@ -304,6 +353,9 @@ export function handleRoom4ClickStoryEventButton(event: Event) {
         case 'inspect-ravine-monument-win':
             ravineMonumentWin();
             return;
+        case 'inspect-ravine-monument-check':
+            ravineMonumentCheck();
+            return;
         case 'ravine-monument-win-turn-back-continue':
             room4HasRavineArtifact = true;
             room4RavineMonumentIsBeaten = true;
@@ -322,6 +374,9 @@ export function handleRoom4ClickStoryEventButton(event: Event) {
             return;
         case 'cliff-summit-inspect-monument':
             inspectCliffMonument();
+            return;
+        case 'inspect-cliff-monument-check':
+            cliffMonumentCheck();
             return;
         case 'inspect-cliff-monument-lose':
             cliffMonumentLose();

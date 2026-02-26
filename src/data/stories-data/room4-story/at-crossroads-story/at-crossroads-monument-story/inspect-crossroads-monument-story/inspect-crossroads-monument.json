@@ -1,15 +1,11 @@
 [
     {
-        "textEvent": "(Crossroads Monument Minigame/ puzzle)",
+        "textEvent": "Mini Sudoku: Each row, both horizontal and vertical, has to feature one of each number: 1 through 6.",
         "eventMarker": "inspect-crossroads-monument",
         "buttonEvents": [
             {
-                "label": "Win minigame",
-                "buttonMarker": "win"
-            },
-            {
-                "label": "Lose minigame",
-                "buttonMarker": "lose"
+                "label": "Check",
+                "buttonMarker": "check"
             }
         ]
     }
