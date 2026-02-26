@@ -1,4 +1,5 @@
-import type { ButtonEvent, ScriptEvent } from './models';
+// TODO - Figure out how to shorten story .json imports
+import type { IButtonEvent, IScriptEvent } from './models';
 import { reRenderRoom4 } from './room4';
 import { renderGameOverScene } from '../../scenes/game-over-scene/game-over-scene';
 
@@ -37,12 +38,12 @@ import { setTableToUse } from './puzzle/mini-sudoku-setup';
 import { getGameSessionBeatenState } from './puzzle/mini-sudoku-states';
 import { validateTable } from './puzzle/mini-sudoku-helper';
 
-let room4StoryToUse: ScriptEvent[] = room4Story;
+let room4StoryToUse: IScriptEvent[] = room4Story;
 let room4StoryIndex: number = 0;
 let room4TitleText: string = 'The silent tide';
 let room4TextEvent: string = '';
 let room4EventMarker: string = '';
-let room4StoryEventButtons: ButtonEvent[] = [];
+let room4StoryEventButtons: IButtonEvent[] = [];
 let room4HasLadder: boolean = false; // consider moving to store directory
 let room4HasCliffArtifact: boolean = false; // consider moving to store directory
 let room4HasRavineArtifact: boolean = false; // consider moving to store directory

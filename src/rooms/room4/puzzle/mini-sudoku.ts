@@ -1,4 +1,4 @@
-import type { CellModel } from './models';
+import type { ICellModel } from './models';
 import './mini-sudoku.scss';
 import { getGameSessionMiniSudokuSeup, setGameSessionBeatenState, updateMiniSudokuSetup } from './mini-sudoku-states';
 import { checkCellElement } from './mini-sudoku-helper';
@@ -22,7 +22,7 @@ function generateSelectOptions() {
     return newSelectElement;
 }
 
-function generateCellElement(cellItem: CellModel, rowDataset: string, columnDataset: string) {
+function generateCellElement(cellItem: ICellModel, rowDataset: string, columnDataset: string) {
     const newCellElement = document.createElement('td');
     newCellElement.dataset.row = `${rowDataset}`;
     newCellElement.dataset.column = `${columnDataset}`;
@@ -37,7 +37,7 @@ function generateCellElement(cellItem: CellModel, rowDataset: string, columnData
     return newCellElement;
 }
 
-function generateRowElement(rowItem: CellModel[], rowDataset: string) {
+function generateRowElement(rowItem: ICellModel[], rowDataset: string) {
     const newRowElement = document.createElement('tr');
     newRowElement.dataset.row =`row-${rowDataset}`;
 

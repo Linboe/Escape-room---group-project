@@ -6,7 +6,8 @@ export function room4(sceneWrapper: HTMLDivElement | null, nextRoom: () => void)
 
     sceneWrapper.classList.add('scene-wrapper');
     sceneWrapper.innerHTML = ''; // reset
-    sceneWrapper.append(initRenderRoom4());
+
+    sceneWrapper.append(renderRoom4());
     reRenderRoom4();
 
     const escapeRoom4Button = document.createElement('button');
@@ -21,7 +22,21 @@ export function room4(sceneWrapper: HTMLDivElement | null, nextRoom: () => void)
     sceneWrapper.append(escapeRoom4Button);
 }
 
-function initRenderRoom4() {
+function renderRoom4() {
+    /** innerHTML model:
+    <section class="room room-4">
+        <div class="room-frame">
+            <div class="game-session-wrapper">
+                <h2 class="room-title-text" id="roomTitleText"></h2>
+                <p class="event-text" id="eventText"></p>
+                <div class="game-session-style">
+                    <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    */
+
     /* parent wrapper (following the 5 other room's convention)
     <section class="room room-1">
         <div class="room-frame">
@@ -42,12 +57,12 @@ function initRenderRoom4() {
     roomTitleTextElement.classList.add('room-title-text');
     roomTitleTextElement.id = 'roomTitleText';
 
-    const gameSessionDiv = document.createElement('div');
-    gameSessionDiv.classList.add('game-session-style');
-
     const eventTextElement = document.createElement('p');
     eventTextElement.id = 'eventText';
     eventTextElement.classList.add('event-text');
+
+    const gameSessionDiv = document.createElement('div');
+    gameSessionDiv.classList.add('game-session-style');
 
     const storyEventButtonsWrapperElement = document.createElement('div');
     storyEventButtonsWrapperElement.classList.add('player-interaction-buttons-wrapper');
