@@ -7,11 +7,12 @@ import cardsData from '../../data/cardsData.json';
  * x state: vilka kort som är vända, matchade, antal försök/tid
  * x rendera korten
  * x bild fram och baksida
- *   animation när rätt match
+ * x animation när rätt match
  *   animation när alla rätt
  *   animation när man får artefakten
  *   aktivera gå vidare knapp efter man fått artefakten
  *   skriva storyn - sammanfoga med Almas idé
+ *   anpassa spelet till mobile-layoten
  */
 
 // ---------------------------------------------------------------
