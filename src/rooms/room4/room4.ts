@@ -1,5 +1,5 @@
 import './room4.scss';
-import backgroundImage from '../../assets/alternative/soaked-alt-1.jpg';
+import backgroundImage from '../../../public/roompic/almaroom4.png';
 import { getRoom4CliffMonumentIsBeaten, getRoom4CrossroadsMonumentIsBeaten, getRoom4EventMarker, getRoom4HasCliffArtifact, getRoom4HasLadder, getRoom4HasRavineArtifact, getRoom4RavineMonumentIsBeaten, getRoom4StoryEventButtons, getRoom4TextEvent, getRoom4TitleText, handleRoom4ClickStoryEventButton } from './room4-story-controller';
 
 export function room4(sceneWrapper: HTMLDivElement | null, nextRoom: () => void) {
