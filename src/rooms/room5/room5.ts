@@ -1,5 +1,5 @@
 import './room5.scss';
-import cardsData from '../../data/cardsData.json';
+import cardsData from '../../rooms/room5/cardsData.json';
 
 /*
 export function renderRoom5Scene() {
@@ -22,7 +22,7 @@ export function renderRoom5Scene() {
  * x state: vilka kort som är vända, matchade, antal försök/tid
  * x rendera korten
  * x bild fram och baksida
- *   animation när rätt match
+ * x animation när rätt match
  *   animation när alla rätt
  *   animation när man får artefakten
  *   aktivera gå vidare knapp efter man fått artefakten
@@ -59,12 +59,24 @@ function initCards(): Card[] {
 // ---------------------------------------------------------------
 // ----------------------- Shuffle cards  ------------------------
 // ---------------------------------------------------------------
-
+/*
 function shuffleCards(cards: Card[]): Card[] {
   //tar emot en array av indata-kort och retunerar en lista av kort
   return cards.sort(() => Math.random() - 0.5); // math.random ger slumpmässigt tal mellan 0 och 1. minus 0.5 --> negativt=byt ej plats el positivit=byt plats
 }
+*/
 
+function shuffleCards(cards: Card[]): Card[] {
+  const arr = [...cards];
+  const shuffled: Card[] = [];
+
+  while (arr.length > 0) {
+    const randomIndex = Math.floor(Math.random() * arr.length);
+    shuffled.push(arr.splice(randomIndex, 1)[0]); //fortsätter loopa splänge det finns kort kvar i arr
+  }
+
+  return shuffled;
+}
 // Vänd kort
 function flipCard(card: Card): void {
   if (card.isFlipped || card.isMatched) return; //om kortet är vänt eller matchat retunera pga - så ej kan klicka på samma kort 2 ggr
