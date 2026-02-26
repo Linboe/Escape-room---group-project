@@ -1,5 +1,4 @@
 import './room4.scss';
-import backgroundImage from '../../../public/roompic/almaroom4.png';
 import { getRoom4CliffMonumentIsBeaten, getRoom4CrossroadsMonumentIsBeaten, getRoom4EventMarker, getRoom4HasCliffArtifact, getRoom4HasLadder, getRoom4HasRavineArtifact, getRoom4RavineMonumentIsBeaten, getRoom4StoryEventButtons, getRoom4TextEvent, getRoom4TitleText, handleRoom4ClickStoryEventButton } from './room4-story-controller';
 
 export function room4(sceneWrapper: HTMLDivElement | null, nextRoom: () => void) {
@@ -23,7 +22,18 @@ export function room4(sceneWrapper: HTMLDivElement | null, nextRoom: () => void)
 }
 
 function initRenderRoom4() {
-    // parent wrapper
+    /* parent wrapper (following the 5 other room's convention)
+    <section class="room room-1">
+        <div class="room-frame">
+            <div class="game-session-wrapper">
+    */
+    const room4Section = document.createElement('section');
+    room4Section.classList.add('room');
+    room4Section.classList.add('room-4');
+
+    const roomFrame = document.createElement('div');
+    roomFrame.classList.add('room-frame');
+
     const gameSessionWrapper = document.createElement('div');
     gameSessionWrapper.classList.add('game-session-wrapper');
 
@@ -32,11 +42,8 @@ function initRenderRoom4() {
     roomTitleTextElement.classList.add('room-title-text');
     roomTitleTextElement.id = 'roomTitleText';
 
-    const backgroundImageElement = document.createElement('img');
-    backgroundImageElement.src = backgroundImage;
-    backgroundImageElement.loading = 'lazy';
-    backgroundImageElement.alt = 'Background image';
-    backgroundImageElement.classList.add('room-background-image');
+    const gameSessionDiv = document.createElement('div');
+    gameSessionDiv.classList.add('game-session-style');
 
     const eventTextElement = document.createElement('p');
     eventTextElement.id = 'eventText';
@@ -46,11 +53,18 @@ function initRenderRoom4() {
     storyEventButtonsWrapperElement.classList.add('player-interaction-buttons-wrapper');
     storyEventButtonsWrapperElement.id = 'storyEventButtonsWrapper';
 
-    // compile
+    // assemble wrapper
+    room4Section.append(roomFrame);
+    roomFrame.append(gameSessionWrapper);
+
+    // assemble children & append to scene wrapper
+
+    gameSessionDiv.append(storyEventButtonsWrapperElement);
+
     gameSessionWrapper.append(
-        roomTitleTextElement, eventTextElement, storyEventButtonsWrapperElement, backgroundImageElement
+        roomTitleTextElement, eventTextElement, gameSessionDiv
     );
-    return gameSessionWrapper;
+    return room4Section;
 }
 
 export function reRenderRoom4() { // accessible for story-controller
