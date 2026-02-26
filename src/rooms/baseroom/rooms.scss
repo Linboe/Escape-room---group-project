@@ -1,0 +1,80 @@
+@use '../room1/room1.scss'; // specific styles for room 1
+@use '../room2/room2.scss'; // specific styles for room 2
+@use '../room3/room3.scss'; // specific styles for room 3 
+@use '../room4/room4.scss'; // specific styles for room 4
+@use '../room5/room5.scss'; // specific styles for room 5
+@use '../room6/room6.scss'; // specific styles for room 6
+
+/* Base styles for all rooms can be added here, such as common layout, typography, etc. */
+
+.room {
+  min-height: 100svh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #111; 
+}
+
+.room-frame {
+  aspect-ratio: 9 / 16;  
+  height: 100svh;
+  max-height: 100svh;
+
+  width: auto;
+  max-width: calc(100svh * 9 / 16);
+
+  position: relative;
+
+  background-image: url("/roompic/Kimiroom1.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.room h2 {
+position: relative;
+text-align: center;
+}
+
+.game-session-style {
+  position: absolute;
+  bottom: 1rem;    
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: calc(100% - 2rem);
+  max-width: 360px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+.options-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.option {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.option:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
