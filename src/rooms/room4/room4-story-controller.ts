@@ -1,7 +1,10 @@
-// TODO - Figure out how to shorten story .json imports
 import type { IButtonEvent, IScriptEvent } from './models';
 import { reRenderRoom4 } from './room4';
 import { renderGameOverScene } from '../../scenes/game-over-scene/game-over-scene';
+import { closeMiniSudokuGameSession, renderMiniSudoku } from './puzzle/mini-sudoku';
+import { setTableToUse } from './puzzle/mini-sudoku-setup';
+import { getGameSessionBeatenState } from './puzzle/mini-sudoku-states';
+import { validateTable } from './puzzle/mini-sudoku-helper';
 
 // enter silent tide stories
 import room4Story from '../../data/stories-data/room4-story/room4-story.json';
@@ -9,34 +12,29 @@ import attemptSwimStory from '../../data/stories-data/room4-story/attempt-swim.j
 import climbTreeStory from '../../data/stories-data/room4-story/climb-tree.json';
 
 // crossroads stories
-import atCrossroadsStory from '../../data/stories-data/room4-story/at-crossroads-story/at-crossroads.json';
-import escapeStory from '../../data/stories-data/room4-story/at-crossroads-story/escape.json';
+import atCrossroadsStory from '../../data/stories-data/room4-story/at-crossroads.json';
+import escapeStory from '../../data/stories-data/room4-story/escape.json';
 
 // crossroads monument stories
-import atCrossroadsMonumentStory from '../../data/stories-data/room4-story/at-crossroads-story/at-crossroads-monument-story/at-crossroads-monument.json';
-import inspectCrossroadsMonumentStory from '../../data/stories-data/room4-story/at-crossroads-story/at-crossroads-monument-story/inspect-crossroads-monument-story/inspect-crossroads-monument.json';
-import crossroadsMonumentWinStory from '../../data/stories-data/room4-story/at-crossroads-story/at-crossroads-monument-story/inspect-crossroads-monument-story/crossroads-monument-win.json';
-import crossroadsMonumentLoseStory from '../../data/stories-data/room4-story/at-crossroads-story/at-crossroads-monument-story/inspect-crossroads-monument-story/crossroads-monument-lose.json';
+import atCrossroadsMonumentStory from '../../data/stories-data/room4-story/at-crossroads-monument.json';
+import inspectCrossroadsMonumentStory from '../../data/stories-data/room4-story/inspect-crossroads-monument.json';
+import crossroadsMonumentWinStory from '../../data/stories-data/room4-story/crossroads-monument-win.json';
+import crossroadsMonumentLoseStory from '../../data/stories-data/room4-story/crossroads-monument-lose.json';
 
 // ravine stories
-import atRavineStory from '../../data/stories-data/room4-story/at-crossroads-story/at-ravine-story/at-ravine.json';
-import ravineJumpStory from '../../data/stories-data/room4-story/at-crossroads-story/at-ravine-story/ravine-jump.json';
-import ravineLadderStory from '../../data/stories-data/room4-story/at-crossroads-story/at-ravine-story/ravine-ladder.json';
-import inspectRavineMonumentStory from '../../data/stories-data/room4-story/at-crossroads-story/at-ravine-story/inspect-ravine-monument-story/inspect-ravine-monument.json';
-import ravineMonumentWinStory from '../../data/stories-data/room4-story/at-crossroads-story/at-ravine-story/inspect-ravine-monument-story/ravine-monument-win.json';
-import ravineMonumentLoseStory from '../../data/stories-data/room4-story/at-crossroads-story/at-ravine-story/inspect-ravine-monument-story/ravine-monument-lose.json';
+import atRavineStory from '../../data/stories-data/room4-story/at-ravine.json';
+import ravineJumpStory from '../../data/stories-data/room4-story/ravine-jump.json';
+import ravineLadderStory from '../../data/stories-data/room4-story/ravine-ladder.json';
+import inspectRavineMonumentStory from '../../data/stories-data/room4-story/inspect-ravine-monument.json';
+import ravineMonumentWinStory from '../../data/stories-data/room4-story/ravine-monument-win.json';
+import ravineMonumentLoseStory from '../../data/stories-data/room4-story/ravine-monument-lose.json';
 
 // cliff stories
-import atCliffStory from '../../data/stories-data/room4-story/at-crossroads-story/at-cliff-story/at-cliff.json';
-import cliffLadderStory from '../../data/stories-data/room4-story/at-crossroads-story/at-cliff-story/cliff-ladder.json';
-import inspectCliffMonumentStory from '../../data/stories-data/room4-story/at-crossroads-story/at-cliff-story/inspect-cliff-monument-story/inspect-cliff-monument.json';
-import cliffMonumentWinStory from '../../data/stories-data/room4-story/at-crossroads-story/at-cliff-story/inspect-cliff-monument-story/cliff-monument-win.json';
-import cliffMonumentLoseStory from '../../data/stories-data/room4-story/at-crossroads-story/at-cliff-story/inspect-cliff-monument-story/cliff-monument-lose.json';
-//import { closeMiniSudokuGameSession, getGameSessionBeatenState, renderMiniSudoku, validateTable } from './puzzle/mini-sudoku';
-import { closeMiniSudokuGameSession, renderMiniSudoku } from './puzzle/mini-sudoku';
-import { setTableToUse } from './puzzle/mini-sudoku-setup';
-import { getGameSessionBeatenState } from './puzzle/mini-sudoku-states';
-import { validateTable } from './puzzle/mini-sudoku-helper';
+import atCliffStory from '../../data/stories-data/room4-story/at-cliff.json';
+import cliffLadderStory from '../../data/stories-data/room4-story/cliff-ladder.json';
+import inspectCliffMonumentStory from '../../data/stories-data/room4-story/inspect-cliff-monument.json';
+import cliffMonumentWinStory from '../../data/stories-data/room4-story/cliff-monument-win.json';
+import cliffMonumentLoseStory from '../../data/stories-data/room4-story/cliff-monument-lose.json';
 
 let room4StoryToUse: IScriptEvent[] = room4Story;
 let room4StoryIndex: number = 0;
