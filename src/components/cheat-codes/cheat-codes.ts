@@ -15,7 +15,6 @@ import { state } from '../../state/gamestate';
 import { render } from '../../main';
 import { renderNextRoom } from '../../main';
 import { room1 } from '../../rooms/room1/room1';
-import { room2 } from '../../rooms/room2/room2';
 import { room3 } from '../../rooms/room3/room3';
 import { room4 } from '../../rooms/room4/room4';
 import { room5 } from '../../rooms/room5/room5';
@@ -33,28 +32,28 @@ const cheatButtons = {
     cheatButton2: createCheatButton('cheat test 2', specialCheatCode2),
 
     cheatRenderSignInScene: createCheatButton('render sign in scene', () => {
-        state.screen = "login";
+        state.screen = 'login';
         render();
     }),
 
     cheatRenderMainMenuScene: createCheatButton('render main menu scene', () => {
-        state.screen = "menu";
+        state.screen = 'menu';
         render();
     }),
 
     cheatRenderAboutScene: createCheatButton('render about scene', () => {
-        state.screen = "about";
+        state.screen = 'about';
         render();
     }),
 
     cheatRenderGameOverScene: createCheatButton('render game over scene', () => {
-        state.screen = "gameover";
+        state.screen = 'gameover';
         render();
         console.log('Showing game over scene');
     }),
 
     cheatRenderVictoryScene: createCheatButton('render victory scene', () => {
-        state.screen = "victory";
+        state.screen = 'victory';
         render();
         console.log('Showing victory scene');
     }),
@@ -63,10 +62,15 @@ const cheatButtons = {
         'render room 1',
         () => room1(document.querySelector('#sceneWrapper'), renderNextRoom)
     ),
-    cheatRenderRoom2: createCheatButton(
+
+    cheatRenderRoom2: createCheatButton( 
         'render room 2',
-        () => room2(document.querySelector('#sceneWrapper'), renderNextRoom)
-    ),
+        () => {
+            state.currentRoom =1; 
+            state.screen = 'room';
+            render();
+        }),
+
     cheatRenderRoom3: createCheatButton(
         'render room 3',
         () => room3(document.querySelector('#sceneWrapper'), renderNextRoom)
@@ -79,7 +83,7 @@ const cheatButtons = {
         'render room 5',
         () => room5(document.querySelector('#sceneWrapper'), renderNextRoom)
     ),
-      cheatRenderRoom6: createCheatButton(
+    cheatRenderRoom6: createCheatButton(
         'render room 6',
         () => room6(document.querySelector('#sceneWrapper'), renderNextRoom)
     ),
