@@ -1,16 +1,5 @@
 import './room2.scss';
 
-export function renderRoom2Scene() {
-    const sceneWrapper = document.getElementById('sceneWrapper');
-    if (!sceneWrapper) return;
-
-    sceneWrapper.innerHTML = `
-        <section class="room room-2">
-        <h1>Room 2</h1>
-        </section>
-    `;
-}
-
 export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
     if (!sceneWrapper) return;
 
@@ -18,18 +7,14 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
     let currentPath: 'A' | 'B' | null = null;
 
     sceneWrapper.innerHTML = `
-        <div class="game-session-wrapper">
-            <h2>Victoria House</h2>
-            <div style="
-                background-image: url('src/assets/alternative/greenhouse alt 3.jpg');
-                background-size: cover;
-                background-position: center;
-                width: 500px;
-                height: 500px;">
+     <section class= "room room-2">
+        <div class="room-frame">
+            <div class="game-session-wrapper">
+                <h2>Victoria House</h2>
+                <div id="gameScreen" class="game-screen"></div>
             </div>
-
-            <div id="gameScreen" class="game-screen"></div>
         </div>
+     </section>   
         `;
 
     const gameScreen: HTMLDivElement | null = document.querySelector('#gameScreen');
@@ -56,12 +41,12 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
         ferns?.addEventListener('click', () => {
             startGame('A');
             console.log('option A');
-        })
+        });
 
         lilyPads?.addEventListener('click', () => {
             startGame('B');
             console.log('option B');
-        })
+        });
     }
 
     function startGame(choice: 'A' | 'B') {
@@ -134,8 +119,8 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                     message.textContent = 'The air grows heavy. You are almost there, the hierarchy is nearly complete...';
                 }
                 else if (playerChoice.length === correctOrder.length) {
-                    message.textContent = 'The glass ceiling shimmers. You have mastered the hierarchy of growth!'
-                    winGame('24', "The numbers emerged from the leaves as you followed the path of growth.");
+                    message.textContent = 'The glass ceiling shimmers. You have mastered the hierarchy of growth!';
+                    winGame('24', 'The numbers emerged from the leaves as you followed the path of growth.');
                     collectedCodes.push('24');
                     console.log(collectedCodes);
                 }
@@ -196,7 +181,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
         continueBtn?.addEventListener('click', () => {
             next();
-        })
+        });
     }
 
     showStart();

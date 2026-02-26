@@ -1,5 +1,5 @@
 import './components/cheat-codes/cheat-codes';
-import './styles/style.scss'
+import './styles/style.scss';
 import { state } from './state/gamestate';
 import { renderSignInScene } from './scenes/sign-in-scene/sign-in-scene';
 import { renderMainMenuScene } from './scenes/main-menu-scene/main-menu-scene';
@@ -12,18 +12,10 @@ import { room4 } from './rooms/room4/room4';
 import { room5 } from './rooms/room5/room5';
 import { room6 } from './rooms/room6/room6';
 import { renderAboutScene } from './scenes/about-scene/about-scene';
+import './components/high-score/high-score';
 
 // please check the document in this link:
 // https://medieinstitutet-my.sharepoint.com/:w:/g/personal/alda_catovic_medieinstitutet_se/IQApMQpuaX8YToqheHZBk5Y4AQvnQa3uXsRg0XzjSP18ehU?rtime=AQuzKQlr3kg
-
-/** Pseudo engine architecture (scrap)
- * Each room has an enterable state, unlocked when conditions met, trigger with a unlockRoom() function 
- * The progress bar could also be used as a quicktravel, trigger with a travelTo() function
- * Some sort of state knowing what room the player is currently at
- * Consider storing scores and time in localstorage
- * Each artifact has a relevancy metadata: true if needed to complete the escape, false if not
- * For the first engine architecture scrap, there will be cheat code buttons
- */
 
 /** Session states
  * room x is unlocked boolean
@@ -33,26 +25,26 @@ import { renderAboutScene } from './scenes/about-scene/about-scene';
  * Localstorage is like the SSD
  */
 
-const sceneWrapper: HTMLDivElement | null = document.querySelector("#sceneWrapper");
+const sceneWrapper: HTMLDivElement | null = document.querySelector('#sceneWrapper');
 
 export function render() {
     switch (state.screen) {
-        case "login":
+        case 'login':
             renderSignInScene(sceneWrapper, render);
             break;
-        case "menu":
+        case 'menu':
             renderMainMenuScene(sceneWrapper, render);
             break;
-        case "room":
+        case 'room':
             renderNextRoom();
             break;
-        case "victory":
+        case 'victory':
             renderVictory();
             break;
-        case "gameover":
+        case 'gameover':
             renderGameOverScene();
             break;
-        case "about":
+        case 'about':
             renderAboutScene();
     }
 }
@@ -81,6 +73,7 @@ export function renderNextRoom() { // TODO koppla på timers
 
 function renderVictory() {
     if (!sceneWrapper) return;
+    // TODO: Translate to English
     sceneWrapper.innerHTML = `
         <h2>🎉 Grattis!</h2>
         <p>Du klarade alla rum!</p>
