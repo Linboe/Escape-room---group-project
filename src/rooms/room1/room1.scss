@@ -1,0 +1,70 @@
+.room1 {
+  background-image: url("../../assets/room-1-background.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 85svh;
+  min-width: 25svw;
+  padding: 1rem;
+}
+
+.game-session-wrapper {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.choices {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.choices button {
+  font-size: 1.5rem;
+  background-color: hsl(0, 0%, 10%);
+}
+
+.choices button:hover {
+  background-color: hsl(0, 0%, 20%);
+}
+
+.player-display,
+.computer-display,
+.score-display {
+  margin: 5px 0;
+}
+
+.player-display,
+.computer-display {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.result-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1.35rem;
+}
+
+.score-display {
+  font-size: 1.35rem;
+}
+
+.restart-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.green-text {
+  color: green;
+}
+
+.red-text {
+  color: red;
+}
