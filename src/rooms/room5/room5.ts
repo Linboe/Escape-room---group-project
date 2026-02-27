@@ -22,11 +22,14 @@ export function renderRoom5Scene() {
  * x state: vilka kort som är vända, matchade, antal försök/tid
  * x rendera korten
  * x bild fram och baksida
+ * x states för story
  * x animation när rätt match
  *   animation när alla rätt
- *   animation när man får artefakten
+ *   ladda in memoryt i ett flow- ett kort i taget
+ *   artefakten
  *   aktivera gå vidare knapp efter man fått artefakten
- *   skriva storyn - sammanfoga med Almas idé
+ *   juster tid mellan klarat spel och att state-completed kommer
+ * x skriva storyn - sammanfoga med Almas idé
  */
 
 // ---------------------------------------------------------------
@@ -41,7 +44,19 @@ type Card = {
   justMatched?: boolean; //för puls-animation
 };
 
-// State
+type Room5State =
+  | 'story'
+  | 'options'
+  | 'wrong-choice'
+  | 'right-choice'
+  | 'game'
+  | 'completed';
+
+// ---------------------------------------------------------------
+// --------------------------- State -----------------------------
+// ---------------------------------------------------------------
+
+let currentState: Room5State = 'story';
 let selectedCards: Card[] = [];
 let cards: Card[] = []; // Globalt för renderCards
 
@@ -77,22 +92,62 @@ function shuffleCards(cards: Card[]): Card[] {
 
   return shuffled;
 }
+
+// ---------------------------------------------------------------
+// ----------------------- setState ------------------------------
+// ---------------------------------------------------------------
+function setState(
+  state: Room5State,
+  sceneWrapper: HTMLDivElement,
+  next: () => void,
+): void {
+  currentState = state;
+  console.log('Current state:', currentState);
+
+  switch (state) {
+    case 'story':
+      showStory(sceneWrapper, next);
+      break;
+    case 'options':
+      showOptions(sceneWrapper, next);
+      break;
+    case 'wrong-choice':
+      showWrongChoice(sceneWrapper, next);
+      break;
+    case 'right-choice':
+      showRightChoice(sceneWrapper, next);
+      break;
+    case 'game':
+      showGame(sceneWrapper, next);
+      break;
+    case 'completed':
+      showCompleted(sceneWrapper, next);
+      break;
+  }
+}
+
 // Vänd kort
-function flipCard(card: Card): void {
-  if (card.isFlipped || card.isMatched) return; //om kortet är vänt eller matchat retunera pga - så ej kan klicka på samma kort 2 ggr
+function flipCard(
+  card: Card,
+  sceneWrapper: HTMLDivElement,
+  next: () => void,
+): void {
+  if (card.isFlipped || card.isMatched) return;
   if (selectedCards.length === 2) return; //kan vända max 2 kort i taget
 
   card.isFlipped = true;
   selectedCards.push(card);
-  renderCards(cards); //visar att kortet vänds
+  renderCards(cards, sceneWrapper, next); //visar att kortet vänds
 
   if (selectedCards.length === 2) {
-    checkMatch();
+    checkMatch(sceneWrapper, next); //skickar med sceneWrapper och next
   }
 }
 
-// Kolla match
-function checkMatch(): void {
+// ---------------------------------------------------------------
+// ------------------------ Check match --------------------------
+// ---------------------------------------------------------------
+function checkMatch(sceneWrapper: HTMLDivElement, next: () => void): void {
   const [first, second] = selectedCards; //plockar ut de vända korten ur arrayen
   if (!first || !second) return;
 
@@ -105,20 +160,25 @@ function checkMatch(): void {
     second.justMatched = true;
 
     selectedCards = []; //tömmer listan på valda kort så anv kan välja 2 nya
-    renderCards(cards); // visa framsida på matchade kort
+    renderCards(cards, sceneWrapper, next); // visa framsida på matchade kort
 
     // Ta bort puls efter animationen (för att kunna trigga igen om behövs)
     setTimeout(() => {
       first.justMatched = false;
       second.justMatched = false;
-      renderCards(cards);
+      renderCards(cards, sceneWrapper, next);
+
+      //när alla kort är matchade går vi till completed-state
+      if (cards.every((card) => card.isMatched)) {
+        setState('completed', sceneWrapper, next);
+      }
     }, 600);
   } else {
     setTimeout(() => {
       first.isFlipped = false;
       second.isFlipped = false;
       selectedCards = [];
-      renderCards(cards); // vänd tillbaka baksida
+      renderCards(cards, sceneWrapper, next);
     }, 1000);
   }
 }
@@ -126,7 +186,11 @@ function checkMatch(): void {
 // ---------------------------------------------------------------
 // ------------------------ Render cards  ------------------------
 // ---------------------------------------------------------------
-function renderCards(cards: Card[]): void {
+function renderCards(
+  cards: Card[],
+  sceneWrapper: HTMLDivElement,
+  next: () => void,
+): void {
   const board = document.getElementById('board') as HTMLDivElement;
   const cardBack =
     '/fed25d-js-intro-grupparbete-the-dopefish-admirers/img/cardBack2.jpg'; // bild kort-baksida
@@ -148,7 +212,7 @@ function renderCards(cards: Card[]): void {
       const id = Number((el as HTMLElement).dataset.id); //Hämtar kortets data-id från HTML-elementet (som sattes när korten skapades) och omvandlar det till ett nummer.
       const card = cards.find((c) => c.id === id); //Letar upp rätt Card-objekt i arrayen som matchar det id:t. Kopplar alltså ihop HTML-elementet med sitt Card-objekt.
       if (card) {
-        el.addEventListener('click', () => flipCard(card));
+        el.addEventListener('click', () => flipCard(card, sceneWrapper, next));
       }
     });
   }
@@ -182,47 +246,171 @@ function renderCards(cards: Card[]): void {
     }
   });
 }
-// -------------------------- Inner-HMTL -------------------------
-// ---------------------------------------------------------------
 
-export function room5(sceneWrapper: HTMLDivElement | null, next: () => void) {
-  if (!sceneWrapper) return;
+// ---------------------------------------------------------------
+// NY - show-funktioner för varje state
+// ---------------------------------------------------------------
+function showStory(sceneWrapper: HTMLDivElement, next: () => void): void {
   sceneWrapper.innerHTML = `
     <section class="room room-5">
-    <div class="room-frame">
-      <div class="game-session-wrapper">
+      <div class="room-frame">
+        <div class="game-session-wrapper">
           <h2 class="room-title-text" id="roomTitleText">Mystical creatures</h2>
-          <p class="event-text" id="eventText"></p>
+          <p class="event-text" id="eventText">
+            You’ve traveled far on your journey, wandering deep into the forest.
+            Suddenly, something catches your eye — white shapes hidden among the thick undergrowth.
+            What could be waiting quietly in the shadows?
+          </p>
           <div class="game-session-style">
-              <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper"></div>
-              <div class="board" id="board"></div>
+            <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper">
+              <button id="continue-btn" class="option">Make a choice</button>
+            </div>
           </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
   `;
 
-  // Rendera memory-korten
-  cards = shuffleCards(initCards());
-  renderCards(cards);
-
-  // Knapp-logik
-  const buttons = document.querySelectorAll('.option');
-  const message: HTMLParagraphElement | null =
-    document.querySelector('#message');
-  buttons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      if (btn.textContent === '2222 rätt knapp') {
-        next();
-      } else {
-        if (message) {
-          message.textContent = 'Fel kod!';
-        }
-      }
-    });
-  });
+  document
+    .getElementById('continue-btn')!
+    .addEventListener('click', () => setState('options', sceneWrapper, next));
 }
 
+function showOptions(sceneWrapper: HTMLDivElement, next: () => void): void {
+  sceneWrapper.innerHTML = `
+    <section class="room room-5">
+      <div class="room-frame">
+        <div class="game-session-wrapper">
+          <h2 class="room-title-text" id="roomTitleText">Mystical creatures</h2>
+            <div class="game-session-style">
+            <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper">
+              <button id="wrong-btn" class="option">Creepy… I’ll turn back!</button>
+              <button id="right-btn" class="option">I’ll get closer to take a look</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+
+  document
+    .getElementById('wrong-btn')!
+    .addEventListener('click', () =>
+      setState('wrong-choice', sceneWrapper, next),
+    );
+  document
+    .getElementById('right-btn')!
+    .addEventListener('click', () =>
+      setState('right-choice', sceneWrapper, next),
+    );
+}
+
+function showWrongChoice(sceneWrapper: HTMLDivElement, next: () => void): void {
+  sceneWrapper.innerHTML = `
+    <section class="room room-5">
+      <div class="room-frame">
+        <div class="game-session-wrapper">
+          <h2 class="room-title-text" id="roomTitleText">Mystical creatures</h2>
+          <p class="event-text" id="eventText">
+            Some things can feel frightening when you don’t yet understand them. 
+            To move forward, you must summon courage.
+          </p>
+          <div class="game-session-style">
+            <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper">
+              <button id="back-btn" class="option">I am ready to face it</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+
+  document
+    .getElementById('back-btn')!
+    .addEventListener('click', () => setState('options', sceneWrapper, next));
+}
+
+function showRightChoice(sceneWrapper: HTMLDivElement, next: () => void): void {
+  sceneWrapper.innerHTML = `
+    <section class="room room-5">
+      <div class="room-frame">
+        <div class="game-session-wrapper">
+          <h2 class="room-title-text" id="roomTitleText">Mystical creatures</h2>
+          <p class="event-text" id="eventText">
+            As you step closer, you discover that the white shapes are statues. 
+            They guard the forest’s heart and the secret gathering place of its mystical creatures.
+            Shy and rarely seen, these beings have protected you on your journey.
+            Use your memory to uncover them and unlock the room.
+          </p>
+          <div class="game-session-style">
+            <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper">
+              <button id="start-memory-btn" class="option">Begin the memory challenge</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+
+  document
+    .getElementById('start-memory-btn')!
+    .addEventListener('click', () => setState('game', sceneWrapper, next));
+}
+
+function showGame(sceneWrapper: HTMLDivElement, next: () => void): void {
+  sceneWrapper.innerHTML = `
+    <section class="room room-5">
+      <div class="room-frame">
+        <div class="game-session-wrapper">
+          <h2 class="room-title-text" id="roomTitleText">Mystical creatures</h2>
+          <div class="game-session-style">
+            <div class="board" id="board"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+
+  cards = shuffleCards(initCards());
+  selectedCards = [];
+  renderCards(cards, sceneWrapper, next);
+}
+
+function showCompleted(sceneWrapper: HTMLDivElement, next: () => void): void {
+  sceneWrapper.innerHTML = `
+    <section class="room room-5">
+      <div class="room-frame">
+        <div class="game-session-wrapper">
+          <h2 class="room-title-text" id="roomTitleText">Mystical creatures</h2>
+          <p class="event-text" id="eventText">
+            Congratulations! You've solved the puzzle.
+            A new power awakens — an artifact has been unlocked. 
+            The mystical creatures grant you the ARTIFACT.
+          </p>
+          <div class="game-session-style">
+            <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper">
+              <button id="next-btn" class="option">Continue</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+
+  document.getElementById('next-btn')!.addEventListener('click', () => next());
+}
+
+// ---------------------------------------------------------------
+// -------------------------- Export  ----------------------------
+// ---------------------------------------------------------------
+// ÄNDRAD - anropar nu setState('story') istället för att rendera HTML direkt
+export function room5(
+  sceneWrapper: HTMLDivElement | null,
+  next: () => void,
+): void {
+  if (!sceneWrapper) return;
+  setState('story', sceneWrapper, next);
+}
 // ----------------------------------------------------------
 // ----------------------------------------------------------
 // ----------------------------------------------------------
