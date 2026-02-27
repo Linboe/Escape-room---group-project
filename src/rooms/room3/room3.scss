@@ -1,12 +1,145 @@
 .room-3 {
-    background-image: url("/roompic/aldaroom3.png");
+  background-image: url("/roompic/aldaroom3.png");
 }
 
 .room-3 {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 600px;
-    display: flex;
-    min-width: 100%;    
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-width: 100%;
+}
+
+.room3-overlay {
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 100vh;
+  position: relative;
+
+  h1 {
+    font-family: "Cinzel", serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem 1.5rem 0.75rem;
+    background: rgba(0, 0, 0, 0.55);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    margin: 0;
+  }
+
+  .story,
+  .hint {
+    background: rgba(20, 30, 25, 0.75);
+    color: #dde8e2;
+    font-family: "Georgia", serif;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    padding: 1.25rem 1.5rem;
+    margin: 0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .hint {
+    background: rgba(10, 20, 15, 0.65);
+    font-style: italic;
+    color: #aac8b8;
+    border-top: none;
+  }
+
+  #quiz {
+    background: rgba(20, 30, 25, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 1.25rem 1.5rem;
+    color: #dde8e2;
+    font-family: "Georgia", serif;
+
+    #question {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0 0 1rem;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 460px;
+      padding: 0.75rem 0 1.5rem;
+      background: rgba(20, 30, 25, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 10;
+    }
+
+    .option {
+      background: rgba(180, 210, 195, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+      font-family: "Georgia", serif;
+      font-size: 1rem;
+      padding: 0.9rem 1rem;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.2s;
+      border-radius: 4px;
+
+      &:hover:not(:disabled) {
+        background: rgba(180, 210, 195, 0.4);
+      }
+
+      &:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+    }
+
+    #message {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: #aac8b8;
+      font-style: italic;
+      min-height: 1.2em;
+    }
+  }
+
+  button:not(.option) {
+    background: rgba(10, 15, 12, 0.85);
+    border: none;
+    color: #ffffff;
+    font-family: "Georgia", serif;
+    font-size: 1rem;
+    padding: 1rem;
+    cursor: pointer;
+    text-align: center;
+    margin-top: auto;
+    transition: background 0.2s;
+
+    &:hover {
+      background: rgba(30, 40, 35, 0.95);
+    }
+  }
+
+  #approachBtn,
+  #startBtn {
+    margin-top: auto;
+    position: sticky;
+    bottom: 0;
+  }
+}
+
+.hidden {
+  display: none !important;
 }
