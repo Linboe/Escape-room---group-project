@@ -35,6 +35,8 @@ export function renderRoom5Scene() {
 // ---------------------------------------------------------------
 // ------------------------- Define type -------------------------
 // ---------------------------------------------------------------
+const COLUMNS = 4; // antal kolumner i memory-brädet
+
 type Card = {
   id: number;
   pairId: number;
@@ -205,6 +207,15 @@ function renderCards(
       )
       .join(''); //alla kort strängar till en HTML-sträng på skärmen
 
+    // Wave-animation
+    board.querySelectorAll('.card').forEach((el, i) => {
+      const row = Math.floor(i / COLUMNS); // vilken rad kortet befinner sig på
+      const col = i % COLUMNS; // vilken kolumn kortet befinner sig på
+      const delay = `${row * 0.5 + col * 0.08}s`; // rad-fördröjning + kolumn-fördröjning = wave-effekt
+
+      (el as HTMLElement).style.animationDelay = delay; // applicera fördröjningen på kortet
+    });
+
     // Lägg på click-event en gång
     const cardElements = board.querySelectorAll('.card');
     cardElements.forEach((el) => {
@@ -248,7 +259,7 @@ function renderCards(
 }
 
 // ---------------------------------------------------------------
-// NY - show-funktioner för varje state
+// show-funktioner för varje state
 // ---------------------------------------------------------------
 function showStory(sceneWrapper: HTMLDivElement, next: () => void): void {
   sceneWrapper.innerHTML = `
