@@ -2,4 +2,5 @@ Det följer med en samling på andra bildalternativ, tex om en annan bild ger en
 Tanken är också att ta bort friktionen att komma på en story om en tilldelad bild är hopplös att komma på något kring.
 Om någon väljer en annan bild, informera om det så att någon kan komprimera det till webp och lägga den i rätt directory och fixa källhänvisningen.
 "alternative" directory:n och alla bilder bör tas bort innan final deployment.
-/ Alma
+
+Radera alla bilder som inte ska finnas med i produktionen
