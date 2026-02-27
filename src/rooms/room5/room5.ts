@@ -211,9 +211,21 @@ function renderCards(
     board.querySelectorAll('.card').forEach((el, i) => {
       const row = Math.floor(i / COLUMNS); // vilken rad kortet befinner sig på
       const col = i % COLUMNS; // vilken kolumn kortet befinner sig på
-      const delay = `${row * 0.5 + col * 0.08}s`; // rad-fördröjning + kolumn-fördröjning = wave-effekt
+      const delay = row * 0.5 + col * 0.08; // rad-fördröjning + kolumn-fördröjning = wave-effekt
 
-      (el as HTMLElement).style.animationDelay = delay; // applicera fördröjningen på kortet
+      const card = el as HTMLElement;
+      card.style.animationDelay = `${delay}s`; // applicera fördröjningen på kortet
+      card.classList.add('reveal'); // starta animationen
+
+      // sätt visible efter att animationen är klar (delay + animationens längd 0.35s)
+      setTimeout(
+        () => {
+          card.classList.remove('reveal');
+          card.classList.add('visible'); // håller kortet synligt permanent
+          card.style.animationDelay = '';
+        },
+        (delay + 0.35) * 1000,
+      );
     });
 
     // Lägg på click-event en gång
