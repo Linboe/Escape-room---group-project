@@ -191,18 +191,12 @@ export function room5(sceneWrapper: HTMLDivElement | null, next: () => void) {
     <section class="room room-5">
     <div class="room-frame">
       <div class="game-session-wrapper">
-        <h2>Rum 5</h2>
-        <div class="board" id="board"></div>
-        <div class="game-session-style">
-          <p class="instruction-style">Välj rätt kod:</p>
-          <div class="options-wrapper">
-            <button class="option">1111</button>
-            <button class="option">2222 rätt knapp</button>
-            <button class="option">3333</button>
-            <button class="option">4444</button>
+          <h2 class="room-title-text" id="roomTitleText">Mystical creatures</h2>
+          <p class="event-text" id="eventText"></p>
+          <div class="game-session-style">
+              <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper"></div>
+              <div class="board" id="board"></div>
           </div>
-          <p id="message"></p>
-        </div>
       </div>
     </div>
   </section>
