@@ -1,4 +1,5 @@
 import "./room3.scss";
+import { renderGameOverScene } from "../../scenes/game-over-scene/game-over-scene";
 
 let currentQuestionIndex = 0;
 let hasArtifactRoom3 = false;
@@ -143,6 +144,9 @@ export function room3(sceneWrapper: HTMLDivElement | null, next: () => void) {
           message.textContent =
             "You have failed the trial. The jungle rejects you.";
           buttons.forEach((b) => (b.disabled = true));
+          setTimeout(() => {
+            renderGameOverScene(0);
+          }, 1000);
         }
       }
     });
