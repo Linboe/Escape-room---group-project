@@ -255,7 +255,7 @@ function showStory(sceneWrapper: HTMLDivElement, next: () => void): void {
     <section class="room room-5">
       <div class="room-frame">
         <div class="game-session-wrapper">
-          <h2 class="room-title-text" id="roomTitleText">Mystical creatures</h2>
+          <h2 class="room-title-text" id="roomTitleText">Shadows of the Grove</h2>
           <p class="event-text" id="eventText">
             You’ve traveled far on your journey, wandering deep into the forest.
             Suddenly, something catches your eye — white shapes hidden among the thick undergrowth.
@@ -281,7 +281,7 @@ function showOptions(sceneWrapper: HTMLDivElement, next: () => void): void {
     <section class="room room-5">
       <div class="room-frame">
         <div class="game-session-wrapper">
-          <h2 class="room-title-text" id="roomTitleText">Mystical creatures</h2>
+          <h2 class="room-title-text" id="roomTitleText">Shadows of the Grove</h2>
             <div class="game-session-style">
             <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper">
               <button id="wrong-btn" class="option">Creepy… I’ll turn back!</button>
@@ -310,7 +310,7 @@ function showWrongChoice(sceneWrapper: HTMLDivElement, next: () => void): void {
     <section class="room room-5">
       <div class="room-frame">
         <div class="game-session-wrapper">
-          <h2 class="room-title-text" id="roomTitleText">Mystical creatures</h2>
+          <h2 class="room-title-text" id="roomTitleText">Shadows of the Grove</h2>
           <p class="event-text" id="eventText">
             Some things can feel frightening when you don’t yet understand them. 
             To move forward, you must summon courage.
@@ -335,7 +335,7 @@ function showRightChoice(sceneWrapper: HTMLDivElement, next: () => void): void {
     <section class="room room-5">
       <div class="room-frame">
         <div class="game-session-wrapper">
-          <h2 class="room-title-text" id="roomTitleText">Mystical creatures</h2>
+          <h2 class="room-title-text" id="roomTitleText">Shadows of the Grove</h2>
           <p class="event-text" id="eventText">
             As you step closer, you discover that the white shapes are statues. 
             They guard the forest’s heart and the secret gathering place of its mystical creatures.
@@ -362,8 +362,8 @@ function showGame(sceneWrapper: HTMLDivElement, next: () => void): void {
     <section class="room room-5">
       <div class="room-frame">
         <div class="game-session-wrapper">
-          <h2 class="room-title-text" id="roomTitleText">Mystical creatures</h2>
-          <div class="game-session-style">
+          <h2 class="room-title-text" id="roomTitleText">Shadows of the Grove</h2>
+          <div class="game-session-style game-board">
             <div class="board" id="board"></div>
           </div>
         </div>
@@ -381,11 +381,11 @@ function showCompleted(sceneWrapper: HTMLDivElement, next: () => void): void {
     <section class="room room-5">
       <div class="room-frame">
         <div class="game-session-wrapper">
-          <h2 class="room-title-text" id="roomTitleText">Mystical creatures</h2>
+          <h2 class="room-title-text" id="roomTitleText">Shadows of the Grove</h2>
           <p class="event-text" id="eventText">
             Congratulations! You've solved the puzzle.
             A new power awakens — an artifact has been unlocked. 
-            The mystical creatures grant you the ARTIFACT.
+            The mystical creatures grant you the Amethyst.
           </p>
           <div class="game-session-style">
             <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper">
