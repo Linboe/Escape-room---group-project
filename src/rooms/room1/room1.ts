@@ -1,55 +1,80 @@
 import './room1.scss';
 
-// export function renderRoom1Scene() {
-//   const sceneWrapper = document.getElementById("sceneWrapper");
-//   if (!sceneWrapper) return;
-
-//   sceneWrapper.innerHTML = `
-//     <section class="room room-1">
-//       <h1>Room 1</h1>
-//       </section>
-//       `;
-// }
-
 export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
   if (!sceneWrapper) return;
 
   sceneWrapper.innerHTML = `
-  <div class="room1">
-    <div class="game-session-wrapper">
-        <h2>Rum 1</h2>
-        
-        <div class="choices">
-          <button id="rockBtn">Rock</button>
-          <button id="paperBtn">Paper</button>
-          <button id="scissorsBtn">Scissors</button>
-          </div>
-        
-        
-        <div id="playerDisplay" class="player-display">Player:</div>
-        <div id="computerDisplay" class="computer-display">Computer:</div>
-        <div id="resultDisplay" class="result-display"></div>
-        
-        <div class="score-display">
-        Player Score:
-        <span id="playerScoreDisplay" class="player-score-display">0</span>
+  <section class="room-1">
+    <div class="room-frame">
+      <h2 class="room-title">Rum 1</h2>
+
+        <div id="dialogueBox" class="dialogue-box">
+          <p id="dialogueText"></p>
+          <button id="nextBtn">Next</button>
         </div>
-        
-        <div class="score-display">
-        Computer Score:
-        <span id="computerScoreDisplay" class="computer-score-display">0</span>
-        </div>
-        
-        <div class="action-btn-container">
-        <button id="actionBtn" class="hidden"></button>
+    
+        <div id="gameSession" class="game-session-wrapper hidden">
+               
+          <div class="game-info-container">
+            <div id="playerDisplay" class="player-display">Player:</div>
+            <div id="computerDisplay" class="computer-display">Computer:</div>
+                <div id="resultDisplay" class="result-display"></div>
+                
+                <div class="score-display">
+                    Player Score:
+                    <span id="playerScoreDisplay" class="player-score-display">0</span>
+                  </div>
+                
+                <div class="score-display">
+                    Computer Score:
+                    <span id="computerScoreDisplay" class="computer-score-display">0</span>
+                  </div>
+                
+                <div class="action-btn-container">
+                    <button id="actionBtn" class="actionBtn hidden"></button>
+                  </div>
           </div>
 
+                <div class="choices">
+                  <button id="winBtn">Win!!</button>
+                  <button id="rockBtn">Rock</button>
+                  <button id="paperBtn">Paper</button>
+                  <button id="scissorsBtn">Scissors</button>
+                  </div>
+
         </div>
+    </div>
+  </section>
         `;
 
-  const rockBtn = document.getElementById('rockBtn') as HTMLButtonElement;
-  const paperBtn = document.getElementById('paperBtn') as HTMLButtonElement;
-  const scissorsBtn = document.getElementById('scissorsBtn') as HTMLButtonElement;
+  const lines = [
+    'Hello there, traveler!',
+    'If you want to keep moving you will have to beat me in rock paper scissors',
+    'First one to get 3 points wins. Good Luck!',
+  ];
+
+  let currentLine = 0;
+  const dialogueText = document.getElementById('dialogueText') as HTMLParagraphElement;
+  const nextBtn = document.getElementById('nextBtn') as HTMLButtonElement;
+  const dialogueBox = document.getElementById('dialogueBox') as HTMLDivElement;
+  const gameSession = document.getElementById('gameSession') as HTMLDivElement;
+
+  dialogueText.textContent = lines[0];
+
+  nextBtn.addEventListener('click', () => {
+    currentLine++;
+    if (currentLine < lines.length) {
+      dialogueText.textContent = lines[currentLine];
+    } else {
+      dialogueBox.classList.add('hidden');
+      gameSession.classList.remove('hidden');
+    }
+  });
+
+  const rockBtn: HTMLButtonElement | null = document.querySelector('#rockBtn');
+  const paperBtn: HTMLButtonElement | null = document.querySelector('#paperBtn');
+  const scissorsBtn: HTMLButtonElement | null = document.querySelector('#scissorsBtn');
+  const winBtn = document.getElementById('winBtn') as HTMLButtonElement;
   const actionBtn = document.getElementById('actionBtn') as HTMLButtonElement;
 
   const playerDisplay = document.getElementById('playerDisplay') as HTMLDivElement;
@@ -59,20 +84,26 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
   const playerScoreDisplay = document.getElementById('playerScoreDisplay') as HTMLSpanElement;
   const computerScoreDisplay = document.getElementById('computerScoreDisplay') as HTMLSpanElement;
 
+  if (!rockBtn || !paperBtn || !scissorsBtn) {
+    console.error('Buttons not found');
+    return;
+  }
+
   let playerScore = 0;
   let computerScore = 0;
   const WIN_SCORE = 3;
+
+  // winBtn.addEventListener('click', () => next());
+
+  winBtn.addEventListener('click', () => {
+    playerScore = WIN_SCORE;
+    playGame('Rock');
+  });
 
   function playGame(playerChoice: string) {
     const choices = ['Rock', 'Paper', 'Scissors'];
     const computerChoice = choices[Math.floor(Math.random() * 3)];
     let result = '';
-
-    if (playerScore === WIN_SCORE || computerScore === WIN_SCORE) {
-      rockBtn.disabled = true;
-      paperBtn.disabled = true;
-      scissorsBtn.disabled = true;
-    }
 
     if (playerChoice === computerChoice) {
       result = "IT'S A TIE!!";
@@ -113,14 +144,12 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
       resultDisplay.textContent = 'You won!';
       actionBtn.textContent = 'Go to the next room';
       actionBtn.classList.remove('hidden');
-
       disableGameButtons(true);
       actionBtn.onclick = () => next();
     } else if (computerScore === WIN_SCORE) {
       resultDisplay.textContent = 'You lost!';
       actionBtn.textContent = 'Try again';
       actionBtn.classList.remove('hidden');
-
       disableGameButtons(true);
       actionBtn.onclick = () => restartGame();
     }
@@ -144,33 +173,14 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
   }
 
   function disableGameButtons(disabled: boolean) {
-    rockBtn.disabled = disabled;
-    paperBtn.disabled = disabled;
-    scissorsBtn.disabled = disabled;
+    if (rockBtn && paperBtn && scissorsBtn) {
+      rockBtn.disabled = disabled;
+      paperBtn.disabled = disabled;
+      scissorsBtn.disabled = disabled;
+    }
   }
 
   rockBtn.addEventListener('click', () => playGame('Rock'));
   paperBtn.addEventListener('click', () => playGame('Paper'));
   scissorsBtn.addEventListener('click', () => playGame('Scissors'));
-
-  // <p>Välj rätt knapp för att gå vidare:</p>
-  // <button id="wrong">Fel knapp</button>
-  // <button id="correct">Rätt knapp</button>
-  // <p id="message"></p>
-
-  //   const correctBtn: HTMLButtonElement | null =
-  //     document.querySelector("#correct");
-  //   const wrongBtn: HTMLButtonElement | null = document.querySelector("#wrong");
-  //   const message: HTMLParagraphElement | null =
-  //     document.querySelector("#message");
-
-  //   correctBtn?.addEventListener("click", () => {
-  //     next(); // går vidare till nästa rum
-  //   });
-
-  //   wrongBtn?.addEventListener("click", () => {
-  //     if (message) {
-  //       message.textContent = "Fel val! Försök igen.";
-  //     }
-  //   });
 }

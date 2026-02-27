@@ -1,24 +1,44 @@
-.room1 {
-  background-image: url("../../assets/room-1-background.webp");
+.room-1 {
+  background-image: url('../../assets/room-1-background.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  min-height: 600px;
+  display: flex;
+  min-width: 100%;
+}
+
+.room-title {
   display: flex;
   justify-content: center;
+  font-size: 2rem;
+}
+
+.dialogue-box {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  min-height: 85svh;
-  min-width: 25svw;
+  word-wrap: break-word;
+  gap: 1rem;
   padding: 1rem;
+  margin: 0 auto;
+  background-color: rgb(0 0 0 / 0.6);
+  font-size: 1.25rem;
 }
 
 .game-session-wrapper {
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 1rem;
-  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3.5rem;
+  width: 25vw;
+  gap: 1rem;
 }
 
 .choices {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 0.5rem;
 }
 
@@ -31,10 +51,9 @@
   background-color: hsl(0, 0%, 20%);
 }
 
-.player-display,
-.computer-display,
-.score-display {
-  margin: 5px 0;
+.game-info-container {
+  background-color: rgb(0 0 0 / 0.45);
+  padding: 0.5rem 1rem;
 }
 
 .player-display,
@@ -44,9 +63,6 @@
 }
 
 .result-display {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-weight: 600;
   font-size: 1.35rem;
 }
@@ -55,16 +71,14 @@
   font-size: 1.35rem;
 }
 
-.restart-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .green-text {
   color: green;
 }
 
 .red-text {
   color: red;
+}
+
+.hidden {
+  display: none;
 }
