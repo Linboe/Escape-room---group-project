@@ -382,7 +382,7 @@ function showRightChoice(sceneWrapper: HTMLDivElement, next: () => void): void {
     </section>
   `;
     //ta bort sen endast för att testa artefakten
-    triggerArtifact('room5', 'amethyst', 2000);
+    triggerArtifact('room5', 'amethyst', 1000);
 
     document
         .getElementById('start-memory-btn')!
@@ -415,10 +415,12 @@ function showCompleted(sceneWrapper: HTMLDivElement, next: () => void): void {
       <div class="room-frame">
         <div class="game-session-wrapper">
           <h2 class="room-title-text" id="roomTitleText">Shadows of the Grove</h2>
-         
+         <p class="event-text" id="eventText">You are now ready for the final step on your journey.
+        
+         </p>
           <div class="game-session-style">
             <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper">
-             <button id="finish-room-btn" class="option">Gå vidare</button>
+             <button id="finish-room-btn" class="option">Continue</button>
             </div>
           </div>
         </div>
