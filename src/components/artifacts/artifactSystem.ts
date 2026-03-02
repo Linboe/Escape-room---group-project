@@ -15,7 +15,11 @@ export interface ArtifactData {
 // Här mappar vi om JSON-datan till vårt interface
 const artifactData = artifactDataRaw as ArtifactData;
 
-export function triggerArtifact(roomKey: string, artifactId: string) {
+export function triggerArtifact(
+    roomKey: string,
+    artifactId: string,
+    delay: number = 0,
+) {
     const roomItems = artifactData[roomKey];
 
     const artifact = roomItems?.find((item) => item.id === artifactId);
@@ -26,11 +30,13 @@ export function triggerArtifact(roomKey: string, artifactId: string) {
     }
 
     // 2. Skapa HTML för popupen dynamiskt
-    const popupHtml = `
+    setTimeout(() => {
+        const popupHtml = `
         <div id="artifact-popup-overlay" class="artifact-overlay">
             <div class="artifact-card">
                 <h2 class="artifact-title"> Congratulations!</h2>
-                <p>A new artifact has been unlocked - Click to collect</p>
+                <p class="arifact-p">A new artifact has been unlocked - <br>
+                click to collect</p>
                 <div class="artifact-image-container">
                     <img id="close-artifact-btn" src="${artifact.image}" alt="${artifact.name}" class="artifact-img-large">
                 </div>
@@ -40,20 +46,18 @@ export function triggerArtifact(roomKey: string, artifactId: string) {
         </div>
     `;
 
-    document.body.insertAdjacentHTML('beforeend', popupHtml);
+        document.body.insertAdjacentHTML('beforeend', popupHtml);
 
-    document
-        .getElementById('close-artifact-btn')
-        ?.addEventListener('click', () => {
-            const overlay = document.getElementById('artifact-popup-overlay');
-            if (overlay) {
-                overlay.remove();
-            }
-        });
+        document
+            .getElementById('close-artifact-btn')
+            ?.addEventListener('click', () => {
+                document.getElementById('artifact-popup-overlay')?.remove();
+            });
+    }, delay); // Här används fördröjningen (i millisekunder)
 }
 
 /*
  1. Importera --> import { triggerArtifact } from '../../components/artifacts/artifactSystem'; till ditt rum
- 2. Koppla på funktionen där du vill/vid klarad uppgigt (ange rum + vilken artefakt) ---> triggerArtifact('room5', 'amethyst');
+ 2. Koppla på funktionen där du vill/vid klarad uppgigt (ange rum + vilken artefakt, om du vill ha delay lägg till tex 3000 annars 0) ---> triggerArtifact('room5', 'amethyst', 3000);
  3. Om du vill ändra din artefakt/lägga till gör det direkt i ---> artifacts.json
  */

@@ -6,73 +6,53 @@
     justify-content: center;
     width: 100vw;
     z-index: 10000; // Se till att den ligger över allt
+}
 
-    .artifact-card {
-        background: rgb(26, 26, 26);
-        border: 1px solid #ffffff;
-        border-radius: 12px;
-        text-align: center;
-        max-width: 300px;
-        box-shadow:
-            0 0 30px rgba(0, 0, 0, 0.5),
-            0 0 15px rgba(#ffffff, 0.2);
-        color: #e0e0e0;
+.artifact-card {
+    background: rgb(26, 26, 26);
+    border-radius: 12px;
+    text-align: center;
+    max-width: 300px;
+    box-shadow:
+        0 0 30px rgba(0, 0, 0, 0.5),
+        0 0 15px rgba(#ffffff, 0.2);
+}
 
-        .artifact-title {
-            font-size: 1rem;
-            letter-spacing: 1px;
-            color: #ffffff;
-            margin-bottom: 1.5rem;
-        }
+.artifact-title {
+    font-size: 1rem;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
 
-        .artifact-image-container {
-            margin-bottom: 1rem;
+.artifact-image-container {
+    margin-bottom: 1rem;
 
-            .artifact-img-large {
-                width: 100px;
-                height: auto;
-                filter: drop-shadow(0 0 10px rgba(#ffffff, 0.4));
-                transition: transform 0.3s ease;
+    .artifact-img-large {
+        width: 100px;
+        height: auto;
+        filter: drop-shadow(0 0 10px rgba(#ffffff, 0.4));
+        transition: transform 0.3s ease;
 
-                &:hover {
-                    transform: scale(
-                        1.05
-                    ); // Liten effekt när man hovrar bilden
-                }
-            }
-        }
-
-        .artifact-name {
-            font-size: 1rem;
-            font-family: 'Georgia', serif; // Eller er valda rubrik-font
-        }
-
-        .artifact-desc {
-            font-style: italic;
-            line-height: 1.6;
-            opacity: 0.9;
-        }
-
-        #close-artifact-btn {
-            padding: 0.8rem 2rem;
-            cursor: pointer;
-            background: transparent;
-            color: white;
-            text-transform: uppercase;
-            font-weight: bold;
-            transition: all 0.2s ease;
+        &:hover {
+            transform: scale(1.25); // Liten effekt när man hovrar bilden
         }
     }
 }
 
-// Keyframes för "pop"-effekten
-@keyframes artifactPopIn {
-    0% {
-        transform: scale(0.6) translateY(20px);
-        opacity: 0;
-    }
-    100% {
-        transform: scale(1) translateY(0);
-        opacity: 1;
-    }
+.artifact-name {
+    font-size: 0.85rem;
+    font-family: 'Georgia', serif; // Eller er valda rubrik-font
+}
+
+.artifact-desc {
+    font-style: italic;
+    font-size: 0.85rem;
+    opacity: 0.9;
+    padding-inline: 15px;
+    padding-bottom: 15px;
+}
+
+.arifact-p {
+    font-size: 0.85rem;
+    margin-bottom: 20px;
 }

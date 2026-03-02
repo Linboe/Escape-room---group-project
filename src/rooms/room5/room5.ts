@@ -382,7 +382,7 @@ function showRightChoice(sceneWrapper: HTMLDivElement, next: () => void): void {
     </section>
   `;
     //ta bort sen endast för att testa artefakten
-    triggerArtifact('room5', 'amethyst');
+    triggerArtifact('room5', 'amethyst', 2000);
 
     document
         .getElementById('start-memory-btn')!
