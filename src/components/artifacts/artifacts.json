@@ -41,7 +41,7 @@
         {
             "id": "amethyst",
             "name": "amethyst",
-            "image": "/fed25d-js-intro-grupparbete-the-dopefish-admirers/img/2.jpg",
+            "image": "/fed25d-js-intro-grupparbete-the-dopefish-admirers/src/assets/artifacts/amethyst.jpg",
             "description": "The mystical creatures grant you the Amethyst."
         }
     ]

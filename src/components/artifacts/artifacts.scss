@@ -1,15 +1,16 @@
 .artifact-overlay {
     position: fixed;
-    top: 30px;
+    top: 10;
     left: 0;
     display: flex;
     justify-content: center;
     width: 100vw;
-    z-index: 10000; // Se till att den ligger över allt
+    height: 90vh;
+    z-index: 10000;
 }
 
 .artifact-card {
-    background: rgb(26, 26, 26);
+    background: rgb(36, 36, 36);
     border-radius: 12px;
     text-align: center;
     max-width: 300px;
@@ -34,14 +35,15 @@
         transition: transform 0.3s ease;
 
         &:hover {
-            transform: scale(1.25); // Liten effekt när man hovrar bilden
+            transform: scale(1.35);
         }
     }
 }
 
 .artifact-name {
     font-size: 0.85rem;
-    font-family: 'Georgia', serif; // Eller er valda rubrik-font
+    font-family: 'Georgia', serif;
+    margin-top: 20px;
 }
 
 .artifact-desc {
@@ -54,5 +56,5 @@
 
 .arifact-p {
     font-size: 0.85rem;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }

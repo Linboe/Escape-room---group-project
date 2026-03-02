@@ -409,12 +409,13 @@ function showGame(sceneWrapper: HTMLDivElement, next: () => void): void {
 }
 
 function showCompleted(sceneWrapper: HTMLDivElement, next: () => void): void {
-    sceneWrapper.innerHTML = `
+    setTimeout(() => {
+        sceneWrapper.innerHTML = `
     <section class="room room-5">
       <div class="room-frame">
         <div class="game-session-wrapper">
           <h2 class="room-title-text" id="roomTitleText">Shadows of the Grove</h2>
-          <p class="event-text" id="eventText"></p>
+         
           <div class="game-session-style">
             <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper">
              <button id="finish-room-btn" class="option">Gå vidare</button>
@@ -425,14 +426,15 @@ function showCompleted(sceneWrapper: HTMLDivElement, next: () => void): void {
     </section>
   `;
 
-    triggerArtifact('room5', 'amethyst');
+        triggerArtifact('room5', 'amethyst');
 
-    // 3. Knapp för att faktiskt lämna rummet och gå till nästa (next)
-    document
-        .getElementById('finish-room-btn')
-        ?.addEventListener('click', () => {
-            next();
-        });
+        // 3. Knapp för att faktiskt lämna rummet och gå till nästa (next)
+        document
+            .getElementById('finish-room-btn')
+            ?.addEventListener('click', () => {
+                next();
+            });
+    }, 2000);
 }
 
 // ---------------------------------------------------------------
