@@ -1,0 +1,48 @@
+{
+    "room1": [
+        {
+            "id": "feather",
+            "name": "feather",
+            "image": "/",
+            "description": ""
+        }
+    ],
+    "room2": [
+        {
+            "id": "key",
+            "name": "key",
+            "image": "/",
+            "description": ""
+        }
+    ],
+    "room3": [
+        {
+            "id": "walking-pot",
+            "name": "walking-pot",
+            "image": "/",
+            "description": ""
+        }
+    ],
+    "room4": [
+        {
+            "id": "fish-statue",
+            "name": "fish-statue",
+            "image": "/",
+            "description": ""
+        },
+        {
+            "id": "ladder",
+            "name": "ladder",
+            "image": "/",
+            "description": ""
+        }
+    ],
+    "room5": [
+        {
+            "id": "amethyst",
+            "name": "amethyst",
+            "image": "/fed25d-js-intro-grupparbete-the-dopefish-admirers/img/2.jpg",
+            "description": "The mystical creatures grant you the Amethyst."
+        }
+    ]
+}
