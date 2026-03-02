@@ -6,42 +6,42 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
   sceneWrapper.innerHTML = `
   <section class="room-1">
     <div class="room-frame">
-      <h2 class="room-title">Rum 1</h2>
+      <h2 class="room-title">The Gravity Glitch</h2>
 
         <div id="dialogueBox" class="dialogue-box">
           <p id="dialogueText"></p>
           <button id="nextBtn">Next</button>
         </div>
     
-        <div id="gameSession" class="game-session-wrapper hidden">
-               
-          <div class="game-info-container">
-            <div id="playerDisplay" class="player-display">Player:</div>
-            <div id="computerDisplay" class="computer-display">Computer:</div>
-                <div id="resultDisplay" class="result-display"></div>
-                
-                <div class="score-display">
-                    Player Score:
-                    <span id="playerScoreDisplay" class="player-score-display">0</span>
-                  </div>
-                
-                <div class="score-display">
-                    Computer Score:
-                    <span id="computerScoreDisplay" class="computer-score-display">0</span>
-                  </div>
-                
-                <div class="action-btn-container">
-                    <button id="actionBtn" class="actionBtn hidden"></button>
-                  </div>
-          </div>
-
-                <div class="choices">
-                  <button id="winBtn">Win!!</button>
-                  <button id="rockBtn">Rock</button>
-                  <button id="paperBtn">Paper</button>
-                  <button id="scissorsBtn">Scissors</button>
-                  </div>
-
+        <div class="game-session-wrapper">
+          <div id="gameSession" class="game-session-style hidden">
+              <div class="game-info-container">
+                <div id="playerDisplay" class="player-display">You:</div>
+                <div id="computerDisplay" class="computer-display">Strange Man:</div>
+                    <div id="resultDisplay" class="result-display"></div>
+                    
+                    <div class="score-display">
+                        Your Score:
+                        <span id="playerScoreDisplay" class="player-score-display">0</span>
+                      </div>
+                    
+                    <div class="score-display">
+                        Strange Man's Score:
+                        <span id="computerScoreDisplay" class="computer-score-display">0</span>
+                      </div>
+                    
+                    <div class="action-btn-container">
+                        <button id="actionBtn" class="actionBtn hidden"></button>
+                      </div>
+              </div>
+              
+              <div class="choices">
+                <button id="winBtn">Win!!</button>
+                <button id="rockBtn">Rock</button>
+                <button id="paperBtn">Paper</button>
+                <button id="scissorsBtn">Scissors</button>
+              </div>
+            </div>
         </div>
     </div>
   </section>
@@ -74,7 +74,7 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
   const rockBtn: HTMLButtonElement | null = document.querySelector('#rockBtn');
   const paperBtn: HTMLButtonElement | null = document.querySelector('#paperBtn');
   const scissorsBtn: HTMLButtonElement | null = document.querySelector('#scissorsBtn');
-  const winBtn = document.getElementById('winBtn') as HTMLButtonElement;
+  const winBtn = document.getElementById('winBtn') as HTMLButtonElement; // Remove when done
   const actionBtn = document.getElementById('actionBtn') as HTMLButtonElement;
 
   const playerDisplay = document.getElementById('playerDisplay') as HTMLDivElement;
@@ -93,12 +93,21 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
   let computerScore = 0;
   const WIN_SCORE = 3;
 
-  // winBtn.addEventListener('click', () => next());
+  // Remove code within the comments when done
 
   winBtn.addEventListener('click', () => {
     playerScore = WIN_SCORE;
-    playGame('Rock');
+    playerScoreDisplay.textContent = playerScore.toString();
+    resultDisplay.textContent = 'You won!';
+    resultDisplay.classList.remove('red-text');
+    resultDisplay.classList.add('green-text');
+    actionBtn.textContent = 'Go to the next room';
+    actionBtn.classList.remove('hidden');
+    disableGameButtons(true);
+    actionBtn.onclick = () => next();
   });
+
+  // End of the comment
 
   function playGame(playerChoice: string) {
     const choices = ['Rock', 'Paper', 'Scissors'];
@@ -121,8 +130,8 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
       }
     }
 
-    playerDisplay.textContent = `Player: ${playerChoice}`;
-    computerDisplay.textContent = `Computer: ${computerChoice}`;
+    playerDisplay.textContent = `You: ${playerChoice}`;
+    computerDisplay.textContent = `Strange Man: ${computerChoice}`;
     resultDisplay.textContent = result;
 
     resultDisplay.classList.remove('green-text', 'red-text');
@@ -140,13 +149,13 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
         break;
     }
 
-    if (playerScore === WIN_SCORE) {
+    if (playerScore >= WIN_SCORE) {
       resultDisplay.textContent = 'You won!';
       actionBtn.textContent = 'Go to the next room';
       actionBtn.classList.remove('hidden');
       disableGameButtons(true);
       actionBtn.onclick = () => next();
-    } else if (computerScore === WIN_SCORE) {
+    } else if (computerScore >= WIN_SCORE) {
       resultDisplay.textContent = 'You lost!';
       actionBtn.textContent = 'Try again';
       actionBtn.classList.remove('hidden');
