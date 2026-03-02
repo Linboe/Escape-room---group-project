@@ -13,7 +13,7 @@ export function renderMainMenuScene(
 
     sceneWrapper.innerHTML = `
         <div class="main-menu">
-            <h1>Main-menu</h1>
+            <h1>The Dopefish Admirers</h1>
             <div class="menu-buttons">
                 <button id="startGame" class="menu-btn primary">▶ Start game</button>
                 <button id="loadGame" class="menu-btn">💾 Load game</button>
