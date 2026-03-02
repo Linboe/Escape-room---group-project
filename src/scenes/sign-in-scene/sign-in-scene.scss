@@ -1,6 +1,5 @@
 .sign-in-wrapper {
-  width: 100%;
-  max-width: 460px;
+  width: 500px;
   min-height: 100vh;
   margin: 0 auto;
   display: flex;
@@ -17,7 +16,7 @@
     text-transform: uppercase;
     color: #ffffff;
     text-align: center;
-    padding: 1rem 1.5rem 0.75rem;
+    padding: 1.5rem 1.5rem 1.5rem;
     background: rgba(0, 0, 0, 0.55);
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     margin: 0;
@@ -26,16 +25,16 @@
   .sign-in-fields {
     background: rgba(20, 30, 25, 0.75);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 1.25rem 1.5rem;
+    padding: 1.7rem 1.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
 
     p {
       color: #aac8b8;
       font-family: "Georgia", serif;
-      font-size: 0.85rem;
+      font-size: 1rem;
       font-style: italic;
       text-align: center;
       margin: 0;
@@ -71,8 +70,8 @@
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     color: #ffffff;
     font-family: "Georgia", serif;
-    font-size: 1rem;
-    padding: 1rem;
+    font-size: 1.2rem;
+    padding: 1.5rem;
     cursor: pointer;
     text-align: center;
     transition: background 0.2s;
@@ -86,7 +85,7 @@
 
 .error-span {
   font-family: "Georgia", serif;
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-style: italic;
   color: #ffaaaa;
   display: flex;
