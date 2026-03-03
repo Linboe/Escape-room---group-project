@@ -166,7 +166,7 @@ function attemptJumpAcrossRavine() {
 }
 function useLadderAsBridge() {
     room4StoryToUse = ravineLadderStory;
-    refreshRoom4UI(0, 'Crossroads | Ravine | Monument');
+    refreshRoom4UI(0, '... | Ravine | Monument');
 }
 function atRavineMonument() {
     room4StoryToUse = ravineLadderStory;
@@ -202,7 +202,7 @@ function ravineMonumentCheck() {
 // cliff specific events - consider converting to a Class
 function ladderToClimbCliff() {
     room4StoryToUse = cliffLadderStory;
-    refreshRoom4UI(0, 'Crossroads | Cliff | Monument');
+    refreshRoom4UI(0, '... | Cliff | Monument');
 }
 function atCliffMonument() {
     room4StoryToUse = cliffLadderStory;
