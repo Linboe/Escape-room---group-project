@@ -10,3 +10,80 @@
     display: flex;
     min-width: 100%;    
 }
+
+.pick-art-style {
+    position: absolute;
+    bottom: 1rem;    
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: calc(100% - 2rem);
+    max-width: 360px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    padding: 1rem;
+    border-radius: 12px;
+}
+
+.pick-art-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.book {
+  display: flex;
+  flex-direction: column;
+
+  margin: 2rem 1rem;       
+  padding: 1rem 1.25rem;   
+  max-width: 90%;
+  width: 600px;
+  height: 700px;
+  max-height: 80%;
+
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  text-align: center;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  backdrop-filter: blur(10px);
+}
+
+.book-text {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.game-session-wrapper {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bookNav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: auto;
+    align-self: center;
+}
+
+.bookNav button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #1f2022;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
