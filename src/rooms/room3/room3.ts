@@ -1,5 +1,6 @@
 import "./room3.scss";
-import { renderGameOverScene } from "../../scenes/game-over-scene/game-over-scene";
+import { state } from "../../state/gamestate";
+import { render } from "../../main";
 
 let currentQuestionIndex = 0;
 let hasArtifactRoom3 = false;
@@ -129,7 +130,7 @@ export function room3(sceneWrapper: HTMLDivElement | null, next: () => void) {
           hasArtifactRoom3 = true;
           message.textContent = "The man nods. The boat is now safe to enter.";
 
-          setTimeout(() => next(), 1200);
+          setTimeout(() => next(), 2500);
         } else {
           setTimeout(renderQuestion, 700);
         }
@@ -145,7 +146,8 @@ export function room3(sceneWrapper: HTMLDivElement | null, next: () => void) {
             "You have failed the trial. The jungle rejects you.";
           buttons.forEach((b) => (b.disabled = true));
           setTimeout(() => {
-            renderGameOverScene(0);
+            state.screen = 'gameover';
+            render ();
           }, 1000);
         }
       }
