@@ -1,25 +1,27 @@
 
 import './status-bar.scss';
 import { getProgress } from '../../store/session/session-memory';
-import { getRoomStates, getState, setHourglass } from '../../state/gamestate';
+import { getRoomStates, getGameState, setHourglass } from '../../state/gamestate';
+import { renderGameOverScene } from '../../scenes/game-over-scene/game-over-scene';
 
 const statusBarWrapper = document.getElementById(
     'statusBarWrapper',
 ) as HTMLDivElement;
 
-let secondsElapsed: number = 0;
-//let time = 90;
-let testRoomStates = getRoomStates();
-let testState = getState();
-let time = testRoomStates[testState.currentRoom].hourglass;
+// ===============
+// Timer variables
+// ===============
 
-// counting states preventing doublettes 
-let countdownStarted: boolean = false;
-let countupStarted: boolean = false;
+// variable values are initial
+let secondsElapsed: number = 0;
+let roomStates = getRoomStates();
+let gameState = getGameState();
+let hourglassState = roomStates[gameState.currentRoom].hourglass; // how many seconds left for said room
 
 // as null when paused/ as interval when playing
 let countdownIntervalState: ReturnType<typeof setInterval> | null = null;
 let countupIntervalState: ReturnType<typeof setInterval> | null = null;
+// ===============
 
 // parent
 const pWrapperElement = document.createElement('p');
@@ -38,13 +40,7 @@ countupSpanElement.textContent = '--:--';
 const spanRoomsElement = document.createElement('span');
 
 export function startStatusBarTimers() { // initialize
-    const currentRoomState = getRoomStates();
-    const currentRoomIndex = getState().currentRoom;
-    const currentHourglass = currentRoomState[currentRoomIndex].hourglass;
-    if (!currentHourglass) return;
-
     startCountUp();
-    //startCountdown(currentRoomIndex,currentHourglass);
     startCountdown();
 }
 
@@ -64,44 +60,45 @@ export function renderStatusBar() {
     statusBarWrapper.append(pWrapperElement);
 }
 
-// tick
+// ===============
+// Timer functions
+// ===============
+
+// ticks
 function handleCountdownTick() {
-    updateCountdownTextContent();
-}
-
-function handleCountupTick() {
     secondsElapsed++;
-    updateCountupTextContent();
+    updateCountdownTextContent();
+    setHourglass(gameState.currentRoom, hourglassState);
 
-    if (--time < 0) {
+    if (--hourglassState < 0) {
         stopCountdown();
         stopCountup();
         spanTimerElement.textContent = 'Time\'s up!';
+        renderGameOverScene();
     }
 }
+function handleCountupTick() {
+    updateCountupTextContent();
+}
 
-// play/ pause
+// play & pause
 function startCountdown() {
     if (countdownIntervalState) return; // only run once
     countdownIntervalState = setInterval(handleCountdownTick, 1000);
-    countdownStarted = true;
     refetchGamestate();
 }
 function stopCountdown() {
     clearInterval(countdownIntervalState!);
     countdownIntervalState = null;
-    countdownStarted = false;
 }
 function startCountUp() {
     if (countupIntervalState) return; // only run once
     countupIntervalState = setInterval(handleCountupTick, 1000);
-    countupStarted = true;
     refetchGamestate();
 }
 function stopCountup() {
     clearInterval(countupIntervalState!);
     countupIntervalState = null;
-    countupStarted = false;
 }
 
 // UI helper(s)
@@ -109,15 +106,12 @@ function updateCountupTextContent() {
     const minutes = Math.floor(secondsElapsed / 60);
     const seconds = secondsElapsed % 60;
     const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-
     countupSpanElement.textContent = `Elapsed Time: ${formattedTime}`;
 }
-
 function updateCountdownTextContent() {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
+    const minutes = Math.floor(hourglassState / 60);
+    const seconds = hourglassState % 60;
     const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-    
     spanTimerElement.textContent = 'Room Time Left: ' + formattedTime;
 }
 
@@ -125,23 +119,18 @@ function updateCountdownTextContent() {
 export function pauseCountdown() {
     stopCountdown();
 }
-
 export function pauseCountup() {
     stopCountup();
 }
-
 export function pauseAll(): void {
     stopCountdown();
     stopCountup();
 }
 
-// test
+// refresh i.e when switching rooms
 export function refetchGamestate() {
-    testRoomStates = getRoomStates();
-    testState = getState();
-    time = testRoomStates[testState.currentRoom].hourglass;
-
-    console.log(testRoomStates);
-    console.log(testState);
-    console.log(time);
+    roomStates = getRoomStates();
+    gameState = getGameState();
+    hourglassState = roomStates[gameState.currentRoom].hourglass;
 }
+// ===============

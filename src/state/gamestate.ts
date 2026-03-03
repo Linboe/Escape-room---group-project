@@ -20,7 +20,7 @@ export let state: GameState = {
     roomTime: 0
 };
 
-export function getState() {
+export function getGameState() {
     return state;
 }
 
@@ -33,43 +33,25 @@ export function getGameSessionElapsedTime() {
     return gameSessionElapsedTime;
 }
 
-// hourglass hold seconds
 let roomStates = [
     {
-        label: 'Room 1',
-        marker: 'room-1',
-        isUnlocked: true,
-        hourglass: 500
-    },
-    {
-        label: 'Room 2',
-        marker: 'room-2',
-        isUnlocked: false,
+        //isUnlocked: true,
         hourglass: 400
     },
     {
-        label: 'Room 3',
-        marker: 'room-3',
-        isUnlocked: false,
-        hourglass: 300
+        hourglass: 400
     },
     {
-        label: 'The silent tide',
-        marker: 'room-4',
-        isUnlocked: false,
-        hourglass: 200
+        hourglass: 400
     },
     {
-        label: 'Room 5',
-        marker: 'room-5',
-        isUnlocked: false,
-        hourglass: 100
+        hourglass: 400
     },
     {
-        label: 'Room 6',
-        marker: 'room-6',
-        isUnlocked: false,
-        hourglass: 600
+        hourglass: 400
+    },
+    {
+        hourglass: 400
     }
 ];
 
