@@ -10,13 +10,17 @@
 
 .game-board {
     background: none;
+    border: none;
 }
 
-.room-5 .game-board {
+.room-5 {
     position: relative;
+}
+.room-5 .game-board {
+    position: absolute;
     margin: 0 auto;
-    left: 123px;
-    top: 70px;
+    left: 132px;
+    top: 120px;
 }
 
 .room-5 .board {

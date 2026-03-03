@@ -31,6 +31,12 @@ divArtifactsElement.classList.add('status-bar-artifacts'); //added Artefact
 // --------------------- Artefact ---------------------
 // ----------------------------------------------------
 const collectedArtifacts: Artifact[] = [];
+let isRoom6 = false;
+
+export function setRoom6Mode(active: boolean) {
+    isRoom6 = active;
+    renderArtifacts();
+}
 
 // Lägger till en artefakt i statusbaren — ignorerar dubletter
 export function addArtifactToStatusBar(artifact: Artifact) {
@@ -43,7 +49,17 @@ export function addArtifactToStatusBar(artifact: Artifact) {
     renderArtifacts();
 }
 
+// Hämtar en artefakt från samlingen via id — används av room6
+export function getArtifactById(id: string): Artifact | undefined {
+    return collectedArtifacts.find((a) => a.id === id);
+}
+
 function renderArtifacts() {
+    console.log(
+        'renderArtifacts called, collectedArtifacts:',
+        collectedArtifacts,
+    );
+    console.log('isRoom6:', isRoom6);
     const slots = Array.from({ length: 6 }).map((_, i) => {
         const artifact = collectedArtifacts[i];
         const slotIsEmpty = !artifact;
@@ -53,18 +69,35 @@ function renderArtifacts() {
         }
 
         return `
-            <div class="artifact-slot">
+              <div class="artifact-slot ${isRoom6 ? 'draggable' : ''}"
+                draggable="${isRoom6}"
+                data-id="${artifact.id}"
+            >
                 <img 
                     src="${artifact.image}" 
                     alt="${artifact.name}" 
                     title="${artifact.name}"
                     class="status-bar-artifact"
-                    data-id="${artifact.id}"
                 />
             </div>`;
     });
 
     divArtifactsElement.innerHTML = slots.join('');
+
+    if (isRoom6) {
+        divArtifactsElement
+            .querySelectorAll('.artifact-slot.draggable')
+            .forEach((slot) => {
+                slot.addEventListener('dragstart', (e) => {
+                    const artifactId = (slot as HTMLElement).dataset.id ?? '';
+                    console.log('dragstart artifactId:', artifactId);
+                    (e as DragEvent).dataTransfer?.setData(
+                        'artifactId',
+                        artifactId,
+                    );
+                });
+            });
+    }
 }
 
 // ----------------------------------------------------

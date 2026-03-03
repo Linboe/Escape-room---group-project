@@ -1,5 +1,5 @@
 .room-6 {
-    background-image: url("/roompic/room6ending.png");
+    background-image: url('/roompic/room6ending.png');
 }
 
 .room-6 {
@@ -8,5 +8,18 @@
     background-repeat: no-repeat;
     min-height: 600px;
     display: flex;
-    min-width: 100%;    
+    min-width: 100%;
+}
+
+// test drop-statusbar
+.drop-zone {
+    width: 60px;
+    height: 60px;
+    border: 2px dashed white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.7rem;
 }
