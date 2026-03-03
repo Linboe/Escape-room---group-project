@@ -16,8 +16,8 @@ export let state: GameState = {
     step: 1,
     currentRoom: 0,
     message: '',
-    totalTime: 0,
-    roomTime: 0
+    totalTime: 0, // likely unnecessary 
+    roomTime: 0 // likely unnecessary 
 };
 
 export function getGameState() {
@@ -27,31 +27,26 @@ export function getGameState() {
 // ======
 // Timers
 // ======
-let gameSessionElapsedTime: number = 0; // Seconds counting upwards
-
-export function getGameSessionElapsedTime() {
-    return gameSessionElapsedTime;
-}
 
 let roomStates = [
     {
         //isUnlocked: true,
-        hourglass: 400
+        roomTime: 400 // TODO: make it possible to fetch room time from localstorage
     },
     {
-        hourglass: 400
+        roomTime: 400
     },
     {
-        hourglass: 400
+        roomTime: 400
     },
     {
-        hourglass: 400
+        roomTime: 400
     },
     {
-        hourglass: 400
+        roomTime: 400
     },
     {
-        hourglass: 400
+        roomTime: 400 
     }
 ];
 
@@ -59,7 +54,7 @@ export function getRoomStates() {
     return roomStates;
 }
 
-export function setHourglass(targetIndex:number, newValue: number) {
-    roomStates[targetIndex].hourglass = newValue;
+export function setRoomTime(targetIndex:number, newValue: number) {
+    roomStates[targetIndex].roomTime = newValue;
 }
 // ======

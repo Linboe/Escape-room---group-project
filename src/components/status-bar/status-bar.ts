@@ -1,7 +1,7 @@
 
 import './status-bar.scss';
 import { getProgress } from '../../store/session/session-memory';
-import { getRoomStates, getGameState, setHourglass } from '../../state/gamestate';
+import { getRoomStates, getGameState, setRoomTime } from '../../state/gamestate';
 import { renderGameOverScene } from '../../scenes/game-over-scene/game-over-scene';
 
 const statusBarWrapper = document.getElementById(
@@ -16,7 +16,7 @@ const statusBarWrapper = document.getElementById(
 let secondsElapsed: number = 0;
 let roomStates = getRoomStates();
 let gameState = getGameState();
-let hourglassState = roomStates[gameState.currentRoom].hourglass; // how many seconds left for said room
+let hourglassState = roomStates[gameState.currentRoom].roomTime; // how many seconds left for said room
 
 // as null when paused/ as interval when playing
 let countdownIntervalState: ReturnType<typeof setInterval> | null = null;
@@ -68,7 +68,7 @@ export function renderStatusBar() {
 function handleCountdownTick() {
     secondsElapsed++;
     updateCountdownTextContent();
-    setHourglass(gameState.currentRoom, hourglassState);
+    setRoomTime(gameState.currentRoom, hourglassState);
 
     if (--hourglassState < 0) {
         stopCountdown();
@@ -131,6 +131,6 @@ export function pauseAll(): void {
 export function refetchGamestate() {
     roomStates = getRoomStates();
     gameState = getGameState();
-    hourglassState = roomStates[gameState.currentRoom].hourglass;
+    hourglassState = roomStates[gameState.currentRoom].roomTime;
 }
 // ===============
