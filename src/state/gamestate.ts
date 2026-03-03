@@ -51,25 +51,25 @@ let roomStates = [
         label: 'Room 3',
         marker: 'room-3',
         isUnlocked: false,
-        hourglass: 500
+        hourglass: 300
     },
     {
         label: 'The silent tide',
         marker: 'room-4',
         isUnlocked: false,
-        hourglass: 500
+        hourglass: 200
     },
     {
         label: 'Room 5',
         marker: 'room-5',
         isUnlocked: false,
-        hourglass: 500
+        hourglass: 100
     },
     {
         label: 'Room 6',
         marker: 'room-6',
         isUnlocked: false,
-        hourglass: 500
+        hourglass: 600
     }
 ];
 

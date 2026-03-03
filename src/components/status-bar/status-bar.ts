@@ -8,7 +8,10 @@ const statusBarWrapper = document.getElementById(
 ) as HTMLDivElement;
 
 let secondsElapsed: number = 0;
-let time = 90;
+//let time = 90;
+let testRoomStates = getRoomStates();
+let testState = getState();
+let time = testRoomStates[testState.currentRoom].hourglass;
 
 // counting states preventing doublettes 
 let countdownStarted: boolean = false;
@@ -34,58 +37,7 @@ countupSpanElement.textContent = '--:--';
 
 const spanRoomsElement = document.createElement('span');
 
-/*
-function startCountUp2() {
-    if (countupStarted) return;
-    countupStarted = true;
-
-    const targetSeconds = 90 * 60; // Counts up to 90 minutes
-
-    const interval = setInterval(() => {
-        secondsElapsed++;
-
-        // UI update
-        const minutes = Math.floor(secondsElapsed / 60);
-        const seconds = secondsElapsed % 60;
-        const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-
-        countupSpanElement.textContent = `Elapsed Time: ${formattedTime}`;
-
-        if (secondsElapsed >= targetSeconds) {
-            clearInterval(interval);
-            countupSpanElement.textContent = '90 Minutes Reached!';
-        }
-    }, 1000);
-}
-*/
-
-/*
-function startCountdown2(currentRoomIndex: number, hourglass: number) {
-    if (countdownStarted) return;
-    countdownStarted = true;
-    let time = hourglass;
-
-    if (countdownIntervalState) return; // prevent duplicate
-    //countdownIntervalState = setInterval(handleTick, 1000);
-
-    const interval = setInterval(() => {
-        const minutes = Math.floor(time / 60);
-        const seconds = time % 60;
-        const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-
-        spanTimerElement.textContent = 'Room Time Left: ' + formattedTime;
-
-        setHourglass(currentRoomIndex, time);
-
-        if (--time < 0) {
-            clearInterval(interval);
-            spanTimerElement.textContent = 'Time\'s up!';
-        }
-    }, 1000);
-}
-*/
-
-export function startStatusBarTimers() { // initialize)
+export function startStatusBarTimers() { // initialize
     const currentRoomState = getRoomStates();
     const currentRoomIndex = getState().currentRoom;
     const currentHourglass = currentRoomState[currentRoomIndex].hourglass;
@@ -133,6 +85,7 @@ function startCountdown() {
     if (countdownIntervalState) return; // only run once
     countdownIntervalState = setInterval(handleCountdownTick, 1000);
     countdownStarted = true;
+    refetchGamestate();
 }
 function stopCountdown() {
     clearInterval(countdownIntervalState!);
@@ -143,6 +96,7 @@ function startCountUp() {
     if (countupIntervalState) return; // only run once
     countupIntervalState = setInterval(handleCountupTick, 1000);
     countupStarted = true;
+    refetchGamestate();
 }
 function stopCountup() {
     clearInterval(countupIntervalState!);
@@ -167,8 +121,27 @@ function updateCountdownTextContent() {
     spanTimerElement.textContent = 'Room Time Left: ' + formattedTime;
 }
 
-// etc
-export function testPause(): void {
+// pause
+export function pauseCountdown() {
+    stopCountdown();
+}
+
+export function pauseCountup() {
+    stopCountup();
+}
+
+export function pauseAll(): void {
     stopCountdown();
     stopCountup();
+}
+
+// test
+export function refetchGamestate() {
+    testRoomStates = getRoomStates();
+    testState = getState();
+    time = testRoomStates[testState.currentRoom].hourglass;
+
+    console.log(testRoomStates);
+    console.log(testState);
+    console.log(time);
 }
