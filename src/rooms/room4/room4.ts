@@ -30,7 +30,7 @@ function renderRoom4() {
                 <h2 class="room-title-text" id="roomTitleText"></h2>
                 <p class="event-text" id="eventText"></p>
                 <div class="game-session-style">
-                    <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper"></div>
+                    <div id="storyEventButtonsWrapper"></div>
                 </div>
             </div>
         </div>
@@ -54,7 +54,6 @@ function renderRoom4() {
 
     // gameSessionWrapper's children
     const roomTitleTextElement = document.createElement('h2');
-    roomTitleTextElement.classList.add('room-title-text');
     roomTitleTextElement.id = 'roomTitleText';
 
     const eventTextElement = document.createElement('p');
@@ -65,7 +64,6 @@ function renderRoom4() {
     gameSessionDiv.classList.add('game-session-style');
 
     const storyEventButtonsWrapperElement = document.createElement('div');
-    storyEventButtonsWrapperElement.classList.add('player-interaction-buttons-wrapper');
     storyEventButtonsWrapperElement.id = 'storyEventButtonsWrapper';
 
     // assemble wrapper
@@ -153,9 +151,10 @@ export function reRenderRoom4() { // accessible for story-controller
         }
 
         newStoryEventButton.innerText = room4StoryEventButtons[i].label!;
-        newStoryEventButton.classList.add('interaction-button');
+        newStoryEventButton.classList.add('option');
+        newStoryEventButton.classList.add('room-4-interaction-button');
         newStoryEventButton.addEventListener('click', handleRoom4ClickStoryEventButton);
-        // insert conditional here
+
         storyEventButtonsWrapperElement.append(newStoryEventButton);
     }
 }
