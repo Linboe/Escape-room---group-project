@@ -122,7 +122,7 @@ export function pauseCountdown() {
 export function pauseCountup() {
     stopCountup();
 }
-export function pauseAll(): void {
+export function stopAllStatusBarTimers(): void {
     stopCountdown();
     stopCountup();
 }
