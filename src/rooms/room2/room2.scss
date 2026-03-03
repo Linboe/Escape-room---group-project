@@ -1,12 +1,193 @@
-.room-2 {
-    background-image: url("/roompic/isabelleroom2.png");
-}
+    .room-2 {
+        background-image: url("/roompic/isabelleroom2.png");
+    }
 
-.room-2 {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 600px;
-    display: flex;
-    min-width: 100%;    
-}
+    .room-2 {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 600px;
+        display: flex;
+        min-width: 100%;
+
+        .event-text {
+            padding: 10px;
+            margin: 10px;
+            width: calc(100% - 40px);
+            min-height: fit-content;
+            text-align: left;
+            font-size: 1.0rem;
+            backdrop-filter: blur(1.5px);
+            text-shadow: 0 2px 2px black;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba($color: white, $alpha: 0.5);
+        }
+    }
+
+    .room-title-text {
+        //position: absolute;
+        width: 100%;
+        top: 10px;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 1.5rem;
+        backdrop-filter: blur(1px);
+        text-shadow: 0 2px 2px black;
+        background: linear-gradient(90deg,
+                rgba(0, 0, 0, 0.35) 0%,
+                rgba(0, 0, 0, 0.65) 25%,
+                rgba(0, 0, 0, 0.65) 75%,
+                rgba(0, 0, 0, 0.35) 100%);
+        border-top: 1px solid rgba($color: white, $alpha: 0.5);
+        border-bottom: 1px solid rgba($color: white, $alpha: 0.5);
+    }
+
+    .interaction-button {
+        border-radius: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(1.5px);
+        color: white;
+        width: 100%;
+    }
+
+    .game-session-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .show-start-wrapper {
+        position: absolute;
+        top: 20%;
+
+        .quest strong {
+            display: block;
+            justify-content: center;
+        }
+    }
+
+    .startPuzzleBtn {
+        position: absolute;
+        top: 45%;
+    }
+
+    .option-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        position: absolute;
+        top: 30%;
+    }
+
+    .riddle-game {
+        position: absolute;
+        top: 20%;
+    }
+
+    .riddle-game-btns {
+        position: absolute;
+        top: 35%;
+
+        button {
+            margin-bottom: 5px;
+        }
+    }
+
+    .riddle-game-text {
+        position: absolute;
+        top: 55%;
+    }
+
+    .puzzle-overlay {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        .puzzle-overlay-text {
+            position: absolute;
+            bottom: 0;
+        }
+    }
+
+    .number-guess-wrapper {
+        position: absolute;
+        top: 20%;
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+            margin-left: 30px;
+        }
+    }
+
+    .fragment-win {
+        position: absolute;
+        top: 40%;
+    }
+
+    .win-game-text i {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .final-exit-input-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .puzzle-overlay {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        .invisible-btn {
+            position: absolute;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.1); // TODO - remove 
+            outline: none;
+        }
+
+        #flower {
+            top: 75%;
+            left: 15%;
+            width: 80px;
+            height: 80px;
+        }
+
+        #lilyLeaf {
+            top: 55%;
+            left: 40%;
+            width: 150px;
+            height: 100px;
+        }
+
+        #ceiling {
+            top: 3%;
+            right: 5%;
+            width: 30%;
+            height: 15%;
+        }
+
+        #hangingFern {
+            top: 35%;
+            left: 10%;
+            width: 60px;
+            height: 60px;
+        }
+
+        #sign {
+            top: 50%;
+            left: 75%;
+            width: 100px;
+            height: 100px;
+        }
+
+        #redPlant {
+            top: 5%;
+            left: 35%;
+            width: 20%;
+            height: 10%;
+        }
+    }
