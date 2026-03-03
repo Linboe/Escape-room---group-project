@@ -1,4 +1,5 @@
 import './room6.scss';
+import { room6Book } from './story/room6story';
 
 export function renderRoom6Scene() {
     const sceneWrapper = document.getElementById('sceneWrapper');
@@ -22,12 +23,13 @@ export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
         <div class="room-frame">
           <div class="game-session-wrapper">
 
+          <h2 id="roomTitleText">END GAME</h2>
+
             <!-- BOOK -->
             <div class="book" id="book"></div>
 
             <!-- PICK ART -->
             <div class="pick-art-style">
-              <p class="instruction-style">Choose the correct item:</p>
               <div class="pick-art-wrapper">
                 <button class="pick-art">1</button>
                 <button class="pick-art">2</button>
@@ -53,86 +55,33 @@ export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
     let page = 0;
 
     function renderBook() {
-        if (page === 0) {
-            book.innerHTML = `
-              <p class="book-text">
-                You find a book with a riddle. Solve it to proceed.
-              </p>
-              <div class="bookNav">
-                <button id="nextPage">Next</button>
-              </div>
-            `;
+        const current = room6Book[page];
 
-            book.querySelector('#nextPage')?.addEventListener('click', () => {
-                page = 1;
-                renderBook();
-            });
-        }
+        book.innerHTML = `
+    <h2 class="book-title">${current.title}</h2>
+  <div class="event-text">
+    <p>${current.text} </p>
+    <div class="bookNav">
+      ${current.hasPrev ? `<button id="prevPage">Back</button>` : ''}
+      ${current.hasNext ? `<button id="nextPage">Next</button>` : ''}
+      ${current.isEscape ? `<button id="escapeBtn">ESCAPE</button>` : ''}
+    </div>
+  </div>
+`;
 
-        if (page === 1) {
-            book.innerHTML = `
-              <p class="book-text">
-                Blad 2 – Hint: The answer is hidden in plain sight.
-              </p>
-              <div class="bookNav">
-                <button id="prevPage">Back</button>
-                <button id="nextPage">Next</button>
-            </div>
-            `;
+        book.querySelector('#prevPage')?.addEventListener('click', () => {
+            page--;
+            renderBook();
+        });
 
-            book.querySelector('#prevPage')?.addEventListener('click', () => {
-                page = 0;
-                renderBook();
-            });
+        book.querySelector('#nextPage')?.addEventListener('click', () => {
+            page++;
+            renderBook();
+        });
 
-            book.querySelector('#nextPage')?.addEventListener('click', () => {
-                page = 2;
-                renderBook();
-            });
-        }
-
-        if (page === 2) {
-            book.innerHTML = `
-              <p class="book-text">
-                Blad 3 – Hint: The correct item is the one that stands out.
-              </p>
-              <div class="bookNav">
-                <button id="prevPage">Back</button>
-                <button id="nextPage">Next</button>
-            </div>
-            `;
-
-            book.querySelector('#prevPage')?.addEventListener('click', () => {
-                page = 1;
-                renderBook();
-            });
-
-            book.querySelector('#nextPage')?.addEventListener('click', () => {
-                page = 3;
-                renderBook();
-            });
-        }
-
-        if (page === 3) {
-            book.innerHTML = `
-              <p class="book-text">
-                Blad 4 – You are free, RUN
-              </p>
-              <div class="bookNav">
-                <button id="prevPage">Back</button>
-                <button id="escapeBtn">ESCAPE</button>
-              </div>
-            `;
-
-            book.querySelector('#prevPage')?.addEventListener('click', () => {
-                page = 2;
-                renderBook();
-            });
-
-            book.querySelector('#escapeBtn')?.addEventListener('click', () => {
-                next();
-            });
-        }
+        book.querySelector('#escapeBtn')?.addEventListener('click', () => {
+            next();
+        });
     }
 
     renderBook();

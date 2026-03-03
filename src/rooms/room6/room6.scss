@@ -23,10 +23,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-
-    padding: 1rem;
-    border-radius: 12px;
 }
 
 .pick-art-wrapper {
@@ -48,12 +44,8 @@
   height: 700px;
   max-height: 80%;
 
-  background: rgba(255, 255, 255, 0.9);
   border-radius: 12px;
   text-align: center;
-
-  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-  backdrop-filter: blur(10px);
 }
 
 .book-text {
@@ -87,3 +79,14 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
+.event-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    line-height: 2.2;
+    padding: 1.5rem 1.5rem;
+    margin: 0;
+}
+
