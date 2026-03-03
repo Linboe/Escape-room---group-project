@@ -95,6 +95,20 @@ function renderArtifacts() {
                         'artifactId',
                         artifactId,
                     );
+
+                    const img = slot.querySelector('img') as HTMLImageElement;
+                    if (img) {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = 30;
+                        canvas.height = 30;
+                        const ctx = canvas.getContext('2d');
+                        ctx?.drawImage(img, 0, 0, 30, 30);
+                        (e as DragEvent).dataTransfer?.setDragImage(
+                            canvas,
+                            15,
+                            15,
+                        );
+                    }
                 });
             });
     }
