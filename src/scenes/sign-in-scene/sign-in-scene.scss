@@ -1,34 +1,103 @@
 .sign-in-wrapper {
+  width: 500px;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0;
+
+  h2 {
+    font-family: "Cinzel", serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-align: center;
+    padding: 1.5rem 1.5rem 1.5rem;
+    background: rgba(0, 0, 0, 0.55);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    margin: 0;
+  }
+
+  .sign-in-fields {
+    background: rgba(20, 30, 25, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 1.7rem 1.5rem;
     display: flex;
     flex-direction: column;
-    border: 1px solid white;
-    padding: 20px;
-    gap: 20px;
+    align-items: center;
+    gap: 1.5rem;
+
+    p {
+      color: #aac8b8;
+      font-family: "Georgia", serif;
+      font-size: 1rem;
+      font-style: italic;
+      text-align: center;
+      margin: 0;
+    }
 
     input {
-        padding: 8px;
-        margin-left: 10px;
-    }
+      background: rgba(180, 210, 195, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+      font-family: "Georgia", serif;
+      font-size: 1rem;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: center;
 
-    button {
-        background-color: white;
-        color: black;
+      &:focus {
+        outline: none;
+        border-color: rgba(255, 255, 255, 0.6);
+        background: rgba(180, 210, 195, 0.15);
+      }
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.3);
+      }
     }
+  }
+
+  button {
+    background: rgba(10, 15, 12, 0.85);
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-family: "Georgia", serif;
+    font-size: 1.2rem;
+    padding: 1.5rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.2s;
+    width: 100%;
+
+    &:hover {
+      background: rgba(30, 40, 35, 0.95);
+    }
+  }
 }
 
 .error-span {
-    font-size: 12px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 5px;
+  font-family: "Georgia", serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: #ffaaaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
 
-    svg {
-        margin-right: 5px;
-    }
+  svg {
+    margin-right: 5px;
+  }
 }
 
 .hidden {
-    display: none;
+  display: none;
 }

@@ -1,7 +1,46 @@
-.menu-buttons {
+.main-menu {
+  width: 500px;
+  min-height: 100vh;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  button {
-    margin-bottom: 20px;
+  align-items: stretch;
+  justify-content: center;
+
+  h1 {
+    font-family: "Cinzel", serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-align: center;
+    padding: 1.5rem 1.5rem 1.5rem;
+    background: rgba(0, 0, 0, 0.55);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    margin: 0;
+  }
+
+  .menu-buttons {
+    display: flex;
+    flex-direction: column;
+
+    button {
+      background: rgba(10, 15, 12, 0.85);
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      font-family: "Georgia", serif;
+      font-size: 1.1rem;
+      padding: 1.2rem;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.2s;
+      width: 100%;
+
+      &:hover {
+        background: rgba(30, 40, 35, 0.95);
+      }
+    }
   }
 }

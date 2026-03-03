@@ -1,11 +1,11 @@
-export type ButtonEvent = {
+export type IButtonEvent = {
     label?: string;
     buttonMarker?: string;
     conditionalMarker?: string;
 };
 
-export type ScriptEvent = {
+export type IScriptEvent = {
     textEvent?: string;
     eventMarker?: string;
-    buttonEvents?: ButtonEvent[];
+    buttonEvents?: IButtonEvent[];
 };
