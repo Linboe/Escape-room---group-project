@@ -3,7 +3,7 @@
         {
             "id": "feather",
             "name": "feather",
-            "image": "/fed25d-js-intro-grupparbete-the-dopefish-admirers/public/artifacts/feather.webp",
+            "image": "/fed25d-js-intro-grupparbete-the-dopefish-admirers/artifacts/feather.webp",
             "description": ""
         }
     ],
@@ -11,7 +11,7 @@
         {
             "id": "key",
             "name": "key",
-            "image": "/fed25d-js-intro-grupparbete-the-dopefish-admirers/public/artifacts/key.webp",
+            "image": "/fed25d-js-intro-grupparbete-the-dopefish-admirers/artifacts/key.webp",
             "description": ""
         }
     ],
@@ -19,7 +19,7 @@
         {
             "id": "walking-pot",
             "name": "walking-pot",
-            "image": "/fed25d-js-intro-grupparbete-the-dopefish-admirers/public/artifacts/walking-pot.webp",
+            "image": "/fed25d-js-intro-grupparbete-the-dopefish-admirers/artifacts/walking-pot.webp",
             "description": ""
         }
     ],
@@ -27,13 +27,13 @@
         {
             "id": "fish-statue",
             "name": "fish-statue",
-            "image": "/fed25d-js-intro-grupparbete-the-dopefish-admirers/public/artifacts/fish-statue.webp",
+            "image": "/fed25d-js-intro-grupparbete-the-dopefish-admirers/artifacts/fish-statue.webp",
             "description": ""
         },
         {
             "id": "ladder",
             "name": "ladder",
-            "image": "/fed25d-js-intro-grupparbete-the-dopefish-admirers/public/artifacts/ladder.webp",
+            "image": "/fed25d-js-intro-grupparbete-the-dopefish-admirers/artifacts/ladder.webp",
             "description": ""
         }
     ],
@@ -41,7 +41,7 @@
         {
             "id": "amethyst",
             "name": "amethyst",
-            "image": "/fed25d-js-intro-grupparbete-the-dopefish-admirers/public/artifacts/amethyst.webp",
+            "image": "/fed25d-js-intro-grupparbete-the-dopefish-admirers/artifacts/amethyst.webp",
             "description": "The mystical creatures grant you the Amethyst."
         }
     ]

@@ -1,6 +1,6 @@
 .artifact-overlay {
     position: fixed;
-    top: 10;
+    top: 20px;
     left: 0;
     display: flex;
     justify-content: center;
@@ -10,7 +10,7 @@
 }
 
 .artifact-card {
-    background: rgba(20, 30, 25);
+    background: rgba(20, 30, 25, 0.95);
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 12px;
     text-align: center;
@@ -33,7 +33,7 @@
     .artifact-img-large {
         width: 100px;
         height: auto;
-        filter: drop-shadow(0 0 10px rgba(#ffffff, 0.4));
+        filter: drop-shadow(0 0 20px rgba(#ffffff, 0.4));
         transition: transform 0.3s ease;
 
         &:hover {
