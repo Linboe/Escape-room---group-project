@@ -31,9 +31,11 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                         <p class="text"> The air in the Victoria House is thick with humidity and the scent of damp earth.</p>
                         <p class="text"> Ahead of you, the path vanishes into a wall of green.</p>
                         <p class="quest"> You know the code out of here is hidden in <strong>three fragments.</strong></p>
+
+                        <button id="startJourney" class="interaction-button start-journey-btn">Begin Search</button>
                     </div>
 
-                    <button id="startJourney" class="interaction-button start-journey-btn">Begin Search</button>
+                    
                 </div>
             </div>
         </section>  
@@ -50,10 +52,12 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                         <div class="game-session-wrapper">
                             <h2 class="room-title-text">Victoria House</h2>
 
-                            <p class="event-text">Where do you begin your search?</p>
-                            <div class="option-wrapper">
-                                <button id="ferns" class="interaction-button">Push through the dense ferns and hanging air roots to the right. It’s dark, but you feel something watching you from the leaves.</button>
-                                <button id= "lilyPads" class="interaction-button">Step onto the giant lily pads. They look like floating plates, sturdy enough to hold your weight, shimmering under the glass roof.</button>
+                            <div class="game-wrapper choose-path-wrapper">
+                                <p class="event-text">Where do you begin your search?</p>
+                                <div class="option-wrapper">
+                                    <button id="ferns" class="interaction-button">Push through the dense ferns and hanging air roots to the right. It’s dark, but you feel something watching you from the leaves.</button>
+                                    <button id= "lilyPads" class="interaction-button">Step onto the giant lily pads. They look like floating plates, sturdy enough to hold your weight, shimmering under the glass roof.</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -93,21 +97,23 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
             <div class="room-frame">
                 <div class="game-session-wrapper">
                     <h2 class="room-title-text">The Brass Plaque</h2>
-                    
-                    <p class="event-text riddle-game">"I am the mirror that never breaks, I cradle the giant but have no arms. What am I?"</p>
-                    <div class="riddle-game-btns">
-                        <button id= "roof" class="answer-btn interaction-button" data-correct="false">The Glass Roof</button>
-                        <button id= "surface" class="answer-btn interaction-button" data-correct="true">The Water's Surface</button>
-                        <button id= "shadows" class="answer-btn interaction-button" data-correct="false">The Deep Shadows</button>
+
+                    <div class="game-wrapper riddle-game-wrapper">
+                        <p class="event-text">"I am the mirror that never breaks, I cradle the giant but have no arms. What am I?"</p>
+                        <div class="riddle-game-btns">
+                            <button id= "roof" class="answer-btn interaction-button" data-correct="false">The Glass Roof</button>
+                            <button id= "surface" class="answer-btn interaction-button" data-correct="true">The Water's Surface</button>
+                            <button id= "shadows" class="answer-btn interaction-button" data-correct="false">The Deep Shadows</button>
+                        </div>
+                        <p class="event-text game-message hidden"></p>
                     </div>
-                    <p id="message" class="event-text riddle-game-text hidden"></p>
                 </div>
             </div>
          </section>  
         `;
 
         const answerBtns = sceneWrapper.querySelectorAll('.answer-btn');
-        const message: HTMLParagraphElement | null = sceneWrapper.querySelector('#message');
+        const message: HTMLParagraphElement | null = sceneWrapper.querySelector('.game-message');
 
         answerBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -198,7 +204,9 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
             <div class="room-frame">
                 <div class="game-session-wrapper">
                     <h2 class="room-title-text">The Watcher of Victoria House</h2>
-                    <p class="event-text start-puzzle-text">The giant lily pads feel surprisingly firm beneath your feet. From here, you see the life of the greenhouse rising toward the sun.
+
+                    <div class="game-wrapper puzzle-game-wrapper">
+                    <p class="event-text">The giant lily pads feel surprisingly firm beneath your feet. From here, you see the life of the greenhouse rising toward the sun.
                     Follow the path of growth — from the roots to the sky — to unlock the first secret.</p>
                     <button id="startPuzzleBtn" class="interaction-button startPuzzleBtn">Begin</button>
                 </div>
@@ -211,20 +219,20 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
             sceneWrapper.innerHTML = `
             <section class= "room room-2">
                 <div class="room-frame">
-                    <div class="game-session-wrapper puzzle-overlay">
+                    <div class="game-session-wrapper puzzle-overlay-wrapper">
                         <button id="flower" class="orderGameBtn invisible-btn" aria-label="Pink Flower"></button>
                         <button id="hangingFern" class="orderGameBtn invisible-btn" aria-label="Hanging Fern"></button>
                         <button id="lilyLeaf" class="orderGameBtn invisible-btn" aria-label="Giant Lily"></button>
                         <button id="sign" class="orderGameBtn invisible-btn" aria-label="Info sign"></button>
                         <button id="ceiling" class="orderGameBtn invisible-btn" aria-label="Glass ceiling"></button>
                         <button id="redPlant" class="orderGameBtn invisible-btn" aria-label="Red Plant"></button>
-                        <p id="message" class="event-text puzzle-overlay-text hidden"></p>
+                        <p class="event-text game-message hidden"></p>
                     </div>
                 </div>
             </section>            
             `;
 
-            const message: HTMLParagraphElement | null = document.querySelector('#message');
+            const message: HTMLParagraphElement | null = document.querySelector('.game-message');
             const gameBtns = sceneWrapper.querySelectorAll('.orderGameBtn');
 
             gameBtns.forEach(btn => {
@@ -275,7 +283,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                         <p class="event-text">The glass is fogged up. Adjust the humidity (1-20) to see the code.</p>
                         <input type="number" id="guessInput" min="1" max="20">
                         <button id="guessBtn" class="interaction-button">Adjust</button>
-                        <p id="message" class="event-text hidden"></p>  
+                        <p class="event-text game-message hidden"></p>  
                     </div>
 
                 </div>
@@ -285,7 +293,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
         const guessBtn: HTMLButtonElement | null = sceneWrapper.querySelector('#guessBtn');
         const guessInput: HTMLInputElement | null = sceneWrapper.querySelector('#guessInput');
-        const message: HTMLParagraphElement | null = sceneWrapper.querySelector('#message');
+        const message: HTMLParagraphElement | null = sceneWrapper.querySelector('.game-message');
 
         guessBtn?.addEventListener('click', () => {
             if (!sceneWrapper) return;
@@ -326,17 +334,23 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
             <div class="room-frame">
                 <div class="game-session-wrapper">
                     <h2 class="room-title-text">The Final Exit</h2>
-                    <p class="event-text">You've reached the Victoria House exit. The electronic lock requires the combined sequence of the fragments you've discovered among the leaves and water. 
-                    The air here is thinner, cooler — the exit is just one correct code away.</p>
 
-                    <p class="event-text">Your fragments: <strong>${collectedCodes[0]}</strong> - <strong>${collectedCodes[1]}</strong> - <strong>${collectedCodes[2]}</strong>
-                            <input type="text" id="input0" class="code-input" maxlength="2" pattern="[0-9]">
-                            <input type="text" id="input1" class="code-input" maxlength="2" pattern="[0-9]">
-                            <input type="text" id="input2" class="code-input" maxlength="2" pattern="[0-9]">
-                        <span id="finalHint"></span>
-                    </p>
+                    <div class="game-wrapper final-exit-wrapper">
+                        <p class="event-text">You've reached the Victoria House exit. The electronic lock requires the combined sequence of the fragments you've discovered among the leaves and water. 
+                        The air here is thinner, cooler — the exit is just one correct code away.</p>
 
-                    <button id="unlockBtn" class="interaction-button">Unlock Exit</button>
+                        <div class="event-text">
+                            <p>Your fragments: <strong>${collectedCodes[0]}</strong> - <strong>${collectedCodes[1]}</strong> - <strong>${collectedCodes[2]}</strong></p>
+                                <div class="final-exit-inputs">
+                                    <input type="text" id="input0" class="code-input" maxlength="2" pattern="[0-9]">
+                                    <input type="text" id="input1" class="code-input" maxlength="2" pattern="[0-9]">
+                                    <input type="text" id="input2" class="code-input" maxlength="2" pattern="[0-9]">
+                                </div>
+                            <p class="game-message hidden"></p>
+                        </div>
+
+                        <button id="unlockBtn" class="interaction-button">Unlock Exit</button>
+                    </div>
                </div>
             </div>
         </section>
@@ -347,7 +361,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
         const input2: HTMLInputElement | null = sceneWrapper.querySelector('#input2');
 
         const unlockBtn = sceneWrapper.querySelector('#unlockBtn');
-        const finalHint = sceneWrapper.querySelector('#finalHint');
+        const message = sceneWrapper.querySelector('.game-message');
 
         unlockBtn?.addEventListener('click', () => {
             attempts = attempts + 1;
@@ -359,32 +373,31 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                     <div class="room-frame">
                         <div class="game-session-wrapper">
                             <h2 class="room-title-text">The Final Exit</h2>
-                            <p class="event-text">The lock clicks open. The cool air rushes in as the doors of Victoria House swing wide. You have escaped!</p>
 
-                            <p class="event-text artifact-discovery">
-                            As the heavy doors creak open, a small, intricate object falls from the lock mechanism. 
-                            It is <strong>The Watcher's Key</strong>. You pick it up and feel its cold metal before tucking it away.
-                            </p>
+                            <div class="game-wrapper artefact-wrapper">
+                                <p class="event-text">The lock clicks open. The cool air rushes in as the doors of Victoria House swing wide. You have escaped!</p>
 
-                            <button id="nextRoomBtn" class="interaction-button">Continue to next room</button>
+                                <p class="event-text artifact-discovery">
+                                As the heavy doors creak open, a small, intricate object falls from the lock mechanism. 
+                                It is <strong>The Watcher's Key</strong>. You pick it up and feel its cold metal before tucking it away.
+                                </p>
+
+                                <button id="nextRoomBtn" class="interaction-button">Continue to next room</button>
+                            </div>
                         </div>
                     </div>
                 </section>            
                 `;
 
-                setTimeout(() => {
-                    const nextRoomBtn = document.querySelector('#nextRoomBtn');
-
-                    nextRoomBtn?.addEventListener('click', () => {
-                        next();
-                    });
-
-                }, 0);
+                const nextRoomBtn = document.querySelector('#nextRoomBtn');
+                nextRoomBtn?.addEventListener('click', () => {
+                    next();
+                });
 
             } else if (attempts >= 5) {
-                if (finalHint) {
-                    finalHint.classList.remove('hidden');
-                    finalHint.textContent = 'The alarm sounds. The Victoria House locks down forever. Game over!';
+                if (message) {
+                    message.classList.remove('hidden');
+                    message.textContent = 'The alarm sounds. The Victoria House locks down forever. Game over!';
 
                     setTimeout(() => {
                         state.screen = 'gameover';
@@ -393,9 +406,9 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                 }
 
             } else {
-                if (finalHint) {
-                    finalHint.classList.remove('hidden');
-                    finalHint.textContent = `Wrong code. The door remains shut... Attempts left: ${5 - attempts}`;
+                if (message) {
+                    message.classList.remove('hidden');
+                    message.innerHTML = `Wrong code. The door remains shut... <br> Attempts left: ${5 - attempts}`;
                 }
             }
         });
@@ -409,7 +422,8 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
         <section class= "room room-2">
             <div class="room-frame">
                 <div class="game-session-wrapper">
-                    <div class="fragment-win">
+
+                    <div class="game-wrapper win-game-wrapper">
                         <p class="event-text win-game-text"><i>${specificText}</i>
                         Fragment found: <strong>${code}</strong></p>
                     

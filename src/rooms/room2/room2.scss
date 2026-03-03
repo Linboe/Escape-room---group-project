@@ -1,8 +1,5 @@
     .room-2 {
         background-image: url("/roompic/isabelleroom2.png");
-    }
-
-    .room-2 {
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -56,6 +53,26 @@
         height: 100%;
     }
 
+    .game-wrapper {
+        width: calc(100% - 20px);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .game-message {
+        font-style: italic;
+    }
+
+    .win-game-wrapper {
+        position: absolute;
+        top: 20%;
+
+        .win-game-text i {
+            display: block;
+            margin-bottom: 8px;
+        }
+    }
+
     .show-start-wrapper {
         position: absolute;
         top: 20%;
@@ -66,86 +83,52 @@
         }
     }
 
-    .startPuzzleBtn {
-        position: absolute;
-        top: 45%;
-    }
-
-    .option-wrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+    .choose-path-wrapper {
         position: absolute;
         top: 30%;
+
+        .option-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        p {
+            display: flex;
+            justify-content: center;
+        }
     }
 
-    .riddle-game {
+    .riddle-game-wrapper {
+        position: absolute;
+        top: 20%;
+
+        .riddle-game-btns {
+            button {
+                margin-bottom: 5px;
+            }
+        }
+    }
+
+    .puzzle-game-wrapper {
         position: absolute;
         top: 20%;
     }
 
-    .riddle-game-btns {
-        position: absolute;
-        top: 35%;
-
-        button {
-            margin-bottom: 5px;
-        }
-    }
-
-    .riddle-game-text {
-        position: absolute;
-        top: 55%;
-    }
-
-    .puzzle-overlay {
+    .puzzle-overlay-wrapper {
         position: relative;
         width: 100%;
         height: 100%;
 
-        .puzzle-overlay-text {
+        .game-message {
             position: absolute;
             bottom: 0;
         }
-    }
-
-    .number-guess-wrapper {
-        position: absolute;
-        top: 20%;
-
-        input {
-            width: 80%;
-            padding: 10px;
-            margin-bottom: 10px;
-            text-align: center;
-            margin-left: 30px;
-        }
-    }
-
-    .fragment-win {
-        position: absolute;
-        top: 40%;
-    }
-
-    .win-game-text i {
-        display: block;
-        margin-bottom: 8px;
-    }
-
-    .final-exit-input-wrapper {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .puzzle-overlay {
-        position: relative;
-        width: 100%;
-        height: 100%;
 
         .invisible-btn {
             position: absolute;
             background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.1); // TODO - remove 
+            //border: 2px solid rgba(255, 255, 255, 0.1); 
             outline: none;
         }
 
@@ -190,4 +173,61 @@
             width: 20%;
             height: 10%;
         }
+    }
+
+    .number-guess-wrapper {
+        position: absolute;
+        top: 20%;
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+            margin-left: 30px;
+        }
+
+        .event-text {
+            text-align: center;
+        }
+    }
+
+    .final-exit-wrapper {
+        position: absolute;
+        top: 20%;
+
+        .event-text {
+            display: flex;
+            flex-direction: column;
+
+            p {
+                display: flex;
+                justify-content: center;
+            }
+
+            span {
+                margin-top: 10px;
+                text-align: center;
+            }
+        }
+
+        .final-exit-inputs {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 10px;
+
+            input {
+                width: 40px;
+                padding: 10px;
+                text-align: center;
+                border: none;
+                border-radius: 4px;
+            }
+        }
+    }
+
+    .artefact-wrapper {
+        position: absolute;
+        top: 20%;
     }
