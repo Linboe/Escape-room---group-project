@@ -3,3 +3,25 @@
     display: flex;
     justify-content: space-around;
 }
+
+//Artefact
+.status-bar-artifacts {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.artifact-slot {
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+}
+
+.status-bar-artifact {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

@@ -1,5 +1,6 @@
 import artifactDataRaw from './artifacts.json';
 import './artifacts.scss';
+import { addArtifactToStatusBar } from '../status-bar/status-bar';
 
 export interface Artifact {
     id: string;
@@ -52,6 +53,7 @@ export function triggerArtifact(
             .getElementById('close-artifact-btn')
             ?.addEventListener('click', () => {
                 document.getElementById('artifact-popup-overlay')?.remove();
+                addArtifactToStatusBar(artifact);
             });
     }, delay); // Här används fördröjningen (i millisekunder)
 }

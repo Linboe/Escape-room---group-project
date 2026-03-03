@@ -16,7 +16,7 @@ import {
 } from '../../store/session/session-memory';
 import { renderStatusBar } from '../status-bar/status-bar';
 import './cheat-code-styles.scss';
-import {  createCheatButton  } from './cheat-codes-helper';
+import { createCheatButton } from './cheat-codes-helper';
 import { state } from '../../state/gamestate';
 import { render } from '../../main';
 import { renderNextRoom } from '../../main';
@@ -47,51 +47,51 @@ const cheatButtons = {
         render();
     }),
 
-    cheatRenderMainMenuScene: createCheatButton('render main menu scene', () => {
-        state.screen = 'menu';
-        render();
-    }),
+    cheatRenderMainMenuScene: createCheatButton(
+        'render main menu scene',
+        () => {
+            state.screen = 'menu';
+            render();
+        },
+    ),
 
     cheatRenderAboutScene: createCheatButton('render about scene', () => {
         state.screen = 'about';
         render();
     }),
 
-    cheatRenderGameOverScene: createCheatButton('render game over scene', () => {
-        state.screen = "gameover";
-        render();
-        console.log('Showing game over scene');
-    }),
+    cheatRenderGameOverScene: createCheatButton(
+        'render game over scene',
+        () => {
+            state.screen = 'gameover';
+            render();
+            console.log('Showing game over scene');
+        },
+    ),
 
     cheatRenderVictoryScene: createCheatButton('render victory scene', () => {
-        state.screen = "victory";
+        state.screen = 'victory';
         render();
         console.log('Showing victory scene');
     }),
 
-    cheatRenderRoom1: createCheatButton(
-        'render room 1',
-        () => room1(document.querySelector('#sceneWrapper'), renderNextRoom)
+    cheatRenderRoom1: createCheatButton('render room 1', () =>
+        room1(document.querySelector('#sceneWrapper'), renderNextRoom),
     ),
-    cheatRenderRoom2: createCheatButton(
-        'render room 2',
-        () => room2(document.querySelector('#sceneWrapper'), renderNextRoom)
+    cheatRenderRoom2: createCheatButton('render room 2', () =>
+        room2(document.querySelector('#sceneWrapper'), renderNextRoom),
     ),
-    cheatRenderRoom3: createCheatButton(
-        'render room 3',
-        () => room3(document.querySelector('#sceneWrapper'), renderNextRoom)
+    cheatRenderRoom3: createCheatButton('render room 3', () =>
+        room3(document.querySelector('#sceneWrapper'), renderNextRoom),
     ),
-    cheatRenderRoom4: createCheatButton(
-        'render room 4',
-        () => room4(document.querySelector('#sceneWrapper'), renderNextRoom)
+    cheatRenderRoom4: createCheatButton('render room 4', () =>
+        room4(document.querySelector('#sceneWrapper'), renderNextRoom),
     ),
-    cheatRenderRoom5: createCheatButton(
-        'render room 5',
-        () => room5(document.querySelector('#sceneWrapper'), renderNextRoom)
+    cheatRenderRoom5: createCheatButton('render room 5', () =>
+        room5(document.querySelector('#sceneWrapper'), renderNextRoom),
     ),
-      cheatRenderRoom6: createCheatButton(
-        'render room 6',
-        () => room6(document.querySelector('#sceneWrapper'), renderNextRoom)
+    cheatRenderRoom6: createCheatButton('render room 6', () =>
+        room6(document.querySelector('#sceneWrapper'), renderNextRoom),
     ),
 
     /*cheatRenderRoom6: createCheatButton( // BUGG
@@ -103,13 +103,34 @@ const cheatButtons = {
         }
     ),*/
 
-    cheatCheckMySessionString: createCheatButton('check my session string', logMySessionStringState),
-    cheatSetMySessionStringToFoo: createCheatButton('set my session string to Foo', setSessionStringToFoo),
-    cheatSetMySessionStringToBar: createCheatButton('set my session string to Bar', setSessionStringToBar),
-    cheatCheckMySessionBoolean: createCheatButton('check my session boolean', logSessionBooleanState),
-    cheatToggleMySessionBoolean: createCheatButton('toggle my session boolean', toggleMySessionBooleanState),
-    cheatSaveMyStringToDB: createCheatButton('save my string to DB', saveMyStringState),
-    cheatRenderStatusBar: createCheatButton('render status bar', renderStatusBar)
+    cheatCheckMySessionString: createCheatButton(
+        'check my session string',
+        logMySessionStringState,
+    ),
+    cheatSetMySessionStringToFoo: createCheatButton(
+        'set my session string to Foo',
+        setSessionStringToFoo,
+    ),
+    cheatSetMySessionStringToBar: createCheatButton(
+        'set my session string to Bar',
+        setSessionStringToBar,
+    ),
+    cheatCheckMySessionBoolean: createCheatButton(
+        'check my session boolean',
+        logSessionBooleanState,
+    ),
+    cheatToggleMySessionBoolean: createCheatButton(
+        'toggle my session boolean',
+        toggleMySessionBooleanState,
+    ),
+    cheatSaveMyStringToDB: createCheatButton(
+        'save my string to DB',
+        saveMyStringState,
+    ),
+    cheatRenderStatusBar: createCheatButton(
+        'render status bar',
+        renderStatusBar,
+    ),
 };
 // ===================================
 
@@ -136,7 +157,6 @@ function toggleCheatCodeButtons() {
     if (!cheatCodesWrapper) return;
     if (showCheatCodes) {
         cheatCodesWrapper.append(
-
             // ======================
             // DEV – ROOMS
             // ======================
@@ -161,6 +181,7 @@ function toggleCheatCodeButtons() {
             // ==================================================
             //            cheatButtons.cheatButton1,
             //            cheatButtons.cheatButton2,
+            cheatButtons.cheatRenderStatusBar,
             cheatButtons.cheatRenderSignInScene,
             cheatButtons.cheatRenderMainMenuScene,
             cheatButtons.cheatRenderAboutScene,
@@ -172,7 +193,7 @@ function toggleCheatCodeButtons() {
             cheatButtons.cheatCheckMySessionBoolean,
             cheatButtons.cheatToggleMySessionBoolean,
             cheatButtons.cheatSaveMyStringToDB,
-            cheatButtons.cheatRenderStatusBar
+
             // ==================================================
         );
     } else {
