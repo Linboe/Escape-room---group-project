@@ -1,39 +1,38 @@
-import "./room3.scss";
-import { state } from "../../state/gamestate";
-import { render } from "../../main";
+import './room3.scss';
+import { state } from '../../state/gamestate';
+import { render } from '../../main';
 
 let currentQuestionIndex = 0;
-let hasArtifactRoom3 = false;
+export let hasArtifactRoom3 = false;
 let wrongAttempts = 0;
-let hasStarted = false;
+
 
 const questions = [
-  {
-    question: "Which part of the plant is responsible for photosynthesis?",
-    options: ["Leaves", "Roots", "Flower", "Stem"],
-    correct: "Leaves",
-  },
-  {
-    question: "What pigment gives plants their green color?",
-    options: ["Chlorophyll", "Carotenoid", "Anthocyanin", "Xanthophyll"],
-    correct: "Chlorophyll",
-  },
-  {
-    question: "Which process do plants use to convert sunlight into energy?",
-    options: ["Respiration", "Transpiration", "Photosynthesis", "Germination"],
-    correct: "Photosynthesis",
-  },
+    {
+        question: 'Which part of the plant is responsible for photosynthesis?',
+        options: ['Leaves', 'Roots', 'Flower', 'Stem'],
+        correct: 'Leaves',
+    },
+    {
+        question: 'What pigment gives plants their green color?',
+        options: ['Chlorophyll', 'Carotenoid', 'Anthocyanin', 'Xanthophyll'],
+        correct: 'Chlorophyll',
+    },
+    {
+        question: 'Which process do plants use to convert sunlight into energy?',
+        options: ['Respiration', 'Transpiration', 'Photosynthesis', 'Germination'],
+        correct: 'Photosynthesis',
+    },
 ];
 
 export function room3(sceneWrapper: HTMLDivElement | null, next: () => void) {
-  if (!sceneWrapper) return;
+    if (!sceneWrapper) return;
 
-  currentQuestionIndex = 0;
-  hasArtifactRoom3 = false;
-  wrongAttempts = 0;
-  hasStarted = false;
+    currentQuestionIndex = 0;
+    hasArtifactRoom3 = false;
+    wrongAttempts = 0;
 
-  sceneWrapper.innerHTML = `
+    sceneWrapper.innerHTML = `
     <section class="room room-3">
       <div class="room3-overlay">
         <h1>The Inner Jungle (Archive of Illusions)</h1>
@@ -75,82 +74,80 @@ export function room3(sceneWrapper: HTMLDivElement | null, next: () => void) {
     </section>
   `;
 
-  const approachBtn = sceneWrapper.querySelector("#approachBtn") as HTMLButtonElement;
-  const startBtn = sceneWrapper.querySelector("#startBtn") as HTMLButtonElement;
-  const story1 = sceneWrapper.querySelector("#story1") as HTMLParagraphElement;
-  const hint1 = sceneWrapper.querySelector("#hint1") as HTMLParagraphElement;
-  const story2 = sceneWrapper.querySelector("#story2") as HTMLParagraphElement;
-  const quiz = sceneWrapper.querySelector("#quiz") as HTMLDivElement;
+    const approachBtn = sceneWrapper.querySelector('#approachBtn') as HTMLButtonElement;
+    const startBtn = sceneWrapper.querySelector('#startBtn') as HTMLButtonElement;
+    const story1 = sceneWrapper.querySelector('#story1') as HTMLParagraphElement;
+    const hint1 = sceneWrapper.querySelector('#hint1') as HTMLParagraphElement;
+    const story2 = sceneWrapper.querySelector('#story2') as HTMLParagraphElement;
+    const quiz = sceneWrapper.querySelector('#quiz') as HTMLDivElement;
 
-  const buttons = sceneWrapper.querySelectorAll<HTMLButtonElement>(".option");
-  const message = sceneWrapper.querySelector("#message") as HTMLParagraphElement;
-  const questionText = sceneWrapper.querySelector("#question") as HTMLParagraphElement;
+    const buttons = sceneWrapper.querySelectorAll<HTMLButtonElement>('.option');
+    const message = sceneWrapper.querySelector('#message') as HTMLParagraphElement;
+    const questionText = sceneWrapper.querySelector('#question') as HTMLParagraphElement;
 
-  function renderQuestion() {
-    const q = questions[currentQuestionIndex];
-    questionText.textContent = q.question;
-    message.textContent = "";
+    function renderQuestion() {
+        const q = questions[currentQuestionIndex];
+        questionText.textContent = q.question;
+        message.textContent = '';
 
-    buttons.forEach((btn, index) => {
-      btn.textContent = q.options[index];
-      btn.disabled = false;
+        buttons.forEach((btn, index) => {
+            btn.textContent = q.options[index];
+            btn.disabled = false;
+        });
+    }
+
+    // STEP 1 → Approach 
+    approachBtn.addEventListener('click', () => {
+        story1.remove();
+        hint1.remove();
+        approachBtn.remove();
+
+        story2.classList.remove('hidden');
+        startBtn.classList.remove('hidden');
     });
-  }
 
-  // STEP 1 → Approach 
-  approachBtn.addEventListener("click", () => {
-    story1.remove();
-    hint1.remove();
-    approachBtn.remove();
-
-    story2.classList.remove("hidden");
-    startBtn.classList.remove("hidden");
-  });
-
-  // STEP 2 – Start trial
-  startBtn.addEventListener("click", () => {
-    story2.remove();
-    startBtn.remove();
-    quiz.classList.remove("hidden");
-    renderQuestion();
-  });
-
-  // STEP 3 – Quiz logic
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      hasStarted = true;
-
-      const current = questions[currentQuestionIndex];
-
-      if (btn.textContent === current.correct) {
-        message.textContent = "Correct. The jungle shifts slightly...";
-        currentQuestionIndex++;
-
-        if (currentQuestionIndex === questions.length) {
-          hasArtifactRoom3 = true;
-          message.textContent = "The man nods. The boat is now safe to enter.";
-
-          setTimeout(() => next(), 2500);
-        } else {
-          setTimeout(renderQuestion, 700);
-        }
-      } else {
-        wrongAttempts++;
-
-        if (wrongAttempts === 1) {
-          message.textContent = "Wrong. The leaves whisper in warning...";
-        } else if (wrongAttempts === 2) {
-          message.textContent = "Still wrong. The jungle grows darker around you...";
-        } else {
-          message.textContent =
-            "You have failed the trial. The jungle rejects you.";
-          buttons.forEach((b) => (b.disabled = true));
-          setTimeout(() => {
-            state.screen = 'gameover';
-            render ();
-          }, 1000);
-        }
-      }
+    // STEP 2 – Start trial
+    startBtn.addEventListener('click', () => {
+        story2.remove();
+        startBtn.remove();
+        quiz.classList.remove('hidden');
+        renderQuestion();
     });
-  });
+
+    // STEP 3 – Quiz logic
+    buttons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const current = questions[currentQuestionIndex];
+
+            if (btn.textContent === current.correct) {
+                message.textContent = 'Correct. The jungle shifts slightly...';
+                currentQuestionIndex++;
+
+                if (currentQuestionIndex === questions.length) {
+                    hasArtifactRoom3 = true;
+                    message.textContent = 'The man nods. The boat is now safe to enter.';
+
+                    setTimeout(() => next(), 3000);
+                } else {
+                    setTimeout(renderQuestion, 700);
+                }
+            } else {
+                wrongAttempts++;
+
+                if (wrongAttempts === 1) {
+                    message.textContent = 'Wrong. The leaves whisper in warning...';
+                } else if (wrongAttempts === 2) {
+                    message.textContent = 'Still wrong. The jungle grows darker around you...';
+                } else {
+                    message.textContent =
+                        'You have failed the trial. The jungle rejects you.';
+                    buttons.forEach((b) => (b.disabled = true));
+                    setTimeout(() => {
+                        state.screen = 'gameover';
+                        render ();
+                    }, 1000);
+                }
+            }
+        });
+    });
 }
