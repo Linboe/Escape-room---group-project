@@ -8,6 +8,10 @@
     background-image: url('/roompic/linnroom5.png');
 }
 
+.room-5 .game-session-style {
+    background: none;
+}
+
 .room-5 .game-board {
     position: relative;
     margin: 0 auto;
@@ -18,14 +22,14 @@
 .room-5 .board {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
+    gap: 10px;
     width: 80%;
     max-width: 400px;
 }
 
 .room-5 .card {
-    width: 2px;
-    height: 2px;
+    width: 60px;
+    height: 60px;
     border-radius: 8px;
     overflow: hidden;
     background-color: #676d6b;
