@@ -10,7 +10,8 @@
 }
 
 .artifact-card {
-    background: rgb(36, 36, 36);
+    background: rgba(20, 30, 25);
+    border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 12px;
     text-align: center;
     max-width: 300px;
@@ -20,6 +21,7 @@
 }
 
 .artifact-title {
+    margin-top: 40px;
     font-size: 1rem;
     letter-spacing: 1px;
     color: #ffffff;
@@ -35,7 +37,7 @@
         transition: transform 0.3s ease;
 
         &:hover {
-            transform: scale(1.35);
+            transform: scale(1.7);
         }
     }
 }
@@ -43,7 +45,7 @@
 .artifact-name {
     font-size: 0.85rem;
     font-family: 'Georgia', serif;
-    margin-top: 20px;
+    margin-top: 70px;
 }
 
 .artifact-desc {
@@ -51,10 +53,9 @@
     font-size: 0.85rem;
     opacity: 0.9;
     padding-inline: 15px;
-    padding-bottom: 15px;
 }
 
 .arifact-p {
     font-size: 0.85rem;
-    margin-bottom: 25px;
+    margin-bottom: 70px;
 }
