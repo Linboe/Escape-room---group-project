@@ -1,5 +1,7 @@
 27/2-2026
 
+Dagens scrum master: Rasmus Fransson
+
 Namn: Rasmus Fransson
 
 Vad gjorde jag igår? pushade klar scss och spånade på slutspel
