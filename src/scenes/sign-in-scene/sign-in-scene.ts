@@ -1,15 +1,17 @@
-import "./sign-in-scene.scss";
-import { state } from "../../state/gamestate";
+import './sign-in-scene.scss';
+import { state } from '../../state/gamestate';
 
-console.log("connected sign in scene");
+console.log('connected sign in scene');
 
 export function renderSignInScene(
-  sceneWrapper: HTMLDivElement | null,
-  render: () => void,
+    sceneWrapper: HTMLDivElement | null,
+    render: () => void
 ) {
-  if (!sceneWrapper) return;
 
-  sceneWrapper.innerHTML = `
+    if (!sceneWrapper) return;
+
+    sceneWrapper.innerHTML = `<h2>Sign in scene</h2>
+      <h2>Sign in</h2>
       <div class="sign-in-wrapper">
         <h2>Sign in</h2>
         <div class="sign-in-fields">
@@ -24,26 +26,26 @@ export function renderSignInScene(
       </div>
       `;
 
-  // --------------- DOM ELEMENTS ----------------
-  // ----------------------------------------------
+    // --------------- DOM ELEMENTS ----------------
+    // ----------------------------------------------
 
-  const usernameInput: HTMLInputElement | null =
-    document.querySelector("#usernameInput");
-  const signInBtn: HTMLButtonElement | null =
-    document.querySelector("#signInBtn");
-  const errorSpan: HTMLElement | null = document.querySelector("#errorSpan");
+    const usernameInput: HTMLInputElement | null = document.querySelector('#usernameInput');
+    const signInBtn: HTMLButtonElement | null = document.querySelector('#signInBtn');
+    const errorSpan: HTMLElement | null = document.querySelector('#errorSpan');
 
-  // ------ EVENT HANDLERS & FUNCTIONS ---------
-  // ----------------------------------------------
+    // ------ EVENT HANDLERS & FUNCTIONS ---------
+    // ----------------------------------------------
 
-  signInBtn?.addEventListener("click", () => {
-    if (usernameInput && usernameInput.value.trim() !== "") {
-      errorSpan?.classList.add("hidden");
-      state.username = usernameInput.value.trim();
-      state.screen = "menu";
-      render();
-    } else {
-      errorSpan?.classList.remove("hidden");
-    }
-  });
-}
+
+    signInBtn?.addEventListener('click', () => {
+
+        if (usernameInput && usernameInput.value.trim() !== '') {
+            errorSpan?.classList.add('hidden');
+            state.username = usernameInput.value.trim();
+            state.screen = 'menu';
+            render();
+        } else {
+            errorSpan?.classList.remove('hidden');
+        }
+    });
+};

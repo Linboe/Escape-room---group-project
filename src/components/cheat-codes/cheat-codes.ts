@@ -21,7 +21,6 @@ import { state } from '../../state/gamestate';
 import { render } from '../../main';
 import { renderNextRoom } from '../../main';
 import { room1 } from '../../rooms/room1/room1';
-import { room2 } from '../../rooms/room2/room2';
 import { room3 } from '../../rooms/room3/room3';
 import { room4 } from '../../rooms/room4/room4';
 import { room5 } from '../../rooms/room5/room5';
@@ -78,7 +77,8 @@ const cheatButtons = {
             startStatusBarTimers();
         }
     ),
-    cheatRenderRoom2: createCheatButton(
+
+    cheatRenderRoom2: createCheatButton( 
         'render room 2',
         () => {
             stopAllStatusBarTimers();
