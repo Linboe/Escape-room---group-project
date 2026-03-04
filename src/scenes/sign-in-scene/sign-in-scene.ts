@@ -10,8 +10,7 @@ export function renderSignInScene(
 
     if (!sceneWrapper) return;
 
-    sceneWrapper.innerHTML = `<h2>Sign in scene</h2>
-      <h2>Sign in</h2>
+    sceneWrapper.innerHTML = `
       <div class="sign-in-wrapper">
         <h2>Sign in</h2>
         <div class="sign-in-fields">

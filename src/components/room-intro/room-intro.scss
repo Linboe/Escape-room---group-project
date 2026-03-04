@@ -1,7 +1,7 @@
 .room-intro-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,51 +10,53 @@
 }
 
 .room-intro-card {
-    width: 100%;
-    max-width: 460px;
+    width: 90%;
+    max-width: 400px;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    background: rgba(10, 15, 12, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    align-items: center;
+    background: rgba(20, 30, 25, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    gap: 1rem;
 }
 
 .room-intro-title {
     font-family: "Cinzel", serif;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #ffffff;
-    text-align: center;
-    padding: 1rem 1.5rem 0.75rem;
-    background: rgba(0, 0, 0, 0.55);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     margin: 0;
 }
 
 .room-intro-description {
-    background: rgba(20, 30, 25, 0.75);
     color: #dde8e2;
     font-family: "Georgia", serif;
     font-size: 0.95rem;
     line-height: 1.7;
-    padding: 1.25rem 1.5rem;
+    font-style: italic;
     margin: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 0;
+    background: none;
+    border: none;
 }
 
 .room-intro-btn {
     background: rgba(10, 15, 12, 0.85);
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: #ffffff;
     font-family: "Georgia", serif;
     font-size: 1rem;
-    padding: 1rem;
+    padding: 0.75rem 2rem;
     cursor: pointer;
     text-align: center;
     transition: background 0.2s;
-    width: 100%;
+    border-radius: 6px;
+    margin-top: 0.5rem;
 
     &:hover {
         background: rgba(30, 40, 35, 0.95);
