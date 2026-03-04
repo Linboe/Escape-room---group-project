@@ -1,3 +1,35 @@
 {
-    "_comment" : "This JSON file is part of architectual scaffolding, consider renaming this file to something more apprporiate"
+    "_comment" : "This JSON file is part of architectual scaffolding, consider renaming this file to something more apprporiate",
+     "roomIntros": [
+        {
+            "room": 1,
+            "name": "Room 1",
+            "description": "Description"
+        },
+         {
+            "room": 2,
+            "name": "Room 2",
+            "description": "Description"
+        },
+         {
+            "room": 3,
+            "name": "The inner Jungle (Archive of Illusions)",
+            "description": "You find yourself standing at the edge of a mysterious glass palace, where an ancient jungle grows wild within its walls. A silent guardian awaits you at the water's edge — but only the knowledgeable may pass."
+        },
+         {
+            "room": 4,
+            "name": "Room 4",
+            "description": "Description"
+        },
+         {
+            "room": 5,
+            "name": "Room 5",
+            "description": "Description"
+        },
+         {
+            "room": 6,
+            "name": "Room 6",
+            "description": "Description"
+        }
+    ]
 }

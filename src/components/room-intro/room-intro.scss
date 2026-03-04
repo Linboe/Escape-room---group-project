@@ -1,0 +1,62 @@
+.room-intro-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    backdrop-filter: blur(4px);
+}
+
+.room-intro-card {
+    width: 100%;
+    max-width: 460px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background: rgba(10, 15, 12, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.room-intro-title {
+    font-family: "Cinzel", serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem 1.5rem 0.75rem;
+    background: rgba(0, 0, 0, 0.55);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    margin: 0;
+}
+
+.room-intro-description {
+    background: rgba(20, 30, 25, 0.75);
+    color: #dde8e2;
+    font-family: "Georgia", serif;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    padding: 1.25rem 1.5rem;
+    margin: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.room-intro-btn {
+    background: rgba(10, 15, 12, 0.85);
+    border: none;
+    color: #ffffff;
+    font-family: "Georgia", serif;
+    font-size: 1rem;
+    padding: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.2s;
+    width: 100%;
+
+    &:hover {
+        background: rgba(30, 40, 35, 0.95);
+    }
+}
