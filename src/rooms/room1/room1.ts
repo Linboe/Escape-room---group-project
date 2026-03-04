@@ -1,4 +1,5 @@
 import './room1.scss';
+import feather from '/src/assets/artifacts/feather.jpg'; //Placeholder artifact
 
 export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
   if (!sceneWrapper) return;
@@ -29,18 +30,27 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
                         Strange Man's Score:
                         <span id="computerScoreDisplay" class="computer-score-display">0</span>
                       </div>
-                    
-                    <div class="action-btn-container">
-                        <button id="actionBtn" class="actionBtn hidden"></button>
-                      </div>
-              </div>
+                   </div>
+
+                      <div class="action-btn-container">
+                          <button id="actionBtn" class="action-btn hidden"></button>
+                        </div>
+
+                <div id="artifactDisplay" class="artifact-display hidden">
+                  <h3>You got the feather artifact!</h3>
+                  <img src="${feather}" alt="Feather"/>
+                    <div class="artifact-text"
+                      <h4>Feather</h4>
+                      <p>Special feather from a special bird</p>
+                    </div>
+              </div> 
               
-              <div class="choices">
-                <button id="winBtn">Win!!</button>
-                <button id="rockBtn">Rock</button>
-                <button id="paperBtn">Paper</button>
-                <button id="scissorsBtn">Scissors</button>
-              </div>
+                <div class="choices">
+                  <button id="winBtn">Win!!</button>
+                  <button id="rockBtn">Rock</button>
+                  <button id="paperBtn">Paper</button>
+                  <button id="scissorsBtn">Scissors</button>
+                </div>
             </div>
         </div>
     </div>
@@ -49,7 +59,7 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
   const lines = [
     'Hello there, traveler!',
-    'If you want to keep moving you will have to beat me in rock paper scissors',
+    'If you want to keep moving you will have to beat me in rock paper scissors.',
     'First one to get 3 points wins. Good Luck!',
   ];
 
@@ -76,6 +86,7 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
   const scissorsBtn: HTMLButtonElement | null = document.querySelector('#scissorsBtn');
   const winBtn = document.getElementById('winBtn') as HTMLButtonElement; // Remove when done
   const actionBtn = document.getElementById('actionBtn') as HTMLButtonElement;
+  const artifactDisplay = document.getElementById('artifactDisplay') as HTMLDivElement;
 
   const playerDisplay = document.getElementById('playerDisplay') as HTMLDivElement;
   const computerDisplay = document.getElementById('computerDisplay') as HTMLDivElement;
@@ -103,6 +114,7 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
     resultDisplay.classList.add('green-text');
     actionBtn.textContent = 'Go to the next room';
     actionBtn.classList.remove('hidden');
+    artifactDisplay.classList.remove('hidden');
     disableGameButtons(true);
     actionBtn.onclick = () => next();
   });
@@ -153,6 +165,7 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
       resultDisplay.textContent = 'You won!';
       actionBtn.textContent = 'Go to the next room';
       actionBtn.classList.remove('hidden');
+      artifactDisplay.classList.remove('hidden');
       disableGameButtons(true);
       actionBtn.onclick = () => next();
     } else if (computerScore >= WIN_SCORE) {
@@ -186,6 +199,7 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
       rockBtn.disabled = disabled;
       paperBtn.disabled = disabled;
       scissorsBtn.disabled = disabled;
+      winBtn.disabled = true;
     }
   }
 

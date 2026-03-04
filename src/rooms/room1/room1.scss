@@ -9,8 +9,6 @@
 }
 
 .room-title {
-  display: flex;
-  justify-content: center;
   font-size: 2rem;
 }
 
@@ -19,6 +17,29 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+}
+
+.artifact-display {
+  background-color: rgb(0 0 0 / 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  gap: 1rem;
+
+  h3 {
+    text-align: center;
+  }
+
+  img {
+    width: 300px;
+    height: 300px;
+  }
+
+  .artifact-text {
+    text-align: center;
+  }
 }
 
 .dialogue-box {
@@ -41,6 +62,16 @@
   gap: 1rem;
 }
 
+.action-btn {
+  background-color: hsl(0, 0%, 10%);
+  font-size: 1.1rem;
+}
+
+.action-btn:hover {
+  background-color: hsl(0, 0%, 20%);
+  font-size: 1rem;
+}
+
 .choices {
   display: flex;
   flex-direction: column;
@@ -59,7 +90,6 @@
 .game-info-container {
   background-color: rgb(0 0 0 / 0.45);
   padding: 0.5rem 1rem;
-  width: 300px;
   min-height: 200px;
   display: flex;
   flex-direction: column;
