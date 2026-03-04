@@ -8,19 +8,16 @@
     background-image: url('/roompic/linnroom5.png');
 }
 
-.game-board {
-    background: none;
-    border: none;
-}
-
 .room-5 {
     position: relative;
 }
 .room-5 .game-board {
     position: absolute;
     margin: 0 auto;
-    left: 132px;
-    top: 120px;
+    left: 155px;
+    top: 140px;
+    background: none;
+    border: none;
 }
 
 .room-5 .board {
