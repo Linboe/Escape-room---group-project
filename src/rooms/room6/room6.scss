@@ -1,5 +1,5 @@
 .room-6 {
-    background-image: url("/roompic/room6ending.png");
+    background-image: url('/roompic/room6ending.png');
 }
 
 .room-6 {
@@ -88,5 +88,18 @@
     line-height: 2.2;
     padding: 1.5rem 1.5rem;
     margin: 0;
+}
+
+//drop
+.drop-zone {
+    width: 60px;
+    height: 60px;
+    border: 2px dashed white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.7rem;
 }
 

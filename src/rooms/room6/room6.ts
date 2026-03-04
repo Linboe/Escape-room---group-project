@@ -1,5 +1,9 @@
 import './room6.scss';
 import { room6Book } from './story/room6story';
+import {
+    setRoom6Mode,
+    getArtifactById,
+} from '../../components/status-bar/status-bar'; //test drop-artefakt
 
 export function renderRoom6Scene() {
     const sceneWrapper = document.getElementById('sceneWrapper');
@@ -31,6 +35,7 @@ export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
             <!-- PICK ART -->
             <div class="pick-art-style">
               <div class="pick-art-wrapper">
+               <p class="instruction-style">Välj rätt kod:</p>
                 <button class="pick-art">1</button>
                 <button class="pick-art">2</button>
                 <button class="pick-art">3</button>
@@ -91,8 +96,27 @@ export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
     // ===============================
     const buttons = sceneWrapper.querySelectorAll('.pick-art');
     const message = sceneWrapper.querySelector('#message') as HTMLParagraphElement | null;
+  
+    //test drop-artefakt
+    const dropZone = document.getElementById('drop-zone-1');
+    dropZone?.addEventListener('dragover', (e) => e.preventDefault());
+    dropZone?.addEventListener('drop', (e) => {
+        const artifactId = (e as DragEvent).dataTransfer?.getData('artifactId');
+        const artifact = getArtifactById(artifactId ?? '');
 
-    buttons.forEach(btn => {
+        if (artifact && dropZone) {
+            dropZone.innerHTML = `
+            <img 
+                src="${artifact.image}" 
+                alt="${artifact.name}"
+                style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"
+            />
+        `;
+        }
+    });
+    // -------------------
+
+    buttons.forEach((btn) => {
         btn.addEventListener('click', () => {
             if (btn.textContent === '3') {
                 next();

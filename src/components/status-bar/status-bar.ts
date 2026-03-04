@@ -1,7 +1,11 @@
-
 import './status-bar.scss';
 import { getProgress } from '../../store/session/session-memory';
-import { getRoomStates, getGameState, setRoomTime } from '../../state/gamestate';
+import type { Artifact } from '../artifacts/artifactSystem';
+import {
+    getRoomStates,
+    getGameState,
+    setRoomTime,
+} from '../../state/gamestate';
 import { renderGameOverScene } from '../../scenes/game-over-scene/game-over-scene';
 
 const statusBarWrapper = document.getElementById(
@@ -39,7 +43,102 @@ countupSpanElement.textContent = '--:--';
 
 const spanRoomsElement = document.createElement('span');
 
-export function startStatusBarTimers() { // initialize
+const divArtifactsElement = document.createElement('div'); //added Artefact
+divArtifactsElement.classList.add('status-bar-artifacts'); //added Artefact
+
+// ----------------------------------------------------
+// --------------------- Artefact ---------------------
+// ----------------------------------------------------
+const collectedArtifacts: Artifact[] = [];
+let isRoom6 = false;
+
+export function setRoom6Mode(active: boolean) {
+    isRoom6 = active;
+    renderArtifacts();
+}
+
+// Lägger till en artefakt i statusbaren — ignorerar dubletter
+export function addArtifactToStatusBar(artifact: Artifact) {
+    const alreadyCollected = collectedArtifacts.find(
+        (existingArtifact) => existingArtifact.id === artifact.id,
+    );
+    if (alreadyCollected) return;
+
+    collectedArtifacts.push(artifact);
+    renderArtifacts();
+}
+
+// Hämtar en artefakt från samlingen via id — används av room6
+export function getArtifactById(id: string): Artifact | undefined {
+    return collectedArtifacts.find((a) => a.id === id);
+}
+
+function renderArtifacts() {
+    console.log(
+        'renderArtifacts called, collectedArtifacts:',
+        collectedArtifacts,
+    );
+    console.log('isRoom6:', isRoom6);
+    const slots = Array.from({ length: 6 }).map((_, i) => {
+        const artifact = collectedArtifacts[i];
+        const slotIsEmpty = !artifact;
+
+        if (slotIsEmpty) {
+            return '<div class="artifact-slot"></div>';
+        }
+
+        return `
+              <div class="artifact-slot ${isRoom6 ? 'draggable' : ''}"
+                draggable="${isRoom6}"
+                data-id="${artifact.id}"
+            >
+                <img 
+                    src="${artifact.image}" 
+                    alt="${artifact.name}" 
+                    title="${artifact.name}"
+                    class="status-bar-artifact"
+                />
+            </div>`;
+    });
+
+    divArtifactsElement.innerHTML = slots.join('');
+
+    if (isRoom6) {
+        divArtifactsElement
+            .querySelectorAll('.artifact-slot.draggable')
+            .forEach((slot) => {
+                slot.addEventListener('dragstart', (e) => {
+                    const artifactId = (slot as HTMLElement).dataset.id ?? '';
+                    console.log('dragstart artifactId:', artifactId);
+                    (e as DragEvent).dataTransfer?.setData(
+                        'artifactId',
+                        artifactId,
+                    );
+
+                    const img = slot.querySelector('img') as HTMLImageElement;
+                    if (img) {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = 30;
+                        canvas.height = 30;
+                        const ctx = canvas.getContext('2d');
+                        ctx?.drawImage(img, 0, 0, 30, 30);
+                        (e as DragEvent).dataTransfer?.setDragImage(
+                            canvas,
+                            15,
+                            15,
+                        );
+                    }
+                });
+            });
+    }
+}
+
+// ----------------------------------------------------
+// ----------------------------------------------------
+// ----------------------------------------------------
+
+export function startStatusBarTimers() {
+    // initialize
     startCountUp();
     startCountdown();
 }
@@ -54,10 +153,12 @@ export function renderStatusBar() {
         //spanStatusBarElement,
         spanTimerElement,
         countupSpanElement,
-        spanRoomsElement
+        divArtifactsElement, //added Artefact
+        spanRoomsElement,
     );
 
     statusBarWrapper.append(pWrapperElement);
+    renderArtifacts(); //added Artefact
 }
 
 // ===============
@@ -73,7 +174,7 @@ function handleCountdownTick() {
     if (--hourglassState < 0) {
         stopCountdown();
         stopCountup();
-        spanTimerElement.textContent = 'Time\'s up!';
+        spanTimerElement.textContent = "Time's up!";
         renderGameOverScene();
     }
 }
