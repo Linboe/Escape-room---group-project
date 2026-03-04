@@ -32,6 +32,7 @@
 // btn
 .room-5 .option {
     background: rgba(10, 15, 12, 0.85);
+    border-radius: 0;
     border: none;
     color: #ffffff;
     font-family: 'Georgia', serif;
@@ -40,13 +41,21 @@
     cursor: pointer;
     text-align: center;
     transition: background 0.2s;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100%;
     &:hover {
         background: rgba(30, 40, 35, 0.95);
     }
+}
+
+.room-5 .player-interaction-buttons-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100svh * 9 / 16);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .room-5 .game-session-wrapper-5 {
