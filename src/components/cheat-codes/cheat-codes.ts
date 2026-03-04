@@ -19,12 +19,6 @@ import './cheat-code-styles.scss';
 import {  createCheatButton  } from './cheat-codes-helper';
 import { state } from '../../state/gamestate';
 import { render } from '../../main';
-import { renderNextRoom } from '../../main';
-import { room1 } from '../../rooms/room1/room1';
-import { room3 } from '../../rooms/room3/room3';
-import { room4 } from '../../rooms/room4/room4';
-import { room5 } from '../../rooms/room5/room5';
-import { room6 } from '../../rooms/room6/room6';
 
 let showCheatCodes: boolean = false;
 const showCheatCodesButton = document.getElementById(
@@ -73,7 +67,8 @@ const cheatButtons = {
         () => {
             stopAllStatusBarTimers();
             state.currentRoom = 0;
-            room1(document.querySelector('#sceneWrapper'), renderNextRoom);
+            state.screen = 'room';
+            render();
             startStatusBarTimers();
         }
     ),
@@ -83,7 +78,8 @@ const cheatButtons = {
         () => {
             stopAllStatusBarTimers();
             state.currentRoom = 1;
-            room2(document.querySelector('#sceneWrapper'), renderNextRoom);
+            state.screen = 'room';
+            render();
             startStatusBarTimers();
         }
     ),
@@ -92,7 +88,8 @@ const cheatButtons = {
         () => {
             stopAllStatusBarTimers();
             state.currentRoom = 2;
-            room3(document.querySelector('#sceneWrapper'), renderNextRoom);
+            state.screen = 'room';
+            render();
             startStatusBarTimers();
         }
     ),
@@ -101,7 +98,8 @@ const cheatButtons = {
         () => {
             stopAllStatusBarTimers();
             state.currentRoom = 3;
-            room4(document.querySelector('#sceneWrapper'), renderNextRoom);
+            state.screen ='room';
+            render();
             startStatusBarTimers();
         }
     ),
@@ -110,7 +108,8 @@ const cheatButtons = {
         () => {
             stopAllStatusBarTimers();
             state.currentRoom = 4;
-            room5(document.querySelector('#sceneWrapper'), renderNextRoom);
+            state.screen ='room';
+            render();
             startStatusBarTimers();
         }
     ),
@@ -119,19 +118,11 @@ const cheatButtons = {
         () => {
             stopAllStatusBarTimers();
             state.currentRoom = 5;
-            room6(document.querySelector('#sceneWrapper'), renderNextRoom);
+            state.screen = 'room';
+            render();
             startStatusBarTimers();
         }
     ),
-
-    /*cheatRenderRoom6: createCheatButton( // BUGG
-        'render room 6',
-        () => {
-            state.currentRoom =5; 
-            state.screen = 'room';
-            render();
-        }
-    ),*/
 
     cheatCheckMySessionString: createCheatButton('check my session string', logMySessionStringState),
     cheatSetMySessionStringToFoo: createCheatButton('set my session string to Foo', setSessionStringToFoo),
