@@ -38,8 +38,8 @@ export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
             <!-- PICK ART -->
             <div class="pick-art-style">
+            <div id="drop-zone-1" class="drop-zone">Släpp här</div>
               <div class="pick-art-wrapper">
-               <p class="instruction-style">Välj rätt kod:</p>
                 <button class="pick-art">1</button>
                 <button class="pick-art">2</button>
                 <button class="pick-art">3</button>
