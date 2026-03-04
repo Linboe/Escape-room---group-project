@@ -353,8 +353,6 @@ function showWrongChoice(sceneWrapper: HTMLDivElement, next: () => void): void {
     </section>
   `;
 
-    triggerArtifact('room1', 'feather', 3000);
-
     document
         .getElementById('back-btn')!
         .addEventListener('click', () =>
@@ -383,8 +381,6 @@ function showRightChoice(sceneWrapper: HTMLDivElement, next: () => void): void {
       </div>
     </section>
   `;
-    //ta bort sen endast för att testa artefakten
-    triggerArtifact('room5', 'amethyst');
 
     document
         .getElementById('start-memory-btn')!
