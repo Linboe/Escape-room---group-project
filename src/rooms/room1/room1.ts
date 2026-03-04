@@ -1,52 +1,209 @@
 import './room1.scss';
-
-export function renderRoom1Scene() {
-    const sceneWrapper = document.getElementById('sceneWrapper');
-    if (!sceneWrapper) return;
-
-    sceneWrapper.innerHTML = `
-    <section class="room room-1">
-      <h1>Room 1</h1>
-    </section>
-  `;
-}
+import feather from '/src/assets/artifacts/feather.jpg'; //Placeholder artifact
 
 export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
-    if (!sceneWrapper) return;
+  if (!sceneWrapper) return;
 
-    sceneWrapper.innerHTML = `
-    <section class="room room-1">
-      <div class="room-frame">
+  sceneWrapper.innerHTML = `
+  <section class="room-1">
+    <div class="room-frame">
+      <h2 class="room-title">The Gravity Glitch</h2>
+
+        <div id="dialogueBox" class="dialogue-box">
+          <p id="dialogueText"></p>
+          <button id="nextBtn">Next</button>
+        </div>
+    
         <div class="game-session-wrapper">
-            <h2>Rum 1</h2>
+          <div id="gameSession" class="game-session-style hidden">
+              <div class="game-info-container">
+                <div id="playerDisplay" class="player-display">You:</div>
+                <div id="computerDisplay" class="computer-display">Strange Man:</div>
+                    <div id="resultDisplay" class="result-display"></div>
+                    
+                    <div class="score-display">
+                        Your Score:
+                        <span id="playerScoreDisplay" class="player-score-display">0</span>
+                      </div>
+                    
+                    <div class="score-display">
+                        Strange Man's Score:
+                        <span id="computerScoreDisplay" class="computer-score-display">0</span>
+                      </div>
+                   </div>
 
-            <div class="game-session-style">
-                <p class="instruction-style">Välj rätt kod:</p>
-                <div class="options-wrapper">
-                  <button class="option">1111</button>
-                  <button class="option">2222</button>
-                  <button class="option">3333 rätt knapp</button>
-                  <button class="option">4444</button>
+                      <div class="action-btn-container">
+                          <button id="actionBtn" class="action-btn hidden"></button>
+                        </div>
+
+                <div id="artifactDisplay" class="artifact-display hidden">
+                  <h3>You got the feather artifact!</h3>
+                  <img src="${feather}" alt="Feather"/>
+                    <div class="artifact-text"
+                      <h4>Feather</h4>
+                      <p>Special feather from a special bird</p>
+                    </div>
+              </div> 
+              
+                <div class="choices">
+                  <button id="winBtn">Win!!</button>
+                  <button id="rockBtn">Rock</button>
+                  <button id="paperBtn">Paper</button>
+                  <button id="scissorsBtn">Scissors</button>
                 </div>
-                <p id="message"></p>
             </div>
         </div>
-      </div>
-    </section>
-    `;
+    </div>
+  </section>
+        `;
 
-    const correctBtn: HTMLButtonElement | null = document.querySelector('#correct');
-    const wrongBtn: HTMLButtonElement | null = document.querySelector('#wrong');
-    const message: HTMLParagraphElement | null = document.querySelector('#message');
+  const lines = [
+    'Hello there, traveler!',
+    'If you want to keep moving you will have to beat me in rock paper scissors.',
+    'First one to get 3 points wins. Good Luck!',
+  ];
 
-    correctBtn?.addEventListener('click', () => {
-        next(); // går vidare till nästa rum
-    });
+  let currentLine = 0;
+  const dialogueText = document.getElementById('dialogueText') as HTMLParagraphElement;
+  const nextBtn = document.getElementById('nextBtn') as HTMLButtonElement;
+  const dialogueBox = document.getElementById('dialogueBox') as HTMLDivElement;
+  const gameSession = document.getElementById('gameSession') as HTMLDivElement;
 
-    wrongBtn?.addEventListener('click', () => {
-        if (message) {
-            message.textContent = 'Fel val! Försök igen.';
-        }
-    });
+  dialogueText.textContent = lines[0];
+
+  nextBtn.addEventListener('click', () => {
+    currentLine++;
+    if (currentLine < lines.length) {
+      dialogueText.textContent = lines[currentLine];
+    } else {
+      dialogueBox.classList.add('hidden');
+      gameSession.classList.remove('hidden');
+    }
+  });
+
+  const rockBtn: HTMLButtonElement | null = document.querySelector('#rockBtn');
+  const paperBtn: HTMLButtonElement | null = document.querySelector('#paperBtn');
+  const scissorsBtn: HTMLButtonElement | null = document.querySelector('#scissorsBtn');
+  const winBtn = document.getElementById('winBtn') as HTMLButtonElement; // Remove when done
+  const actionBtn = document.getElementById('actionBtn') as HTMLButtonElement;
+  const artifactDisplay = document.getElementById('artifactDisplay') as HTMLDivElement;
+
+  const playerDisplay = document.getElementById('playerDisplay') as HTMLDivElement;
+  const computerDisplay = document.getElementById('computerDisplay') as HTMLDivElement;
+  const resultDisplay = document.getElementById('resultDisplay') as HTMLDivElement;
+
+  const playerScoreDisplay = document.getElementById('playerScoreDisplay') as HTMLSpanElement;
+  const computerScoreDisplay = document.getElementById('computerScoreDisplay') as HTMLSpanElement;
+
+  if (!rockBtn || !paperBtn || !scissorsBtn) {
+    console.error('Buttons not found');
+    return;
+  }
+
+  let playerScore = 0;
+  let computerScore = 0;
+  const WIN_SCORE = 3;
+
+  // Remove code within the comments when done
+
+  winBtn.addEventListener('click', () => {
+    playerScore = WIN_SCORE;
+    playerScoreDisplay.textContent = playerScore.toString();
+    resultDisplay.textContent = 'You won!';
+    resultDisplay.classList.remove('red-text');
+    resultDisplay.classList.add('green-text');
+    actionBtn.textContent = 'Go to the next room';
+    actionBtn.classList.remove('hidden');
+    artifactDisplay.classList.remove('hidden');
+    disableGameButtons(true);
+    actionBtn.onclick = () => next();
+  });
+
+  // End of the comment
+
+  function playGame(playerChoice: string) {
+    const choices = ['Rock', 'Paper', 'Scissors'];
+    const computerChoice = choices[Math.floor(Math.random() * 3)];
+    let result = '';
+
+    if (playerChoice === computerChoice) {
+      result = "IT'S A TIE!!";
+    } else {
+      switch (playerChoice) {
+        case 'Rock':
+          result = computerChoice === 'Scissors' ? 'YOU WIN!' : 'YOU LOSE!';
+          break;
+        case 'Paper':
+          result = computerChoice === 'Rock' ? 'YOU WIN!' : 'YOU LOSE!';
+          break;
+        case 'Scissors':
+          result = computerChoice === 'Paper' ? 'YOU WIN!' : 'YOU LOSE!';
+          break;
+      }
+    }
+
+    playerDisplay.textContent = `You: ${playerChoice}`;
+    computerDisplay.textContent = `Strange Man: ${computerChoice}`;
+    resultDisplay.textContent = result;
+
+    resultDisplay.classList.remove('green-text', 'red-text');
+
+    switch (result) {
+      case 'YOU WIN!':
+        resultDisplay.classList.add('green-text');
+        playerScore++;
+        playerScoreDisplay.textContent = playerScore.toString();
+        break;
+      case 'YOU LOSE!':
+        resultDisplay.classList.add('red-text');
+        computerScore++;
+        computerScoreDisplay.textContent = computerScore.toString();
+        break;
+    }
+
+    if (playerScore >= WIN_SCORE) {
+      resultDisplay.textContent = 'You won!';
+      actionBtn.textContent = 'Go to the next room';
+      actionBtn.classList.remove('hidden');
+      artifactDisplay.classList.remove('hidden');
+      disableGameButtons(true);
+      actionBtn.onclick = () => next();
+    } else if (computerScore >= WIN_SCORE) {
+      resultDisplay.textContent = 'You lost!';
+      actionBtn.textContent = 'Try again';
+      actionBtn.classList.remove('hidden');
+      disableGameButtons(true);
+      actionBtn.onclick = () => restartGame();
+    }
+  }
+
+  function restartGame() {
+    playerScore = 0;
+    computerScore = 0;
+
+    playerScoreDisplay.textContent = '0';
+    computerScoreDisplay.textContent = '0';
+
+    playerDisplay.textContent = 'Player: ';
+    computerDisplay.textContent = 'Computer: ';
+    resultDisplay.textContent = '';
+
+    resultDisplay.classList.remove('green-text', 'red-text');
+
+    disableGameButtons(false);
+    actionBtn.classList.add('hidden');
+  }
+
+  function disableGameButtons(disabled: boolean) {
+    if (rockBtn && paperBtn && scissorsBtn) {
+      rockBtn.disabled = disabled;
+      paperBtn.disabled = disabled;
+      scissorsBtn.disabled = disabled;
+      winBtn.disabled = disabled;
+    }
+  }
+
+  rockBtn.addEventListener('click', () => playGame('Rock'));
+  paperBtn.addEventListener('click', () => playGame('Paper'));
+  scissorsBtn.addEventListener('click', () => playGame('Scissors'));
 }
-
