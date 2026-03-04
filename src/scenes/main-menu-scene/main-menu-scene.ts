@@ -1,5 +1,6 @@
 import './main-menu-scene.scss';
 import { state } from '../../state/gamestate';
+import { renderStatusBar } from '../../components/status-bar/status-bar';
 
 console.log('connected main menu scene');
 
@@ -40,6 +41,7 @@ export function renderMainMenuScene(
         if (state.screen === 'menu') {
             state.currentRoom = 0;          // Starta från första rummet
             state.screen = 'room';
+            renderStatusBar();
             render();               // Kör render() som kommer anropa renderNextRoom()
         }
     });
@@ -48,6 +50,7 @@ export function renderMainMenuScene(
         if (state.screen === 'menu') {
             alert('Ännu inte implementerat, här kommer sparat spel laddas in');
             //state.screen = "savedgame";
+            renderStatusBar();
             render();
         }
     });
