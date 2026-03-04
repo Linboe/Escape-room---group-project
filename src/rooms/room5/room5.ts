@@ -353,6 +353,8 @@ function showWrongChoice(sceneWrapper: HTMLDivElement, next: () => void): void {
     </section>
   `;
 
+    //startBarTimers()
+    //stopAllStatusBarTimers
     document
         .getElementById('back-btn')!
         .addEventListener('click', () =>

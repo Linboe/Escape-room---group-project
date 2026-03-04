@@ -8,6 +8,14 @@
     background-image: url('/roompic/linnroom5.png');
 }
 
+.room .room-5 {
+    min-height: 100svh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .room-5 {
     position: relative;
 }
