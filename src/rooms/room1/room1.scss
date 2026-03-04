@@ -1,12 +1,129 @@
 .room-1 {
-    background-image: url("/roompic/kimiroom1.png");
+  background-image: url('/roompic/kimiroom1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 600px;
+  display: flex;
+  min-width: 100%;
 }
 
-.room-1 {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 600px;
-    display: flex;
-    min-width: 100%;
+.room-title {
+  font-size: 2rem;
+}
+
+.room-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.artifact-display {
+  background-color: rgb(0 0 0 / 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  gap: 1rem;
+
+  h3 {
+    text-align: center;
+  }
+
+  img {
+    width: 300px;
+    height: 300px;
+  }
+
+  .artifact-text {
+    text-align: center;
+  }
+}
+
+.dialogue-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  word-wrap: break-word;
+  gap: 1rem;
+  padding: 1rem;
+  margin: 0 auto;
+  background-color: rgb(0 0 0 / 0.6);
+  font-size: 1.25rem;
+}
+
+.game-session-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.action-btn {
+  background-color: hsl(0, 0%, 10%);
+  font-size: 1.1rem;
+}
+
+.action-btn:hover {
+  background-color: hsl(0, 0%, 20%);
+  font-size: 1rem;
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.choices button {
+  font-size: 1.5rem;
+  background-color: hsl(0, 0%, 10%);
+}
+
+.choices button:hover {
+  background-color: hsl(0, 0%, 20%);
+}
+
+.choices button:disabled {
+  display: none;
+}
+
+.game-info-container {
+  background-color: rgb(0 0 0 / 0.45);
+  padding: 0.5rem 1rem;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-display,
+.computer-display {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.result-display {
+  font-weight: 600;
+  font-size: 1.35rem;
+}
+
+.score-display {
+  font-size: 1.35rem;
+}
+
+.green-text {
+  color: green;
+}
+
+.red-text {
+  color: red;
+}
+
+.hidden {
+  display: none;
 }
