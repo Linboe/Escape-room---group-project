@@ -8,15 +8,26 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
     let collectedCodes: string[] = [];
     let currentPath: 'A' | 'B' | null = null;
 
-    sceneWrapper.innerHTML = `
-     <section class= "room room-2">
-        <div class="room-frame">
-            <div class="game-session-wrapper">
-                <h2 class="room-title-text">Victoria House</h2>
-            </div>
-        </div>
-     </section>   
-        `;
+    //------------------ 1. FLOW CONTROL --------------------
+
+    function updateUI(content: string) {
+        if (!sceneWrapper) return;
+
+        let sessionWrapper = sceneWrapper.querySelector('.game-session-wrapper');
+
+        if (!sessionWrapper) {
+            sceneWrapper.innerHTML = `
+            <section class="room room-2">
+                <div class="room-frame">
+                    <div class="game-session-wrapper">
+                        ${content}
+                    </div>
+                </div>
+            </section>`;
+        } else {
+            sessionWrapper.innerHTML = content;
+        }
+    }
 
     function showStart() {
         if (!sceneWrapper) return;
@@ -34,83 +45,86 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
                         <button id="startJourney" class="interaction-button start-journey-btn">Begin Search</button>
                     </div>
-
-                    
                 </div>
             </div>
         </section>  
      `;
 
-        const startBtn: HTMLButtonElement | null = document.querySelector('#startJourney');
+        const startBtn: HTMLButtonElement | null = sceneWrapper.querySelector('#startJourney');
 
         startBtn?.addEventListener('click', () => {
             if (!sceneWrapper) return;
 
-            sceneWrapper.innerHTML = `
-               <section class= "room room-2">
-                    <div class="room-frame">
-                        <div class="game-session-wrapper">
-                            <h2 class="room-title-text">Victoria House</h2>
+            updateUI(`
+                <h2 class="room-title-text">Victoria House</h2>
 
-                            <div class="game-wrapper choose-path-wrapper">
-                                <p class="event-text">Where do you begin your search?</p>
-                                <div class="option-wrapper">
-                                    <button id="ferns" class="interaction-button">Push through the dense ferns and hanging air roots to the right. It’s dark, but you feel something watching you from the leaves.</button>
-                                    <button id= "lilyPads" class="interaction-button">Step onto the giant lily pads. They look like floating plates, sturdy enough to hold your weight, shimmering under the glass roof.</button>
-                                </div>
-                            </div>
-                        </div>
+                <div class="game-wrapper choose-path-wrapper">
+                    <p class="event-text">Where do you begin your search?</p>
+                    <div class="option-wrapper">
+                        <button id="ferns" class="interaction-button">Push through the dense ferns and hanging air roots to the right. It’s dark, but you feel something watching you from the leaves.</button>
+                        <button id= "lilyPads" class="interaction-button">Step onto the giant lily pads. They look like floating plates, sturdy enough to hold your weight, shimmering under the glass roof.</button>
                     </div>
-                </section>  
-            `;
+                </div>
+            `);
 
-            const ferns: HTMLButtonElement | null = document.querySelector('#ferns');
-            const lilyPads: HTMLButtonElement | null = document.querySelector('#lilyPads');
+            const ferns: HTMLButtonElement | null = sceneWrapper.querySelector('#ferns');
+            const lilyPads: HTMLButtonElement | null = sceneWrapper.querySelector('#lilyPads');
 
             ferns?.addEventListener('click', () => {
-                startGame('A');
-                console.log('option A');
+                choosePath('A');
             });
 
             lilyPads?.addEventListener('click', () => {
-                startGame('B');
-                console.log('option B');
+                choosePath('B');
             });
         });
     }
 
-    function startGame(choice: 'A' | 'B') {
+    function choosePath(choice: 'A' | 'B') {
         currentPath = choice;
 
         if (choice === 'A') {
             riddleGame();
         } else {
-            orderGrowthPuzzle();
+            sequenceGame();
         }
     }
+
+    function nextGame() {
+        if (!sceneWrapper) return;
+
+        if (collectedCodes.length === 3) {
+            finalCodeGame();
+            return;
+        }
+
+        if (currentPath === 'A') {
+            if (collectedCodes.length === 1) sequenceGame();
+            else if (collectedCodes.length === 2) numberGuessGame();
+        } else {
+            if (collectedCodes.length === 1) numberGuessGame();
+            else if (collectedCodes.length === 2) riddleGame();
+        }
+    }
+
+    //-------------- 2. MINI GAMES - in order they appear on path A ---------------
 
     function riddleGame() {
         if (!sceneWrapper) return;
 
-        sceneWrapper.innerHTML = `  
-        <section class= "room room-2">
-            <div class="room-frame">
-                <div class="game-session-wrapper">
-                    <h2 class="room-title-text">The Brass Plaque</h2>
+        updateUI(`
+            <h2 class="room-title-text">The Brass Plaque</h2>
 
-                    <div class="game-wrapper riddle-game-wrapper">
-                        <p class="event-text">"I am the mirror that never breaks, I cradle the giant but have no arms. What am I?"</p>
-                        <div class="riddle-game-btns">
-                            <button id= "roof" class="answer-btn interaction-button" data-correct="false">The Glass Roof</button>
-                            <button id= "surface" class="answer-btn interaction-button" data-correct="true">The Water's Surface</button>
-                            <button id= "shadows" class="answer-btn interaction-button" data-correct="false">The Deep Shadows</button>
-                        </div>
-                        <p class="event-text game-message hidden"></p>
-                    </div>
+            <div class="game-wrapper riddle-game-wrapper">
+                <p class="event-text">"I am the mirror that never breaks, I cradle the giant but have no arms. What am I?"</p>
+                <div class="riddle-game-btns">
+                    <button id= "roof" class="answer-btn interaction-button">The Glass Roof</button>
+                    <button id= "surface" class="answer-btn interaction-button">The Water's Surface</button>
+                    <button id= "shadows" class="answer-btn interaction-button">The Deep Shadows</button>
                 </div>
+                <p class="event-text game-message hidden"></p>
             </div>
-         </section>  
-        `;
+        `);
 
         const answerBtns = sceneWrapper.querySelectorAll('.answer-btn');
         const message: HTMLParagraphElement | null = sceneWrapper.querySelector('.game-message');
@@ -120,7 +134,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
                 if (btn.id === 'surface') {
                     collectedCodes.push('11');
-                    winGame('11', 'Your sharp mind saw through the mystery of the brass plaque.');
+                    fragmentFound('11', 'Your sharp mind saw through the mystery of the brass plaque.');
                 }
 
                 else {
@@ -143,218 +157,183 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
         });
     }
 
-    type GameObject = 'flower' | 'lilyLeaf' | 'hangingFern' | 'sign' | 'ceiling' | 'redPlant';
-
-    const correctOrder: GameObject[] = ['flower', 'lilyLeaf', 'ceiling'];
-    let playerChoice: GameObject[] = [];
-
-    function checkPlayerChoice(clickedObject: GameObject, message: HTMLParagraphElement | null) {
-
-        const nextCorrrectObject = correctOrder[playerChoice.length];
-
-        if (clickedObject === nextCorrrectObject) {
-            playerChoice.push(clickedObject);
-
-            if (message) {
-                message.classList.remove('hidden');
-
-                if (playerChoice.length === 1) {
-                    message.textContent = 'The plants lean closer...';
-                }
-                else if (playerChoice.length === 2) {
-                    message.textContent = 'The air grows heavy. You are almost there, the hierarchy is nearly complete...';
-                }
-                else if (playerChoice.length === correctOrder.length) {
-                    message.textContent = 'The glass ceiling shimmers. You have mastered the hierarchy of growth!';
-                    collectedCodes.push('24');
-                    winGame('24', 'The numbers emerged from the leaves as you followed the path of growth.');
-                }
-            }
-        }
-
-        else {
-            playerChoice = [];
-
-            if (message) {
-                message.classList.remove('hidden');
-
-                if (clickedObject === 'hangingFern') {
-                    message.textContent = 'The ferns rustle, but they are merely part of the curtain.';
-                } else if (clickedObject === 'redPlant') {
-                    message.textContent = 'The red leaves reach high, but they are not the final boundary.';
-                } else if (clickedObject === 'sign') {
-                    message.textContent = 'The faded sign offers no guidance. The cycle is broken.';
-                } else {
-                    message.textContent = 'The cycle of growth has been broken—start again from the roots.';
-                }
-
-                setTimeout(() => {
-                    message.classList.add('hidden');
-                }, 2000);
-            }
-        }
-    }
-
-    function orderGrowthPuzzle() {
-
+    function sequenceGame() {
         if (!sceneWrapper) return;
 
-        sceneWrapper.innerHTML = `
-        <section class= "room room-2">
-            <div class="room-frame">
-                <div class="game-session-wrapper">
-                    <h2 class="room-title-text">The Watcher of Victoria House</h2>
+        type GameObject = 'flower' | 'lilyLeaf' | 'hangingFern' | 'sign' | 'ceiling' | 'redPlant';
+        const correctOrder: GameObject[] = ['flower', 'lilyLeaf', 'ceiling'];
+        let playerChoice: GameObject[] = [];
 
-                    <div class="game-wrapper puzzle-game-wrapper">
-                    <p class="event-text">The giant lily pads feel surprisingly firm beneath your feet. From here, you see the life of the greenhouse rising toward the sun.
-                    Follow the path of growth — from the roots to the sky — to unlock the first secret.</p>
-                    <button id="startPuzzleBtn" class="interaction-button startPuzzleBtn">Begin</button>
-                </div>
+        updateUI(`
+            <h2 class="room-title-text">The Watcher of Victoria House</h2>
+
+            <div class="game-wrapper sequence-game-wrapper">
+                <p class="event-text">The giant lily pads feel surprisingly firm beneath your feet. From here, you see the life of the greenhouse rising toward the sun.
+                Follow the path of growth — from the roots to the sky — to unlock the first secret.</p>
+                <button id="startSequenceBtn" class="interaction-button">Begin</button>
             </div>
-        </section>  
-    `;
-        const startPuzzleBtn = document.querySelector('#startPuzzleBtn');
-        startPuzzleBtn?.addEventListener('click', () => {
+        `);
 
-            sceneWrapper.innerHTML = `
-            <section class= "room room-2">
-                <div class="room-frame">
-                    <div class="game-session-wrapper puzzle-overlay-wrapper">
-                        <button id="flower" class="orderGameBtn invisible-btn" aria-label="Pink Flower"></button>
-                        <button id="hangingFern" class="orderGameBtn invisible-btn" aria-label="Hanging Fern"></button>
-                        <button id="lilyLeaf" class="orderGameBtn invisible-btn" aria-label="Giant Lily"></button>
-                        <button id="sign" class="orderGameBtn invisible-btn" aria-label="Info sign"></button>
-                        <button id="ceiling" class="orderGameBtn invisible-btn" aria-label="Glass ceiling"></button>
-                        <button id="redPlant" class="orderGameBtn invisible-btn" aria-label="Red Plant"></button>
-                        <p class="event-text game-message hidden"></p>
-                    </div>
-                </div>
-            </section>            
-            `;
+        const startSequenceBtn = sceneWrapper.querySelector('#startSequenceBtn');
+        startSequenceBtn?.addEventListener('click', () => {
 
-            const message: HTMLParagraphElement | null = document.querySelector('.game-message');
-            const gameBtns = sceneWrapper.querySelectorAll('.orderGameBtn');
+            updateUI(`
+                <div class="sequence-overlay-wrapper">
+                    <button id="flower" class="sequence-btn invisible-btn" aria-label="Pink Flower"></button>
+                    <button id="hangingFern" class="sequence-btn invisible-btn" aria-label="Hanging Fern"></button>
+                    <button id="lilyLeaf" class="sequence-btn invisible-btn" aria-label="Giant Lily"></button>
+                    <button id="sign" class="sequence-btn invisible-btn" aria-label="Info sign"></button>
+                    <button id="ceiling" class="sequence-btn invisible-btn" aria-label="Glass ceiling"></button>
+                    <button id="redPlant" class="sequence-btn invisible-btn" aria-label="Red Plant"></button>
+                    <p class="event-text game-message hidden"></p> 
+                </div>         
+            `);
+
+            const message: HTMLParagraphElement | null = sceneWrapper.querySelector('.game-message');
+            const gameBtns = sceneWrapper.querySelectorAll('.sequence-btn');
 
             gameBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const id = btn.id as GameObject;
 
-                    checkPlayerChoice(id, message);
+                    const id = btn.id as GameObject;
+                    const nextCorrrectObject = correctOrder[playerChoice.length];
+
+                    if (id === nextCorrrectObject) {
+                        playerChoice.push(id);
+
+                        if (message) {
+                            message.classList.remove('hidden');
+
+                            if (playerChoice.length === 1) {
+                                message.textContent = 'The plants lean closer...';
+                            }
+                            else if (playerChoice.length === 2) {
+                                message.textContent = 'The air grows heavy. You are almost there, the hierarchy is nearly complete...';
+                            }
+                            else if (playerChoice.length === correctOrder.length) {
+                                message.textContent = 'The glass ceiling shimmers. You have mastered the hierarchy of growth!';
+                                collectedCodes.push('24');
+                                fragmentFound('24', 'The numbers emerged from the leaves as you followed the path of growth.');
+                            }
+
+                            setTimeout(() => {
+                                message.classList.add('hidden');
+                            }, 2000);
+                        }
+                    } else {
+                        playerChoice = [];
+
+                        if (message) {
+                            message.classList.remove('hidden');
+
+                            if (id === 'hangingFern') {
+                                message.textContent = 'The ferns rustle, but they are merely part of the curtain.';
+                            } else if (id === 'redPlant') {
+                                message.textContent = 'The red leaves reach high, but they are not the final boundary.';
+                            } else if (id === 'sign') {
+                                message.textContent = 'The faded sign offers no guidance. The cycle is broken.';
+                            } else {
+                                message.textContent = 'The cycle of growth has been broken—start again from the roots.';
+                            }
+
+                            setTimeout(() => {
+                                message.classList.add('hidden');
+                            }, 2000);
+                        }
+                    }
                 });
             });
         });
     }
 
-    function progressToNextStep() {
-        if (!sceneWrapper) return;
-
-
-        if (collectedCodes.length === 1) {
-            if (currentPath === 'A') {
-                orderGrowthPuzzle();
-
-            } else {
-                numberGuessGame();
-            }
-        }
-
-        else if (collectedCodes.length === 2) {
-            if (currentPath === 'A') {
-                numberGuessGame();
-            } else {
-                riddleGame();
-            }
-        }
-        else if (collectedCodes.length === 3) {
-            showFinalExit();
-        }
-    }
-
     function numberGuessGame() {
         if (!sceneWrapper) return;
 
-        sceneWrapper.innerHTML = `
-        <section class= "room room-2">
-            <div class="room-frame">
-                <div class="game-session-wrapper">
-                    <h2 class="room-title-text">The Foggy Window</h2>
+        let attempts = 0;
 
-                    <div class="game-wrapper number-guess-wrapper">
-                        <p class="event-text">The glass is fogged up. Adjust the humidity (1-20) to see the code.</p>
-                        <input type="number" id="guessInput" min="1" max="20">
-                        <button id="guessBtn" class="interaction-button">Adjust</button>
-                        <p class="event-text game-message hidden"></p>  
-                    </div>
+        updateUI(`
+            <h2 class="room-title-text">The Foggy Window</h2>
 
-                </div>
+            <div class="game-wrapper number-guess-wrapper">
+                <p class="event-text">The glass is fogged up. Adjust the humidity (1-20) to see the code.</p>
+                <input type="number" id="guessInput" min="1" max="20">
+                <button id="guessBtn" class="interaction-button">Adjust</button>
+                <p class="event-text game-message hidden"></p>  
             </div>
-        </section>
-        `;
+        `);
 
         const guessBtn: HTMLButtonElement | null = sceneWrapper.querySelector('#guessBtn');
         const guessInput: HTMLInputElement | null = sceneWrapper.querySelector('#guessInput');
         const message: HTMLParagraphElement | null = sceneWrapper.querySelector('.game-message');
 
         guessBtn?.addEventListener('click', () => {
-            if (!sceneWrapper) return;
 
             const inputValue = Number(guessInput?.value);
 
             if (inputValue === 12) {
                 collectedCodes.push('55');
-                winGame('55', 'The fog clears!');
+                fragmentFound('55', 'The fog clears!');
 
-            } else if (inputValue < 12) {
-                if (message) {
-                    message.classList.remove('hidden');
-                    message.textContent = 'Too dry. Increase the humidity.';
+            } else {
+                attempts++;
+
+                if (attempts >= 5) {
+                    if (message) {
+                        message.classList.remove('hidden');
+                        message.textContent = 'The fog thickens. You can no longer breathe. Game over!';
+                    }
+                    setTimeout(() => {
+                        state.screen = 'gameover';
+                        render();
+                    }, 2000);
+
+                } else if (inputValue < 12) {
+                    if (message) {
+                        message.classList.remove('hidden');
+                        message.innerHTML = `Too dry. Increase the humidity. <br> Attempts left: ${5 - attempts}`;
+                    }
+
+                } else if (inputValue > 12) {
+                    if (message) {
+                        message.classList.remove('hidden');
+                        message.innerHTML = `Too damp. The glass is dripping! <br> Attempts left: ${5 - attempts}`;
+                    }
                 }
 
-            } else if (inputValue > 12) {
-                if (message) {
-                    message.classList.remove('hidden');
-                    message.textContent = 'Too damp. The glass is dripping!';
-                }
+                setTimeout(() => {
+                    message?.classList.add('hidden');
+                }, 2000);
+
             }
-
-            setTimeout(() => {
-                message?.classList.add('hidden');
-            }, 2000);
         });
     }
 
-    function showFinalExit() {
+    function finalCodeGame() {
         const correctExitCode = ['55', '11', '24'];
         let attempts = 0;
 
         if (!sceneWrapper) return;
 
-        sceneWrapper.innerHTML = `
-        <section class= "room room-2">
-            <div class="room-frame">
-                <div class="game-session-wrapper">
-                    <h2 class="room-title-text">The Final Exit</h2>
+        updateUI(`
+            <h2 class="room-title-text">The Final Exit</h2>
 
-                    <div class="game-wrapper final-exit-wrapper">
-                        <p class="event-text">You've reached the Victoria House exit. The electronic lock requires the combined sequence of the fragments you've discovered among the leaves and water. 
-                        The air here is thinner, cooler — the exit is just one correct code away.</p>
+            <div class="game-wrapper final-code-wrapper">
+                <p class="event-text">You've reached the Victoria House exit. The electronic lock requires the combined sequence of the fragments you've discovered among the leaves and water. 
+                The air here is thinner, cooler — the exit is just one correct code away.</p>
 
-                        <div class="event-text">
-                            <p>Your fragments: <strong>${collectedCodes[0]}</strong> - <strong>${collectedCodes[1]}</strong> - <strong>${collectedCodes[2]}</strong></p>
-                                <div class="final-exit-inputs">
-                                    <input type="text" id="input0" class="code-input" maxlength="2" pattern="[0-9]">
-                                    <input type="text" id="input1" class="code-input" maxlength="2" pattern="[0-9]">
-                                    <input type="text" id="input2" class="code-input" maxlength="2" pattern="[0-9]">
-                                </div>
-                            <p class="game-message hidden"></p>
-                        </div>
-
-                        <button id="unlockBtn" class="interaction-button">Unlock Exit</button>
+                <div class="event-text">
+                    <p>Your fragments: <strong>${collectedCodes[0]}</strong> - <strong>${collectedCodes[1]}</strong> - <strong>${collectedCodes[2]}</strong></p>
+                    <div class="final-exit-inputs">
+                        <input type="text" id="input0" class="code-input" maxlength="2" pattern="[0-9]">
+                        <input type="text" id="input1" class="code-input" maxlength="2" pattern="[0-9]">
+                        <input type="text" id="input2" class="code-input" maxlength="2" pattern="[0-9]">
                     </div>
-               </div>
+                    <p class="game-message hidden"></p>
+                </div>
+
+                <button id="unlockBtn" class="interaction-button">Unlock Exit</button>
             </div>
-        </section>
-        `;
+        `);
 
         const input0: HTMLInputElement | null = sceneWrapper.querySelector('#input0');
         const input1: HTMLInputElement | null = sceneWrapper.querySelector('#input1');
@@ -364,32 +343,26 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
         const message = sceneWrapper.querySelector('.game-message');
 
         unlockBtn?.addEventListener('click', () => {
-            attempts = attempts + 1;
+            attempts++;
 
             if (input0?.value === correctExitCode[0] && input1?.value === correctExitCode[1] && input2?.value === correctExitCode[2]) {
 
-                sceneWrapper.innerHTML = `
-                <section class= "room room-2">
-                    <div class="room-frame">
-                        <div class="game-session-wrapper">
-                            <h2 class="room-title-text">The Final Exit</h2>
+                updateUI(`
+                    <h2 class="room-title-text">The Final Exit</h2>
 
-                            <div class="game-wrapper artefact-wrapper">
-                                <p class="event-text">The lock clicks open. The cool air rushes in as the doors of Victoria House swing wide. You have escaped!</p>
+                    <div class="game-wrapper artefact-wrapper">
+                        <p class="event-text">The lock clicks open. The cool air rushes in as the doors of Victoria House swing wide. You have escaped!</p>
 
-                                <p class="event-text artifact-discovery">
-                                As the heavy doors creak open, a small, intricate object falls from the lock mechanism. 
-                                It is <strong>The Watcher's Key</strong>. You pick it up and feel its cold metal before tucking it away.
-                                </p>
+                        <p class="event-text artifact-discovery">
+                            As the heavy doors creak open, a small, intricate object falls from the lock mechanism. 
+                            It is <strong>The Watcher's Key</strong>. You pick it up and feel its cold metal before tucking it away.
+                        </p>
 
-                                <button id="nextRoomBtn" class="interaction-button">Continue to next room</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>            
-                `;
+                        <button id="nextRoomBtn" class="interaction-button">Continue to next room</button>
+                    </div>          
+                `);
 
-                const nextRoomBtn = document.querySelector('#nextRoomBtn');
+                const nextRoomBtn = sceneWrapper.querySelector('#nextRoomBtn');
                 nextRoomBtn?.addEventListener('click', () => {
                     next();
                 });
@@ -414,32 +387,29 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
         });
     }
 
-    function winGame(code: string, specificText: string) {
+    //------------------- 3. VICTORY SCREEN -------------------
+
+    function fragmentFound(code: string, specificText: string) {
 
         if (!sceneWrapper) return;
 
-        sceneWrapper.innerHTML = `
-        <section class= "room room-2">
-            <div class="room-frame">
-                <div class="game-session-wrapper">
-
-                    <div class="game-wrapper win-game-wrapper">
-                        <p class="event-text win-game-text"><i>${specificText}</i>
-                        Fragment found: <strong>${code}</strong></p>
+        updateUI(`
+            <div class="game-wrapper fragment-found-wrapper">
+                <p class="event-text fragment-found-text"><i>${specificText}</i>
+                Fragment found: <strong>${code}</strong></p>
                     
-                        <button id="continueBtn" class="interaction-button continue-btn">Continue</button>
-                    </div>
-                </div> 
-            </div> 
-        </section>       
-            `;
+                <button id="continueBtn" class="interaction-button continue-btn">Continue</button>
+            </div>    
+            `);
 
         const continueBtn = sceneWrapper?.querySelector('#continueBtn');
 
         continueBtn?.addEventListener('click', () => {
-            progressToNextStep();
+            nextGame();
         });
     }
+
+    //---------------------- 4. START -------------------------
 
     showStart();
 }
