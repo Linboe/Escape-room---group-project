@@ -28,9 +28,9 @@ export function renderGameOverScene(score: number = 0) {
         if (state.screen === 'gameover') {
             state.currentRoom = 0;
         } 
-            state.screen = 'room';
-            render();
-            console.log('Retry button clicked');
+        state.screen = 'room';
+        render();
+        console.log('Retry button clicked');
         // Logic to restart the game session
         // This could involve resetting game state, navigating to the main menu, etc.
     });
@@ -38,8 +38,8 @@ export function renderGameOverScene(score: number = 0) {
     const mainMenuButton = document.createElement('button');
     mainMenuButton.textContent = 'Main Menu';
     mainMenuButton.addEventListener('click', () => {
-        if (state.screen === "gameover")
-            state.screen = "menu";
+        if (state.screen === 'gameover')
+            state.screen = 'menu';
         render();
     });
 
@@ -48,8 +48,8 @@ export function renderGameOverScene(score: number = 0) {
     loggOutButton.addEventListener('click', () => {
         // Logic to log out the user
         console.log('Log Out button clicked');
-        if (state.screen === "gameover")
-            state.screen = "login";
+        if (state.screen === 'gameover')
+            state.screen = 'login';
         render();
     });
 

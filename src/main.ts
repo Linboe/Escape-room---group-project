@@ -52,10 +52,10 @@ export function render() {
 const allRooms = [room1, room2, room3, room4, room5, room6];
 
 export function renderNextRoom() { // TODO koppla på timers
-    console.log("renderNextRoom called. currentRoom:", state.currentRoom);
+    console.log('renderNextRoom called. currentRoom:', state.currentRoom);
 
     if (state.currentRoom >= allRooms.length) {
-        console.log("GOING TO VICTORY");
+        console.log('GOING TO VICTORY');
         state.screen = 'victory';
         render();
         return;
@@ -64,7 +64,7 @@ export function renderNextRoom() { // TODO koppla på timers
     const room = allRooms[state.currentRoom];
 
     room(sceneWrapper, () => {
-        console.log("Room completed:", state.currentRoom);
+        console.log('Room completed:', state.currentRoom);
         if (state.screen === 'victory') return; 
         state.currentRoom++;
         renderNextRoom();
@@ -84,7 +84,7 @@ function renderVictory() {
 
     backToMenuBtn?.addEventListener('click', () => {
         state.currentRoom = 0;
-        state.screen = "menu";
+        state.screen = 'menu';
         render();
 
     });

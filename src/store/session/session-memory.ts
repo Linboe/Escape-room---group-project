@@ -27,112 +27,112 @@ export function getMySessionBooleanState(): boolean {
 // early suggestion (example)
 // @ts-ignore
 let sessionMemory = [
-  {
-    name: 'vera',
-    sessionTimer: 13290,
-    room1: {
-      isUnlocked: true,
-      foundEscape: false,
-      roomTimer: 198420,
-      artifact1: {
-        relevant: true,
-        found: false
-      },
-      artifact2: {
-        relevant: false,
-        found: false
-      },
-      artifact3: {
-        relevant: false,
-        found: true
-      }
-    },
-    room2: {
-      isUnlocked: true,
-      foundEscape: false,
-      roomTimer: 198420,
-      artifact1: {
-        relevant: true,
-        found: false
-      },
-      artifact2: {
-        relevant: false,
-        found: false
-      },
-      artifact3: {
-        relevant: false,
-        found: true
-      }
-    },
-    room3: {
-      isUnlocked: true,
-      foundEscape: false,
-      roomTimer: 198420,
-      artifact1: {
-        relevant: true,
-        found: false
-      },
-      artifact2: {
-        relevant: false,
-        found: false
-      },
-      artifact3: {
-        relevant: false,
-        found: true
-      }
-    },
-    room4: {
-      isUnlocked: true,
-      foundEscape: false,
-      roomTimer: 198420,
-      artifact1: {
-        relevant: true,
-        found: false
-      },
-      artifact2: {
-        relevant: false,
-        found: false
-      },
-      artifact3: {
-        relevant: false,
-        found: true
-      }
-    },
-    room5: {
-      isUnlocked: true,
-      foundEscape: false,
-      roomTimer: 198420,
-      artifact1: {
-        relevant: true,
-        found: false
-      },
-      artifact2: {
-        relevant: false,
-        found: false
-      },
-      artifact3: {
-        relevant: false,
-        found: true
-      }
-    },
-    room6: {
-      isUnlocked: true,
-      foundEscape: false,
-      roomTimer: 198420,
-      artifact1: {
-        relevant: true,
-        found: false
-      },
-      artifact2: {
-        relevant: false,
-        found: false
-      },
-      artifact3: {
-        relevant: false,
-        found: true
-      }
+    {
+        name: 'vera',
+        sessionTimer: 13290,
+        room1: {
+            isUnlocked: true,
+            foundEscape: false,
+            roomTimer: 198420,
+            artifact1: {
+                relevant: true,
+                found: false
+            },
+            artifact2: {
+                relevant: false,
+                found: false
+            },
+            artifact3: {
+                relevant: false,
+                found: true
+            }
+        },
+        room2: {
+            isUnlocked: true,
+            foundEscape: false,
+            roomTimer: 198420,
+            artifact1: {
+                relevant: true,
+                found: false
+            },
+            artifact2: {
+                relevant: false,
+                found: false
+            },
+            artifact3: {
+                relevant: false,
+                found: true
+            }
+        },
+        room3: {
+            isUnlocked: true,
+            foundEscape: false,
+            roomTimer: 198420,
+            artifact1: {
+                relevant: true,
+                found: false
+            },
+            artifact2: {
+                relevant: false,
+                found: false
+            },
+            artifact3: {
+                relevant: false,
+                found: true
+            }
+        },
+        room4: {
+            isUnlocked: true,
+            foundEscape: false,
+            roomTimer: 198420,
+            artifact1: {
+                relevant: true,
+                found: false
+            },
+            artifact2: {
+                relevant: false,
+                found: false
+            },
+            artifact3: {
+                relevant: false,
+                found: true
+            }
+        },
+        room5: {
+            isUnlocked: true,
+            foundEscape: false,
+            roomTimer: 198420,
+            artifact1: {
+                relevant: true,
+                found: false
+            },
+            artifact2: {
+                relevant: false,
+                found: false
+            },
+            artifact3: {
+                relevant: false,
+                found: true
+            }
+        },
+        room6: {
+            isUnlocked: true,
+            foundEscape: false,
+            roomTimer: 198420,
+            artifact1: {
+                relevant: true,
+                found: false
+            },
+            artifact2: {
+                relevant: false,
+                found: false
+            },
+            artifact3: {
+                relevant: false,
+                found: true
+            }
+        }
     }
-  }
 ];
 
 // GET
@@ -141,49 +141,49 @@ let progress: number = 0; //0-6
 let isGameCompleted: boolean = false;
 
 export function getCurrentRoom(): number {
-  return currentRoom;
+    return currentRoom;
 }
 
 export function getProgress(): number {
-  return progress;
+    return progress;
 }
 
 export function getIsGameCompleted(): boolean {
-  return isGameCompleted;
+    return isGameCompleted;
 }
 
 // SET
 export function setCurrentRoom(room: number) {
-  currentRoom = room;
+    currentRoom = room;
 }
 
 export function setProgress(value: number) {
-  progress = value;
+    progress = value;
 }
 
 export function setGameCompleted(value: boolean) {
-  isGameCompleted = value;
+    isGameCompleted = value;
 }
 
 // GAME LOGIC
 export function completeRoom() {
-  if (isGameCompleted) return;
+    if (isGameCompleted) return;
 
-  progress++;
+    progress++;
 
-  if (progress >= 6) {
-    progress = 6;
-    isGameCompleted = true;
-    console.log('Congratulations! You have completed the game!');
-  } else {
-    currentRoom++;
-    console.log(`You have completed room ${currentRoom}. Progress:${progress}/6`);
-  }
+    if (progress >= 6) {
+        progress = 6;
+        isGameCompleted = true;
+        console.log('Congratulations! You have completed the game!');
+    } else {
+        currentRoom++;
+        console.log(`You have completed room ${currentRoom}. Progress:${progress}/6`);
+    }
 }
 
 // RESET
 export function resetSessionMemory () {
-  currentRoom = 0;
-  progress = 0;
-  isGameCompleted = false;
+    currentRoom = 0;
+    progress = 0;
+    isGameCompleted = false;
 }

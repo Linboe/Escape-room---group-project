@@ -14,14 +14,17 @@ import {
     logSessionBooleanState,
     toggleMySessionBooleanState,
 } from '../../store/session/session-memory';
-import { renderStatusBar } from '../status-bar/status-bar';
+import {
+    renderStatusBar,
+    startStatusBarTimers,
+    stopAllStatusBarTimers,
+} from '../status-bar/status-bar';
 import './cheat-code-styles.scss';
 import { createCheatButton } from './cheat-codes-helper';
 import { state } from '../../state/gamestate';
 import { render } from '../../main';
 import { renderNextRoom } from '../../main';
 import { room1 } from '../../rooms/room1/room1';
-import { room2 } from '../../rooms/room2/room2';
 import { room3 } from '../../rooms/room3/room3';
 import { room4 } from '../../rooms/room4/room4';
 import { room5 } from '../../rooms/room5/room5';
@@ -75,24 +78,43 @@ const cheatButtons = {
         console.log('Showing victory scene');
     }),
 
-    cheatRenderRoom1: createCheatButton('render room 1', () =>
-        room1(document.querySelector('#sceneWrapper'), renderNextRoom),
-    ),
-    cheatRenderRoom2: createCheatButton('render room 2', () =>
-        room2(document.querySelector('#sceneWrapper'), renderNextRoom),
-    ),
-    cheatRenderRoom3: createCheatButton('render room 3', () =>
-        room3(document.querySelector('#sceneWrapper'), renderNextRoom),
-    ),
-    cheatRenderRoom4: createCheatButton('render room 4', () =>
-        room4(document.querySelector('#sceneWrapper'), renderNextRoom),
-    ),
-    cheatRenderRoom5: createCheatButton('render room 5', () =>
-        room5(document.querySelector('#sceneWrapper'), renderNextRoom),
-    ),
-    cheatRenderRoom6: createCheatButton('render room 6', () =>
-        room6(document.querySelector('#sceneWrapper'), renderNextRoom),
-    ),
+    cheatRenderRoom1: createCheatButton('render room 1', () => {
+        stopAllStatusBarTimers();
+        state.currentRoom = 0;
+        room1(document.querySelector('#sceneWrapper'), renderNextRoom);
+        startStatusBarTimers();
+    }),
+
+    cheatRenderRoom2: createCheatButton('render room 2', () => {
+        stopAllStatusBarTimers();
+        state.currentRoom = 1;
+        room2(document.querySelector('#sceneWrapper'), renderNextRoom);
+        startStatusBarTimers();
+    }),
+    cheatRenderRoom3: createCheatButton('render room 3', () => {
+        stopAllStatusBarTimers();
+        state.currentRoom = 2;
+        room3(document.querySelector('#sceneWrapper'), renderNextRoom);
+        startStatusBarTimers();
+    }),
+    cheatRenderRoom4: createCheatButton('render room 4', () => {
+        stopAllStatusBarTimers();
+        state.currentRoom = 3;
+        room4(document.querySelector('#sceneWrapper'), renderNextRoom);
+        startStatusBarTimers();
+    }),
+    cheatRenderRoom5: createCheatButton('render room 5', () => {
+        stopAllStatusBarTimers();
+        state.currentRoom = 4;
+        room5(document.querySelector('#sceneWrapper'), renderNextRoom);
+        startStatusBarTimers();
+    }),
+    cheatRenderRoom6: createCheatButton('render room 6', () => {
+        stopAllStatusBarTimers();
+        state.currentRoom = 5;
+        room6(document.querySelector('#sceneWrapper'), renderNextRoom);
+        startStatusBarTimers();
+    }),
 
     /*cheatRenderRoom6: createCheatButton( // BUGG
         'render room 6',
@@ -131,6 +153,10 @@ const cheatButtons = {
         'render status bar',
         renderStatusBar,
     ),
+    cheatStopAllStatusBarTimers: createCheatButton(
+        'stop all status bar timers',
+        handleStopAllStatusBarTimers,
+    ),
 };
 // ===================================
 
@@ -148,6 +174,9 @@ function setSessionStringToFoo() {
 }
 function setSessionStringToBar() {
     changeMySessionStringState('Bar');
+}
+function handleStopAllStatusBarTimers() {
+    stopAllStatusBarTimers();
 }
 // =============================
 
@@ -181,19 +210,19 @@ function toggleCheatCodeButtons() {
             // ==================================================
             //            cheatButtons.cheatButton1,
             //            cheatButtons.cheatButton2,
-            cheatButtons.cheatRenderStatusBar,
             cheatButtons.cheatRenderSignInScene,
             cheatButtons.cheatRenderMainMenuScene,
             cheatButtons.cheatRenderAboutScene,
             cheatButtons.cheatRenderGameOverScene,
             cheatButtons.cheatRenderVictoryScene,
-            cheatButtons.cheatCheckMySessionString,
-            cheatButtons.cheatSetMySessionStringToFoo,
-            cheatButtons.cheatSetMySessionStringToBar,
-            cheatButtons.cheatCheckMySessionBoolean,
-            cheatButtons.cheatToggleMySessionBoolean,
-            cheatButtons.cheatSaveMyStringToDB,
-
+            //cheatButtons.cheatCheckMySessionString,
+            //cheatButtons.cheatSetMySessionStringToFoo,
+            //cheatButtons.cheatSetMySessionStringToBar,
+            //cheatButtons.cheatCheckMySessionBoolean,
+            //cheatButtons.cheatToggleMySessionBoolean,
+            //cheatButtons.cheatSaveMyStringToDB,
+            cheatButtons.cheatRenderStatusBar,
+            cheatButtons.cheatStopAllStatusBarTimers,
             // ==================================================
         );
     } else {
