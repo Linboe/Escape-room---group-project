@@ -199,7 +199,7 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
       rockBtn.disabled = disabled;
       paperBtn.disabled = disabled;
       scissorsBtn.disabled = disabled;
-      winBtn.disabled = true;
+      winBtn.disabled = disabled;
     }
   }
 
