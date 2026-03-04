@@ -14,9 +14,13 @@ import {
     logSessionBooleanState,
     toggleMySessionBooleanState,
 } from '../../store/session/session-memory';
-import { renderStatusBar, startStatusBarTimers, stopAllStatusBarTimers } from '../status-bar/status-bar';
+import {
+    renderStatusBar,
+    startStatusBarTimers,
+    stopAllStatusBarTimers,
+} from '../status-bar/status-bar';
 import './cheat-code-styles.scss';
-import {  createCheatButton  } from './cheat-codes-helper';
+import { createCheatButton } from './cheat-codes-helper';
 import { state } from '../../state/gamestate';
 import { render } from '../../main';
 
@@ -40,21 +44,27 @@ const cheatButtons = {
         render();
     }),
 
-    cheatRenderMainMenuScene: createCheatButton('render main menu scene', () => {
-        state.screen = 'menu';
-        render();
-    }),
+    cheatRenderMainMenuScene: createCheatButton(
+        'render main menu scene',
+        () => {
+            state.screen = 'menu';
+            render();
+        },
+    ),
 
     cheatRenderAboutScene: createCheatButton('render about scene', () => {
         state.screen = 'about';
         render();
     }),
 
-    cheatRenderGameOverScene: createCheatButton('render game over scene', () => {
-        state.screen = 'gameover';
-        render();
-        console.log('Showing game over scene');
-    }),
+    cheatRenderGameOverScene: createCheatButton(
+        'render game over scene',
+        () => {
+            state.screen = 'gameover';
+            render();
+            console.log('Showing game over scene');
+        },
+    ),
 
     cheatRenderVictoryScene: createCheatButton('render victory scene', () => {
         state.screen = 'victory';
@@ -124,14 +134,38 @@ const cheatButtons = {
         }
     ),
 
-    cheatCheckMySessionString: createCheatButton('check my session string', logMySessionStringState),
-    cheatSetMySessionStringToFoo: createCheatButton('set my session string to Foo', setSessionStringToFoo),
-    cheatSetMySessionStringToBar: createCheatButton('set my session string to Bar', setSessionStringToBar),
-    cheatCheckMySessionBoolean: createCheatButton('check my session boolean', logSessionBooleanState),
-    cheatToggleMySessionBoolean: createCheatButton('toggle my session boolean', toggleMySessionBooleanState),
-    cheatSaveMyStringToDB: createCheatButton('save my string to DB', saveMyStringState),
-    cheatRenderStatusBar: createCheatButton('render status bar', renderStatusBar),
-    cheatStopAllStatusBarTimers: createCheatButton('stop all status bar timers', handleStopAllStatusBarTimers)
+    cheatCheckMySessionString: createCheatButton(
+        'check my session string',
+        logMySessionStringState,
+    ),
+    cheatSetMySessionStringToFoo: createCheatButton(
+        'set my session string to Foo',
+        setSessionStringToFoo,
+    ),
+    cheatSetMySessionStringToBar: createCheatButton(
+        'set my session string to Bar',
+        setSessionStringToBar,
+    ),
+    cheatCheckMySessionBoolean: createCheatButton(
+        'check my session boolean',
+        logSessionBooleanState,
+    ),
+    cheatToggleMySessionBoolean: createCheatButton(
+        'toggle my session boolean',
+        toggleMySessionBooleanState,
+    ),
+    cheatSaveMyStringToDB: createCheatButton(
+        'save my string to DB',
+        saveMyStringState,
+    ),
+    cheatRenderStatusBar: createCheatButton(
+        'render status bar',
+        renderStatusBar,
+    ),
+    cheatStopAllStatusBarTimers: createCheatButton(
+        'stop all status bar timers',
+        handleStopAllStatusBarTimers,
+    ),
 };
 // ===================================
 
@@ -161,7 +195,6 @@ function toggleCheatCodeButtons() {
     if (!cheatCodesWrapper) return;
     if (showCheatCodes) {
         cheatCodesWrapper.append(
-
             // ======================
             // DEV – ROOMS
             // ======================
@@ -198,7 +231,7 @@ function toggleCheatCodeButtons() {
             //cheatButtons.cheatToggleMySessionBoolean,
             //cheatButtons.cheatSaveMyStringToDB,
             cheatButtons.cheatRenderStatusBar,
-            cheatButtons.cheatStopAllStatusBarTimers
+            cheatButtons.cheatStopAllStatusBarTimers,
             // ==================================================
         );
     } else {
