@@ -19,6 +19,10 @@ export function renderRoom6Scene() {
 export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
     if (!sceneWrapper) return;
 
+        setRoom6Mode(true); //test drop-artefakt
+    document.addEventListener('dragover', (e) => e.preventDefault()); //test drop-artefakt tar bort röd varning
+
+
     // ===============================
     // 1. HTML
     // ===============================
