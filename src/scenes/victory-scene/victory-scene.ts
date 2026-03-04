@@ -29,10 +29,15 @@ export function renderVictoryScene() {
     const displayPlayersElapsedTimeElement = document.createElement('p');
     displayPlayersElapsedTimeElement.textContent = `Your time: ${formattedTime}`;
 
+    const shareResultsButton = document.createElement('button');
+    shareResultsButton.id = 'shareResultsButtonElement';
+    shareResultsButton.textContent = 'Share results (copy to clipboard)';
+    shareResultsButton.addEventListener('click', handleCopyResultsToClipboard);
+
     const highScoreWrapper = document.createElement('div');
     highScoreWrapper.id = 'highScoreWrapper';
 
-    victorySceneWrapperElement.append(victorySceneHeaderElement, victorySceneUndertitleElement, displayPlayersElapsedTimeElement);
+    victorySceneWrapperElement.append(victorySceneHeaderElement, victorySceneUndertitleElement, displayPlayersElapsedTimeElement, shareResultsButton);
     sceneWrapper.append(victorySceneWrapperElement, highScoreWrapper);
     // ==========
 
@@ -45,4 +50,20 @@ export function renderVictoryScene() {
         state.screen = 'menu';
         render();
     });
+}
+
+function handleCopyResultsToClipboard() {
+    const minutes = Math.floor(getSecondsElapsed() / 60);
+    const seconds = getSecondsElapsed() % 60;
+    const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    const URL = 'https://medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers/';
+    const shareResultsButtonElement = document.getElementById('shareResultsButtonElement') as HTMLButtonElement | null;
+
+    navigator.clipboard.writeText(`I scored ${formattedTime} at the escape room Strange Woods! Bet you can't beat that, let alone make it out alive: ${URL}`);
+    if (shareResultsButtonElement) {
+        shareResultsButtonElement.textContent = 'Copied to clipboard!';
+        setTimeout(() => {
+            shareResultsButtonElement.textContent = 'Share results again';
+        }, 10000);
+    }
 }

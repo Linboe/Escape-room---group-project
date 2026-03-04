@@ -4,7 +4,8 @@ import { getRoom4CliffMonumentIsBeaten, getRoom4CrossroadsMonumentIsBeaten, getR
 export function room4(sceneWrapper: HTMLDivElement | null, nextRoom: () => void) {
     if (!sceneWrapper) return;
 
-    sceneWrapper.classList.add('scene-wrapper');
+    //sceneWrapper.classList.add('scene-wrapper');
+    sceneWrapper.classList.add('room-4-scene-wrapper');
     sceneWrapper.innerHTML = ''; // reset
 
     sceneWrapper.append(renderRoom4());
@@ -43,7 +44,7 @@ function renderRoom4() {
             <div class="game-session-wrapper">
     */
     const room4Section = document.createElement('section');
-    room4Section.classList.add('room');
+    //room4Section.classList.add('room');
     room4Section.classList.add('room-4');
 
     const roomFrame = document.createElement('div');
@@ -54,16 +55,19 @@ function renderRoom4() {
 
     // gameSessionWrapper's children
     const roomTitleTextElement = document.createElement('h2');
+    roomTitleTextElement.classList.add('room-4-title-text');
     roomTitleTextElement.id = 'roomTitleText';
 
     const eventTextElement = document.createElement('p');
     eventTextElement.id = 'eventText';
+    eventTextElement.classList.add('room-4-event-text');
     eventTextElement.classList.add('event-text');
 
     const gameSessionDiv = document.createElement('div');
     gameSessionDiv.classList.add('game-session-style');
 
     const storyEventButtonsWrapperElement = document.createElement('div');
+    storyEventButtonsWrapperElement.classList.add('room-4-story-event-buttons-wrapper');
     storyEventButtonsWrapperElement.id = 'storyEventButtonsWrapper';
 
     // assemble wrapper
