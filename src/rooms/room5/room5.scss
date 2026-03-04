@@ -8,26 +8,63 @@
     background-image: url('/roompic/linnroom5.png');
 }
 
-.room .room-5 {
-    min-height: 100svh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.room-5 .room-frame {
+    aspect-ratio: 9 / 16;
+    height: 100svh;
+    max-height: 100svh;
+    width: auto;
+    max-width: calc(100svh * 9 / 16);
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-.room-5 {
-    position: relative;
-}
 .room-5 .game-board {
     position: absolute;
     margin: 0 auto;
-    left: 155px;
-    top: 140px;
+    left: 27px;
+    top: 180px;
     background: none;
     border: none;
 }
 
+// btn
+.room-5 .option {
+    background: rgba(10, 15, 12, 0.85);
+    border: none;
+    color: #ffffff;
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    padding: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.2s;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    &:hover {
+        background: rgba(30, 40, 35, 0.95);
+    }
+}
+
+.room-5 .game-session-wrapper-5 {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+}
+
+.room-5 .room-title-text {
+    margin: 0 0 0.5rem 0;
+}
+
+.room-5 .event-text {
+    margin: 0;
+}
+
+//game
 .room-5 .board {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
