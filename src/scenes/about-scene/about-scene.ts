@@ -11,7 +11,7 @@ export function renderAboutScene() {
         console.error('sceneWrapper element not found');
         return;
     }
-    sceneWrapper.innerHTML = ``; // reset
+    sceneWrapper.innerHTML = ''; // reset
 
     // Container
     const aboutContainer = document.createElement('div');
@@ -29,7 +29,7 @@ export function renderAboutScene() {
 
     const storyText = document.createElement('p');
     storyText.textContent = 
-       'Strange Woods is a mysterious forest filled with secrets and wonders. It is said that those who enter may never return, but some brave souls have ventured in and discovered incredible things.';
+        'Strange Woods is a mysterious forest filled with secrets and wonders. It is said that those who enter may never return, but some brave souls have ventured in and discovered incredible things.';
     storySection.append(storyTitle, storyText); //TODO: Lägg till mer story senare
 
     // How to play
@@ -42,7 +42,7 @@ export function renderAboutScene() {
         'Keep an eye on the timer - you have limited time to escape the forest (60 minutes).',
         'Solve rooms to collect artifacts.',
         'All artifacts are needed to complete the final room.'  //TODO: Lägg till fler instruktioner senare
-    ]
+    ];
 
     instructions.forEach(text => {
         const li = document.createElement('li');
@@ -71,7 +71,7 @@ export function renderAboutScene() {
     backBtn.textContent = 'Back to main menu';
     backBtn.addEventListener('click', () => {
         console.log('Back to main menu clicked');
-        state.screen = "menu";
+        state.screen = 'menu';
         render();
     });
 

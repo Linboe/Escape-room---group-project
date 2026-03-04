@@ -1,5 +1,6 @@
 import './main-menu-scene.scss';
 import { state } from '../../state/gamestate';
+import { renderStatusBar } from '../../components/status-bar/status-bar';
 
 console.log('connected main menu scene');
 
@@ -9,7 +10,7 @@ export function renderMainMenuScene(
 ) {
     if (!sceneWrapper) return;
 
-    sceneWrapper.innerHTML = ``; // reset
+    sceneWrapper.innerHTML = ''; // reset
 
     sceneWrapper.innerHTML = `
         <div class="main-menu">
@@ -37,38 +38,40 @@ export function renderMainMenuScene(
     // ----------------------------------------------
 
     startGameBtn?.addEventListener('click', () => { //? betyder om det inte är null
-        if (state.screen === "menu") {
+        if (state.screen === 'menu') {
             state.currentRoom = 0;          // Starta från första rummet
-            state.screen = "room";
+            state.screen = 'room';
+            renderStatusBar();
             render();               // Kör render() som kommer anropa renderNextRoom()
         }
     });
 
     loadGameBtn?.addEventListener('click', () => { // TODO
-        if (state.screen === "menu") {
+        if (state.screen === 'menu') {
             alert('Ännu inte implementerat, här kommer sparat spel laddas in');
             //state.screen = "savedgame";
+            renderStatusBar();
             render();
         }
     });
 
     settingsBtn?.addEventListener('click', () => {
-        if (state.screen === "menu") {
+        if (state.screen === 'menu') {
             renderSettings();
         }
     });
 
 
     aboutBtn?.addEventListener('click', () => {
-        if (state.screen === "menu") {
-            state.screen = "about";
+        if (state.screen === 'menu') {
+            state.screen = 'about';
             render();
         }
     });
 
     logoutBtn?.addEventListener('click', () => {
-        if (state.screen === "menu") {
-            state.screen = "login";  // Byt till login skärmen
+        if (state.screen === 'menu') {
+            state.screen = 'login';  // Byt till login skärmen
             render();
         }
     });
