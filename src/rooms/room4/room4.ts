@@ -1,8 +1,12 @@
 import './room4.scss';
-import { getRoom4CliffMonumentIsBeaten, getRoom4CrossroadsMonumentIsBeaten, getRoom4EventMarker, getRoom4HasCliffArtifact, getRoom4HasLadder, getRoom4HasRavineArtifact, getRoom4RavineMonumentIsBeaten, getRoom4StoryEventButtons, getRoom4TextEvent, getRoom4TitleText, handleRoom4ClickStoryEventButton } from './room4-story-controller';
+import { getRoom4CliffMonumentIsBeaten, getRoom4CrossroadsMonumentIsBeaten, getRoom4EventMarker, getRoom4HasCliffArtifact, getRoom4HasLadder, getRoom4HasRavineArtifact, getRoom4RavineMonumentIsBeaten, getRoom4StoryEventButtons, getRoom4TextEvent, getRoom4TitleText, handleRoom4ClickStoryEventButton, traverseResetRoom4 } from './room4-story-controller';
+import { startStatusBarTimers, stopAllStatusBarTimers } from '../../components/status-bar/status-bar';
 
 export function room4(sceneWrapper: HTMLDivElement | null, nextRoom: () => void) {
     if (!sceneWrapper) return;
+    traverseResetRoom4();
+    stopAllStatusBarTimers();
+    startStatusBarTimers();
 
     //sceneWrapper.classList.add('scene-wrapper');
     sceneWrapper.classList.add('room-4-scene-wrapper');
@@ -15,6 +19,8 @@ export function room4(sceneWrapper: HTMLDivElement | null, nextRoom: () => void)
     if (!escapeRoom4Button) return;
     escapeRoom4Button.textContent = 'Escape The silent tide';
     escapeRoom4Button.addEventListener('click', () => {
+        traverseResetRoom4();
+        stopAllStatusBarTimers();
         nextRoom(); // Proceed to room 5
     });
     escapeRoom4Button.classList.add('escape-room-4-button');
