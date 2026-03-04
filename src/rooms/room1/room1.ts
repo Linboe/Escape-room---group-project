@@ -5,7 +5,7 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
   if (!sceneWrapper) return;
 
   sceneWrapper.innerHTML = `
-  <section class="room-1">
+  <section class="room room-1">
     <div class="room-frame">
       <h2 class="room-title">The Gravity Glitch</h2>
 
