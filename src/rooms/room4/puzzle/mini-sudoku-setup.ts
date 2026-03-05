@@ -1,6 +1,6 @@
-import table1 from './mini-sudoku-tables/table1.json';
-import table2 from './mini-sudoku-tables/table2.json';
-import table3 from './mini-sudoku-tables/table3.json';
+import table1 from '../../../data/mini-sudoku-tables/table1.json';
+import table2 from '../../../data/mini-sudoku-tables/table2.json';
+import table3 from '../../../data/mini-sudoku-tables/table3.json';
 
 let tableToUse = table1;
 export function setTableToUse(table: string) {

@@ -1,5 +1,5 @@
 import './room4.scss';
-import { getRoom4CliffMonumentIsBeaten, getRoom4CrossroadsMonumentIsBeaten, getRoom4EventMarker, getRoom4HasCliffArtifact, getRoom4HasLadder, getRoom4HasRavineArtifact, getRoom4RavineMonumentIsBeaten, getRoom4StoryEventButtons, getRoom4TextEvent, getRoom4TitleText, handleRoom4ClickStoryEventButton, traverseResetRoom4 } from './room4-story-controller';
+import { getRoom4CliffMonumentIsBeaten, getRoom4CrossroadsMonumentIsBeaten, getRoom4EventMarker, getRoom4HasRubberDuckArtifact, getRoom4HasLadder, getRoom4HasFishStatueArtifact, getRoom4RavineMonumentIsBeaten, getRoom4StoryEventButtons, getRoom4TextEvent, getRoom4TitleText, handleRoom4ClickStoryEventButton, traverseResetRoom4 } from './room4-story-controller';
 import { startStatusBarTimers, stopAllStatusBarTimers } from '../../components/status-bar/status-bar';
 
 export function room4(sceneWrapper: HTMLDivElement | null, nextRoom: () => void) {
@@ -129,13 +129,13 @@ export function reRenderRoom4() { // accessible for story-controller
                         newStoryEventButton.removeAttribute('disabled');
                     }
                     break;
-                case 'need-cliff-artifact':
-                    if (getRoom4HasCliffArtifact()) {
+                case 'need-rubber-duck-artifact':
+                    if (getRoom4HasRubberDuckArtifact()) {
                         newStoryEventButton.removeAttribute('disabled');
                     }
                     break;
-                case 'need-ravine-artifact':
-                    if (getRoom4HasRavineArtifact()) {
+                case 'need-fish-statue-artifact':
+                    if (getRoom4HasFishStatueArtifact()) {
                         newStoryEventButton.removeAttribute('disabled');
                     }
                     break;
