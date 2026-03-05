@@ -61,6 +61,25 @@ export const getRoom4CrossroadsMonumentIsBeaten = () => room4CrossroadsMonumentI
 export const getRoom4RavineMonumentIsBeaten = () => room4RavineMonumentIsBeaten; // consider moving to store directory
 export const getRoom4CliffMonumentIsBeaten = () => room4CliffMonumentIsBeaten; // consider moving to store directory
 
+export function setRoom4HasLadder(state: boolean) { // consider moving to store directory
+    room4HasLadder = state;
+}
+export function setRoom4HasRubberDuckArtifact(state: boolean) { // consider moving to store directory
+    room4HasRubberDuckArtifact = state;
+}
+export function setRoom4HasFishStatueArtifact(state: boolean) { // consider moving to store directory
+    room4HasFishStatueArtifact = state;
+}
+export function setRoom4CrossroadsMonumentIsBeaten(state: boolean) { // consider moving to store directory
+    room4CrossroadsMonumentIsBeaten = state;
+}
+export function setRoom4RavineMonumentIsBeaten(state: boolean) { // consider moving to store directory
+    room4RavineMonumentIsBeaten = state;
+}
+export function setRoom4CliffMonumentIsBeaten(state: boolean) { // consider moving to store directory
+    room4CliffMonumentIsBeaten = state;
+}
+
 function refreshRoom4UI(storyIndex: number = 0, newTitleText?: string) {
     room4StoryIndex = storyIndex;
     if (newTitleText) {
