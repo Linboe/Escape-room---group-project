@@ -29,7 +29,7 @@ export function attachHighscoreHack(
             clicks = 0;
             if (resetTimer) {
                 clearTimeout(resetTimer);
-                resetTimer = null; // ← städa upp
+                resetTimer = null;
             }
             askForPassword();
         }
@@ -48,22 +48,4 @@ export function attachHighscoreHack(
 
     titleElement.addEventListener('click', handleClick);
     return () => titleElement.removeEventListener('click', handleClick);
-}
-
-// I highscore.ts
-
-import { attachHighscoreHack } from './highscore-hack';
-
-// ------ befintliga kod --------
-
-let detach: DetachFn | undefined;
-detach = attachHighscoreHack(
-    document.getElementById('hs-title')!,
-    onHackSuccess,
-);
-
-function onHackSuccess(): void {
-    store.clear();
-    renderScores();
-    detach?.();
 }
