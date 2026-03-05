@@ -1,5 +1,5 @@
 .status-bar {
-    width: 100vw;
+    width: calc(100vw - 100px); // -100px revert the horizontal scroll UI bug
     display: flex;
     justify-content: space-around;
 }

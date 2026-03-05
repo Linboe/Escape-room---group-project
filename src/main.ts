@@ -4,7 +4,6 @@ import { state } from './state/gamestate';
 import { renderSignInScene } from './scenes/sign-in-scene/sign-in-scene';
 import { renderMainMenuScene } from './scenes/main-menu-scene/main-menu-scene';
 import { renderGameOverScene } from './scenes/game-over-scene/game-over-scene';
-
 import { room1 } from './rooms/room1/room1';
 import { room2 } from './rooms/room2/room2';
 import { room3 } from './rooms/room3/room3';
@@ -13,6 +12,9 @@ import { room5 } from './rooms/room5/room5';
 import { room6 } from './rooms/room6/room6';
 import { renderAboutScene } from './scenes/about-scene/about-scene';
 import './components/high-score/high-score';
+import { renderVictoryScene } from './scenes/victory-scene/victory-scene';
+import { getSecondsElapsed } from './components/status-bar/status-bar';
+import { saveHighscore } from './components/high-score/high-score';
 
 // please check the document in this link:
 // https://medieinstitutet-my.sharepoint.com/:w:/g/personal/alda_catovic_medieinstitutet_se/IQApMQpuaX8YToqheHZBk5Y4AQvnQa3uXsRg0XzjSP18ehU?rtime=AQuzKQlr3kg
@@ -39,7 +41,7 @@ export function render() {
             renderNextRoom();
             break;
         case 'victory':
-            renderVictory();
+            renderVictoryScene();
             break;
         case 'gameover':
             renderGameOverScene();
@@ -55,6 +57,7 @@ export function renderNextRoom() { // TODO koppla på timers
     console.log('renderNextRoom called. currentRoom:', state.currentRoom);
 
     if (state.currentRoom >= allRooms.length) {
+        saveHighscore(state.username, getSecondsElapsed());
         console.log('GOING TO VICTORY');
         state.screen = 'victory';
         render();
@@ -65,28 +68,9 @@ export function renderNextRoom() { // TODO koppla på timers
 
     room(sceneWrapper, () => {
         console.log('Room completed:', state.currentRoom);
-        if (state.screen === 'victory') return; 
+        if (state.screen === 'victory') return;
         state.currentRoom++;
         renderNextRoom();
-    });
-}
-
-function renderVictory() {
-    if (!sceneWrapper) return;
-    // TODO: Translate to English
-    sceneWrapper.innerHTML = `
-        <h2>🎉 Grattis!</h2>
-        <p>Du klarade alla rum!</p>
-        <button id="backToMenu">Till meny</button>
-    `;
-
-    const backToMenuBtn: HTMLButtonElement | null = document.querySelector('#backToMenu');
-
-    backToMenuBtn?.addEventListener('click', () => {
-        state.currentRoom = 0;
-        state.screen = 'menu';
-        render();
-
     });
 }
 

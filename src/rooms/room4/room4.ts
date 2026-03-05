@@ -1,10 +1,15 @@
 import './room4.scss';
-import { getRoom4CliffMonumentIsBeaten, getRoom4CrossroadsMonumentIsBeaten, getRoom4EventMarker, getRoom4HasCliffArtifact, getRoom4HasLadder, getRoom4HasRavineArtifact, getRoom4RavineMonumentIsBeaten, getRoom4StoryEventButtons, getRoom4TextEvent, getRoom4TitleText, handleRoom4ClickStoryEventButton } from './room4-story-controller';
+import { getRoom4CliffMonumentIsBeaten, getRoom4CrossroadsMonumentIsBeaten, getRoom4EventMarker, getRoom4HasCliffArtifact, getRoom4HasLadder, getRoom4HasRavineArtifact, getRoom4RavineMonumentIsBeaten, getRoom4StoryEventButtons, getRoom4TextEvent, getRoom4TitleText, handleRoom4ClickStoryEventButton, traverseResetRoom4 } from './room4-story-controller';
+import { startStatusBarTimers, stopAllStatusBarTimers } from '../../components/status-bar/status-bar';
 
 export function room4(sceneWrapper: HTMLDivElement | null, nextRoom: () => void) {
     if (!sceneWrapper) return;
+    traverseResetRoom4();
+    stopAllStatusBarTimers();
+    startStatusBarTimers();
 
-    sceneWrapper.classList.add('scene-wrapper');
+    //sceneWrapper.classList.add('scene-wrapper');
+    sceneWrapper.classList.add('room-4-scene-wrapper');
     sceneWrapper.innerHTML = ''; // reset
 
     sceneWrapper.append(renderRoom4());
@@ -14,6 +19,8 @@ export function room4(sceneWrapper: HTMLDivElement | null, nextRoom: () => void)
     if (!escapeRoom4Button) return;
     escapeRoom4Button.textContent = 'Escape The silent tide';
     escapeRoom4Button.addEventListener('click', () => {
+        traverseResetRoom4();
+        stopAllStatusBarTimers();
         nextRoom(); // Proceed to room 5
     });
     escapeRoom4Button.classList.add('escape-room-4-button');
@@ -43,7 +50,7 @@ function renderRoom4() {
             <div class="game-session-wrapper">
     */
     const room4Section = document.createElement('section');
-    room4Section.classList.add('room');
+    //room4Section.classList.add('room');
     room4Section.classList.add('room-4');
 
     const roomFrame = document.createElement('div');
@@ -54,16 +61,19 @@ function renderRoom4() {
 
     // gameSessionWrapper's children
     const roomTitleTextElement = document.createElement('h2');
+    roomTitleTextElement.classList.add('room-4-title-text');
     roomTitleTextElement.id = 'roomTitleText';
 
     const eventTextElement = document.createElement('p');
     eventTextElement.id = 'eventText';
+    eventTextElement.classList.add('room-4-event-text');
     eventTextElement.classList.add('event-text');
 
     const gameSessionDiv = document.createElement('div');
     gameSessionDiv.classList.add('game-session-style');
 
     const storyEventButtonsWrapperElement = document.createElement('div');
+    storyEventButtonsWrapperElement.classList.add('room-4-story-event-buttons-wrapper');
     storyEventButtonsWrapperElement.id = 'storyEventButtonsWrapper';
 
     // assemble wrapper

@@ -69,6 +69,16 @@ function refreshRoom4UI(storyIndex: number = 0, newTitleText?: string) {
     reRenderRoom4();
 }
 
+export function traverseResetRoom4() { // softer resetter fit for a current game session
+    room4StoryToUse = room4Story;
+    room4StoryIndex = 0;
+    room4TitleText = 'The silent tide';
+    room4TextEvent = '';
+    room4EventMarker = '';
+    room4StoryEventButtons = [];  
+    refreshRoom4UI();  
+}
+
 function resetRoom4() {
     room4StoryToUse = room4Story;
     room4StoryIndex = 0;
