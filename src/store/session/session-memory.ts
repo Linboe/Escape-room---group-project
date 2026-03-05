@@ -139,6 +139,15 @@ let sessionMemory = [
 let currentRoom: number = 0; //0-5
 let progress: number = 0; //0-6
 let isGameCompleted: boolean = false;
+let username: string = '';
+
+export function getUsername(): string {
+    return username;
+}
+
+export function setUsername(value: string) {
+    username = value;
+}
 
 export function getCurrentRoom(): number {
     return currentRoom;

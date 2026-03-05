@@ -1,5 +1,8 @@
 import './sign-in-scene.scss';
 import { state } from '../../state/gamestate';
+import { setUsername } from '../../store/session/session-memory';
+import { saveGameToLocalStorage } from '../../store/database/local-storage-database';
+import { getUsername } from '../../store/session/session-memory';
 
 console.log('connected sign in scene');
 
@@ -41,9 +44,20 @@ export function renderSignInScene(
 
         if (usernameInput && usernameInput.value.trim() !== '') {
             errorSpan?.classList.add('hidden');
-            state.username = usernameInput.value.trim();
-            state.screen = 'menu';
-            render();
+            setUsername(usernameInput.value.trim());
+            saveGameToLocalStorage();
+
+            const popup = document.createElement('div');
+            popup.classList.add('popup');
+            popup.textContent = `Welcome, ${getUsername()}!`;
+            document.body.appendChild(popup);
+
+            setTimeout(() => {
+                popup.remove();
+                state.screen = 'menu';
+                render();
+            }, 2000);
+
         } else {
             errorSpan?.classList.remove('hidden');
         }

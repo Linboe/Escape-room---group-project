@@ -8,6 +8,8 @@ import {
     setProgress,
     getIsGameCompleted,
     setGameCompleted,
+    getUsername,
+    setUsername,
 } from '../session/session-memory';
 
 
@@ -25,6 +27,7 @@ export function saveGameToLocalStorage() {
         currentRoom: getCurrentRoom(),
         progress: getProgress(),
         isGameCompleted: getIsGameCompleted(),
+        username: getUsername(),
     };
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -38,6 +41,7 @@ export function loadGameFromLocalStorage() {
     try {
         const data = JSON.parse(raw);
 
+        if (data.username !== undefined) setUsername(data.username);
         if (data.currentRoom !== undefined) setCurrentRoom(data.currentRoom);
         if (data.progress !== undefined) setProgress(data.progress);
         if (data.isGameCompleted !== undefined) setGameCompleted(data.isGameCompleted);
