@@ -1,6 +1,7 @@
 import './game-over-scene.scss';
 import { state } from '../../state/gamestate';
 import { render } from '../../main';
+import { stopAllStatusBarTimers } from '../../components/status-bar/status-bar';
 
 console.log('connected game over scene');
 
@@ -8,6 +9,7 @@ const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement |
 
 export function renderGameOverScene(score: number = 0) {
     if (!sceneWrapper) return;
+    stopAllStatusBarTimers();
 
     sceneWrapper.innerHTML = ''; // reset
 

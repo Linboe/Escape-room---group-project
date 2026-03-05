@@ -35,6 +35,7 @@ import cliffLadderStory from '../../data/stories-data/room4-story/cliff-ladder.j
 import inspectCliffMonumentStory from '../../data/stories-data/room4-story/inspect-cliff-monument.json';
 import cliffMonumentWinStory from '../../data/stories-data/room4-story/cliff-monument-win.json';
 import cliffMonumentLoseStory from '../../data/stories-data/room4-story/cliff-monument-lose.json';
+import { triggerArtifact } from '../../components/artifacts/artifactSystem';
 
 let room4StoryToUse: IScriptEvent[] = room4Story;
 let room4StoryIndex: number = 0;
@@ -43,8 +44,8 @@ let room4TextEvent: string = '';
 let room4EventMarker: string = '';
 let room4StoryEventButtons: IButtonEvent[] = [];
 let room4HasLadder: boolean = false; // consider moving to store directory
-let room4HasCliffArtifact: boolean = false; // consider moving to store directory
-let room4HasRavineArtifact: boolean = false; // consider moving to store directory
+let room4HasRubberDuckArtifact: boolean = false; // consider moving to store directory
+let room4HasFishStatueArtifact: boolean = false; // consider moving to store directory
 let room4CrossroadsMonumentIsBeaten: boolean = false; // consider moving to store directory
 let room4RavineMonumentIsBeaten: boolean = false; // consider moving to store directory
 let room4CliffMonumentIsBeaten: boolean = false; // consider moving to store directory
@@ -54,8 +55,8 @@ export const getRoom4TextEvent = () => room4TextEvent;
 export const getRoom4EventMarker = () => room4EventMarker;
 export const getRoom4StoryEventButtons = () => room4StoryEventButtons;
 export const getRoom4HasLadder = () => room4HasLadder; // consider moving to store directory
-export const getRoom4HasCliffArtifact = () => room4HasCliffArtifact; // consider moving to store directory
-export const getRoom4HasRavineArtifact = () => room4HasRavineArtifact; // consider moving to store directory
+export const getRoom4HasRubberDuckArtifact = () => room4HasRubberDuckArtifact; // consider moving to store directory
+export const getRoom4HasFishStatueArtifact = () => room4HasFishStatueArtifact; // consider moving to store directory
 export const getRoom4CrossroadsMonumentIsBeaten = () => room4CrossroadsMonumentIsBeaten; // consider moving to store directory
 export const getRoom4RavineMonumentIsBeaten = () => room4RavineMonumentIsBeaten; // consider moving to store directory
 export const getRoom4CliffMonumentIsBeaten = () => room4CliffMonumentIsBeaten; // consider moving to store directory
@@ -87,8 +88,8 @@ function resetRoom4() {
     room4EventMarker = '';
     room4StoryEventButtons = [];
     room4HasLadder = false;
-    room4HasCliffArtifact = false;
-    room4HasRavineArtifact = false;
+    room4HasRubberDuckArtifact = false;
+    room4HasFishStatueArtifact = false;
     room4CrossroadsMonumentIsBeaten = false;
     room4RavineMonumentIsBeaten = false;
     room4CliffMonumentIsBeaten = false;
@@ -159,6 +160,7 @@ function crossroadsMonumentLose() {
 function crossroadsMonumentCheck() {
     validateTable();
     if (getGameSessionBeatenState()) {
+        triggerArtifact('room4', 'ladder', 500);
         room4StoryToUse = crossroadsMonumentWinStory;
         closeMiniSudokuGameSession();
         refreshRoom4UI();
@@ -199,6 +201,7 @@ function ravineMonumentLose() {
 function ravineMonumentCheck() {
     validateTable();
     if (getGameSessionBeatenState()) {
+        triggerArtifact('room4', 'fish-statue', 500);
         room4StoryToUse = ravineMonumentWinStory;
         closeMiniSudokuGameSession();
         refreshRoom4UI();
@@ -235,6 +238,7 @@ function cliffMonumentWin() {
 function cliffMonumentCheck() {
     validateTable();
     if (getGameSessionBeatenState()) {
+        triggerArtifact('room4', 'rubber-duck', 500);
         room4StoryToUse = cliffMonumentWinStory;
         closeMiniSudokuGameSession();
         refreshRoom4UI();
@@ -295,10 +299,10 @@ export function handleRoom4ClickStoryEventButton(event: Event) {
         case 'at-crossroads-approach-cliff':
             enterCliff();
             return;
-        case 'at-crossroads-use-cliff-artifact':
+        case 'at-crossroads-use-rubber-duck-artifact':
             escapeWithAnyArtifact();
             return;
-        case 'at-crossroads-use-ravine-artifact':
+        case 'at-crossroads-use-fish-statue-artifact':
             escapeWithAnyArtifact();
             return;
 
@@ -366,7 +370,7 @@ export function handleRoom4ClickStoryEventButton(event: Event) {
             ravineMonumentCheck();
             return;
         case 'ravine-monument-win-turn-back-continue':
-            room4HasRavineArtifact = true;
+            room4HasFishStatueArtifact = true;
             room4RavineMonumentIsBeaten = true;
             returnToCrossroads();
             return;
@@ -400,7 +404,7 @@ export function handleRoom4ClickStoryEventButton(event: Event) {
             cliffMonumentWin();
             return;
         case 'cliff-monument-win-turn-back-continue':
-            room4HasCliffArtifact = true;
+            room4HasRubberDuckArtifact = true;
             room4CliffMonumentIsBeaten = true;
             returnToCrossroads();
             return;
