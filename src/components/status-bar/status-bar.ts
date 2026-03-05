@@ -21,6 +21,9 @@ let secondsElapsed: number = 0;
 let roomStates = getRoomStates();
 let gameState = getGameState();
 let hourglassState = roomStates[gameState.currentRoom].roomTime; // how many seconds left for said room
+export function getSecondsElapsed() {
+    return secondsElapsed;
+}
 
 // as null when paused/ as interval when playing
 let countdownIntervalState: ReturnType<typeof setInterval> | null = null;
@@ -174,7 +177,7 @@ function handleCountdownTick() {
     if (--hourglassState < 0) {
         stopCountdown();
         stopCountup();
-        spanTimerElement.textContent = "Time's up!";
+        spanTimerElement.textContent = 'Time\'s up!';
         renderGameOverScene();
     }
 }
