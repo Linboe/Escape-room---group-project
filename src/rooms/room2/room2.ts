@@ -1,6 +1,7 @@
 import './room2.scss';
 import { state } from '../../state/gamestate';
 import { render } from '../../main';
+import { showRoomIntro } from '../../components/room-intro/room-intro';
 
 export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
     if (!sceneWrapper) return;
@@ -410,6 +411,12 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
     }
 
     //---------------------- 4. START -------------------------
-
-    showStart();
+    showRoomIntro(
+        2,
+        () => { /* pauseTimer */ },
+        () => { /* resumeTimer */ },
+        () => {
+            showStart();
+        }
+    );
 }

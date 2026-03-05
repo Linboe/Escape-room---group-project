@@ -1,25 +1,33 @@
 import './room4.scss';
 import { getRoom4CliffMonumentIsBeaten, getRoom4CrossroadsMonumentIsBeaten, getRoom4EventMarker, getRoom4HasCliffArtifact, getRoom4HasLadder, getRoom4HasRavineArtifact, getRoom4RavineMonumentIsBeaten, getRoom4StoryEventButtons, getRoom4TextEvent, getRoom4TitleText, handleRoom4ClickStoryEventButton } from './room4-story-controller';
+import { showRoomIntro } from '../../components/room-intro/room-intro';
 
 export function room4(sceneWrapper: HTMLDivElement | null, nextRoom: () => void) {
     if (!sceneWrapper) return;
 
-    sceneWrapper.classList.add('scene-wrapper');
-    sceneWrapper.innerHTML = ''; // reset
+    showRoomIntro(
+        4,
+        () => { /* pauseTimer */ },
+        () => { /* resumeTimer */ },
+        () => {
+            sceneWrapper.classList.add('scene-wrapper');
+            sceneWrapper.innerHTML = ''; // reset
 
-    sceneWrapper.append(renderRoom4());
-    reRenderRoom4();
+            sceneWrapper.append(renderRoom4());
+            reRenderRoom4();
 
-    const escapeRoom4Button = document.createElement('button');
-    if (!escapeRoom4Button) return;
-    escapeRoom4Button.textContent = 'Escape The silent tide';
-    escapeRoom4Button.addEventListener('click', () => {
-        nextRoom(); // Proceed to room 5
-    });
-    escapeRoom4Button.classList.add('escape-room-4-button');
-    escapeRoom4Button.id = 'escapeRoom4Button';
-    escapeRoom4Button.disabled = true;
-    sceneWrapper.append(escapeRoom4Button);
+            const escapeRoom4Button = document.createElement('button');
+            if (!escapeRoom4Button) return;
+            escapeRoom4Button.textContent = 'Escape The silent tide';
+            escapeRoom4Button.addEventListener('click', () => {
+                nextRoom(); // Proceed to room 5
+            });
+            escapeRoom4Button.classList.add('escape-room-4-button');
+            escapeRoom4Button.id = 'escapeRoom4Button';
+            escapeRoom4Button.disabled = true;
+            sceneWrapper.append(escapeRoom4Button);
+        }
+    );
 }
 
 function renderRoom4() {

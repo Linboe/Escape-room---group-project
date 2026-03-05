@@ -3,33 +3,33 @@
      "roomIntros": [
         {
             "room": 1,
-            "name": "Room 1",
-            "description": "Description"
+            "name": "The Gravity Glitch",
+            "description": "A strange man blocks your path. He will not let you pass without a challenge — beat him in rock, paper, scissors to earn your way forward."
         },
          {
             "room": 2,
-            "name": "Room 2",
-            "description": "Description"
+            "name": "Victoria House",
+            "description": "The air is thick with humidity and the scent of damp earth. Somewhere in this glass jungle, three code fragments lie hidden. Find them all to unlock the exit."
         },
          {
             "room": 3,
             "name": "The inner Jungle (Archive of Illusions)",
-            "description": "You find yourself standing at the edge of a mysterious glass palace, where an ancient jungle grows wild within its walls. A silent guardian awaits you at the water's edge — but only the knowledgeable may pass."
+            "description": "Deep within a glass palace, an ancient jungle grows wild and untamed. A silent guardian stands by the water's edge — he will only let you pass if you can prove your knowledge of the living world."
         },
          {
             "room": 4,
-            "name": "Room 4",
-            "description": "Description"
+            "name": "The Silent Tide",
+            "description": "You stand at the edge of a vast, silent wilderness. The path ahead is uncertain and full of choices — each decision will shape your journey through this ancient landscape."
         },
          {
             "room": 5,
-            "name": "Room 5",
-            "description": "Description"
+            "name": "Shadow of the Grove",
+            "description": "Deep in the forest, white shapes lurk between the trees. Dare to step closer and uncover the mystical creatures that have silently watched over your journey."
         },
          {
             "room": 6,
-            "name": "Room 6",
-            "description": "Description"
+            "name": "End Game",
+            "description": "You have reached the final chamber. The answers you seek lie within the pages of an ancient book — but only those who have truly paid attention will find their way out."
         }
     ]
 }

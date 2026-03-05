@@ -9,21 +9,31 @@ let wrongAttempts = 0;
 
 
 const questions = [
-    {
-        question: 'Which part of the plant is responsible for photosynthesis?',
-        options: ['Leaves', 'Roots', 'Flower', 'Stem'],
-        correct: 'Leaves',
-    },
-    {
-        question: 'What pigment gives plants their green color?',
-        options: ['Chlorophyll', 'Carotenoid', 'Anthocyanin', 'Xanthophyll'],
+   {
+        question: '"In the heart of every emerald leaf, which substance captures the sun\'s golden blood to feed the forest?"',
+        options: ['Anthocyanin', 'Chlorophyll', 'Carotenoid', 'Xanthophyll'],
         correct: 'Chlorophyll',
     },
     {
-        question: 'Which process do plants use to convert sunlight into energy?',
-        options: ['Respiration', 'Transpiration', 'Photosynthesis', 'Germination'],
-        correct: 'Photosynthesis',
+        question: '"To breathe life into the shadows, I consume the air that humans discard. What is the spirit of the gas I inhale?"',
+        options: ['Oxygen', 'Nitrogen', 'Carbon Dioxide', 'Hydrogen'],
+        correct: 'Carbon Dioxide',
     },
+    {
+        question: '"The jungle moves in silence. Which hidden vessels carry the earth\'s tears from the deep roots to the highest crown?"',
+        options: ['Phloem', 'Stomata', 'Cortex', 'Xylem'],
+        correct: 'Xylem',
+    },
+    {
+        question: '"When the sun hides, I remain. Which ancient cycle allows me to weave sugar from the dark and the light?"',
+        options: ['The Krebs Cycle', 'The Calvin Cycle', 'Glycolysis', 'Photolysis'],
+        correct: 'The Calvin Cycle',
+    },
+    {
+        question: '"I am the master of the dry sands. Which path of life do I walk to save my water while the sun burns?"',
+        options: ['C3 Path', 'C4 Path', 'CAM Path', 'Kemosyntes'],
+        correct: 'CAM Path',
+    }
 ];
 
 export function room3(sceneWrapper: HTMLDivElement | null, next: () => void) {
