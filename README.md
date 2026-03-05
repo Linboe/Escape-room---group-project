@@ -2,10 +2,29 @@
 
 Live link: (medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers)[https://medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers/]
 
+## 🐟 Special Hack — Clear Highscore
+
+A hidden admin feature exists to clear the highscore list.
+
+### How to unlock it
+
+1. Navigate to the victory screen
+2. Triple-click the **🏆 Top 10 Highscores** title quickly
+3. A password prompt will appear
+4. Enter the secret password
+
+### Hint
+
+The password is related to a legendary fish known for being remarkably unintelligent.
+
+### What happens
+
+If the correct password is entered, the entire highscore list is permanently cleared from localStorage.
+
 Developed by The Dopefish Admirers team:
 
 [Alma Isaksson](https://github.com/MidnattLantern)
-[]()
+[Linn Boekhout](https://github.com/Linboe)
 []()
 []()
 []()
