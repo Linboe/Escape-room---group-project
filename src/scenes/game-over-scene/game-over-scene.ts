@@ -10,6 +10,7 @@ const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement |
 
 export function renderGameOverScene(score: number = 0) {
     if (!sceneWrapper) return;
+    stopAllStatusBarTimers();
 
     sceneWrapper.innerHTML = ''; // reset
 

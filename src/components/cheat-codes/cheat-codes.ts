@@ -11,6 +11,8 @@ import { state } from '../../state/gamestate';
 import { render } from '../../main';
 import { getHighScores, saveHighscore } from '../high-score/high-score';
 import { renderVictoryScene } from '../../scenes/victory-scene/victory-scene';
+import { triggerArtifact } from '../artifacts/artifactSystem';
+import { setRoom4CliffMonumentIsBeaten, setRoom4CrossroadsMonumentIsBeaten, setRoom4HasFishStatueArtifact, setRoom4HasLadder, setRoom4HasRubberDuckArtifact, setRoom4RavineMonumentIsBeaten } from '../../rooms/room4/room4-story-controller';
 
 let showCheatCodes: boolean = false;
 const showCheatCodesButton = document.getElementById(
@@ -130,7 +132,10 @@ const cheatButtons = {
     cheatGetHighScores: createCheatButton('get high scores', getHighScores),
     cheatSaveHighScore: createCheatButton('save high score', handleSaveHighScore),
     cheatRenderHighScore: createCheatButton('render high score', renderVictoryScene),
-    cheatCreateHighScoreMockData: createCheatButton('create high score mock data', createHighScoreMockData)
+    cheatCreateHighScoreMockData: createCheatButton('create high score mock data', createHighScoreMockData),
+    cheatGiveLadder: createCheatButton('give ladder', handleGiveLadder),
+    cheatGiveFishStatue: createCheatButton('give fish statue', handleGiveFishStatue),
+    cheatGiveRubberDuck: createCheatButton('give rubber duck', handleGiveRubberDuck)
 };
 // ===================================
 
@@ -157,6 +162,21 @@ function createHighScoreMockData() {
         { name: 'Isabelle', score: 200 },
     ];
     localStorage.setItem('escaperoom_highscores', JSON.stringify(mockScores));
+}
+function handleGiveLadder() {
+    triggerArtifact('room4', 'ladder', 0);
+    setRoom4HasLadder(true);
+    setRoom4CrossroadsMonumentIsBeaten(true);
+}
+function handleGiveFishStatue() {
+    triggerArtifact('room4', 'fish-statue', 0);
+    setRoom4HasFishStatueArtifact(true);
+    setRoom4RavineMonumentIsBeaten(true);
+}
+function handleGiveRubberDuck() {
+    triggerArtifact('room4', 'rubber-duck', 0);
+    setRoom4HasRubberDuckArtifact(true);
+    setRoom4CliffMonumentIsBeaten(true);
 }
 // =============================
 
@@ -185,7 +205,10 @@ function toggleCheatCodeButtons() {
             cheatButtons.cheatGetHighScores,
             cheatButtons.cheatSaveHighScore,
             cheatButtons.cheatRenderHighScore,
-            cheatButtons.cheatCreateHighScoreMockData
+            cheatButtons.cheatCreateHighScoreMockData,
+            cheatButtons.cheatGiveLadder,
+            cheatButtons.cheatGiveFishStatue,
+            cheatButtons.cheatGiveRubberDuck
             // ==================================================
         );
     } else {
