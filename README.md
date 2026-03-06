@@ -19,7 +19,7 @@ If you enter the wrong password, a hint is embedded in the error message.
 
 ### What happens
 
-If the correct password is entered, the entire highscore list is permanently cleared from localStorage.
+If the correct password (dopefish) is entered, the entire highscore list is permanently cleared from localStorage.
 
 Developed by The Dopefish Admirers team:
 
