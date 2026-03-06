@@ -1,4 +1,5 @@
 import './high-score.scss';
+import { attachHighscoreHack } from '../../components/specialhack-clear-highscore';
 
 /**
  * Definiera ett gemensamt interface - hur ska data struktureras
@@ -110,8 +111,9 @@ export function saveHighscore(name: string, score: number): void {
 export function renderHighScore(): void {
     //void: funktionen retunerar inget värde (den renderar men skickar inte tillbaka ngt)
     const highScoreWrapperElement = document.getElementById(
-        'highScoreWrapper'
+        'highScoreWrapper',
     ) as HTMLDivElement | null;
+    console.log('highScoreWrapper:', highScoreWrapperElement);
     if (!highScoreWrapperElement) return;
 
     const scores = getHighScores();
@@ -127,7 +129,8 @@ export function renderHighScore(): void {
         `;
     } else {
         const listItems = scores
-            .map((entry: HighscoreEntry, index) => { //map går igenom varje element i scores arrayen (.map returnerar en array med strings (<li>...</li>).) entry är objektet med name, score, i är positionen i arrayen
+            .map((entry: HighscoreEntry, index) => {
+                //map går igenom varje element i scores arrayen (.map returnerar en array med strings (<li>...</li>).) entry är objektet med name, score, i är positionen i arrayen
                 const minutes = Math.floor(entry.score / 60);
                 const seconds = entry.score % 60;
                 const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
@@ -159,4 +162,29 @@ export function renderHighScore(): void {
     highScoreWrapperElement.innerHTML = content;
 
     // addMockData() har döpts om och flyttats till cheat-codes som createHighScoreMockData()
+}
+
+// --------------------------------------------------------------
+// -------------------- Highscore Hack --------------------------
+// --------------------------------------------------------------
+
+let detach: (() => void) | undefined; // håller cleanup-funktionen
+
+function onHackSuccess(): void {
+    console.log('hack lyckades! rensar highscore...');
+    console.log('innan rensning:', localStorage.getItem(HIGHSCORE_KEY));
+    localStorage.removeItem(HIGHSCORE_KEY);
+    console.log('efter rensning:', localStorage.getItem(HIGHSCORE_KEY));
+    renderHighScore();
+    attachHack();
+}
+
+export function attachHack(): void {
+    // exporterad så game-over-scene kan anropa den
+    const title = document.querySelector(
+        '.highscore-title',
+    ) as HTMLElement | null;
+    if (!title) return;
+    detach?.(); // ta bort gammal lyssnare om den finns
+    detach = attachHighscoreHack(title, onHackSuccess); // koppla ny lyssnare
 }
