@@ -37,12 +37,12 @@ export function renderSignInScene(
     signInBtn?.addEventListener('click', () => {
 
         if (usernameInput && usernameInput.value.trim() !== '') {
-            errorSpan?.classList.add('hidden');
+            errorSpan?.classList.add('error-span-hidden');
             state.username = usernameInput.value.trim();
             state.screen = 'menu';
             render();
         } else {
-            errorSpan?.classList.remove('hidden');
+            errorSpan?.classList.remove('error-span-hidden');
         }
     });
 };
