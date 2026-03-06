@@ -33,21 +33,25 @@ export function triggerArtifact(
     // 2. Skapa HTML för popupen dynamiskt
     setTimeout(() => {
         const popupHtml = `
-        <div id="artifact-popup-overlay" class="artifact-overlay">
-            <div class="artifact-card">
-                <h2 class="artifact-title"> Congratulations!</h2>
-                <p class="arifact-p">A new artifact has been unlocked - <br>
-                click to collect</p>
-                <div class="artifact-image-container">
-                   <button id="close-artifact-btn" class="artifact-img-btn" aria-label="Collect ${artifact.name}">
-                        <img src="${artifact.image}" alt="${artifact.name}" class="artifact-img-large">
-                    </button>
+            <div id="artifact-popup-overlay" class="artifact-overlay"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="artifact-dialog-title"
+                tabindex="-1">
+                <div class="artifact-card">
+                    <h2 class="artifact-title" id="artifact-dialog-title">Congratulations!</h2>
+                    <p class="arifact-p">A new artifact has been unlocked - <br>
+                    click to collect</p>
+                    <div class="artifact-image-container">
+                        <button id="close-artifact-btn" class="artifact-img-btn" aria-label="Collect ${artifact.name}">
+                            <img src="${artifact.image}" alt="${artifact.name}" class="artifact-img-large">
+                        </button>
+                    </div>
+                    <h3 class="artifact-name">${artifact.name}</h3>
+                    <p class="artifact-desc">${artifact.description}</p>
                 </div>
-                <h3 class="artifact-name">${artifact.name}</h3>
-                <p class="artifact-desc">${artifact.description}</p>
             </div>
-        </div>
-    `;
+        `;
 
         document.body.insertAdjacentHTML('beforeend', popupHtml);
 
@@ -59,7 +63,7 @@ export function triggerArtifact(
         ) as HTMLElement;
 
         const previouslyFocused = document.activeElement as HTMLElement;
-        overlay.focus();
+        setTimeout(() => overlay.focus(), 0);
 
         overlay.addEventListener('keydown', (e: KeyboardEvent) => {
             if (e.key === 'Tab') {
