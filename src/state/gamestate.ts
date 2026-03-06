@@ -40,7 +40,7 @@ let roomStates = [
         roomTime: 400
     },
     {
-        roomTime: 400
+        roomTime: 570
     },
     {
         roomTime: 400

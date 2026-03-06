@@ -28,13 +28,19 @@
             "id": "fish-statue",
             "name": "fish-statue",
             "image": "/fed25d-js-intro-grupparbete-the-dopefish-admirers/artifacts/fish-statue.webp",
-            "description": ""
+            "description": "This item is surprisingly light for being a statue, at least underwater."
         },
         {
             "id": "ladder",
             "name": "ladder",
             "image": "/fed25d-js-intro-grupparbete-the-dopefish-admirers/artifacts/ladder.webp",
-            "description": ""
+            "description": "This invention is useful for accessing places gated by gaps and heights."
+        },
+        {
+            "id": "rubber-duck",
+            "name": "rubber-duck",
+            "image": "/fed25d-js-intro-grupparbete-the-dopefish-admirers/artifacts/rubber-duck.webp",
+            "description": "Its buoyancy can make the holder levitate underwater."
         }
     ],
     "room5": [
