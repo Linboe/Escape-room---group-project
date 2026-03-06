@@ -10,3 +10,5 @@ Developed by The Dopefish Admirers team:
 []()
 []()
 []()
+
+wallpaper: https://wallpaperaccess.com/minimalist-forest
