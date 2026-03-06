@@ -1,30 +1,17 @@
 .main-menu {
-  width: 500px;
-  min-height: 100vh;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
+    --padding: 20px;
 
-  .menu-buttons {
+    width: calc(100vw - (var(--padding) * 2));
+    max-width: 700px;
+    height: calc(100vh - (var(--padding) * 2));
     display: flex;
     flex-direction: column;
+    justify-content: center;
 
-    button {
-      background: rgba(10, 15, 12, 0.85);
-      border: none;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-      font-size: 1.1rem;
-      padding: 1.2rem;
-      cursor: pointer;
-      text-align: center;
-      width: 100%;
-
-      &:hover {
-        background: rgba(30, 40, 35, 0.95);
-      }
+    .menu-buttons {
+        & button {
+            width: 100%;
+            margin-top: 15px;
+        }
     }
-  }
 }

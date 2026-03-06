@@ -1,11 +1,21 @@
 :root {
     // colors
-    --border: rgb(200, 220, 180);
-    --border-transparent: rgb(200, 220, 200);
-    --text-body: rgb(200, 220, 180);
-    --text-shadow: rgb(50, 40, 60);
+    --color-void: rgb(0,0,0);
+    --color-dim: rgba(0,0,0,0.2);
+    --color-border: rgb(200, 220, 180);
+    --color-border-transparent: rgb(200, 220, 200);
+    --color-text-body: rgb(200, 220, 180);
+    --color-interactive-text-body: rgb(230, 250, 210);
+    --color-text-body-transparent: rgba(200, 220, 180, 0.5);
+    --color-shadow: rgb(20, 18, 22);
+    --color-input-body: rgba(100, 120, 110, 0.1);
+    --color-interactive-body: rgba(100, 120, 110, 0.5);
+    --color-interactive-body-highlighted: rgb(100, 120, 110);
 
     // fonts
     --font-sans: 'Modern Antiqua', sans-serif; // Immersion, diegetic
     --font-serif: 'Jost', serif; // Clarity, non-diegetic
+
+    // other
+    --pillify: 100vmax;
 }
