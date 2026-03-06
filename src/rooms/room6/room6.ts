@@ -4,6 +4,7 @@ import {
     setRoom6Mode,
 } from '../../components/status-bar/status-bar'; //test drop-artefakt
 
+/*
 export function renderRoom6Scene() {
     const sceneWrapper = document.getElementById('sceneWrapper');
     if (!sceneWrapper) return;
@@ -14,6 +15,7 @@ export function renderRoom6Scene() {
       </section>
     `;
 }
+    */
 
 export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
     if (!sceneWrapper) return;

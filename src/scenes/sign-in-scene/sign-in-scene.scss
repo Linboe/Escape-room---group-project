@@ -1,87 +1,45 @@
 .sign-in-wrapper {
-  width: 500px;
-  min-height: 100vh;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
-  gap: 0;
+    --padding: 20px;
 
-    .sign-in-fields {
-        background: rgba(20, 30, 25, 0.75);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        padding: 1.7rem 1.5rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-        height: 160px;
+    height: calc(100vh - (var(--padding) * 2));
+    padding: var(--padding);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-        p {
-            color: #aac8b8;
-            font-size: 1rem;
-            font-style: italic;
-            text-align: center;
-            margin: 0;
-        }
-
-        input {
-            background: rgba(180, 210, 195, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            color: #ffffff;
-            font-size: 1rem;
-            font-family: var(--font-sans);
-            padding: 0.6rem 1rem;
-            border-radius: 4px;
-            width: 100%;
-            box-sizing: border-box;
-            text-align: center;
-
-            &:focus {
-                outline: none;
-                border-color: rgba(255, 255, 255, 0.6);
-                background: rgba(180, 210, 195, 0.15);
-            }
-
-            &::placeholder {
-                color: rgba(255, 255, 255, 0.3);
-            }
-        }
+    h2 {
+        margin-bottom: 20px;
     }
 
-    button {
-        background: rgba(10, 15, 12, 0.85);
-        border: none;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        color: #ffffff;
-        font-size: 1.2rem;
-        padding: 1.5rem;
-        cursor: pointer;
+    p {
+        font-size: 1rem;
+        font-style: italic;
         text-align: center;
-        width: 100%;
+        margin-bottom: 20px;
+    }
 
-        &:hover {
-            background: rgba(30, 40, 35, 0.95);
-        }
+    input {
+        margin-bottom: 20px;
+        height: 50px;
     }
 }
 
 .error-span {
-  font-family: var(--font-serif);
-  font-size: 1rem;
-  font-style: italic;
-  color: #ffaaaa;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 0.5rem;
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-style: italic;
+    color: #ffaaaa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5rem;
 
-  svg {
-    margin-right: 5px;
-  }
+    svg {
+        margin-right: 5px;
+    }
 }
 
-.hidden {
-  display: none;
+.error-span-hidden {
+    display: none;
 }

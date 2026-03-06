@@ -6,100 +6,97 @@
 @use '../room6/room6.scss';
 
 .room {
-  min-height: 100svh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .room-frame {
-  aspect-ratio: 9 / 16;
-  height: 100svh;
-  max-height: 100svh;
-  width: auto;
-  max-width: calc(100svh * 9 / 16);
-  position: relative;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+//    aspect-ratio: 9 / 16;
+    height: 100svh;
+    max-height: 100svh;
+    width: auto;
+    max-width: calc(100svh * 9 / 16);
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 //.room h2,
 .room-title-text {
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #ffffff;
-  text-align: center;
-  padding: 1rem 1.5rem 0.75rem;
-  background: rgba(0, 0, 0, 0.55);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  margin: 0;
-  position: relative;
-  width: 100%;
-  box-sizing: border-box;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem 1.5rem 0.75rem;
+    background: rgba(0, 0, 0, 0.55);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    margin: 0;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .event-text {
-  background: rgba(20, 30, 25, 0.75);
-  color: #dde8e2;
-  font-size: 0.95rem;
-  line-height: 1.7;
-  padding: 1.25rem 1.5rem;
-  margin: 0;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(20, 30, 25, 0.75);
+    color: #dde8e2;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    padding: 1.25rem 1.5rem;
+    margin: 0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .game-session-style 
 .game-session-wrapper{
-  position: absolute;
-  bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 2rem);
-  max-width: 360px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0.5rem;
-  background: rgba(20, 30, 25, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  //padding: 1.25rem 1.5rem;
-  box-sizing: border-box;
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 2rem);
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    background: rgba(20, 30, 25, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    //padding: 1.25rem 1.5rem;
+    box-sizing: border-box;
 }
 
 .options-wrapper,
 .player-interaction-buttons-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
 }
 
 .option {
-  background: rgba(180, 210, 195, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  color: #ffffff;
-  font-size: 1rem;
-  padding: 0.55rem 1rem;
-  cursor: pointer;
-  text-align: left;
-  transition: background 0.2s;
-  border-radius: 4px;
-  width: 100%;
+    background: rgba(180, 210, 195, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #ffffff;
+    font-size: 1rem;
+    padding: 0.55rem 1rem;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 4px;
+    width: 100%;
 
-  &:hover:not(:disabled) {
-    background: rgba(180, 210, 195, 0.4);
-  }
+    &:hover:not(:disabled) {
+        background: rgba(180, 210, 195, 0.4);
+    }
 
-  &:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-  }
+    &:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+    }
 }
 
 .hidden {
-  display: none !important;
+    display: none !important;
 }

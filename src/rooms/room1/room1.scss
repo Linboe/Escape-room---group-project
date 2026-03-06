@@ -1,24 +1,18 @@
 .room-1 {
-  background-image: url('/roompic/kimiroom1.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-width: 100%;
+    background-image: url('/roompic/kimiroom1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    //  min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    //  min-width: 100%;
+    width: 500px;
 }
 
 .room-title {
   font-size: 2rem;
-}
-
-.room-frame {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
 }
 
 .artifact-display {

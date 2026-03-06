@@ -1,2 +1,3 @@
 @use '../rooms/baseroom/rooms.scss'; // base styles for all rooms;
-@use './phone' // also dictates initial rules
+@use './phone'; // also dictates initial rules
+@use './desktop';

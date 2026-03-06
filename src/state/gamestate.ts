@@ -55,8 +55,8 @@ export function getRoomStates() {
 }
 
 export function setRoomTime(targetIndex:number, newValue: number) {
-   if (roomStates[targetIndex]) {
-       roomStates[targetIndex].roomTime = newValue;
-   }
+    if (roomStates[targetIndex]) {
+        roomStates[targetIndex].roomTime = newValue;
+    }
 }
 // ======
