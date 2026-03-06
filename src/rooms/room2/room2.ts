@@ -1,6 +1,7 @@
 import './room2.scss';
 import { state } from '../../state/gamestate';
 import { render } from '../../main';
+import { showRoomIntro } from '../../components/room-intro/room-intro';
 import { triggerArtifact } from '../../components/artifacts/artifactSystem';
 import { startStatusBarTimers, stopAllStatusBarTimers } from '../../components/status-bar/status-bar';
 import { saveGameToLocalStorage } from '../../store/database/local-storage-database';
@@ -437,10 +438,16 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
     }
 
     //---------------------- 4. START -------------------------
-
-    if (collectedCodes.length > 0) {
-        nextGame();
-    } else {
-        showStart();
-    }
+    showRoomIntro(
+        2,
+        () => { /* pauseTimer */ },
+        () => { /* resumeTimer */ },
+        () => {
+            if (collectedCodes.length > 0) {
+                nextGame();
+            } else {
+                 showStart();
+            }
+        }
+    );
 }
