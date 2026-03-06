@@ -2,7 +2,7 @@
 
 Live link: (medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers)[https://medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers/]
 
-## 🐟 Special Hack — Clear Highscore
+## Special Hack — Clear Highscore
 
 A hidden admin feature exists to clear the highscore list.
 
@@ -15,7 +15,7 @@ A hidden admin feature exists to clear the highscore list.
 
 ### Hint
 
-The password is related to a legendary fish known for being remarkably unintelligent.
+If you enter the wrong password, a hint is embedded in the error message.
 
 ### What happens
 
