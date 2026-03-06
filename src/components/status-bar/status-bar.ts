@@ -174,7 +174,7 @@ function handleCountdownTick() {
     if (--hourglassState < 0) {
         stopCountdown();
         stopCountup();
-        spanTimerElement.textContent = "Time's up!";
+        spanTimerElement.textContent = 'Time\'s up!';
         renderGameOverScene();
     }
 }
