@@ -207,7 +207,11 @@ function renderCards(
         // Skapa korten EN gång pga endast dess state/visuella ska uppdateras - om ej denna skapas alla kort om från scratch = massa problem
         board.innerHTML = cards
             .map(
-                (card) => `<div class="card" data-id="${card.id}">
+                (card) => `<div class="card" data-id="${card.id}"
+                  tabindex="0"
+                    role="button"
+                    aria-label="Memory card, unknown"
+                    aria-pressed="false">
          <img src="${cardBack}" class="cardImage" />
         </div>`,
             )
@@ -244,6 +248,15 @@ function renderCards(
                 el.addEventListener('click', () =>
                     flipCard(card, sceneWrapper, next),
                 );
+
+                //A11y
+                el.addEventListener('keydown', (e: Event) => {
+                    const ke = e as KeyboardEvent;
+                    if (ke.key === 'Enter' || ke.key === ' ') {
+                        ke.preventDefault();
+                        flipCard(card, sceneWrapper, next);
+                    }
+                });
             }
         });
     }
@@ -273,6 +286,19 @@ function renderCards(
                 cardElement.classList.add('pulse');
             } else {
                 cardElement.classList.remove('pulse');
+            }
+
+            //A11y
+            if (card.isMatched) {
+                cardElement.setAttribute('aria-label', 'Card matched');
+                cardElement.setAttribute('aria-disabled', 'true');
+                cardElement.setAttribute('tabindex', '-1'); // Ta bort från tab-ordning när matchat
+            } else if (card.isFlipped) {
+                cardElement.setAttribute('aria-label', 'Card flipped');
+                cardElement.setAttribute('aria-pressed', 'true');
+            } else {
+                cardElement.setAttribute('aria-label', 'Memory card, unknown');
+                cardElement.setAttribute('aria-pressed', 'false');
             }
         }
     });
