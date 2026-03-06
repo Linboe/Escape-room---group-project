@@ -2,14 +2,24 @@ import './room2.scss';
 import { state } from '../../state/gamestate';
 import { render } from '../../main';
 import { triggerArtifact } from '../../components/artifacts/artifactSystem';
-import { startStatusBarTimers } from '../../components/status-bar/status-bar';
-import { stopAllStatusBarTimers } from '../../components/status-bar/status-bar';
+import { startStatusBarTimers, stopAllStatusBarTimers } from '../../components/status-bar/status-bar';
+import { saveGameToLocalStorage } from '../../store/database/local-storage-database';
 
 export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
     if (!sceneWrapper) return;
 
     let collectedCodes: string[] = [];
+
+    if (state.codes[state.currentRoom]) {
+        collectedCodes = state.codes[state.currentRoom];
+    }
+
     let currentPath: 'A' | 'B' | null = null;
+    const savedPath = localStorage.getItem('room2-path');
+
+    if (savedPath === 'A' || savedPath === 'B') {
+        currentPath = savedPath;
+    }
 
     //------------------ 1. FLOW CONTROL --------------------
 
@@ -90,6 +100,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
     function choosePath(choice: 'A' | 'B') {
         currentPath = choice;
+        localStorage.setItem('room2-path', choice);
 
         if (choice === 'A') {
             riddleGame();
@@ -113,6 +124,13 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
             if (collectedCodes.length === 1) numberGuessGame();
             else if (collectedCodes.length === 2) riddleGame();
         }
+    }
+
+    function saveCode(code: string) {
+        if (!state.codes[state.currentRoom]) state.codes[state.currentRoom] = [];
+        state.codes[state.currentRoom].push(code);
+        collectedCodes = state.codes[state.currentRoom];
+        saveGameToLocalStorage();
     }
 
     //-------------- 2. MINI GAMES - in order they appear on path A ---------------
@@ -141,7 +159,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
             btn.addEventListener('click', () => {
 
                 if (btn.id === 'surface') {
-                    collectedCodes.push('11');
+                    saveCode('11');
                     fragmentFound('11', 'Your sharp mind saw through the mystery of the brass plaque.');
                 }
 
@@ -219,7 +237,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                             }
                             else if (playerChoice.length === correctOrder.length) {
                                 message.textContent = 'The glass ceiling shimmers. You have mastered the hierarchy of growth!';
-                                collectedCodes.push('24');
+                                saveCode('24');
                                 fragmentFound('24', 'The numbers emerged from the leaves as you followed the path of growth.');
                             }
                         }
@@ -272,7 +290,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
             const inputValue = Number(guessInput?.value);
 
             if (inputValue === 12) {
-                collectedCodes.push('55');
+                saveCode('55');
                 fragmentFound('55', 'The fog clears!');
 
             } else {
@@ -285,6 +303,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                     }
                     setTimeout(() => {
                         stopAllStatusBarTimers();
+                        saveGameToLocalStorage();
                         state.screen = 'gameover';
                         render();
                     }, 3000);
@@ -379,6 +398,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
                     setTimeout(() => {
                         stopAllStatusBarTimers();
+                        saveGameToLocalStorage();
                         state.screen = 'gameover';
                         render();
                     }, 2000);
@@ -418,5 +438,9 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
     //---------------------- 4. START -------------------------
 
-    showStart();
+    if (collectedCodes.length > 0) {
+        nextGame();
+    } else {
+        showStart();
+    }
 }

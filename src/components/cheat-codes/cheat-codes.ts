@@ -154,7 +154,7 @@ function createHighScoreMockData() {
         { name: 'Linn', score: 180 },
         { name: 'Alda', score: 320 },
         { name: 'Kimi', score: 250 },
-        { name: 'Eve', score: 200 },
+        { name: 'Isabelle', score: 200 },
     ];
     localStorage.setItem('escaperoom_highscores', JSON.stringify(mockScores));
 }

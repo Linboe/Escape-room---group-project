@@ -1,8 +1,8 @@
 import './sign-in-scene.scss';
 import { state } from '../../state/gamestate';
-import { setUsername } from '../../store/session/session-memory';
 import { saveGameToLocalStorage } from '../../store/database/local-storage-database';
-import { getUsername } from '../../store/session/session-memory';
+import { hasSaveGame } from '../../store/database/local-storage-database';
+
 
 console.log('connected sign in scene');
 
@@ -43,12 +43,21 @@ export function renderSignInScene(
 
         if (usernameInput && usernameInput.value.trim() !== '') {
             errorSpan?.classList.add('hidden');
-            setUsername(usernameInput.value.trim());
-            saveGameToLocalStorage();
+            const enteredUsername = usernameInput.value.trim();
+            state.username = enteredUsername;
+
+            state.isReturningPlayer = hasSaveGame();
 
             const popup = document.createElement('div');
             popup.classList.add('popup');
-            popup.textContent = `Welcome, ${getUsername()}!`;
+
+            if (state.isReturningPlayer) {
+                popup.textContent = `Welcome back, ${state.username}! Your progress has been saved.`;
+            } else {
+                popup.textContent = `Welcome, ${ state.username } !`;
+                saveGameToLocalStorage();
+            }
+
             document.body.appendChild(popup);
 
             setTimeout(() => {

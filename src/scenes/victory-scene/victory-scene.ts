@@ -1,4 +1,4 @@
-import { renderHighScore } from '../../components/high-score/high-score';
+import { renderHighScore, saveHighscore } from '../../components/high-score/high-score';
 import { getSecondsElapsed, stopAllStatusBarTimers } from '../../components/status-bar/status-bar';
 import { render } from '../../main';
 import { state } from '../../state/gamestate';
@@ -41,6 +41,7 @@ export function renderVictoryScene() {
     sceneWrapper.append(victorySceneWrapperElement, highScoreWrapper);
     // ==========
 
+    saveHighscore(state.username, getSecondsElapsed());
     renderHighScore();
 
     const backToMenuBtn: HTMLButtonElement | null = document.querySelector('#backToMenu');
