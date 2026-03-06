@@ -15,6 +15,7 @@ import './components/high-score/high-score';
 import { renderVictoryScene } from './scenes/victory-scene/victory-scene';
 import { getSecondsElapsed } from './components/status-bar/status-bar';
 import { saveHighscore } from './components/high-score/high-score';
+import { saveGameToLocalStorage, clearLocalStorageSave } from './store/database/local-storage-database';
 
 // please check the document in this link:
 // https://medieinstitutet-my.sharepoint.com/:w:/g/personal/alda_catovic_medieinstitutet_se/IQApMQpuaX8YToqheHZBk5Y4AQvnQa3uXsRg0XzjSP18ehU?rtime=AQuzKQlr3kg
@@ -58,7 +59,7 @@ export function renderNextRoom() { // TODO koppla på timers
 
     if (state.currentRoom >= allRooms.length) {
         saveHighscore(state.username, getSecondsElapsed());
-        console.log('GOING TO VICTORY');
+        clearLocalStorageSave();
         state.screen = 'victory';
         render();
         return;
@@ -69,7 +70,12 @@ export function renderNextRoom() { // TODO koppla på timers
     room(sceneWrapper, () => {
         console.log('Room completed:', state.currentRoom);
         if (state.screen === 'victory') return;
+
+        state.completed[state.currentRoom] = true;
+        saveGameToLocalStorage();
+
         state.currentRoom++;
+        saveGameToLocalStorage();
         renderNextRoom();
     });
 }

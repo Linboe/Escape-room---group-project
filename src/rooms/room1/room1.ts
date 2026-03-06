@@ -1,10 +1,12 @@
 import './room1.scss';
-import feather from '/src/assets/artifacts/feather.jpg'; //Placeholder artifact
+import { saveGameToLocalStorage } from '../../store/database/local-storage-database';
+import { triggerArtifact } from '../../components/artifacts/artifactSystem';
+import { startStatusBarTimers, stopAllStatusBarTimers } from '../../components/status-bar/status-bar';
 
 export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
-  if (!sceneWrapper) return;
+    if (!sceneWrapper) return;
 
-  sceneWrapper.innerHTML = `
+    sceneWrapper.innerHTML = `
   <section class="room room-1">
     <div class="room-frame">
       <h2 class="room-title">The Gravity Glitch</h2>
@@ -35,15 +37,6 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
                       <div class="action-btn-container">
                           <button id="actionBtn" class="action-btn hidden"></button>
                         </div>
-
-                <div id="artifactDisplay" class="artifact-display hidden">
-                  <h3>You got the feather artifact!</h3>
-                  <img src="${feather}" alt="Feather"/>
-                    <div class="artifact-text"
-                      <h4>Feather</h4>
-                      <p>Special feather from a special bird</p>
-                    </div>
-              </div> 
               
                 <div class="choices">
                   <button id="winBtn">Win!!</button>
@@ -57,153 +50,157 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
   </section>
         `;
 
-  const lines = [
-    'Hello there, traveler!',
-    'If you want to keep moving you will have to beat me in rock paper scissors.',
-    'First one to get 3 points wins. Good Luck!',
-  ];
+    const lines = [
+        'Hello there, traveler!',
+        'If you want to keep moving you will have to beat me in rock paper scissors.',
+        'First one to get 3 points wins. Good Luck!',
+    ];
 
-  let currentLine = 0;
-  const dialogueText = document.getElementById('dialogueText') as HTMLParagraphElement;
-  const nextBtn = document.getElementById('nextBtn') as HTMLButtonElement;
-  const dialogueBox = document.getElementById('dialogueBox') as HTMLDivElement;
-  const gameSession = document.getElementById('gameSession') as HTMLDivElement;
+    let currentLine = 0;
+    const dialogueText = sceneWrapper.querySelector('#dialogueText') as HTMLParagraphElement;
+    const nextBtn = sceneWrapper.querySelector('#nextBtn') as HTMLButtonElement;
+    const dialogueBox = sceneWrapper.querySelector('#dialogueBox') as HTMLDivElement;
+    const gameSession = sceneWrapper.querySelector('#gameSession') as HTMLDivElement;
 
-  dialogueText.textContent = lines[0];
+    dialogueText.textContent = lines[0];
 
-  nextBtn.addEventListener('click', () => {
-    currentLine++;
-    if (currentLine < lines.length) {
-      dialogueText.textContent = lines[currentLine];
-    } else {
-      dialogueBox.classList.add('hidden');
-      gameSession.classList.remove('hidden');
-    }
-  });
+    nextBtn.addEventListener('click', () => {
+        currentLine++;
+        if (currentLine < lines.length) {
+            startStatusBarTimers();
+            dialogueText.textContent = lines[currentLine];
+        } else {
+            dialogueBox.classList.add('hidden');
+            gameSession.classList.remove('hidden');
+        }
+    });
 
-  const rockBtn: HTMLButtonElement | null = document.querySelector('#rockBtn');
-  const paperBtn: HTMLButtonElement | null = document.querySelector('#paperBtn');
-  const scissorsBtn: HTMLButtonElement | null = document.querySelector('#scissorsBtn');
-  const winBtn = document.getElementById('winBtn') as HTMLButtonElement; // Remove when done
-  const actionBtn = document.getElementById('actionBtn') as HTMLButtonElement;
-  const artifactDisplay = document.getElementById('artifactDisplay') as HTMLDivElement;
+    const rockBtn: HTMLButtonElement | null = sceneWrapper.querySelector('#rockBtn');
+    const paperBtn: HTMLButtonElement | null = sceneWrapper.querySelector('#paperBtn');
+    const scissorsBtn: HTMLButtonElement | null = sceneWrapper.querySelector('#scissorsBtn');
+    const winBtn = sceneWrapper.querySelector('#winBtn') as HTMLButtonElement; // Remove when done
+    const actionBtn = sceneWrapper.querySelector('#actionBtn') as HTMLButtonElement;
 
-  const playerDisplay = document.getElementById('playerDisplay') as HTMLDivElement;
-  const computerDisplay = document.getElementById('computerDisplay') as HTMLDivElement;
-  const resultDisplay = document.getElementById('resultDisplay') as HTMLDivElement;
+    const playerDisplay = sceneWrapper.querySelector('#playerDisplay') as HTMLDivElement;
+    const computerDisplay = sceneWrapper.querySelector('#computerDisplay') as HTMLDivElement;
+    const resultDisplay = sceneWrapper.querySelector('#resultDisplay') as HTMLDivElement;
 
-  const playerScoreDisplay = document.getElementById('playerScoreDisplay') as HTMLSpanElement;
-  const computerScoreDisplay = document.getElementById('computerScoreDisplay') as HTMLSpanElement;
+    const playerScoreDisplay = sceneWrapper.querySelector('#playerScoreDisplay') as HTMLSpanElement;
+    const computerScoreDisplay = sceneWrapper.querySelector('#computerScoreDisplay') as HTMLSpanElement;
 
-  if (!rockBtn || !paperBtn || !scissorsBtn) {
-    console.error('Buttons not found');
-    return;
-  }
-
-  let playerScore = 0;
-  let computerScore = 0;
-  const WIN_SCORE = 3;
-
-  // Remove code within the comments when done
-
-  winBtn.addEventListener('click', () => {
-    playerScore = WIN_SCORE;
-    playerScoreDisplay.textContent = playerScore.toString();
-    resultDisplay.textContent = 'You won!';
-    resultDisplay.classList.remove('red-text');
-    resultDisplay.classList.add('green-text');
-    actionBtn.textContent = 'Go to the next room';
-    actionBtn.classList.remove('hidden');
-    artifactDisplay.classList.remove('hidden');
-    disableGameButtons(true);
-    actionBtn.onclick = () => next();
-  });
-
-  // End of the comment
-
-  function playGame(playerChoice: string) {
-    const choices = ['Rock', 'Paper', 'Scissors'];
-    const computerChoice = choices[Math.floor(Math.random() * 3)];
-    let result = '';
-
-    if (playerChoice === computerChoice) {
-      result = "IT'S A TIE!!";
-    } else {
-      switch (playerChoice) {
-        case 'Rock':
-          result = computerChoice === 'Scissors' ? 'YOU WIN!' : 'YOU LOSE!';
-          break;
-        case 'Paper':
-          result = computerChoice === 'Rock' ? 'YOU WIN!' : 'YOU LOSE!';
-          break;
-        case 'Scissors':
-          result = computerChoice === 'Paper' ? 'YOU WIN!' : 'YOU LOSE!';
-          break;
-      }
+    if (!rockBtn || !paperBtn || !scissorsBtn) {
+        console.error('Buttons not found');
+        return;
     }
 
-    playerDisplay.textContent = `You: ${playerChoice}`;
-    computerDisplay.textContent = `Strange Man: ${computerChoice}`;
-    resultDisplay.textContent = result;
+    let playerScore = 0;
+    let computerScore = 0;
+    const WIN_SCORE = 3;
 
-    resultDisplay.classList.remove('green-text', 'red-text');
+    // Remove code within the comments when done
 
-    switch (result) {
-      case 'YOU WIN!':
-        resultDisplay.classList.add('green-text');
-        playerScore++;
+    winBtn.addEventListener('click', () => {
+        playerScore = WIN_SCORE;
         playerScoreDisplay.textContent = playerScore.toString();
-        break;
-      case 'YOU LOSE!':
-        resultDisplay.classList.add('red-text');
-        computerScore++;
-        computerScoreDisplay.textContent = computerScore.toString();
-        break;
+        resultDisplay.textContent = 'You won!';
+        resultDisplay.classList.remove('red-text');
+        resultDisplay.classList.add('green-text');
+        actionBtn.textContent = 'Go to the next room';
+        actionBtn.classList.remove('hidden');
+        disableGameButtons(true);
+        triggerArtifact('room1', 'feather', 0);
+        saveGameToLocalStorage();
+        stopAllStatusBarTimers();
+        actionBtn.onclick = () => next();
+    });
+
+    // End of the comment
+
+    function playGame(playerChoice: string) {
+        const choices = ['Rock', 'Paper', 'Scissors'];
+        const computerChoice = choices[Math.floor(Math.random() * 3)];
+        let result = '';
+
+        if (playerChoice === computerChoice) {
+            result = 'IT\'S A TIE!!';
+        } else {
+            switch (playerChoice) {
+                case 'Rock':
+                    result = computerChoice === 'Scissors' ? 'YOU WIN!' : 'YOU LOSE!';
+                    break;
+                case 'Paper':
+                    result = computerChoice === 'Rock' ? 'YOU WIN!' : 'YOU LOSE!';
+                    break;
+                case 'Scissors':
+                    result = computerChoice === 'Paper' ? 'YOU WIN!' : 'YOU LOSE!';
+                    break;
+            }
+        }
+
+        playerDisplay.textContent = `You: ${playerChoice}`;
+        computerDisplay.textContent = `Strange Man: ${computerChoice}`;
+        resultDisplay.textContent = result;
+
+        resultDisplay.classList.remove('green-text', 'red-text');
+
+        switch (result) {
+            case 'YOU WIN!':
+                resultDisplay.classList.add('green-text');
+                playerScore++;
+                playerScoreDisplay.textContent = playerScore.toString();
+                break;
+            case 'YOU LOSE!':
+                resultDisplay.classList.add('red-text');
+                computerScore++;
+                computerScoreDisplay.textContent = computerScore.toString();
+                break;
+        }
+
+        if (playerScore >= WIN_SCORE) {
+            resultDisplay.textContent = 'You won!';
+            actionBtn.textContent = 'Go to the next room';
+            actionBtn.classList.remove('hidden');
+            disableGameButtons(true);
+            triggerArtifact('room1', 'feather', 0);
+            saveGameToLocalStorage();
+            stopAllStatusBarTimers();
+            actionBtn.onclick = () => next();
+        } else if (computerScore >= WIN_SCORE) {
+            resultDisplay.textContent = 'You lost!';
+            actionBtn.textContent = 'Try again';
+            actionBtn.classList.remove('hidden');
+            disableGameButtons(true);
+            actionBtn.onclick = () => restartGame();
+        }
     }
 
-    if (playerScore >= WIN_SCORE) {
-      resultDisplay.textContent = 'You won!';
-      actionBtn.textContent = 'Go to the next room';
-      actionBtn.classList.remove('hidden');
-      artifactDisplay.classList.remove('hidden');
-      disableGameButtons(true);
-      actionBtn.onclick = () => next();
-    } else if (computerScore >= WIN_SCORE) {
-      resultDisplay.textContent = 'You lost!';
-      actionBtn.textContent = 'Try again';
-      actionBtn.classList.remove('hidden');
-      disableGameButtons(true);
-      actionBtn.onclick = () => restartGame();
+    function restartGame() {
+        playerScore = 0;
+        computerScore = 0;
+
+        playerScoreDisplay.textContent = '0';
+        computerScoreDisplay.textContent = '0';
+
+        playerDisplay.textContent = 'Player: ';
+        computerDisplay.textContent = 'Computer: ';
+        resultDisplay.textContent = '';
+
+        resultDisplay.classList.remove('green-text', 'red-text');
+
+        disableGameButtons(false);
+        actionBtn.classList.add('hidden');
     }
-  }
 
-  function restartGame() {
-    playerScore = 0;
-    computerScore = 0;
-
-    playerScoreDisplay.textContent = '0';
-    computerScoreDisplay.textContent = '0';
-
-    playerDisplay.textContent = 'Player: ';
-    computerDisplay.textContent = 'Computer: ';
-    resultDisplay.textContent = '';
-
-    resultDisplay.classList.remove('green-text', 'red-text');
-
-    disableGameButtons(false);
-    actionBtn.classList.add('hidden');
-  }
-
-  function disableGameButtons(disabled: boolean) {
-    if (rockBtn && paperBtn && scissorsBtn) {
-      rockBtn.disabled = disabled;
-      paperBtn.disabled = disabled;
-      scissorsBtn.disabled = disabled;
-      winBtn.disabled = disabled;
+    function disableGameButtons(disabled: boolean) {
+        if (rockBtn && paperBtn && scissorsBtn) {
+            rockBtn.disabled = disabled;
+            paperBtn.disabled = disabled;
+            scissorsBtn.disabled = disabled;
+            winBtn.disabled = disabled;
+        }
     }
-  }
 
-  rockBtn.addEventListener('click', () => playGame('Rock'));
-  paperBtn.addEventListener('click', () => playGame('Paper'));
-  scissorsBtn.addEventListener('click', () => playGame('Scissors'));
+    rockBtn.addEventListener('click', () => playGame('Rock'));
+    paperBtn.addEventListener('click', () => playGame('Paper'));
+    scissorsBtn.addEventListener('click', () => playGame('Scissors'));
 }

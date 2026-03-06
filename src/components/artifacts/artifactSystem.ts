@@ -1,6 +1,8 @@
 import artifactDataRaw from './artifacts.json';
 import './artifacts.scss';
 import { addArtifactToStatusBar } from '../status-bar/status-bar';
+import { state } from '../../state/gamestate';
+import { saveGameToLocalStorage } from '../../store/database/local-storage-database';
 
 export interface Artifact {
     id: string;
@@ -54,6 +56,8 @@ export function triggerArtifact(
             ?.addEventListener('click', () => {
                 document.getElementById('artifact-popup-overlay')?.remove();
                 addArtifactToStatusBar(artifact);
+                state.artifacts.push(artifact);
+                saveGameToLocalStorage();
             });
     }, delay); // Här används fördröjningen (i millisekunder)
 }

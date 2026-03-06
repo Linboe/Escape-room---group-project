@@ -1,7 +1,8 @@
 import './game-over-scene.scss';
 import { state } from '../../state/gamestate';
 import { render } from '../../main';
-import { stopAllStatusBarTimers } from '../../components/status-bar/status-bar';
+import { loadGameFromLocalStorage } from '../../store/database/local-storage-database';
+import { refetchGamestate, stopAllStatusBarTimers, startStatusBarTimers } from '../../components/status-bar/status-bar';
 
 console.log('connected game over scene');
 
@@ -27,12 +28,12 @@ export function renderGameOverScene(score: number = 0) {
     const retryButton = document.createElement('button');
     retryButton.textContent = 'Retry';
     retryButton.addEventListener('click', () => {
-        if (state.screen === 'gameover') {
-            state.currentRoom = 0;
-        } 
+        stopAllStatusBarTimers(); // stoppar alla timers 
+        loadGameFromLocalStorage(); // läser in all data från localstorage och lägger tillbaka i state
+        refetchGamestate(); 
         state.screen = 'room';
         render();
-        console.log('Retry button clicked');
+        startStatusBarTimers(); // startar timers igen när spelare klickat på retry
         // Logic to restart the game session
         // This could involve resetting game state, navigating to the main menu, etc.
     });
