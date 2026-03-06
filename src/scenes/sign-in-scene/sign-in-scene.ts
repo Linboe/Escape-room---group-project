@@ -13,6 +13,10 @@ export function renderSignInScene(
 
     if (!sceneWrapper) return;
 
+    // show h1
+    const h1Element = document.querySelector('h1');
+    if (h1Element) h1Element.classList.remove('hidden');
+
     sceneWrapper.innerHTML = `
       <div class="sign-in-wrapper">
         <h2>Sign in</h2>
@@ -44,7 +48,7 @@ export function renderSignInScene(
             errorSpan?.classList.add('hidden');
             const enteredUsername = usernameInput.value.trim();
             let popupTimerInterval: ReturnType<typeof setInterval> | null = null;
-            let popupTimerValue: number = 3;
+            let popupTimerValue: number = 2;
             state.username = enteredUsername;
             state.isReturningPlayer = hasSaveGame();
 
@@ -77,7 +81,7 @@ export function renderSignInScene(
                 popupContainerElement.remove();
                 state.screen = 'menu';
                 render();
-            }, 3000);
+            }, 2000);
 
 
         } else {

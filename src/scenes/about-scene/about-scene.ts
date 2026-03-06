@@ -13,6 +13,10 @@ export function renderAboutScene() {
     }
     sceneWrapper.innerHTML = ''; // reset
 
+    // hide h1
+    const h1Element = document.querySelector('h1');
+    if (h1Element) h1Element.classList.add('hidden');
+
     // Container
     const aboutContainer = document.createElement('div');
     aboutContainer.classList.add('about-container');
@@ -55,12 +59,15 @@ export function renderAboutScene() {
     // Credits (gruppmedlemmar & bilder)
     const creditSection = document.createElement('section');
     const creditTitle = document.createElement('h3');
+    creditTitle.classList.add('credits-font');
     creditTitle.textContent = 'Credits';
 
     const devText = document.createElement('p');
+    devText.classList.add('credits-font');
     devText.textContent = 'Created by: Alma Isaksson, Alda Catovic, Isabelle Reynolds , Kimi Leminaho, Linn Boekhout and Rasmus Andreas Fransson'; 
 
     const photoCredits = document.createElement('p');
+    photoCredits.classList.add('credits-font');
     photoCredits.innerHTML = '<em>Images: Sources will be added.</em>'; //TODO: Lägg till mer info om bilderna, t.ex. länkar eller specifika användare, fråga gruppen
 
     creditSection.append(creditTitle, devText, photoCredits);

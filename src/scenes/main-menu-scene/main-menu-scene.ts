@@ -13,6 +13,10 @@ export function renderMainMenuScene(
 
     sceneWrapper.innerHTML = ''; // reset
 
+    // show h1
+    const h1Element = document.querySelector('h1');
+    if (h1Element) h1Element.classList.remove('hidden');
+
     sceneWrapper.innerHTML = `
         <div class="main-menu">
             <div class="menu-buttons">
