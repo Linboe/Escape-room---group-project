@@ -51,15 +51,6 @@ export function room3(sceneWrapper: HTMLDivElement | null, next: () => void) {
             hasArtifactRoom3 = false;
             wrongAttempts = 0;
 
-    showRoomIntro(
-        3,
-        () => { /* pauseTimer */ },
-        () => { /* resumeTimer */ },
-        () => {
-            currentQuestionIndex = 0;
-            hasArtifactRoom3 = false;
-            wrongAttempts = 0;
-
             sceneWrapper.innerHTML = `
                 <section class="room room-3">
                   <div class="room3-overlay">

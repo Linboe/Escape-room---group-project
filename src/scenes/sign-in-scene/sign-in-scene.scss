@@ -98,6 +98,22 @@
   }
 }
 
+.popup {
+  position: fixed;
+  top: 10rem;
+  background: rgba(10, 15, 12, 0.85);
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-family: "Georgia", serif;
+  font-size: 1.1rem;
+  padding: 1.2rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s;
+  width: 500px;
+}
+
 .hidden {
   display: none;
 }

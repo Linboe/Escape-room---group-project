@@ -24,121 +24,19 @@ export function getMySessionBooleanState(): boolean {
     return mySessionBooleanState;
 }
 
-// early suggestion (example)
-// @ts-ignore
-let sessionMemory = [
-    {
-        name: 'vera',
-        sessionTimer: 13290,
-        room1: {
-            isUnlocked: true,
-            foundEscape: false,
-            roomTimer: 198420,
-            artifact1: {
-                relevant: true,
-                found: false
-            },
-            artifact2: {
-                relevant: false,
-                found: false
-            },
-            artifact3: {
-                relevant: false,
-                found: true
-            }
-        },
-        room2: {
-            isUnlocked: true,
-            foundEscape: false,
-            roomTimer: 198420,
-            artifact1: {
-                relevant: true,
-                found: false
-            },
-            artifact2: {
-                relevant: false,
-                found: false
-            },
-            artifact3: {
-                relevant: false,
-                found: true
-            }
-        },
-        room3: {
-            isUnlocked: true,
-            foundEscape: false,
-            roomTimer: 198420,
-            artifact1: {
-                relevant: true,
-                found: false
-            },
-            artifact2: {
-                relevant: false,
-                found: false
-            },
-            artifact3: {
-                relevant: false,
-                found: true
-            }
-        },
-        room4: {
-            isUnlocked: true,
-            foundEscape: false,
-            roomTimer: 198420,
-            artifact1: {
-                relevant: true,
-                found: false
-            },
-            artifact2: {
-                relevant: false,
-                found: false
-            },
-            artifact3: {
-                relevant: false,
-                found: true
-            }
-        },
-        room5: {
-            isUnlocked: true,
-            foundEscape: false,
-            roomTimer: 198420,
-            artifact1: {
-                relevant: true,
-                found: false
-            },
-            artifact2: {
-                relevant: false,
-                found: false
-            },
-            artifact3: {
-                relevant: false,
-                found: true
-            }
-        },
-        room6: {
-            isUnlocked: true,
-            foundEscape: false,
-            roomTimer: 198420,
-            artifact1: {
-                relevant: true,
-                found: false
-            },
-            artifact2: {
-                relevant: false,
-                found: false
-            },
-            artifact3: {
-                relevant: false,
-                found: true
-            }
-        }
-    }
-];
-
 // GET
 let currentRoom: number = 0; //0-5
 let progress: number = 0; //0-6
 let isGameCompleted: boolean = false;
+let username: string = '';
+
+export function getUsername(): string {
+    return username;
+}
+
+export function setUsername(value: string) {
+    username = value;
+}
 
 export function getCurrentRoom(): number {
     return currentRoom;

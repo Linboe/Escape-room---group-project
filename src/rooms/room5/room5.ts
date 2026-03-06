@@ -2,6 +2,10 @@ import './room5.scss';
 import cardsData from '../../rooms/room5/cardsData.json';
 import { triggerArtifact } from '../../components/artifacts/artifactSystem';
 import { showRoomIntro } from '../../components/room-intro/room-intro';
+import {
+    startStatusBarTimers,
+    stopAllStatusBarTimers,
+} from '../../components/status-bar/status-bar';
 
 /*
 export function renderRoom5Scene() {
@@ -26,11 +30,12 @@ export function renderRoom5Scene() {
  * x bild fram och baksida
  * x states för story
  * x animation när rätt match
- *   animation när alla rätt
- *   ladda in memoryt i ett flow- ett kort i taget
- *   artefakten
- *   aktivera gå vidare knapp efter man fått artefakten
- *   juster tid mellan klarat spel och att state-completed kommer
+ * x ladda in memoryt i ett flow- ett kort i taget
+ * x artefakten
+ * x aktivera gå vidare knapp efter man fått artefakten
+ * x juster tid mellan klarat spel och att state-completed kommer
+ *  //startBarTimers()
+    //stopAllStatusBarTimers
  * x skriva storyn - sammanfoga med Almas idé
  */
 
@@ -281,7 +286,7 @@ function showStory(sceneWrapper: HTMLDivElement, next: () => void): void {
     sceneWrapper.innerHTML = `
     <section class="room room-5">
       <div class="room-frame">
-        <div class="game-session-wrapper">
+        <div class="game-session-wrapper-5">
           <h2 class="room-title-text" id="roomTitleText">Shadows of the Grove</h2>
           <p class="event-text" id="eventText">
             You’ve traveled far on your journey, wandering deep into the forest.
@@ -309,7 +314,7 @@ function showOptions(sceneWrapper: HTMLDivElement, next: () => void): void {
     sceneWrapper.innerHTML = `
     <section class="room room-5">
       <div class="room-frame">
-        <div class="game-session-wrapper">
+        <div class="game-session-wrapper-5">
           <h2 class="room-title-text" id="roomTitleText">Shadows of the Grove</h2>
             <div class="game-session-style">
             <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper">
@@ -338,7 +343,7 @@ function showWrongChoice(sceneWrapper: HTMLDivElement, next: () => void): void {
     sceneWrapper.innerHTML = `
     <section class="room room-5">
       <div class="room-frame">
-        <div class="game-session-wrapper">
+        <div class="game-session-wrapper-5">
           <h2 class="room-title-text" id="roomTitleText">Shadows of the Grove</h2>
           <p class="event-text" id="eventText">
             Some things can feel frightening when you don’t yet understand them. 
@@ -354,8 +359,6 @@ function showWrongChoice(sceneWrapper: HTMLDivElement, next: () => void): void {
     </section>
   `;
 
-    triggerArtifact('room1', 'feather', 3000);
-
     document
         .getElementById('back-btn')!
         .addEventListener('click', () =>
@@ -367,7 +370,7 @@ function showRightChoice(sceneWrapper: HTMLDivElement, next: () => void): void {
     sceneWrapper.innerHTML = `
     <section class="room room-5">
       <div class="room-frame">
-        <div class="game-session-wrapper">
+        <div class="game-session-wrapper-5">
           <h2 class="room-title-text" id="roomTitleText">Shadows of the Grove</h2>
           <p class="event-text" id="eventText">
             As you step closer, you discover that the white shapes are statues. 
@@ -384,8 +387,6 @@ function showRightChoice(sceneWrapper: HTMLDivElement, next: () => void): void {
       </div>
     </section>
   `;
-    //ta bort sen endast för att testa artefakten
-    triggerArtifact('room5', 'amethyst');
 
     document
         .getElementById('start-memory-btn')!
@@ -396,7 +397,7 @@ function showGame(sceneWrapper: HTMLDivElement, next: () => void): void {
     sceneWrapper.innerHTML = `
     <section class="room room-5">
       <div class="room-frame">
-        <div class="game-session-wrapper">
+        <div class="game-session-wrapper-5">
           <h2 class="room-title-text" id="roomTitleText">Shadows of the Grove</h2>
           <div class="game-session-style game-board">
             <div class="board" id="board"></div>
@@ -409,6 +410,7 @@ function showGame(sceneWrapper: HTMLDivElement, next: () => void): void {
     cards = shuffleCards(initCards());
     selectedCards = [];
     renderCards(cards, sceneWrapper, next);
+    startStatusBarTimers(); //OBS tiden rullar redan när man kommer till rummet
 }
 
 function showCompleted(sceneWrapper: HTMLDivElement, next: () => void): void {
@@ -416,7 +418,7 @@ function showCompleted(sceneWrapper: HTMLDivElement, next: () => void): void {
         sceneWrapper.innerHTML = `
     <section class="room room-5">
       <div class="room-frame">
-        <div class="game-session-wrapper">
+        <div class="game-session-wrapper-5">
           <h2 class="room-title-text" id="roomTitleText">Shadows of the Grove</h2>
          <p class="event-text" id="eventText">You are now ready for the final step on your journey.
         
@@ -432,6 +434,7 @@ function showCompleted(sceneWrapper: HTMLDivElement, next: () => void): void {
   `;
 
         triggerArtifact('room5', 'amethyst');
+        stopAllStatusBarTimers(); //OBS - all tid stannar
 
         // 3. Knapp för att faktiskt lämna rummet och gå till nästa (next)
         document

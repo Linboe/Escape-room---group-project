@@ -1,19 +1,5 @@
 // Cheat Codes is created for the development team to test the logic responsiveness of logic by clicking on buttons
 // Do not make this accessible for production
-// TODO: Discuss with the team how we mark dev-team instructions
-//import { renderAboutScene } from '../../scenes/about-scene/about-scene';
-//import { renderGameOverScene } from '../../scenes/game-over-scene/game-over-scene';
-//import { renderGameSessionScene } from '../../scenes/game-session-scene/game-session-scene';
-//import { renderMainMenuScene } from '../../scenes/main-menu-scene/main-menu-scene';
-//import { renderSignInScene } from '../../scenes/sign-in-scene/sign-in-scene';
-//import { renderHighScore } from '../high-score/high-score';
-import { saveMyStringState } from '../../store/database/local-storage-database';
-import {
-    changeMySessionStringState,
-    logMySessionStringState,
-    logSessionBooleanState,
-    toggleMySessionBooleanState,
-} from '../../store/session/session-memory';
 import {
     renderStatusBar,
     startStatusBarTimers,
@@ -23,6 +9,10 @@ import './cheat-code-styles.scss';
 import { createCheatButton } from './cheat-codes-helper';
 import { state } from '../../state/gamestate';
 import { render } from '../../main';
+import { getHighScores, saveHighscore } from '../high-score/high-score';
+import { renderVictoryScene } from '../../scenes/victory-scene/victory-scene';
+import { triggerArtifact } from '../artifacts/artifactSystem';
+import { setRoom4CliffMonumentIsBeaten, setRoom4CrossroadsMonumentIsBeaten, setRoom4HasFishStatueArtifact, setRoom4HasLadder, setRoom4HasRubberDuckArtifact, setRoom4RavineMonumentIsBeaten } from '../../rooms/room4/room4-story-controller';
 
 let showCheatCodes: boolean = false;
 const showCheatCodesButton = document.getElementById(
@@ -36,8 +26,6 @@ const cheatCodesWrapper = document.getElementById(
 // Create and store cheat buttons here
 // ===================================
 const cheatButtons = {
-    cheatButton1: createCheatButton('cheat test 1', specialCheatCode1),
-    cheatButton2: createCheatButton('cheat test 2', specialCheatCode2),
 
     cheatRenderSignInScene: createCheatButton('render sign in scene', () => {
         state.screen = 'login';
@@ -133,31 +121,6 @@ const cheatButtons = {
             startStatusBarTimers();
         }
     ),
-
-    cheatCheckMySessionString: createCheatButton(
-        'check my session string',
-        logMySessionStringState,
-    ),
-    cheatSetMySessionStringToFoo: createCheatButton(
-        'set my session string to Foo',
-        setSessionStringToFoo,
-    ),
-    cheatSetMySessionStringToBar: createCheatButton(
-        'set my session string to Bar',
-        setSessionStringToBar,
-    ),
-    cheatCheckMySessionBoolean: createCheatButton(
-        'check my session boolean',
-        logSessionBooleanState,
-    ),
-    cheatToggleMySessionBoolean: createCheatButton(
-        'toggle my session boolean',
-        toggleMySessionBooleanState,
-    ),
-    cheatSaveMyStringToDB: createCheatButton(
-        'save my string to DB',
-        saveMyStringState,
-    ),
     cheatRenderStatusBar: createCheatButton(
         'render status bar',
         renderStatusBar,
@@ -166,26 +129,54 @@ const cheatButtons = {
         'stop all status bar timers',
         handleStopAllStatusBarTimers,
     ),
+    cheatGetHighScores: createCheatButton('get high scores', getHighScores),
+    cheatSaveHighScore: createCheatButton('save high score', handleSaveHighScore),
+    cheatRenderHighScore: createCheatButton('render high score', renderVictoryScene),
+    cheatCreateHighScoreMockData: createCheatButton('create high score mock data', createHighScoreMockData),
+    cheatGiveLadder: createCheatButton('give ladder', handleGiveLadder),
+    cheatGiveFishStatue: createCheatButton('give fish statue', handleGiveFishStatue),
+    cheatGiveRubberDuck: createCheatButton('give rubber duck', handleGiveRubberDuck)
 };
 // ===================================
 
 // =============================
 // Local special cheat functions
 // =============================
-function specialCheatCode1() {
-    console.log('run special cheat code 1');
-}
-function specialCheatCode2() {
-    console.log('run special cheat code 2');
-}
-function setSessionStringToFoo() {
-    changeMySessionStringState('Foo'); // an example why special local cheat functions may be needed
-}
-function setSessionStringToBar() {
-    changeMySessionStringState('Bar');
-}
 function handleStopAllStatusBarTimers() {
     stopAllStatusBarTimers();
+}
+function handleSaveHighScore() {
+    saveHighscore('dummyuser', 42);
+}
+function createHighScoreMockData() {
+    const mockScores = [
+        { name: 'Alice', score: 245 },
+        { name: 'Bob', score: 180 },
+        { name: 'Charlie', score: 320 },
+        { name: 'Diana', score: 150 },
+        { name: 'Rasmus', score: 200 },
+        { name: 'Alma', score: 245 },
+        { name: 'Linn', score: 180 },
+        { name: 'Alda', score: 320 },
+        { name: 'Kimi', score: 250 },
+        { name: 'Isabelle', score: 200 },
+    ];
+    localStorage.setItem('escaperoom_highscores', JSON.stringify(mockScores));
+}
+function handleGiveLadder() {
+    triggerArtifact('room4', 'ladder', 0);
+    setRoom4HasLadder(true);
+    setRoom4CrossroadsMonumentIsBeaten(true);
+}
+function handleGiveFishStatue() {
+    triggerArtifact('room4', 'fish-statue', 0);
+    setRoom4HasFishStatueArtifact(true);
+    setRoom4RavineMonumentIsBeaten(true);
+}
+function handleGiveRubberDuck() {
+    triggerArtifact('room4', 'rubber-duck', 0);
+    setRoom4HasRubberDuckArtifact(true);
+    setRoom4CliffMonumentIsBeaten(true);
 }
 // =============================
 
@@ -195,43 +186,29 @@ function toggleCheatCodeButtons() {
     if (!cheatCodesWrapper) return;
     if (showCheatCodes) {
         cheatCodesWrapper.append(
-            // ======================
-            // DEV – ROOMS
-            // ======================
-            cheatButtons.cheatRenderRoom1,
-            cheatButtons.cheatRenderRoom2,
-            cheatButtons.cheatRenderRoom3,
-            cheatButtons.cheatRenderRoom4,
-            cheatButtons.cheatRenderRoom5,
-            cheatButtons.cheatRenderRoom6,
-
-            // ======================
-            // DEV – ROOMS
-            // ======================
-            cheatButtons.cheatRenderRoom1,
-            cheatButtons.cheatRenderRoom2,
-            cheatButtons.cheatRenderRoom3,
-            cheatButtons.cheatRenderRoom4,
-            cheatButtons.cheatRenderRoom5,
-            cheatButtons.cheatRenderRoom6,
             // ==================================================
             // Append cheat buttons here, disable to hide from UI
             // ==================================================
-            //            cheatButtons.cheatButton1,
-            //            cheatButtons.cheatButton2,
+            cheatButtons.cheatRenderRoom1,
+            cheatButtons.cheatRenderRoom2,
+            cheatButtons.cheatRenderRoom3,
+            cheatButtons.cheatRenderRoom4,
+            cheatButtons.cheatRenderRoom5,
+            cheatButtons.cheatRenderRoom6,
             cheatButtons.cheatRenderSignInScene,
             cheatButtons.cheatRenderMainMenuScene,
             cheatButtons.cheatRenderAboutScene,
             cheatButtons.cheatRenderGameOverScene,
             cheatButtons.cheatRenderVictoryScene,
-            //cheatButtons.cheatCheckMySessionString,
-            //cheatButtons.cheatSetMySessionStringToFoo,
-            //cheatButtons.cheatSetMySessionStringToBar,
-            //cheatButtons.cheatCheckMySessionBoolean,
-            //cheatButtons.cheatToggleMySessionBoolean,
-            //cheatButtons.cheatSaveMyStringToDB,
             cheatButtons.cheatRenderStatusBar,
             cheatButtons.cheatStopAllStatusBarTimers,
+            cheatButtons.cheatGetHighScores,
+            cheatButtons.cheatSaveHighScore,
+            cheatButtons.cheatRenderHighScore,
+            cheatButtons.cheatCreateHighScoreMockData,
+            cheatButtons.cheatGiveLadder,
+            cheatButtons.cheatGiveFishStatue,
+            cheatButtons.cheatGiveRubberDuck
             // ==================================================
         );
     } else {

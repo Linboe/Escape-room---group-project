@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import "./room6.scss";
 import { room6Book } from "./story/room6story";
 import {
@@ -5,6 +6,13 @@ import {
   getArtifactById,
 } from "../../components/status-bar/status-bar"; //test drop-artefakt
 import { showRoomIntro } from "../../components/room-intro/room-intro";
+=======
+import './room6.scss';
+import { room6Book, initRoom6Drop } from './story/room6story';
+import {
+    setRoom6Mode,
+} from '../../components/status-bar/status-bar'; //test drop-artefakt
+>>>>>>> origin/main
 
 export function renderRoom6Scene() {
   const sceneWrapper = document.getElementById("sceneWrapper");
@@ -20,6 +28,7 @@ export function renderRoom6Scene() {
 export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
   if (!sceneWrapper) return;
 
+<<<<<<< HEAD
   showRoomIntro(
     6,
     () => {
@@ -31,6 +40,10 @@ export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
     () => {
       setRoom6Mode(true); //test drop-artefakt
       document.addEventListener("dragover", (e) => e.preventDefault()); //test drop-artefakt tar bort röd varning
+=======
+    setRoom6Mode(true); //test drop-artefakt
+    document.addEventListener('dragover', (e) => e.preventDefault()); //test drop-artefakt tar bort röd varning
+>>>>>>> origin/main
 
       // ===============================
       // 1. HTML
@@ -47,16 +60,6 @@ export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
             <!-- PICK ART -->
             <div class="pick-art-style">
-            <div id="drop-zone-1" class="drop-zone">Släpp här</div>
-              <div class="pick-art-wrapper">
-                <button class="pick-art">1</button>
-                <button class="pick-art">2</button>
-                <button class="pick-art">3</button>
-                <button class="pick-art">4</button>
-                <button class="pick-art">5</button>
-                <button class="pick-art">6</button>
-              </div>
-              <p id="message"></p>
             </div>
 
           </div>
@@ -64,11 +67,20 @@ export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
       </section>
     `;
 
+<<<<<<< HEAD
       // ===============================
       // 2. BOOK-LOGIK
       // ===============================
       const book = sceneWrapper.querySelector("#book") as HTMLDivElement;
       if (!book) return;
+=======
+
+    // ===============================
+    // 2. BOOK-LOGIK
+    // ===============================
+    const book = sceneWrapper.querySelector('#book') as HTMLDivElement;
+    if (!book) return;
+>>>>>>> origin/main
 
       let page = 0;
 
@@ -76,6 +88,7 @@ export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
         const current = room6Book[page];
 
         book.innerHTML = `
+<<<<<<< HEAD
     <h2 class="book-title">${current.title}</h2>
   <div class="event-text">
     <p>${current.text} </p>
@@ -86,6 +99,19 @@ export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
     </div>
   </div>
 `;
+=======
+        <h2 class='book-title'>${current.title}</h2>
+        <div class='event-text'>
+            ${current.text}
+        
+          <div class='bookNav'>
+              ${current.hasPrev ? '<button id=\'prevPage\'>Back</button>' : ''}
+              ${current.hasNext ? '<button id=\'nextPage\'>Next</button>' : ''}
+              ${current.isEscape ? '<button id=\'escapeBtn\'>ESCAPE</button>' : ''}
+          </div>
+        </div>
+    `;
+>>>>>>> origin/main
 
         book.querySelector("#prevPage")?.addEventListener("click", () => {
           page--;
@@ -100,6 +126,7 @@ export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
         book.querySelector("#escapeBtn")?.addEventListener("click", () => {
           next();
         });
+<<<<<<< HEAD
       }
 
       renderBook();
@@ -130,6 +157,19 @@ export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
         }
       });
       // -------------------
+=======
+
+        // koppla dropp igen
+        initRoom6Drop(sceneWrapper!);
+    }
+    renderBook();
+
+    // ===============================
+    // 3. PICK-ART LOGIK
+    // ===============================
+    const buttons = sceneWrapper.querySelectorAll('.pick-art');
+    const message = sceneWrapper.querySelector('#message') as HTMLParagraphElement | null;
+>>>>>>> origin/main
 
       buttons.forEach((btn) => {
         btn.addEventListener("click", () => {

@@ -1,4 +1,5 @@
 import './high-score.scss';
+import { attachHighscoreHack } from '../../components/specialhack-clear-highscore';
 
 /**
  * Definiera ett gemensamt interface - hur ska data struktureras
@@ -15,7 +16,7 @@ const MAX_ENTRIES = 10;
 
 export interface HighscoreEntry {
     name: string;
-    score: number; // poäng = sekunder kvar på timer
+    score: number; // poäng = sekunder som gått i totaltiden (kortast tid = bäst)
 }
 
 // --------------------------------------------------------------
@@ -31,6 +32,7 @@ export function getHighScores(): HighscoreEntry[] {
     // konvertera JSON-string till array med JSON.parse //try --> om koden kraschar (ogilitg json) hoppar det dirket till catch istället för att appen kraschar
     try {
         const parsedScores = JSON.parse(stored) as HighscoreEntry[];
+        console.log(parsedScores);
         return parsedScores;
     } catch (error) {
         // om JSON.parse misslyckas (korrupt data) --> logga felet
@@ -43,6 +45,7 @@ export function getHighScores(): HighscoreEntry[] {
 // ---------------------- save Highscore ------------------------
 // --------------------------------------------------------------
 export function saveHighscore(name: string, score: number): void {
+    console.log('saving high score');
     // validera input
     const nameIsEmpty = !name.trim(); // trim() tar bort mellanslag, kolla om tomt
     const scoreIsInvalid = score < 0;
@@ -68,9 +71,11 @@ export function saveHighscore(name: string, score: number): void {
     const playerExists: boolean = existingPlayerIndex !== -1;
 
     if (playerExists) {
-    // om spelaren finns
+        console.log('player in database');
+        // om spelaren finns
         const oldScore: number = allScores[existingPlayerIndex].score;
-        const newScoreIsBetter: boolean = score > oldScore;
+        //const newScoreIsBetter: boolean = score > oldScore;
+        const newScoreIsBetter: boolean = score < oldScore;
 
         if (newScoreIsBetter) {
             // ersätt gammal p med ny p
@@ -80,6 +85,7 @@ export function saveHighscore(name: string, score: number): void {
             };
         }
     } else {
+        console.log('new player');
         // ny spelare - lägg till
         const newEntry: HighscoreEntry = {
             name: cleanName,
@@ -88,8 +94,8 @@ export function saveHighscore(name: string, score: number): void {
         allScores.push(newEntry);
     }
 
-    // ragnordna listan, (b.score - a.score) betyder = störst först
-    allScores.sort((a, b) => b.score - a.score);
+    // ragnordna listan, (a.score - b.score) betyder = lägst tid först
+    allScores.sort((a, b) => a.score - b.score);
 
     // visa endast top 10
     const top10: HighscoreEntry[] = allScores.slice(0, MAX_ENTRIES); //slice tar ut de första 10 elementen/p
@@ -104,15 +110,12 @@ export function saveHighscore(name: string, score: number): void {
 // --------------------------------------------------------------
 export function renderHighScore(): void {
     //void: funktionen retunerar inget värde (den renderar men skickar inte tillbaka ngt)
-    const sceneWrapper = document.getElementById(
-        'sceneWrapper',
+    const highScoreWrapperElement = document.getElementById(
+        'highScoreWrapper',
     ) as HTMLDivElement | null;
-    if (!sceneWrapper) {
-        console.error('sceneWrapper element not found');
-        return;
-    }
+    console.log('highScoreWrapper:', highScoreWrapperElement);
+    if (!highScoreWrapperElement) return;
 
-    sceneWrapper.innerHTML = '';
     const scores = getHighScores();
     let content = '';
 
@@ -127,8 +130,12 @@ export function renderHighScore(): void {
     } else {
         const listItems = scores
             .map((entry: HighscoreEntry, index) => {
-            //map går igenom varje element i scores arrayen (.map returnerar en array med strings (<li>...</li>).) entry är objektet med name, score, i är positionen i arrayen
+                //map går igenom varje element i scores arrayen (.map returnerar en array med strings (<li>...</li>).) entry är objektet med name, score, i är positionen i arrayen
+                const minutes = Math.floor(entry.score / 60);
+                const seconds = entry.score % 60;
+                const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
                 let medal = `#${index + 1}`;
+
                 if (index === 0) medal = '🥇';
                 else if (index === 1) medal = '🥈';
                 else if (index === 2) medal = '🥉';
@@ -136,7 +143,7 @@ export function renderHighScore(): void {
             <li class="highscore-item">
             <span class="rank">${medal}</span>
             <span class="name">${entry.name}</span>
-            <span class="score">${entry.score} pts</span>
+            <span class="score">${formattedTime}</span>
             </li>
         `;
             })
@@ -152,51 +159,32 @@ export function renderHighScore(): void {
     `;
     }
 
-    // HTML-DOM & eventlisteners
-    sceneWrapper.innerHTML = content;
+    highScoreWrapperElement.innerHTML = content;
 
-    // TEMPORÄR TESTDATA - TA BORT SENARE!
-/*
-  function addMockData() {
-    const mockScores = [
-      { name: 'Alice', score: 245 },
-      { name: 'Bob', score: 180 },
-      { name: 'Charlie', score: 320 },
-      { name: 'Diana', score: 150 },
-      { name: 'Rasmus', score: 200 },
-      { name: 'Alma', score: 245 },
-      { name: 'Linn', score: 180 },
-      { name: 'Alda', score: 320 },
-      { name: 'Kimi', score: 250 },
-      { name: 'Eve', score: 200 },
-    ];
-    localStorage.setItem('escaperoom_highscores', JSON.stringify(mockScores));
-  }
-
-  // Kör bara första gången
-  if (!localStorage.getItem('escaperoom_highscores')) {
-    addMockData();
-  }
-    */
+    // addMockData() har döpts om och flyttats till cheat-codes som createHighScoreMockData()
 }
 
-/*Alternative to only show the list (not whole scene)
-  export function renderHighscoreList(containerId: string): void {
-  const container = document.getElementById(containerId);
-  if (!container) {
-    console.error(`Container with id "${containerId}" not found`);
-    return;
-  }
-  // ... renderar bara listan utan container och back-knapp
+// --------------------------------------------------------------
+// -------------------- Highscore Hack --------------------------
+// --------------------------------------------------------------
+
+let detach: (() => void) | undefined; // håller cleanup-funktionen
+
+function onHackSuccess(): void {
+    console.log('hack lyckades! rensar highscore...');
+    console.log('innan rensning:', localStorage.getItem(HIGHSCORE_KEY));
+    localStorage.removeItem(HIGHSCORE_KEY);
+    console.log('efter rensning:', localStorage.getItem(HIGHSCORE_KEY));
+    renderHighScore();
+    attachHack();
 }
-  */
 
-/*
-  // innerHTML method
-  //    sceneWrapper.innerHTML = `<h2>Main menu scene</h2>`;
-
-  // Imperative DOM building method
-  const h2PlaceholderText = document.createElement('h2');
-  h2PlaceholderText.textContent = 'Highscore';
-  sceneWrapper.append(h2PlaceholderText);
-  */
+export function attachHack(): void {
+    // exporterad så game-over-scene kan anropa den
+    const title = document.querySelector(
+        '.highscore-title',
+    ) as HTMLElement | null;
+    if (!title) return;
+    detach?.(); // ta bort gammal lyssnare om den finns
+    detach = attachHighscoreHack(title, onHackSuccess); // koppla ny lyssnare
+}

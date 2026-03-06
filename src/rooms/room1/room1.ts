@@ -1,10 +1,14 @@
 import "./room1.scss";
-import feather from "/src/assets/artifacts/feather.jpg"; //Placeholder artifact
+import { saveGameToLocalStorage } from "../../store/database/local-storage-database";
+import { triggerArtifact } from "../../components/artifacts/artifactSystem";
+import {
+  startStatusBarTimers,
+  stopAllStatusBarTimers,
+} from "../../components/status-bar/status-bar";
 import { showRoomIntro } from "../../components/room-intro/room-intro";
 
 export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
   if (!sceneWrapper) return;
-
   showRoomIntro(
     1,
     () => {
@@ -15,8 +19,8 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
     },
     () => {
       sceneWrapper.innerHTML = `
-      <section class="room-1">
-      <div class="room-frame">
+  <section class="room room-1">
+    <div class="room-frame">
       <h2 class="room-title">The Gravity Glitch</h2>
 
         <div id="dialogueBox" class="dialogue-box">
@@ -45,15 +49,6 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
                       <div class="action-btn-container">
                           <button id="actionBtn" class="action-btn hidden"></button>
                         </div>
-
-                <div id="artifactDisplay" class="artifact-display hidden">
-                  <h3>You got the feather artifact!</h3>
-                  <img src="${feather}" alt="Feather"/>
-                    <div class="artifact-text"
-                      <h4>Feather</h4>
-                      <p>Special feather from a special bird</p>
-                    </div>
-              </div> 
               
                 <div class="choices">
                   <button id="winBtn">Win!!</button>
@@ -74,15 +69,17 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
       ];
 
       let currentLine = 0;
-      const dialogueText = document.getElementById(
-        "dialogueText",
+      const dialogueText = sceneWrapper.querySelector(
+        "#dialogueText",
       ) as HTMLParagraphElement;
-      const nextBtn = document.getElementById("nextBtn") as HTMLButtonElement;
-      const dialogueBox = document.getElementById(
-        "dialogueBox",
+      const nextBtn = sceneWrapper.querySelector(
+        "#nextBtn",
+      ) as HTMLButtonElement;
+      const dialogueBox = sceneWrapper.querySelector(
+        "#dialogueBox",
       ) as HTMLDivElement;
-      const gameSession = document.getElementById(
-        "gameSession",
+      const gameSession = sceneWrapper.querySelector(
+        "#gameSession",
       ) as HTMLDivElement;
 
       dialogueText.textContent = lines[0];
@@ -90,6 +87,7 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
       nextBtn.addEventListener("click", () => {
         currentLine++;
         if (currentLine < lines.length) {
+          startStatusBarTimers();
           dialogueText.textContent = lines[currentLine];
         } else {
           dialogueBox.classList.add("hidden");
@@ -98,34 +96,31 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
       });
 
       const rockBtn: HTMLButtonElement | null =
-        document.querySelector("#rockBtn");
+        sceneWrapper.querySelector("#rockBtn");
       const paperBtn: HTMLButtonElement | null =
-        document.querySelector("#paperBtn");
+        sceneWrapper.querySelector("#paperBtn");
       const scissorsBtn: HTMLButtonElement | null =
-        document.querySelector("#scissorsBtn");
-      const winBtn = document.getElementById("winBtn") as HTMLButtonElement; // Remove when done
-      const actionBtn = document.getElementById(
-        "actionBtn",
+        sceneWrapper.querySelector("#scissorsBtn");
+      const winBtn = sceneWrapper.querySelector("#winBtn") as HTMLButtonElement; // Remove when done
+      const actionBtn = sceneWrapper.querySelector(
+        "#actionBtn",
       ) as HTMLButtonElement;
-      const artifactDisplay = document.getElementById(
-        "artifactDisplay",
+
+      const playerDisplay = sceneWrapper.querySelector(
+        "#playerDisplay",
+      ) as HTMLDivElement;
+      const computerDisplay = sceneWrapper.querySelector(
+        "#computerDisplay",
+      ) as HTMLDivElement;
+      const resultDisplay = sceneWrapper.querySelector(
+        "#resultDisplay",
       ) as HTMLDivElement;
 
-      const playerDisplay = document.getElementById(
-        "playerDisplay",
-      ) as HTMLDivElement;
-      const computerDisplay = document.getElementById(
-        "computerDisplay",
-      ) as HTMLDivElement;
-      const resultDisplay = document.getElementById(
-        "resultDisplay",
-      ) as HTMLDivElement;
-
-      const playerScoreDisplay = document.getElementById(
-        "playerScoreDisplay",
+      const playerScoreDisplay = sceneWrapper.querySelector(
+        "#playerScoreDisplay",
       ) as HTMLSpanElement;
-      const computerScoreDisplay = document.getElementById(
-        "computerScoreDisplay",
+      const computerScoreDisplay = sceneWrapper.querySelector(
+        "#computerScoreDisplay",
       ) as HTMLSpanElement;
 
       if (!rockBtn || !paperBtn || !scissorsBtn) {
@@ -147,8 +142,10 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
         resultDisplay.classList.add("green-text");
         actionBtn.textContent = "Go to the next room";
         actionBtn.classList.remove("hidden");
-        artifactDisplay.classList.remove("hidden");
         disableGameButtons(true);
+        triggerArtifact("room1", "feather", 0);
+        saveGameToLocalStorage();
+        stopAllStatusBarTimers();
         actionBtn.onclick = () => next();
       });
 
@@ -198,8 +195,10 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
           resultDisplay.textContent = "You won!";
           actionBtn.textContent = "Go to the next room";
           actionBtn.classList.remove("hidden");
-          artifactDisplay.classList.remove("hidden");
           disableGameButtons(true);
+          triggerArtifact("room1", "feather", 0);
+          saveGameToLocalStorage();
+          stopAllStatusBarTimers();
           actionBtn.onclick = () => next();
         } else if (computerScore >= WIN_SCORE) {
           resultDisplay.textContent = "You lost!";

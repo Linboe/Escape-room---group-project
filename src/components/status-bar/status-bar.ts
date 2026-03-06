@@ -1,5 +1,5 @@
 import './status-bar.scss';
-import { getProgress } from '../../store/session/session-memory';
+import { state } from '../../state/gamestate';
 import type { Artifact } from '../artifacts/artifactSystem';
 import {
     getRoomStates,
@@ -21,6 +21,9 @@ let secondsElapsed: number = 0;
 let roomStates = getRoomStates();
 let gameState = getGameState();
 let hourglassState = roomStates[gameState.currentRoom].roomTime; // how many seconds left for said room
+export function getSecondsElapsed() {
+    return secondsElapsed;
+}
 
 // as null when paused/ as interval when playing
 let countdownIntervalState: ReturnType<typeof setInterval> | null = null;
@@ -133,6 +136,11 @@ function renderArtifacts() {
     }
 }
 
+//återställer insamlade artifakter när spelaren klickar på retry 
+export function setCollectedArtifacts(artifacts: Artifact[]) {
+    artifacts.forEach(a => addArtifactToStatusBar(a));
+}
+
 // ----------------------------------------------------
 // ----------------------------------------------------
 // ----------------------------------------------------
@@ -147,7 +155,7 @@ export function renderStatusBar() {
     if (!statusBarWrapper) return;
     statusBarWrapper.innerHTML = '';
 
-    spanRoomsElement.textContent = `Progress: ${getProgress()}/6`;
+    spanRoomsElement.textContent = `Progress: ${state.currentRoom}/6`;
 
     pWrapperElement.append(
         //spanStatusBarElement,
@@ -174,7 +182,7 @@ function handleCountdownTick() {
     if (--hourglassState < 0) {
         stopCountdown();
         stopCountup();
-        spanTimerElement.textContent = "Time's up!";
+        spanTimerElement.textContent = 'Time\'s up!';
         renderGameOverScene();
     }
 }
@@ -233,5 +241,9 @@ export function refetchGamestate() {
     roomStates = getRoomStates();
     gameState = getGameState();
     hourglassState = roomStates[gameState.currentRoom].roomTime;
+}
+
+export function setSecondsElapsed(value: number) {
+    secondsElapsed = value; // Gör att den återstående tiden visas i statusbar istället för att visa 0 när spelar trycker på retry
 }
 // ===============
