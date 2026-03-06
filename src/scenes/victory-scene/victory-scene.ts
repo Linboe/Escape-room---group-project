@@ -1,9 +1,11 @@
-import { renderHighScore } from '../../components/high-score/high-score';
+import { renderHighScore, saveHighscore } from '../../components/high-score/high-score';
 import { getSecondsElapsed, stopAllStatusBarTimers } from '../../components/status-bar/status-bar';
 import { render } from '../../main';
 import { state } from '../../state/gamestate';
+import { attachHack } from '../../components/high-score/high-score';
 
-const sceneWrapper: HTMLDivElement | null = document.querySelector('#sceneWrapper');
+const sceneWrapper: HTMLDivElement | null =
+    document.querySelector('#sceneWrapper');
 
 export function renderVictoryScene() {
     if (!sceneWrapper) return;
@@ -24,7 +26,8 @@ export function renderVictoryScene() {
     victorySceneHeaderElement.textContent = 'Congratulations!';
 
     const victorySceneUndertitleElement = document.createElement('p');
-    victorySceneUndertitleElement.textContent = 'You made it out the strange woods alive.';
+    victorySceneUndertitleElement.textContent =
+        'You made it out the strange woods alive.';
 
     const displayPlayersElapsedTimeElement = document.createElement('p');
     displayPlayersElapsedTimeElement.textContent = `Your time: ${formattedTime}`;
@@ -37,13 +40,21 @@ export function renderVictoryScene() {
     const highScoreWrapper = document.createElement('div');
     highScoreWrapper.id = 'highScoreWrapper';
 
-    victorySceneWrapperElement.append(victorySceneHeaderElement, victorySceneUndertitleElement, displayPlayersElapsedTimeElement, shareResultsButton);
+    victorySceneWrapperElement.append(
+        victorySceneHeaderElement,
+        victorySceneUndertitleElement,
+        displayPlayersElapsedTimeElement,
+        shareResultsButton,
+    );
     sceneWrapper.append(victorySceneWrapperElement, highScoreWrapper);
     // ==========
 
+    saveHighscore(state.username, getSecondsElapsed());
     renderHighScore();
+    attachHack();
 
-    const backToMenuBtn: HTMLButtonElement | null = document.querySelector('#backToMenu');
+    const backToMenuBtn: HTMLButtonElement | null =
+        document.querySelector('#backToMenu');
 
     backToMenuBtn?.addEventListener('click', () => {
         state.currentRoom = 0;
@@ -56,10 +67,15 @@ function handleCopyResultsToClipboard() {
     const minutes = Math.floor(getSecondsElapsed() / 60);
     const seconds = getSecondsElapsed() % 60;
     const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-    const URL = 'https://medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers/';
-    const shareResultsButtonElement = document.getElementById('shareResultsButtonElement') as HTMLButtonElement | null;
+    const URL =
+        'https://medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers/';
+    const shareResultsButtonElement = document.getElementById(
+        'shareResultsButtonElement',
+    ) as HTMLButtonElement | null;
 
-    navigator.clipboard.writeText(`I scored ${formattedTime} at the escape room Strange Woods! Bet you can't beat that, let alone make it out alive: ${URL}`);
+    navigator.clipboard.writeText(
+        `I scored ${formattedTime} at the escape room Strange Woods! Bet you can't beat that, let alone make it out alive: ${URL}`,
+    );
     if (shareResultsButtonElement) {
         shareResultsButtonElement.textContent = 'Copied to clipboard!';
         setTimeout(() => {

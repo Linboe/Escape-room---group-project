@@ -1,6 +1,7 @@
 import './main-menu-scene.scss';
 import { state } from '../../state/gamestate';
-import { renderStatusBar } from '../../components/status-bar/status-bar';
+import { loadGameFromLocalStorage } from '../../store/database/local-storage-database';
+import { startStatusBarTimers, stopAllStatusBarTimers, refetchGamestate, renderStatusBar } from '../../components/status-bar/status-bar';
 
 console.log('connected main menu scene');
 
@@ -16,11 +17,10 @@ export function renderMainMenuScene(
         <div class="main-menu">
             <h2>The Dopefish Admirers</h2>
             <div class="menu-buttons">
-                <button id="startGame" class="menu-btn primary">▶ Start game</button>
-                <button id="loadGame" class="menu-btn">💾 Load game</button>
-                <button id="settings" class="menu-btn">⚙️ Settings</button>
-                <button id="about" class="menu-btn">ℹ️ About</button>
-                <button id="logout" class="menu-btn secondary">🚪 Log out</button>
+                <button id="startGame" class="menu-btn primary">Start game</button>
+                ${state.isReturningPlayer ? '<button id="loadGame" class="menu-btn">Load game</button>' : ''}
+                <button id="about" class="menu-btn">About</button>
+                <button id="logout" class="menu-btn secondary">Log out</button>
             </div>
         </div>
     `;
@@ -30,7 +30,6 @@ export function renderMainMenuScene(
 
     const startGameBtn = document.getElementById('startGame') as HTMLButtonElement | null;
     const loadGameBtn = document.getElementById('loadGame') as HTMLButtonElement | null;
-    const settingsBtn = document.getElementById('settings') as HTMLButtonElement | null;
     const aboutBtn = document.getElementById('about') as HTMLButtonElement | null;
     const logoutBtn = document.getElementById('logout') as HTMLButtonElement | null;
 
@@ -48,19 +47,15 @@ export function renderMainMenuScene(
 
     loadGameBtn?.addEventListener('click', () => { // TODO
         if (state.screen === 'menu') {
-            alert('Ännu inte implementerat, här kommer sparat spel laddas in');
-            //state.screen = "savedgame";
+            loadGameFromLocalStorage();
+            refetchGamestate();
+            stopAllStatusBarTimers();
             renderStatusBar();
+            state.screen = 'room';
             render();
+            startStatusBarTimers();
         }
     });
-
-    settingsBtn?.addEventListener('click', () => {
-        if (state.screen === 'menu') {
-            renderSettings();
-        }
-    });
-
 
     aboutBtn?.addEventListener('click', () => {
         if (state.screen === 'menu') {
@@ -75,18 +70,4 @@ export function renderMainMenuScene(
             render();
         }
     });
-
-
-    function renderSettings() { // TODO
-        alert('Ännu inte implementerat, här kommer inställningarna visas på något sätt');
-    }
-
-    /* function handleLoadGame() {
-         console.log('Ladda sparat spel'); //Visa sparade spel
-     }
- 
-     function handleSettings() {
-         console.log('Inställningar'); //Visa inställningar (ljud, ljus, grafik)
-     }
-   */
 }

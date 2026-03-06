@@ -1,6 +1,9 @@
 import './room3.scss';
 import { state } from '../../state/gamestate';
 import { render } from '../../main';
+import { saveGameToLocalStorage } from '../../store/database/local-storage-database';
+import { triggerArtifact } from '../../components/artifacts/artifactSystem';
+import { startStatusBarTimers,stopAllStatusBarTimers } from '../../components/status-bar/status-bar';
 
 let currentQuestionIndex = 0;
 export let hasArtifactRoom3 = false;
@@ -28,7 +31,7 @@ const questions = [
 export function room3(sceneWrapper: HTMLDivElement | null, next: () => void) {
     if (!sceneWrapper) return;
 
-    currentQuestionIndex = 0;
+    currentQuestionIndex = state.questionIndex;
     hasArtifactRoom3 = false;
     wrongAttempts = 0;
 
@@ -108,6 +111,7 @@ export function room3(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
     // STEP 2 – Start trial
     startBtn.addEventListener('click', () => {
+        startStatusBarTimers();
         story2.remove();
         startBtn.remove();
         quiz.classList.remove('hidden');
@@ -122,11 +126,17 @@ export function room3(sceneWrapper: HTMLDivElement | null, next: () => void) {
             if (btn.textContent === current.correct) {
                 message.textContent = 'Correct. The jungle shifts slightly...';
                 currentQuestionIndex++;
+                state.questionIndex = currentQuestionIndex;
+                saveGameToLocalStorage();
+
 
                 if (currentQuestionIndex === questions.length) {
+                    state.questionIndex = 0;
+                    saveGameToLocalStorage();
                     hasArtifactRoom3 = true;
                     message.textContent = 'The man nods. The boat is now safe to enter.';
-
+                    triggerArtifact('room3', 'walking-pot', 0);
+                    stopAllStatusBarTimers();
                     setTimeout(() => next(), 3000);
                 } else {
                     setTimeout(renderQuestion, 700);
@@ -143,11 +153,25 @@ export function room3(sceneWrapper: HTMLDivElement | null, next: () => void) {
                         'You have failed the trial. The jungle rejects you.';
                     buttons.forEach((b) => (b.disabled = true));
                     setTimeout(() => {
+                        stopAllStatusBarTimers();
+                        saveGameToLocalStorage();
                         state.screen = 'gameover';
-                        render ();
+                        render();
                     }, 1000);
                 }
             }
         });
     });
+
+    if (state.questionIndex > 0) {
+        // gömmer intro element om spelar klickat på retry
+        story1.remove();
+        hint1.remove();
+        approachBtn.remove();
+        story2.remove();
+        startBtn.remove();
+        // visar spelet direkt
+        quiz.classList.remove('hidden');
+        renderQuestion();
+    }
 }
