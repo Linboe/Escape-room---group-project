@@ -39,7 +39,9 @@ export function triggerArtifact(
                 <p class="arifact-p">A new artifact has been unlocked - <br>
                 click to collect</p>
                 <div class="artifact-image-container">
-                    <img id="close-artifact-btn" src="${artifact.image}" alt="${artifact.name}" class="artifact-img-large">
+                   <button id="close-artifact-btn" class="artifact-img-btn" aria-label="Collect ${artifact.name}">
+                        <img src="${artifact.image}" alt="${artifact.name}" class="artifact-img-large">
+                    </button>
                 </div>
                 <h3 class="artifact-name">${artifact.name}</h3>
                 <p class="artifact-desc">${artifact.description}</p>
@@ -49,12 +51,34 @@ export function triggerArtifact(
 
         document.body.insertAdjacentHTML('beforeend', popupHtml);
 
-        document
-            .getElementById('close-artifact-btn')
-            ?.addEventListener('click', () => {
-                document.getElementById('artifact-popup-overlay')?.remove();
-                addArtifactToStatusBar(artifact);
-            });
+        const overlay = document.getElementById(
+            'artifact-popup-overlay',
+        ) as HTMLElement;
+        const closeBtn = document.getElementById(
+            'close-artifact-btn',
+        ) as HTMLElement;
+
+        const previouslyFocused = document.activeElement as HTMLElement;
+        overlay.focus();
+
+        overlay.addEventListener('keydown', (e: KeyboardEvent) => {
+            if (e.key === 'Tab') {
+                // Endast en fokusbar knapp — förhindra att fokus lämnar popupen
+                e.preventDefault();
+                closeBtn.focus();
+            }
+            if (e.key === 'Escape') {
+                // Stäng popupen med Escape och återställ fokus
+                overlay.remove();
+                previouslyFocused?.focus();
+            }
+        });
+
+        closeBtn.addEventListener('click', () => {
+            overlay.remove();
+            previouslyFocused?.focus();
+            addArtifactToStatusBar(artifact);
+        });
     }, delay); // Här används fördröjningen (i millisekunder)
 }
 
