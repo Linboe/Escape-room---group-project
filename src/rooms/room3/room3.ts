@@ -37,7 +37,7 @@ export function room3(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
     sceneWrapper.innerHTML = `
     <section class="room room-3">
-      <div class="room3-overlay">
+      <div class="room-frame">
         <h2>The Inner Jungle (Archive of Illusions)</h2>
 
         <p class="story" id="story1">

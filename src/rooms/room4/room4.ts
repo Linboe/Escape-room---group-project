@@ -50,7 +50,7 @@ function renderRoom4() {
             <div class="game-session-wrapper">
     */
     const room4Section = document.createElement('section');
-    //room4Section.classList.add('room');
+    room4Section.classList.add('room');
     room4Section.classList.add('room-4');
 
     const roomFrame = document.createElement('div');

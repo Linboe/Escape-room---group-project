@@ -53,10 +53,10 @@ export function render() {
 
     // show & hide h1
     const h1Element = document.querySelector('h1');
-    if (state.screen === 'login' || state.screen === 'menu') {
-        if (h1Element) h1Element.classList.remove('hidden');
-    } else {
+    if (state.screen === 'room' || state.screen === 'about' || state.screen === 'gameover' || state.screen === 'victory') {
         if (h1Element) h1Element.classList.add('hidden');
+    } else {
+        if (h1Element) h1Element.classList.remove('hidden');
     }
     
 
