@@ -2,15 +2,9 @@
 // NOTE: repeated on all rooms, check the other rooms for consistency (.room-1 .room-2 etc.)
 .room-4 {
     background-image: url("/roompic/almaroom4.png");
-
     background-size: cover;
-    background-position: center;
+    background-position: top;
     background-repeat: no-repeat;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-width: 100%;
 }
 
 .room-4-scene-wrapper {
@@ -23,7 +17,7 @@
 
 .room-4-event-text {
     min-height: 150px;
-    width: calc(100% - 48px);
+//    width: calc(100% - 48px);
 }
 
 .escape-room-4-button {
@@ -44,7 +38,7 @@
     background: rgba(0, 0, 0, 0.55);
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     margin: 0;
-    width: 100%;
+//    width: 100%;
 }
 
 .room-4-interaction-button {
@@ -59,7 +53,7 @@
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
+//    width: 100%;
     padding: 0.75rem 0 1.5rem;
     background: rgba(20, 30, 25, 0.75);
     backdrop-filter: blur(6px);
@@ -74,5 +68,5 @@
     cursor: default;
     visibility: hidden;
     position: fixed;
-    width: 100%;
+//    width: 100%;
 }

@@ -13,10 +13,6 @@ export function renderAboutScene() {
     }
     sceneWrapper.innerHTML = ''; // reset
 
-    // hide h1
-    const h1Element = document.querySelector('h1');
-    if (h1Element) h1Element.classList.add('hidden');
-
     // Container
     const aboutContainer = document.createElement('div');
     aboutContainer.classList.add('about-container');

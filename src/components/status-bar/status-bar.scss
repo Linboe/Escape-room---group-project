@@ -1,5 +1,7 @@
 .status-bar {
-    width: calc(100vw - 100px); // -100px revert the horizontal scroll UI bug
+    max-width: 100vw;
+    overflow: hidden;
+    height: var(--status-bar-height);
     display: flex;
     justify-content: space-around;
 }

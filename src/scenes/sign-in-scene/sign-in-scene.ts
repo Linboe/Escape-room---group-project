@@ -13,10 +13,6 @@ export function renderSignInScene(
 
     if (!sceneWrapper) return;
 
-    // show h1
-    const h1Element = document.querySelector('h1');
-    if (h1Element) h1Element.classList.remove('hidden');
-
     sceneWrapper.innerHTML = `
       <div class="sign-in-wrapper">
         <h2>Sign in</h2>

@@ -1,21 +1,15 @@
 .room-5 {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-width: 100%;
     background-image: url('/roompic/linnroom5.png');
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
 }
 
 .room-5 {
     aspect-ratio: 9 / 16;
     height: 100svh;
     max-height: 100svh;
-    width: auto;
-    max-width: calc(100svh * 9 / 16);
+//    max-width: calc(100svh * 9 / 16);
     position: relative;
     background-size: cover;
     background-position: center;
@@ -41,7 +35,7 @@
     padding: 1rem;
     cursor: pointer;
     text-align: center;
-    width: 100%;
+//    width: 100%;
     &:hover {
         background: rgba(30, 40, 35, 0.95);
     }
@@ -52,7 +46,7 @@
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: calc(100svh * 9 / 16);
+//    width: calc(100svh * 9 / 16);
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -62,7 +56,7 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    width: 100%;
+//    width: 100%;
 }
 
 .room-5 .room-title-text {
@@ -78,12 +72,12 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-    width: 80%;
-    max-width: 400px;
+//    width: 80%;
+//    max-width: 400px;
 }
 
 .room-5 .card {
-    width: 60px;
+//    width: 60px;
     height: 60px;
     border-radius: 8px;
     overflow: hidden;
@@ -106,7 +100,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+//    width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;

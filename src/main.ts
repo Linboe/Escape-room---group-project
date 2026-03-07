@@ -50,6 +50,16 @@ export function render() {
         case 'about':
             renderAboutScene();
     }
+
+    // show & hide h1
+    const h1Element = document.querySelector('h1');
+    if (state.screen === 'login' || state.screen === 'menu') {
+        if (h1Element) h1Element.classList.remove('hidden');
+    } else {
+        if (h1Element) h1Element.classList.add('hidden');
+    }
+    
+
 }
 
 const allRooms = [room1, room2, room3, room4, room5, room6];
