@@ -9,7 +9,7 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
     sceneWrapper.innerHTML = `
   <section class="room room-1">
     <div class="room-frame">
-      <h2 class="room-title">The Gravity Glitch</h2>
+      <h2>The Gravity Glitch</h2>
 
         <div id="dialogueBox" class="dialogue-box">
           <p id="dialogueText"></p>

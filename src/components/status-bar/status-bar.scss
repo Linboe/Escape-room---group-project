@@ -1,9 +1,28 @@
-.status-bar {
-    max-width: 100vw;
-    overflow: hidden;
-    height: var(--status-bar-height);
+.status-bar-wrapper {
+    --border-width: 1px;
+
+    width: 100%;
+    height: calc(var(--status-bar-height) - var(--border-width));
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
     justify-content: space-around;
+    backdrop-filter: blur(50px);
+    border-bottom: var(--border-width) dashed var(--color-border-transparent);
+
+    & section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: calc(100vw - 20px);
+        max-width: 700px;
+
+        & span {
+            color: var(--color-text-body);
+            font-family: var(--font-serif);
+        }
+    }
 }
 
 //Artefact
