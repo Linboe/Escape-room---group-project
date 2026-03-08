@@ -24,8 +24,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    flex: auto;
-    height: calc(100vh - var(--status-bar-height));
+//    min-height: calc(100vh - var(--status-bar-height));
 
     p {
         margin-left: 10px;
@@ -35,12 +34,14 @@
         min-height: 100px;
         background-color: var(--color-surface-body);
         backdrop-filter: blur(50px);
-        border: 1px solid var(--color-border-transparent);
+        border: 1px ridge var(--color-border-transparent);
     }
 
     button {
+        position: absolute;
+        bottom: 0;
         margin: 2rem;
-        width: calc(100% - 4rem);
+        width: calc(100% - 20px);
         z-index: 1;
     }
 }
