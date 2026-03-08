@@ -17,7 +17,7 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
         </div>
     
         <div class="game-session-wrapper">
-          <div id="gameSession" class="game-session-style hidden">
+            <div id="gameSession" class="game-session-style hidden">
               <div class="game-info-container">
                 <div id="playerDisplay" class="player-display">You:</div>
                 <div id="computerDisplay" class="computer-display">Strange Man:</div>
