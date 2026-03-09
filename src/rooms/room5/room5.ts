@@ -283,7 +283,7 @@ function showStory(sceneWrapper: HTMLDivElement, next: () => void): void {
           </p>
           <div class="game-session-style">
             <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper">
-              <button id="continue-btn" class="option">Make a choice</button>
+              <button id="continue-btn">Make a choice</button>
             </div>
           </div>
         </div>
@@ -306,8 +306,8 @@ function showOptions(sceneWrapper: HTMLDivElement, next: () => void): void {
           <h2 class="room-title-text" id="roomTitleText">Shadows of the Grove</h2>
             <div class="game-session-style">
             <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper">
-              <button id="wrong-btn" class="option">Creepy… I’ll turn back!</button>
-              <button id="right-btn" class="option">I’ll get closer to take a look</button>
+              <button id="wrong-btn">Creepy… I’ll turn back!</button>
+              <button id="right-btn">I’ll get closer to take a look</button>
             </div>
           </div>
         </div>
@@ -339,7 +339,7 @@ function showWrongChoice(sceneWrapper: HTMLDivElement, next: () => void): void {
           </p>
           <div class="game-session-style">
             <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper">
-              <button id="back-btn" class="option">I am ready to face it</button>
+              <button id="back-btn">I am ready to face it</button>
             </div>
           </div>
         </div>
@@ -368,7 +368,7 @@ function showRightChoice(sceneWrapper: HTMLDivElement, next: () => void): void {
           </p>
           <div class="game-session-style">
             <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper">
-              <button id="start-memory-btn" class="option">Begin the memory challenge</button>
+              <button id="start-memory-btn">Begin the memory challenge</button>
             </div>
           </div>
         </div>
@@ -413,7 +413,7 @@ function showCompleted(sceneWrapper: HTMLDivElement, next: () => void): void {
          </p>
           <div class="game-session-style">
             <div class="player-interaction-buttons-wrapper" id="storyEventButtonsWrapper">
-             <button id="finish-room-btn" class="option">Continue</button>
+             <button id="finish-room-btn">Continue</button>
             </div>
           </div>
         </div>
