@@ -9,7 +9,6 @@
   margin: 0 auto;
 
   h2 {
-    font-family: "Cinzel", serif;
     font-size: 1.7rem;
     font-weight: 700;
     letter-spacing: 0.12em;
@@ -25,7 +24,6 @@
   p {
     background: rgba(20, 30, 25, 0.75);
     color: #dde8e2;
-    font-family: "Georgia", serif;
     font-size: 1.1rem;
     line-height: 1.7;
     padding: 1.25rem 1.5rem;
@@ -38,12 +36,10 @@
     border: none;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     color: #ffffff;
-    font-family: "Georgia", serif;
     font-size: 1.2rem;
     padding: 1rem;
     cursor: pointer;
     text-align: center;
-    transition: background 0.2s;
     width: 100%;
     min-height: 80px;
 

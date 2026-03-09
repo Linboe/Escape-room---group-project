@@ -1,8 +1,5 @@
-import { renderHighScore } from '../../components/high-score/high-score';
-import {
-    getSecondsElapsed,
-    stopAllStatusBarTimers,
-} from '../../components/status-bar/status-bar';
+import { renderHighScore, saveHighscore } from '../../components/high-score/high-score';
+import { getSecondsElapsed, stopAllStatusBarTimers } from '../../components/status-bar/status-bar';
 import { render } from '../../main';
 import { state } from '../../state/gamestate';
 import { attachHack } from '../../components/high-score/high-score';
@@ -52,6 +49,7 @@ export function renderVictoryScene() {
     sceneWrapper.append(victorySceneWrapperElement, highScoreWrapper);
     // ==========
 
+    saveHighscore(state.username, getSecondsElapsed());
     renderHighScore();
     attachHack();
 

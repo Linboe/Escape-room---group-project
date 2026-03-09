@@ -1,6 +1,7 @@
 import './room5.scss';
 import cardsData from '../../rooms/room5/cardsData.json';
 import { triggerArtifact } from '../../components/artifacts/artifactSystem';
+import { showRoomIntro } from '../../components/room-intro/room-intro';
 import {
     startStatusBarTimers,
     stopAllStatusBarTimers,
@@ -437,5 +438,12 @@ export function room5(
     next: () => void,
 ): void {
     if (!sceneWrapper) return;
-    setState('story', sceneWrapper, next);
+    showRoomIntro(
+        5,
+        () => { /* pauseTimer */ },
+        () => { /* resumeTimer */ },
+        () => {
+            setState('story', sceneWrapper, next);
+        }
+    );
 }

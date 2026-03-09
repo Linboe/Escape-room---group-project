@@ -1,6 +1,8 @@
 import artifactDataRaw from './artifacts.json';
 import './artifacts.scss';
 import { addArtifactToStatusBar } from '../status-bar/status-bar';
+import { state } from '../../state/gamestate';
+import { saveGameToLocalStorage } from '../../store/database/local-storage-database';
 
 export interface Artifact {
     id: string;

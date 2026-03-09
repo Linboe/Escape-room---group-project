@@ -1,31 +1,44 @@
 import './room6.scss';
-import { room6Book, initRoom6Drop } from './story/room6story';
+import { room6Book } from './story/room6story';
 import {
     setRoom6Mode,
+    getArtifactById,
 } from '../../components/status-bar/status-bar'; //test drop-artefakt
+import { showRoomIntro } from '../../components/room-intro/room-intro';
 
+/*
 export function renderRoom6Scene() {
-    const sceneWrapper = document.getElementById('sceneWrapper');
-    if (!sceneWrapper) return;
+  const sceneWrapper = document.getElementById("sceneWrapper");
+  if (!sceneWrapper) return;
 
-    sceneWrapper.innerHTML = `
+  sceneWrapper.innerHTML = `
       <section class="room room-6">
         <h1>Room 6</h1>
       </section>
     `;
 }
+*/
 
 export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
     if (!sceneWrapper) return;
 
-    setRoom6Mode(true); //test drop-artefakt
-    document.addEventListener('dragover', (e) => e.preventDefault()); //test drop-artefakt tar bort röd varning
+    showRoomIntro(
+        6,
+        () => {
+            /* pauseTimer */
+        },
+        () => {
+            /* resumeTimer */
+        },
+        () => {
+            setRoom6Mode(true); //test drop-artefakt
+            document.addEventListener('dragover', (e) => e.preventDefault()); //test drop-artefakt tar bort röd varning
 
 
-    // ===============================
-    // 1. HTML
-    // ===============================
-    sceneWrapper.innerHTML = `
+            // ===============================
+            // 1. HTML
+            // ===============================
+            sceneWrapper.innerHTML = `
       <section class="room room-6">
         <div class="room-frame">
           <div class="game-session-wrapper">
@@ -44,19 +57,19 @@ export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
       </section>
     `;
 
+            // ===============================
+            // 2. BOOK-LOGIK
+            // ===============================
+            const book = sceneWrapper.querySelector('#book') as HTMLDivElement;
+            if (!book) return;
 
-    // ===============================
-    // 2. BOOK-LOGIK
-    // ===============================
-    const book = sceneWrapper.querySelector('#book') as HTMLDivElement;
-    if (!book) return;
+            let page = 0;
 
-    let page = 0;
+            function renderBook() {
+                const current = room6Book[page];
 
-    function renderBook() {
-        const current = room6Book[page];
+                book.innerHTML = `
 
-        book.innerHTML = `
         <h2 class='book-title'>${current.title}</h2>
         <div class='event-text'>
             ${current.text}
@@ -69,38 +82,60 @@ export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
         </div>
     `;
 
-        book.querySelector('#prevPage')?.addEventListener('click', () => {
-            page--;
-            renderBook();
-        });
+                book.querySelector('#prevPage')?.addEventListener('click', () => {
+                    page--;
+                    renderBook();
+                });
 
-        book.querySelector('#nextPage')?.addEventListener('click', () => {
-            page++;
-            renderBook();
-        });
+                book.querySelector('#nextPage')?.addEventListener('click', () => {
+                    page++;
+                    renderBook();
+                });
 
-        book.querySelector('#escapeBtn')?.addEventListener('click', () => {
-            next();
-        });
+                book.querySelector('#escapeBtn')?.addEventListener('click', () => {
+                    next();
+                });
 
-        // koppla dropp igen
-        initRoom6Drop(sceneWrapper!);
-    }
-    renderBook();
-
-    // ===============================
-    // 3. PICK-ART LOGIK
-    // ===============================
-    const buttons = sceneWrapper.querySelectorAll('.pick-art');
-    const message = sceneWrapper.querySelector('#message') as HTMLParagraphElement | null;
-
-    buttons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            if (btn.textContent === '3') {
-                next();
-            } else if (message) {
-                message.textContent = 'Wrong item!';
             }
-        });
-    });
+
+            renderBook();
+
+            // ===============================
+            // 3. PICK-ART LOGIK
+            // ===============================
+            const buttons = sceneWrapper.querySelectorAll('.pick-art');
+            const message = sceneWrapper.querySelector(
+                '#message',
+            ) as HTMLParagraphElement | null;
+
+            //test drop-artefakt
+            const dropZone = document.getElementById('drop-zone-1');
+            dropZone?.addEventListener('dragover', (e) => e.preventDefault());
+            dropZone?.addEventListener('drop', (e) => {
+                const artifactId = (e as DragEvent).dataTransfer?.getData('artifactId');
+                const artifact = getArtifactById(artifactId ?? '');
+
+                if (artifact && dropZone) {
+                    dropZone.innerHTML = `
+            <img 
+                src="${artifact.image}" 
+                alt="${artifact.name}"
+                style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"
+            />
+        `;
+                }
+            });
+            // -------------------
+
+            buttons.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    if (btn.textContent === '3') {
+                        next();
+                    } else if (message) {
+                        message.textContent = 'Wrong item!';
+                    }
+                });
+            });
+        },
+    );
 }

@@ -1,5 +1,5 @@
 import './status-bar.scss';
-import { getProgress } from '../../store/session/session-memory';
+import { state } from '../../state/gamestate';
 import type { Artifact } from '../artifacts/artifactSystem';
 import {
     getRoomStates,
@@ -31,8 +31,9 @@ let countupIntervalState: ReturnType<typeof setInterval> | null = null;
 // ===============
 
 // parent
-const pWrapperElement = document.createElement('p');
-pWrapperElement.classList.add('status-bar');
+const timersContainerElement = document.createElement('section');
+
+const artifactAndRoomContainerElement = document.createElement('section');
 
 // children
 const spanStatusBarElement = document.createElement('span');
@@ -136,6 +137,11 @@ function renderArtifacts() {
     }
 }
 
+//återställer insamlade artifakter när spelaren klickar på retry 
+export function setCollectedArtifacts(artifacts: Artifact[]) {
+    artifacts.forEach(a => addArtifactToStatusBar(a));
+}
+
 // ----------------------------------------------------
 // ----------------------------------------------------
 // ----------------------------------------------------
@@ -150,18 +156,20 @@ export function renderStatusBar() {
     if (!statusBarWrapper) return;
     statusBarWrapper.innerHTML = '';
 
-    spanRoomsElement.textContent = `Progress: ${getProgress()}/6`;
+    spanRoomsElement.textContent = `Progress: ${state.currentRoom}/6`;
 
-    pWrapperElement.append(
-        //spanStatusBarElement,
-        spanTimerElement,
-        countupSpanElement,
-        divArtifactsElement, //added Artefact
+    timersContainerElement.append(
+        divArtifactsElement,
         spanRoomsElement,
     );
 
-    statusBarWrapper.append(pWrapperElement);
-    renderArtifacts(); //added Artefact
+    artifactAndRoomContainerElement.append(
+        spanTimerElement,
+        countupSpanElement,
+    );
+
+    statusBarWrapper.append(artifactAndRoomContainerElement, timersContainerElement);
+    renderArtifacts();
 }
 
 // ===============
@@ -236,5 +244,9 @@ export function refetchGamestate() {
     roomStates = getRoomStates();
     gameState = getGameState();
     hourglassState = roomStates[gameState.currentRoom].roomTime;
+}
+
+export function setSecondsElapsed(value: number) {
+    secondsElapsed = value; // Gör att den återstående tiden visas i statusbar istället för att visa 0 när spelar trycker på retry
 }
 // ===============
