@@ -42,7 +42,7 @@ let roomStates = [
         roomTime: 400// TODO: make it possible to fetch room time from localstorage
     },
     {
-        roomTime: 400
+        roomTime: 40000
     },
     {
         roomTime: 400
