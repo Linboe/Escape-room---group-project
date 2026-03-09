@@ -90,4 +90,53 @@ export function renderNextRoom() { // TODO koppla på timers
     });
 }
 
+function enableKeyboardNavigation() {
+    document.addEventListener('keydown', (e) => {
+        const focused = document.activeElement as HTMLElement;
+
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            const buttons = Array.from(
+                document.querySelectorAll<HTMLButtonElement>(
+                    '#sceneWrapper button:not(:disabled), .room-intro-overlay button:not(:disabled)'
+                )
+            ).filter(btn => btn.offsetParent !== null); // filtrerar bort dolda knappar
+
+            const currentIndex = buttons.indexOf(focused as HTMLButtonElement);
+
+            if (e.key === 'ArrowDown') {
+                const next = buttons[currentIndex + 1] ?? buttons[0];
+                next?.focus();
+                next?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                const prev = buttons[currentIndex - 1] ?? buttons[buttons.length - 1];
+                prev?.focus();
+                prev?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        if (e.key === 'Enter') {
+            if (focused?.tagName === 'BUTTON' && !focused.hasAttribute('disabled')) {
+                e.preventDefault();
+                e.stopPropagation();
+                focused.click();
+            }
+        }
+    }, true);
+
+    const observer = new MutationObserver(() => {
+        setTimeout(() => {
+            const firstBtn = document.querySelector<HTMLButtonElement>(
+                '#sceneWrapper button:not(:disabled), .room-intro-overlay button:not(:disabled)'
+            );
+            if (document.activeElement === document.body || document.activeElement === null) {
+                firstBtn?.focus();
+            }
+        }, 300);
+    });
+
+    observer.observe(sceneWrapper ?? document.body, { childList: true, subtree: true });
+}
+
+enableKeyboardNavigation();
 render();

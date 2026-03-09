@@ -37,6 +37,19 @@ export function renderSignInScene(
     // ------ EVENT HANDLERS & FUNCTIONS ---------
     // ----------------------------------------------
 
+    // Focus on input immediately
+    setTimeout(() => {
+        usernameInput?.focus();
+    }, 50);
+
+    // Enter on input triggers sign in
+    usernameInput?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            signInBtn?.click();
+        }
+    });
+
 
     signInBtn?.addEventListener('click', () => {
 
