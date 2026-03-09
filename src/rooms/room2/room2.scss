@@ -34,10 +34,20 @@
     )
 }
 
-.fragment-found-wrapper,
-.sequence-game-wrapper,
+.fragment-found-wrapper {
+
+}
+
+.sequence-game-wrapper {
+    button {
+        position: relative;
+        margin: 10px;
+        width: calc(100% - 20px);
+    }
+}
+
 .artifact-wrapper {
-    top: 20%;
+
 }
 
 .game-message {
@@ -78,7 +88,8 @@
     .option-wrapper {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
+        margin: 10px;
     }
 }
 
@@ -86,8 +97,10 @@
     top: 20%;
 
     .riddle-game-btns {
+        margin: 10px;
+
         button {
-            margin-bottom: 5px;
+            margin-top: 10px;
         }
     }
 }
@@ -104,9 +117,18 @@
 
     .invisible-btn {
         position: absolute;
-        background: transparent;
-        //border: 2px solid rgba(255, 255, 255, 0.1); 
-        //outline: none;
+        background: var(--color-clear);
+        backdrop-filter: none;
+        border-color: var(--color-border);
+        border-radius: var(--pillify);
+    }
+    .invisible-btn:hover::after,
+    .invisible-btn:focus::after {
+        content: "!";
+    }
+    .invisible-btn:hover,
+    .invisible-btn:focus {
+        backdrop-filter: blur(50px);
     }
 
     #flower {
