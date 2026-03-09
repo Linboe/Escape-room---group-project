@@ -13,20 +13,6 @@ import { setRoom6Mode } from '../../components/status-bar/status-bar';
 import { renderGameOverScene } from '../../scenes/game-over-scene/game-over-scene';
 import { renderVictoryScene } from '../../scenes/victory-scene/victory-scene';
 
-import { showRoomIntro } from '../../components/room-intro/room-intro';
-
-
-export function renderRoom6Scene() {
-  const sceneWrapper = document.getElementById("sceneWrapper");
-  if (!sceneWrapper) return;
-
-    sceneWrapper.innerHTML = `
-        <section class="room room-6">
-            <h1>Room 6</h1>
-        </section>
-    `;
-}
-
 export function room6(sceneWrapper: HTMLDivElement | null) {
 
     if (!sceneWrapper) return;
@@ -38,34 +24,10 @@ export function room6(sceneWrapper: HTMLDivElement | null) {
     let attempts = 0;
     const maxAttempts = 3;
 
-    // ===============================
-    // HTML
-    // ===============================
-
     sceneWrapper.innerHTML = `
         <section class="room room-6">
             <div class="room-frame">
                 <div class="game-session-wrapper">
-    showRoomIntro(
-        6,
-        () => {
-            /* pauseTimer */
-        },
-        () => {
-            /* resumeTimer */
-        },
-        () => {
-            setRoom6Mode(true); //test drop-artefakt
-            document.addEventListener('dragover', (e) => e.preventDefault()); //test drop-artefakt tar bort röd varning
-
-
-            // ===============================
-            // 1. HTML
-            // ===============================
-            sceneWrapper.innerHTML = `
-      <section class="room room-6">
-        <div class="room-frame">
-          <div class="game-session-wrapper">
 
                     <h2 id="roomTitleText">END GAME</h2>
                     <p id="roomWarning" class="warning-text"></p>
@@ -82,15 +44,7 @@ export function room6(sceneWrapper: HTMLDivElement | null) {
     const book = sceneWrapper.querySelector('#book') as HTMLDivElement;
     if (!book) return;
 
-            let page = 0;
-
-
-            function renderBook() {
-                const current = room6Book[page];
-
-    // ===============================
-    // BOOK RENDER
-    // ===============================
+    let page = 0;
 
     function renderBook() {
 
@@ -110,47 +64,23 @@ export function room6(sceneWrapper: HTMLDivElement | null) {
             </div>
         `;
 
-        // ===============================
-        // PROGRESS
-        // ===============================
-
         const progress = document.getElementById('roomProgress');
         if (progress) {
             progress.textContent = 'Artifacts placed: 0 / 6';
         }
 
         renderRoom6State(sceneWrapper!);
-
         updateRoom6Progress();
 
-
-
-        // ===============================
-        // NAVIGATION
-        // ===============================
-
-                book.querySelector('#prevPage')?.addEventListener('click', () => {
-                    page--;
-                    renderBook();
-                });
-
-                book.querySelector('#nextPage')?.addEventListener('click', () => {
-                    page++;
-                    renderBook();
-                });
-
-                book.querySelector('#escapeBtn')?.addEventListener('click', () => {
-                    next();
-                });
+        book.querySelector('#prevPage')?.addEventListener('click', () => {
+            page--;
+            renderBook();
+        });
 
         book.querySelector('#nextPage')?.addEventListener('click', () => {
             page++;
             renderBook();
         });
-
-        // ===============================
-        // ESCAPE BUTTON
-        // ===============================
 
         book.querySelector('#escapeBtn')?.addEventListener('click', () => {
 
@@ -192,16 +122,10 @@ export function room6(sceneWrapper: HTMLDivElement | null) {
             if (attempts >= maxAttempts) {
                 renderGameOverScene();
             }
-
         });
 
         initRoom6Drop(sceneWrapper!);
-
     }
 
     renderBook();
-
 }
-
-
-
