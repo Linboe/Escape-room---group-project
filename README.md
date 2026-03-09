@@ -34,20 +34,29 @@ The game consists of 6 interconnected rooms. The first five each conceal hidden 
 
 A hidden admin feature exists to clear the highscore list.
 
-##### How to unlock it
+#### How to unlock it
 
 1. Navigate to the victory screen
 2. Triple-click the **🏆 Top 10 Highscores** title quickly
 3. A password prompt will appear
 4. Enter the secret password
 
-##### Hint
+#### Hint
 
 If you enter the wrong password, a hint is embedded in the error message.
 
-##### What happens
+#### What happens
 
 If the correct password (dopefish) is entered, the entire highscore list is permanently cleared from localStorage.
+
+## Technologies
+
+- **TypeScript**
+- **Vite**
+- **JSON**
+- **SCSS**
+
+---
 
 #### Developed by The Dopefish Admirers team:
 
@@ -57,5 +66,7 @@ If the correct password (dopefish) is entered, the entire highscore list is perm
 []()
 []()
 []()
+
+---
 
 wallpaper: https://wallpaperaccess.com/minimalist-forest
