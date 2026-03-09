@@ -35,30 +35,58 @@ export function triggerArtifact(
     // 2. Skapa HTML för popupen dynamiskt
     setTimeout(() => {
         const popupHtml = `
-        <div id="artifact-popup-overlay" class="artifact-overlay">
-            <div class="artifact-card">
-                <h2 class="artifact-title"> Congratulations!</h2>
-                <p class="arifact-p">A new artifact has been unlocked - <br>
-                click to collect</p>
-                <div class="artifact-image-container">
-                    <img id="close-artifact-btn" src="${artifact.image}" alt="${artifact.name}" class="artifact-img-large">
+            <div id="artifact-popup-overlay" class="artifact-overlay"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="artifact-dialog-title"
+                tabindex="-1">
+                <div class="artifact-card">
+                    <h2 class="artifact-title" id="artifact-dialog-title">Congratulations!</h2>
+                    <p class="arifact-p">A new artifact has been unlocked - <br>
+                    click to collect</p>
+                    <div class="artifact-image-container">
+                        <button id="close-artifact-btn" class="artifact-img-btn" aria-label="Collect ${artifact.name}">
+                            <img src="${artifact.image}" alt="${artifact.name}" class="artifact-img-large">
+                        </button>
+                    </div>
+                    <h3 class="artifact-name">${artifact.name}</h3>
+                    <p class="artifact-desc">${artifact.description}</p>
                 </div>
-                <h3 class="artifact-name">${artifact.name}</h3>
-                <p class="artifact-desc">${artifact.description}</p>
             </div>
-        </div>
-    `;
+        `;
 
         document.body.insertAdjacentHTML('beforeend', popupHtml);
 
-        document
-            .getElementById('close-artifact-btn')
-            ?.addEventListener('click', () => {
-                document.getElementById('artifact-popup-overlay')?.remove();
-                addArtifactToStatusBar(artifact);
-                state.artifacts.push(artifact);
-                saveGameToLocalStorage();
-            });
+        const overlay = document.getElementById(
+            'artifact-popup-overlay',
+        ) as HTMLElement;
+        const closeBtn = document.getElementById(
+            'close-artifact-btn',
+        ) as HTMLElement;
+
+        const previouslyFocused = document.activeElement as HTMLElement;
+        setTimeout(() => overlay.focus(), 0);
+
+        overlay.addEventListener('keydown', (e: KeyboardEvent) => {
+            if (e.key === 'Tab') {
+                // Endast en fokusbar knapp — förhindra att fokus lämnar popupen
+                e.preventDefault();
+                closeBtn.focus();
+            }
+            if (e.key === 'Escape') {
+                // Stäng popupen med Escape och återställ fokus
+                overlay.remove();
+                previouslyFocused?.focus();
+            }
+        });
+
+        closeBtn.addEventListener('click', () => {
+            overlay.remove();
+            previouslyFocused?.focus();
+            addArtifactToStatusBar(artifact);
+            state.artifacts.push(artifact);
+            saveGameToLocalStorage();
+        });
     }, delay); // Här används fördröjningen (i millisekunder)
 }
 

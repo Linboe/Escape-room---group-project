@@ -1,119 +1,88 @@
 .sign-in-wrapper {
-  width: 500px;
-  min-height: 100vh;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
-  gap: 0;
+    --padding: 20px;
 
-  h2 {
-    font-family: "Cinzel", serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #ffffff;
-    text-align: center;
-    padding: 1.5rem 1.5rem 1.5rem;
-    background: rgba(0, 0, 0, 0.55);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    margin: 0;
-  }
-
-  .sign-in-fields {
-    background: rgba(20, 30, 25, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 1.7rem 1.5rem;
+    width: calc(100vw - (var(--padding) * 2));
+    max-width: 700px;
+    height: calc(100vh - (var(--padding) * 2));
+    padding: var(--padding);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    justify-content: center;
+
+    h2 {
+        margin-bottom: 20px;
+    }
 
     p {
-      color: #aac8b8;
-      font-family: "Georgia", serif;
-      font-size: 1rem;
-      font-style: italic;
-      text-align: center;
-      margin: 0;
+        font-size: 1rem;
+        font-style: italic;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    label { // exist to satisfy accessibility demands, but hide from UI
+        position: fixed;
+        left: 0;
+        top: -100px;
     }
 
     input {
-      background: rgba(180, 210, 195, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      color: #ffffff;
-      font-family: "Georgia", serif;
-      font-size: 1rem;
-      padding: 0.6rem 1rem;
-      border-radius: 4px;
-      width: 100%;
-      box-sizing: border-box;
-      text-align: center;
-
-      &:focus {
-        outline: none;
-        border-color: rgba(255, 255, 255, 0.6);
-        background: rgba(180, 210, 195, 0.15);
-      }
-
-      &::placeholder {
-        color: rgba(255, 255, 255, 0.3);
-      }
+        margin-bottom: 20px;
+        height: 50px;
     }
-  }
-
-  button {
-    background: rgba(10, 15, 12, 0.85);
-    border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    font-family: "Georgia", serif;
-    font-size: 1.2rem;
-    padding: 1.5rem;
-    cursor: pointer;
-    text-align: center;
-    transition: background 0.2s;
-    width: 100%;
-
-    &:hover {
-      background: rgba(30, 40, 35, 0.95);
-    }
-  }
 }
 
 .error-span {
-  font-family: "Georgia", serif;
-  font-size: 1rem;
-  font-style: italic;
-  color: #ffaaaa;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 0.5rem;
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-style: italic;
+    color: #ffaaaa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5rem;
 
-  svg {
-    margin-right: 5px;
-  }
+    svg {
+        margin-right: 5px;
+    }
 }
 
-.popup {
-  position: fixed;
-  top: 10rem;
-  background: rgba(10, 15, 12, 0.85);
-  border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  font-family: "Georgia", serif;
-  font-size: 1.1rem;
-  padding: 1.2rem;
-  cursor: pointer;
-  text-align: center;
-  transition: background 0.2s;
-  width: 500px;
+.popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--color-text-body);
+    z-index: 1;
+    background-color: var(--color-dim);
+    backdrop-filter: blur(1px);
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+
+    span {
+        position: relative;
+        top: 150px;
+    }
+
+    .popup-timer {
+        position: relative;
+        top: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 4rem;
+        height: 4rem;
+        background-color: var(--color-void);
+        border-radius: 2rem;
+    }
 }
 
-.hidden {
-  display: none;
+.error-span-hidden {
+    display: none;
 }

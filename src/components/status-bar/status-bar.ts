@@ -34,8 +34,9 @@ let countupIntervalState: ReturnType<typeof setInterval> | null = null;
 // ===============
 
 // parent
-const pWrapperElement = document.createElement('p');
-pWrapperElement.classList.add('status-bar');
+const timersContainerElement = document.createElement('section');
+
+const artifactAndRoomContainerElement = document.createElement('section');
 
 // children
 const spanStatusBarElement = document.createElement('span');
@@ -89,7 +90,7 @@ function renderArtifacts() {
         collectedArtifacts,
     );
     console.log('isRoom6:', isRoom6);
-    const slots = Array.from({ length: 6 }).map((_, i) => {
+    const slots = Array.from({ length: 7 }).map((_, i) => {
         const artifact = collectedArtifacts[i];
         const slotIsEmpty = !artifact;
 
@@ -170,17 +171,19 @@ export function renderStatusBar() {
 
     spanRoomsElement.textContent = `Progress: ${state.currentRoom}/6`;
 
-    pWrapperElement.append(
-        //spanStatusBarElement,
-        spanTimerElement,
-        countupSpanElement,
-        divArtifactsElement, //added Artefact
+    timersContainerElement.append(
+        divArtifactsElement,
         spanRoomsElement,
         logoutBtn,
     );
 
-    statusBarWrapper.append(pWrapperElement);
-    renderArtifacts(); //added Artefact
+    artifactAndRoomContainerElement.append(
+        spanTimerElement,
+        countupSpanElement,
+    );
+
+    statusBarWrapper.append(artifactAndRoomContainerElement, timersContainerElement);
+    renderArtifacts();
 }
 
 // ===============
@@ -196,7 +199,7 @@ function handleCountdownTick() {
     if (--hourglassState < 0) {
         stopCountdown();
         stopCountup();
-        spanTimerElement.textContent = 'Time\'s up!';
+        spanTimerElement.textContent = "Time's up!";
         renderGameOverScene();
     }
 }

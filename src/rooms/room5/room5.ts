@@ -1,55 +1,21 @@
 import './room5.scss';
 import cardsData from '../../rooms/room5/cardsData.json';
 import { triggerArtifact } from '../../components/artifacts/artifactSystem';
+import { showRoomIntro } from '../../components/room-intro/room-intro';
 import {
     startStatusBarTimers,
     stopAllStatusBarTimers,
 } from '../../components/status-bar/status-bar';
 
-/*
-export function renderRoom5Scene() {
-  const sceneWrapper = document.getElementById('sceneWrapper');
-  if (!sceneWrapper) return;
-
-  sceneWrapper.innerHTML = `
-    <section class="room room-5">
-      <h1>Room 5</h1>
-    </section>
-  `;
-}
-*/
-// ----------------------------------------------------------
-// ----------------------------------------------------------
-// ----------------------------------------------------------
-/** Memory
- * x kort i JSON (cards.json med id, bild)
- * x shuffle-funktion
- * x state: vilka kort som är vända, matchade, antal försök/tid
- * x rendera korten
- * x bild fram och baksida
- * x states för story
- * x animation när rätt match
- * x ladda in memoryt i ett flow- ett kort i taget
- * x artefakten
- * x aktivera gå vidare knapp efter man fått artefakten
- * x juster tid mellan klarat spel och att state-completed kommer
- *  //startBarTimers()
-    //stopAllStatusBarTimers
- * x skriva storyn - sammanfoga med Almas idé
- */
-
-// ---------------------------------------------------------------
-// ------------------------- Define type -------------------------
-// ---------------------------------------------------------------
-const COLUMNS = 4; // antal kolumner i memory-brädet
+const COLUMNS = 4;
 
 type Card = {
     id: number;
     pairId: number;
-    value: string; //URL till bild
+    value: string;
     isFlipped: boolean;
     isMatched: boolean;
-    justMatched?: boolean; //för puls-animation
+    justMatched?: boolean; //puls-animation
 };
 
 type Room5State =
@@ -66,40 +32,7 @@ type Room5State =
 
 let currentState: Room5State = 'story';
 let selectedCards: Card[] = [];
-let cards: Card[] = []; // Globalt för renderCards
-
-// ---------------------------------------------------------------
-// ------------- Function returning array of cards  --------------
-// ---------------------------------------------------------------
-
-function initCards(): Card[] {
-    return cardsData.map((card) => ({
-        ...card, // kopiera id, pairId, value från JSON ...=spread operator - kopierar ut alla fält från ett objekt
-        isFlipped: false, // kortet är inte vänt vid start
-        isMatched: false, // kortet är inte matchat vid start
-    }));
-}
-// ---------------------------------------------------------------
-// ----------------------- Shuffle cards  ------------------------
-// ---------------------------------------------------------------
-/*
-function shuffleCards(cards: Card[]): Card[] {
-  //tar emot en array av indata-kort och retunerar en lista av kort
-  return cards.sort(() => Math.random() - 0.5); // math.random ger slumpmässigt tal mellan 0 och 1. minus 0.5 --> negativt=byt ej plats el positivit=byt plats
-}
-*/
-
-function shuffleCards(cards: Card[]): Card[] {
-    const arr = [...cards];
-    const shuffled: Card[] = [];
-
-    while (arr.length > 0) {
-        const randomIndex = Math.floor(Math.random() * arr.length);
-        shuffled.push(arr.splice(randomIndex, 1)[0]); //fortsätter loopa splänge det finns kort kvar i arr
-    }
-
-    return shuffled;
-}
+let cards: Card[] = [];
 
 // ---------------------------------------------------------------
 // ----------------------- setState ------------------------------
@@ -132,6 +65,33 @@ function setState(
             showCompleted(sceneWrapper, next);
             break;
     }
+}
+
+// ---------------------------------------------------------------
+// ------------- Function returning array of cards  --------------
+// ---------------------------------------------------------------
+
+function initCards(): Card[] {
+    return cardsData.map((card) => ({
+        ...card, // kopiera id, pairId, value från JSON ...=spread operator - kopierar ut alla fält från ett objekt
+        isFlipped: false,
+        isMatched: false,
+    }));
+}
+// ---------------------------------------------------------------
+// ----------------------- Shuffle cards  ------------------------
+// ---------------------------------------------------------------
+
+function shuffleCards(cards: Card[]): Card[] {
+    const arr = [...cards];
+    const shuffled: Card[] = [];
+
+    while (arr.length > 0) {
+        const randomIndex = Math.floor(Math.random() * arr.length);
+        shuffled.push(arr.splice(randomIndex, 1)[0]); //fortsätter loopa sålänge det finns kort kvar i arr
+    }
+
+    return shuffled;
 }
 
 // Vänd kort
@@ -176,7 +136,7 @@ function checkMatch(sceneWrapper: HTMLDivElement, next: () => void): void {
             second.justMatched = false;
             renderCards(cards, sceneWrapper, next);
 
-            //när alla kort är matchade går vi till completed-state
+            //när alla kort är matchade går det till completed-state
             if (cards.every((card) => card.isMatched)) {
                 setState('completed', sceneWrapper, next);
             }
@@ -204,14 +164,18 @@ function renderCards(
         '/fed25d-js-intro-grupparbete-the-dopefish-admirers/img/cardBack2.jpg'; // bild kort-baksida
 
     if (board.childElementCount === 0) {
-        // Skapa korten EN gång pga endast dess state/visuella ska uppdateras - om ej denna skapas alla kort om från scratch = massa problem
+        // Skapa korten EN gång pga endast dess state/visuella ska uppdateras - om ej denna, skapas alla kort om från scratch = massa problem
         board.innerHTML = cards
             .map(
-                (card) => `<div class="card" data-id="${card.id}">
+                (card) => `<div class="card" data-id="${card.id}"
+                  tabindex="0"
+                    role="button"
+                    aria-label="Memory card, unknown"
+                    aria-pressed="false">
          <img src="${cardBack}" class="cardImage" />
         </div>`,
             )
-            .join(''); //alla kort strängar till en HTML-sträng på skärmen
+            .join('');
 
         // Wave-animation
         board.querySelectorAll('.card').forEach((el, i) => {
@@ -238,12 +202,21 @@ function renderCards(
         const cardElements = board.querySelectorAll('.card');
         cardElements.forEach((el) => {
             //el - enskilda kort-elementet som loopen jobbar med, el=html-kort
-            const id = Number((el as HTMLElement).dataset.id); //Hämtar kortets data-id från HTML-elementet (som sattes när korten skapades) och omvandlar det till ett nummer.
-            const card = cards.find((c) => c.id === id); //Letar upp rätt Card-objekt i arrayen som matchar det id:t. Kopplar alltså ihop HTML-elementet med sitt Card-objekt.
+            const id = Number((el as HTMLElement).dataset.id); //Hämtar kortets data-id från HTML-elementet (som sattes när korten skapades) och omvandlar det till ett nummer
+            const card = cards.find((c) => c.id === id); //Letar upp rätt Card-objekt i arrayen som matchar det id:t. Kopplar alltså ihop HTML-elementet med sitt Card-objekt
             if (card) {
                 el.addEventListener('click', () =>
                     flipCard(card, sceneWrapper, next),
                 );
+
+                //A11y
+                el.addEventListener('keydown', (e: Event) => {
+                    const ke = e as KeyboardEvent;
+                    if (ke.key === 'Enter' || ke.key === ' ') {
+                        ke.preventDefault();
+                        flipCard(card, sceneWrapper, next);
+                    }
+                });
             }
         });
     }
@@ -274,12 +247,25 @@ function renderCards(
             } else {
                 cardElement.classList.remove('pulse');
             }
+
+            //A11y
+            if (card.isMatched) {
+                cardElement.setAttribute('aria-label', 'Card matched');
+                cardElement.setAttribute('aria-disabled', 'true');
+                cardElement.setAttribute('tabindex', '-1'); // Ta bort från tab-ordning när matchat
+            } else if (card.isFlipped) {
+                cardElement.setAttribute('aria-label', 'Card flipped');
+                cardElement.setAttribute('aria-pressed', 'true');
+            } else {
+                cardElement.setAttribute('aria-label', 'Memory card, unknown');
+                cardElement.setAttribute('aria-pressed', 'false');
+            }
         }
     });
 }
 
 // ---------------------------------------------------------------
-// show-funktioner för varje state
+// ------------- show-funktioner för varje state -----------------
 // ---------------------------------------------------------------
 function showStory(sceneWrapper: HTMLDivElement, next: () => void): void {
     sceneWrapper.innerHTML = `
@@ -447,11 +433,17 @@ function showCompleted(sceneWrapper: HTMLDivElement, next: () => void): void {
 // ---------------------------------------------------------------
 // -------------------------- Export  ----------------------------
 // ---------------------------------------------------------------
-// ÄNDRAD - anropar nu setState('story') istället för att rendera HTML direkt
 export function room5(
     sceneWrapper: HTMLDivElement | null,
     next: () => void,
 ): void {
     if (!sceneWrapper) return;
-    setState('story', sceneWrapper, next);
+    showRoomIntro(
+        5,
+        () => { /* pauseTimer */ },
+        () => { /* resumeTimer */ },
+        () => {
+            setState('story', sceneWrapper, next);
+        }
+    );
 }

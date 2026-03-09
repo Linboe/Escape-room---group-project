@@ -52,6 +52,14 @@ export function render() {
             renderAboutScene();
     }
 
+    // show & hide h1
+    const h1Element = document.querySelector('h1');
+    if (state.screen === 'room' || state.screen === 'about' || state.screen === 'gameover' || state.screen === 'victory') {
+        if (h1Element) h1Element.classList.add('hidden');
+    } else {
+        if (h1Element) h1Element.classList.remove('hidden');
+    }
+
     renderStatusBar();
 }
 
