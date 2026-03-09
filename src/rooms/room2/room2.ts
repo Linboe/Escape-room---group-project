@@ -445,7 +445,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
             if (collectedCodes.length > 0) {
                 nextGame();
             } else {
-                 showStart();
+                showStart();
             }
         }
     );
