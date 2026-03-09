@@ -83,7 +83,7 @@ function renderArtifacts() {
         collectedArtifacts,
     );
     console.log('isRoom6:', isRoom6);
-    const slots = Array.from({ length: 6 }).map((_, i) => {
+    const slots = Array.from({ length: 7 }).map((_, i) => {
         const artifact = collectedArtifacts[i];
         const slotIsEmpty = !artifact;
 
@@ -185,7 +185,7 @@ function handleCountdownTick() {
     if (--hourglassState < 0) {
         stopCountdown();
         stopCountup();
-        spanTimerElement.textContent = 'Time\'s up!';
+        spanTimerElement.textContent = "Time's up!";
         renderGameOverScene();
     }
 }
