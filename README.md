@@ -10,7 +10,7 @@ Live link: (medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-a
 
 Strange Woods is a digital escape room experience set in a mysterious woodland filled with secrets and wonders. Legend has it that those who enter may never return — but brave souls who dare to venture in may discover incredible things.
 
-The game consists of 6 interconnected rooms. The first five each conceal hidden artifacts, and collecting them is the key to unlocking and conquering the **Final Room** and claiming your escape. However, not all artifacts are what they seem, **one is an impostor**. Using it in the Final Room will make it unsolvable, so choose wisely. If you find yourself stuck, you may need to retrace your steps and hunt down the correct artifact before time runs out.
+The game consists of 6 interconnected rooms. The first five each conceal hidden artifacts, and collecting them is the key to unlocking and conquering the Final Room and claiming your escape. However, not all artifacts are what they seem, one is an impostor. Using it in the Final Room will make it unsolvable, so choose wisely. If you find yourself stuck, you may need to retrace your steps and hunt down the correct artifact before time runs out.
 
 ## How to Play
 
@@ -32,7 +32,7 @@ The game consists of 6 interconnected rooms. The first five each conceal hidden 
 
 ## Special Hack — Clear Highscore
 
-A hidden admin feature exists to clear the highscore list.
+A hidden feature exists to clear the highscore list.
 
 #### How to unlock it
 
@@ -52,9 +52,10 @@ If the correct password (dopefish) is entered, the entire highscore list is perm
 ## Technologies
 
 - **TypeScript**
-- **Vite**
-- **JSON**
+- **HTML**
 - **SCSS**
+- **JSON**
+- **Vite**
 
 ---
 
@@ -62,10 +63,10 @@ If the correct password (dopefish) is entered, the entire highscore list is perm
 
 [Alma Isaksson](https://github.com/MidnattLantern),
 [Linn Boekhout](https://github.com/Linboe),
-[]()
-[]()
-[]()
-[]()
+[Alda Catovic](),
+[Isabelle Reynolds](),
+[Kimi Leminaho](),
+[Rasmus Fransson]()
 
 ---
 
