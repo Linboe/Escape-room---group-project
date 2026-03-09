@@ -48,7 +48,7 @@ export function renderAboutScene() {
         'Log in with a username to start the game.',
         'If you leave the game, your progress and remaining time are automatically saved so you can pick up exactly where you left off.',
         'To start over or play under a different username, simply log out and start a new game.',
-        'A hidden admin feature exists to clear the highscore list.',
+        'A hidden feature exists to clear the highscore list.',
     ];
 
     instructions.forEach((text) => {
