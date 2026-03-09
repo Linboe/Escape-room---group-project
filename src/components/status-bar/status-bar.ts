@@ -31,8 +31,9 @@ let countupIntervalState: ReturnType<typeof setInterval> | null = null;
 // ===============
 
 // parent
-const pWrapperElement = document.createElement('p');
-pWrapperElement.classList.add('status-bar');
+const timersContainerElement = document.createElement('section');
+
+const artifactAndRoomContainerElement = document.createElement('section');
 
 // children
 const spanStatusBarElement = document.createElement('span');
@@ -157,16 +158,18 @@ export function renderStatusBar() {
 
     spanRoomsElement.textContent = `Progress: ${state.currentRoom}/6`;
 
-    pWrapperElement.append(
-        //spanStatusBarElement,
-        spanTimerElement,
-        countupSpanElement,
-        divArtifactsElement, //added Artefact
+    timersContainerElement.append(
+        divArtifactsElement,
         spanRoomsElement,
     );
 
-    statusBarWrapper.append(pWrapperElement);
-    renderArtifacts(); //added Artefact
+    artifactAndRoomContainerElement.append(
+        spanTimerElement,
+        countupSpanElement,
+    );
+
+    statusBarWrapper.append(artifactAndRoomContainerElement, timersContainerElement);
+    renderArtifacts();
 }
 
 // ===============

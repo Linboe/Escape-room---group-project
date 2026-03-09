@@ -12,7 +12,7 @@ let wrongAttempts = 0;
 
 
 const questions = [
-   {
+    {
         question: '"In the heart of every emerald leaf, which substance captures the sun\'s golden blood to feed the forest?"',
         options: ['Anthocyanin', 'Chlorophyll', 'Carotenoid', 'Xanthophyll'],
         correct: 'Chlorophyll',

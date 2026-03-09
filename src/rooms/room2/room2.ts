@@ -57,9 +57,8 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                             <p class="text"> The air in the Victoria House is thick with humidity and the scent of damp earth.</p>
                             <p class="text"> Ahead of you, the path vanishes into a wall of green.</p>
                             <p class="quest"> You know the code out of here is hidden in <strong>three fragments.</strong></p>
-
-                            <button id="startJourney" class="interaction-button start-journey-btn">Begin Search</button>
                         </div>
+                        <button id="startJourney" class="interaction-button start-journey-btn">Begin Search</button>
                     </div>
                 </div>
             </div>
@@ -446,7 +445,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
             if (collectedCodes.length > 0) {
                 nextGame();
             } else {
-                 showStart();
+                showStart();
             }
         }
     );
