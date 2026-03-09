@@ -112,7 +112,7 @@
     background: var(--color-heavy-dim);
     display: flex;
     flex-direction: column;
-    justify-content: baseline;
+    justify-content: end;
     align-items: center;
     position: relative;
 
@@ -122,9 +122,8 @@
     }
 
     .sequence-wrapper {
-        aspect-ratio: 9 / 16;
-        width: 100%;
-        height: calc(100% - 100px);
+        width: 350px;
+        height: auto;
         position: relative;
 
         img {
@@ -147,45 +146,45 @@
         }
 
         #flower {
-            top: 75%;
-            left: 15%;
-            width: 80px;
-            height: 80px;
-        }
-
-        #lilyLeaf {
-            top: 55%;
-            left: 40%;
-            width: 150px;
-            height: 100px;
-        }
-
-        #ceiling {
-            top: 3%;
-            right: 5%;
-            width: 30%;
-            height: 15%;
-        }
-
-        #hangingFern {
-            top: 35%;
-            left: 10%;
+            bottom: 90px;
+            left: 70px;
             width: 60px;
             height: 60px;
         }
 
+        #lilyLeaf {
+            bottom: 170px;
+            right: 80px;
+            width: 140px;
+            height: 80px;
+        }
+
+        #ceiling {
+            top: 5px;
+            right: 5px;
+            width: 150px;
+            height: 110px;
+        }
+
+        #hangingFern {
+            top: 160px;
+            left: 30px;
+            width: 90px;
+            height: 90px;
+        }
+
         #sign {
-            top: 50%;
-            left: 75%;
-            width: 100px;
-            height: 100px;
+            bottom: 180px;
+            right: 30px;
+            width: 40px;
+            height: 70px;
         }
 
         #redPlant {
-            top: 5%;
-            left: 35%;
-            width: 20%;
-            height: 10%;
+            top: 5px;
+            left: 125px;
+            width: 70px;
+            height: 70px;
         }
     }
 }
