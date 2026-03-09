@@ -143,12 +143,12 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
             <div class="game-wrapper riddle-game-wrapper">
                 <p class="event-text">"I am the mirror that never breaks, I cradle the giant but have no arms. What am I?"</p>
+                <p class="event-text game-message hidden"></p>
                 <div class="riddle-game-btns">
                     <button id= "roof" class="answer-btn interaction-button">The Glass Roof</button>
                     <button id= "surface" class="answer-btn interaction-button">The Water's Surface</button>
                     <button id= "shadows" class="answer-btn interaction-button">The Deep Shadows</button>
                 </div>
-                <p class="event-text game-message hidden"></p>
             </div>
         `);
 
@@ -213,7 +213,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                         <button id="ceiling" class="sequence-btn invisible-btn" aria-label="Glass ceiling"></button>
                         <button id="redPlant" class="sequence-btn invisible-btn" aria-label="Red Plant"></button>
                     </div>
-                    <p class="event-text game-message"></p>
+                    <p class="event-text game-message">Interact with the image</p>
                 </div>         
             `);
 
@@ -276,11 +276,11 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
             <div class="game-wrapper number-guess-wrapper">
                 <p class="event-text">The glass is fogged up. Adjust the humidity (1-20) to see the code.</p>
+                <p class="event-text game-message hidden"></p>  
                 <div class="input-wrapper">
                     <input type="number" id="guessInput" min="1" max="20">
                     <button id="guessBtn" class="interaction-button">Adjust</button>
                 </div>
-                <p class="event-text game-message hidden"></p>  
             </div>
         `);
 
@@ -427,6 +427,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                 <p class="event-text fragment-found-text">
                 <i>${specificText}</i>
                 <span>Fragment found: <strong>${code}</strong></span>
+                </p>
                     
                 <button id="continueBtn" class="interaction-button continue-btn">Continue</button>
             </div>    

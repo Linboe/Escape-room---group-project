@@ -5,19 +5,11 @@
     background-repeat: no-repeat;
 
     .event-text {
-        // display: flex;
-        // flex-direction: column;
-        // justify-content: space-between;
-        // align-items: center;
         margin: 10px;
         padding: 10px;
         width: calc(100% - 40px);
-        // min-height: fit-content;
-        max-height: 100px;
-        // min-height: 100px;
-        // background-color: var(--color-surface-body);
-        // backdrop-filter: blur(50px);
-        // border: 1px ridge var(--color-border-transparent);
+        height: fit-content;
+        backdrop-filter: blur(50px);
     }
 }
 
@@ -36,11 +28,16 @@
 }
 
 .fragment-found-wrapper {
+    width: 100%;
+    position: relative;
+    height: 100%;
 
+    p {
+        height: 100%;
+    }
 }
 
 .sequence-game-wrapper {
-
     button {
         position: relative;
         margin: 10px;
@@ -48,8 +45,9 @@
     }
 }
 
-.artifact-wrapper {
-
+.artifact-wrapper button{
+    width: calc(100% - 40px);
+    margin: 20px;
 }
 
 .game-message {
@@ -81,10 +79,11 @@
 .choose-path-wrapper {
     top: 20%;
 
-    p.event-text {
+    p .event-text {
         display: flex;
         justify-content: center;
         text-align: center;
+        backdrop-filter: blur(50px);
     }
 
     .option-wrapper {
@@ -142,6 +141,7 @@
         backdrop-filter: none;
         border-color: var(--color-border);
         border-radius: var(--pillify);
+        font-size: 2rem;
     }
     .invisible-btn:hover,
     .invisible-btn:focus {
@@ -196,52 +196,48 @@
 }
 
 .number-guess-wrapper {
-    top: 20%;
-
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 
     .input-wrapper {
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 8px;
+        margin: 20px;
+        width: calc(100% - 40px);
+        gap: 10px;
+    }
 
+}
+
+.continue-btn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 20px;
+    width: calc(100% - 40px);
+}
+
+.final-code-wrapper {
+
+    .event-text {
+        min-height: 120px;
+    }
+
+    p {
+        display: flex;
+        justify-content: center;
+    }
+
+    span {
+        margin-top: 10px;
+        text-align: center;
     }
 
     input {
-        padding: 10px;
-        margin-bottom: 10px;
-        text-align: center;
-        margin: 0;
-
-    }
-
-    button {
-        padding: 10px 20px;
-        background-color: black;
-        margin: 0;
-    }
-}
-
-
-.final-code-wrapper {
-    top: 20%;
-
-    .event-text {
-        display: flex;
-        flex-direction: column;
-
-        p {
-            display: flex;
-            justify-content: center;
-        }
-
-        span {
-            margin-top: 10px;
-            text-align: center;
-        }
+        background-color:var(--color-surface-body);
     }
 
     .final-exit-inputs {
@@ -257,6 +253,11 @@
             border: none;
             border-radius: 4px;
         }
+    }
+
+    button {
+        margin: 20px;
+        width: calc(100% - 40px);
     }
 }
 
