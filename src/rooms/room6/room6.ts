@@ -24,7 +24,7 @@ export function renderRoom6Scene() {
     `;
 }
 
-export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
+export function room6(sceneWrapper: HTMLDivElement | null) {
 
     if (!sceneWrapper) return;
 
