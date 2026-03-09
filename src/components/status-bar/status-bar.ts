@@ -1,16 +1,10 @@
 import './status-bar.scss';
 import { state } from '../../state/gamestate';
 import type { Artifact } from '../artifacts/artifactSystem';
-import {
-    getRoomStates,
-    getGameState,
-    setRoomTime,
-} from '../../state/gamestate';
+import { getRoomStates, getGameState, setRoomTime } from '../../state/gamestate';
 import { renderGameOverScene } from '../../scenes/game-over-scene/game-over-scene';
 
-const statusBarWrapper = document.getElementById(
-    'statusBarWrapper',
-) as HTMLDivElement;
+const statusBarWrapper = document.getElementById('statusBarWrapper') as HTMLDivElement;
 
 // ===============
 // Timer variables
@@ -22,7 +16,7 @@ let roomStates = getRoomStates();
 let gameState = getGameState();
 let hourglassState = roomStates[gameState.currentRoom].roomTime; // how many seconds left for said room
 export function getSecondsElapsed() {
-    return secondsElapsed;
+  return secondsElapsed;
 }
 
 // as null when paused/ as interval when playing
@@ -57,41 +51,36 @@ const collectedArtifacts: Artifact[] = [];
 let isRoom6 = false;
 
 export function setRoom6Mode(active: boolean) {
-    isRoom6 = active;
-    renderArtifacts();
+  isRoom6 = active;
+  renderArtifacts();
 }
 
 // Lägger till en artefakt i statusbaren — ignorerar dubletter
 export function addArtifactToStatusBar(artifact: Artifact) {
-    const alreadyCollected = collectedArtifacts.find(
-        (existingArtifact) => existingArtifact.id === artifact.id,
-    );
-    if (alreadyCollected) return;
+  const alreadyCollected = collectedArtifacts.find((existingArtifact) => existingArtifact.id === artifact.id);
+  if (alreadyCollected) return;
 
-    collectedArtifacts.push(artifact);
-    renderArtifacts();
+  collectedArtifacts.push(artifact);
+  renderArtifacts();
 }
 
 // Hämtar en artefakt från samlingen via id — används av room6
 export function getArtifactById(id: string): Artifact | undefined {
-    return collectedArtifacts.find((a) => a.id === id);
+  return collectedArtifacts.find((a) => a.id === id);
 }
 
 function renderArtifacts() {
-    console.log(
-        'renderArtifacts called, collectedArtifacts:',
-        collectedArtifacts,
-    );
-    console.log('isRoom6:', isRoom6);
-    const slots = Array.from({ length: 7 }).map((_, i) => {
-        const artifact = collectedArtifacts[i];
-        const slotIsEmpty = !artifact;
+  console.log('renderArtifacts called, collectedArtifacts:', collectedArtifacts);
+  console.log('isRoom6:', isRoom6);
+  const slots = Array.from({ length: 7 }).map((_, i) => {
+    const artifact = collectedArtifacts[i];
+    const slotIsEmpty = !artifact;
 
-        if (slotIsEmpty) {
-            return '<div class="artifact-slot"></div>';
-        }
+    if (slotIsEmpty) {
+      return '<div class="artifact-slot"></div>';
+    }
 
-        return `
+    return `
               <div class="artifact-slot ${isRoom6 ? 'draggable' : ''}"
                 draggable="${isRoom6}"
                 data-id="${artifact.id}"
@@ -103,56 +92,46 @@ function renderArtifacts() {
                     class="status-bar-artifact"
                 />
             </div>`;
+  });
+
+  divArtifactsElement.innerHTML = slots.join('');
+
+  if (isRoom6) {
+    divArtifactsElement.querySelectorAll('.artifact-slot.draggable').forEach((slot) => {
+      slot.addEventListener('dragstart', (e) => {
+        const artifactId = (slot as HTMLElement).dataset.id ?? '';
+        console.log('dragstart artifactId:', artifactId);
+        (e as DragEvent).dataTransfer?.setData('artifactId', artifactId);
+
+        const img = slot.querySelector('img') as HTMLImageElement;
+        if (img) {
+          const canvas = document.createElement('canvas');
+          canvas.width = 30;
+          canvas.height = 30;
+          const ctx = canvas.getContext('2d');
+          ctx?.drawImage(img, 0, 0, 30, 30);
+          (e as DragEvent).dataTransfer?.setDragImage(canvas, 15, 15);
+        }
+      });
     });
-
-    divArtifactsElement.innerHTML = slots.join('');
-
-    if (isRoom6) {
-        divArtifactsElement
-            .querySelectorAll('.artifact-slot.draggable')
-            .forEach((slot) => {
-                slot.addEventListener('dragstart', (e) => {
-                    const artifactId = (slot as HTMLElement).dataset.id ?? '';
-                    console.log('dragstart artifactId:', artifactId);
-                    (e as DragEvent).dataTransfer?.setData(
-                        'artifactId',
-                        artifactId,
-                    );
-
-                    const img = slot.querySelector('img') as HTMLImageElement;
-                    if (img) {
-                        const canvas = document.createElement('canvas');
-                        canvas.width = 30;
-                        canvas.height = 30;
-                        const ctx = canvas.getContext('2d');
-                        ctx?.drawImage(img, 0, 0, 30, 30);
-                        (e as DragEvent).dataTransfer?.setDragImage(
-                            canvas,
-                            15,
-                            15,
-                        );
-                    }
-                });
-            });
-    }
+  }
 }
 
 // tar bort artefakten från statusbaren när den droppas i room6
 
 export function removeArtifactFromStatusBar(id: string) {
+  const index = collectedArtifacts.findIndex((a) => a.id === id);
 
-    const index = collectedArtifacts.findIndex(a => a.id === id);
+  if (index !== -1) {
+    collectedArtifacts.splice(index, 1);
+  }
 
-    if (index !== -1) {
-        collectedArtifacts.splice(index, 1);
-    }
-
-    renderArtifacts();
+  renderArtifacts();
 }
 
-//återställer insamlade artifakter när spelaren klickar på retry 
+//återställer insamlade artifakter när spelaren klickar på retry
 export function setCollectedArtifacts(artifacts: Artifact[]) {
-    artifacts.forEach(a => addArtifactToStatusBar(a));
+  artifacts.forEach((a) => addArtifactToStatusBar(a));
 }
 
 // ----------------------------------------------------
@@ -160,106 +139,109 @@ export function setCollectedArtifacts(artifacts: Artifact[]) {
 // ----------------------------------------------------
 
 export function startStatusBarTimers() {
-    // initialize
-    startCountUp();
-    startCountdown();
+  // initialize
+  startCountUp();
+  startCountdown();
 }
 
 export function renderStatusBar() {
-    if (!statusBarWrapper) return;
-    statusBarWrapper.innerHTML = '';
+  if (!statusBarWrapper) return;
+  statusBarWrapper.innerHTML = '';
 
-    spanRoomsElement.textContent = `Progress: ${state.currentRoom}/6`;
+  spanRoomsElement.textContent = `Progress: ${state.currentRoom}/6`;
 
-    timersContainerElement.append(
-        divArtifactsElement,
-        spanRoomsElement,
-    );
+  timersContainerElement.append(divArtifactsElement, spanRoomsElement);
 
-    artifactAndRoomContainerElement.append(
-        spanTimerElement,
-        countupSpanElement,
-    );
+  artifactAndRoomContainerElement.append(spanTimerElement, countupSpanElement);
 
-    statusBarWrapper.append(artifactAndRoomContainerElement, timersContainerElement);
-    renderArtifacts();
+  statusBarWrapper.append(artifactAndRoomContainerElement, timersContainerElement);
+  renderArtifacts();
 }
 
 // ===============
 // Timer functions
 // ===============
 
+const maxRoomTime = 50 * 60; // 50 minutes in seconds
+
 // ticks
 function handleCountdownTick() {
-    secondsElapsed++;
-    updateCountdownTextContent();
-    setRoomTime(gameState.currentRoom, hourglassState);
+  secondsElapsed++;
+  updateCountdownTextContent();
+  setRoomTime(gameState.currentRoom, hourglassState);
 
-    if (--hourglassState < 0) {
-        stopCountdown();
-        stopCountup();
-        spanTimerElement.textContent = "Time's up!";
-        renderGameOverScene();
-    }
+  if (--hourglassState < 0) {
+    stopCountdown();
+    stopCountup();
+    spanTimerElement.textContent = "Time's up!";
+    renderGameOverScene();
+  }
 }
 function handleCountupTick() {
-    updateCountupTextContent();
+  updateCountupTextContent();
+
+  if (secondsElapsed >= maxRoomTime) {
+    stopCountdown();
+    stopCountup();
+    countupSpanElement.textContent = 'Total time is up!';
+    renderGameOverScene();
+  }
 }
 
 // play & pause
 function startCountdown() {
-    if (countdownIntervalState) return; // only run once
-    countdownIntervalState = setInterval(handleCountdownTick, 1000);
-    refetchGamestate();
+  if (countdownIntervalState) return; // only run once
+  countdownIntervalState = setInterval(handleCountdownTick, 1000);
+  refetchGamestate();
 }
 function stopCountdown() {
-    clearInterval(countdownIntervalState!);
-    countdownIntervalState = null;
+  clearInterval(countdownIntervalState!);
+  countdownIntervalState = null;
 }
 function startCountUp() {
-    if (countupIntervalState) return; // only run once
-    countupIntervalState = setInterval(handleCountupTick, 1000);
-    refetchGamestate();
+  if (countupIntervalState) return; // only run once
+  countupIntervalState = setInterval(handleCountupTick, 1000);
+  refetchGamestate();
 }
 function stopCountup() {
-    clearInterval(countupIntervalState!);
-    countupIntervalState = null;
+  clearInterval(countupIntervalState!);
+  countupIntervalState = null;
 }
 
 // UI helper(s)
 function updateCountupTextContent() {
-    const minutes = Math.floor(secondsElapsed / 60);
-    const seconds = secondsElapsed % 60;
-    const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-    countupSpanElement.textContent = `Elapsed Time: ${formattedTime}`;
+  const minutes = Math.floor(secondsElapsed / 60);
+  const seconds = secondsElapsed % 60;
+  const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  countupSpanElement.textContent = `Elapsed Time: ${formattedTime}`;
 }
 function updateCountdownTextContent() {
-    const minutes = Math.floor(hourglassState / 60);
-    const seconds = hourglassState % 60;
-    const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-    spanTimerElement.textContent = 'Room Time Left: ' + formattedTime;
+  const minutes = Math.floor(hourglassState / 60);
+  const seconds = hourglassState % 60;
+  const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  spanTimerElement.textContent = 'Room Time Left: ' + formattedTime;
 }
 
 // pause
 export function pauseCountdown() {
-    stopCountdown();
+  stopCountdown();
 }
 export function pauseCountup() {
-    stopCountup();
+  stopCountup();
 }
 export function stopAllStatusBarTimers(): void {
-    stopCountdown();
-    stopCountup();
+  stopCountdown();
+  stopCountup();
 }
 
 // refresh i.e when switching rooms
 export function refetchGamestate() {
-    roomStates = getRoomStates();
-    gameState = getGameState();
-    hourglassState = roomStates[gameState.currentRoom].roomTime;
+  roomStates = getRoomStates();
+  gameState = getGameState();
+  hourglassState = roomStates[gameState.currentRoom].roomTime;
 }
 
 export function setSecondsElapsed(value: number) {
-    secondsElapsed = value; // Gör att den återstående tiden visas i statusbar istället för att visa 0 när spelar trycker på retry
+  secondsElapsed = value; // Gör att den återstående tiden visas i statusbar istället för att visa 0 när spelar trycker på retry
 }
 // ===============
