@@ -300,7 +300,7 @@ export function updateRoom6Progress() {
 
         if (warning) {
             warning.textContent =
-                'The forest awaits all six offerings.';
+                'The forest awaits six offerings.';
         }
 
     }
