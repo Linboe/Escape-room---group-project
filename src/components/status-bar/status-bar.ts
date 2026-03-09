@@ -7,6 +7,9 @@ import {
     setRoomTime,
 } from '../../state/gamestate';
 import { renderGameOverScene } from '../../scenes/game-over-scene/game-over-scene';
+import { saveGameToLocalStorage } from '../../store/database/local-storage-database';
+saveGameToLocalStorage;
+import { render } from '../../main';
 
 const statusBarWrapper = document.getElementById(
     'statusBarWrapper',
@@ -48,6 +51,10 @@ const spanRoomsElement = document.createElement('span');
 
 const divArtifactsElement = document.createElement('div'); //added Artefact
 divArtifactsElement.classList.add('status-bar-artifacts'); //added Artefact
+
+const logoutBtn = document.createElement('button');
+logoutBtn.textContent = 'Log out';
+logoutBtn.id = 'logOutBtn';
 
 // ----------------------------------------------------
 // --------------------- Artefact ---------------------
@@ -153,6 +160,12 @@ export function startStatusBarTimers() {
 
 export function renderStatusBar() {
     if (!statusBarWrapper) return;
+
+    if (state.screen === 'login' || state.screen === 'menu') {
+        statusBarWrapper.innerHTML = ''; 
+        return; 
+    }
+
     statusBarWrapper.innerHTML = '';
 
     spanRoomsElement.textContent = `Progress: ${state.currentRoom}/6`;
@@ -163,6 +176,7 @@ export function renderStatusBar() {
         countupSpanElement,
         divArtifactsElement, //added Artefact
         spanRoomsElement,
+        logoutBtn,
     );
 
     statusBarWrapper.append(pWrapperElement);
@@ -246,4 +260,15 @@ export function refetchGamestate() {
 export function setSecondsElapsed(value: number) {
     secondsElapsed = value; // Gör att den återstående tiden visas i statusbar istället för att visa 0 när spelar trycker på retry
 }
+
+// Log out 
+
+logoutBtn.addEventListener('click', () => {
+    saveGameToLocalStorage();
+    stopAllStatusBarTimers();
+    state.screen = 'login';
+    render(); 
+});
 // ===============
+
+

@@ -13,9 +13,10 @@ import { room6 } from './rooms/room6/room6';
 import { renderAboutScene } from './scenes/about-scene/about-scene';
 import './components/high-score/high-score';
 import { renderVictoryScene } from './scenes/victory-scene/victory-scene';
-import { getSecondsElapsed } from './components/status-bar/status-bar';
+import { getSecondsElapsed, renderStatusBar } from './components/status-bar/status-bar';
 import { saveHighscore } from './components/high-score/high-score';
 import { saveGameToLocalStorage, clearLocalStorageSave } from './store/database/local-storage-database';
+
 
 // please check the document in this link:
 // https://medieinstitutet-my.sharepoint.com/:w:/g/personal/alda_catovic_medieinstitutet_se/IQApMQpuaX8YToqheHZBk5Y4AQvnQa3uXsRg0XzjSP18ehU?rtime=AQuzKQlr3kg
@@ -50,6 +51,8 @@ export function render() {
         case 'about':
             renderAboutScene();
     }
+
+    renderStatusBar();
 }
 
 const allRooms = [room1, room2, room3, room4, room5, room6];
