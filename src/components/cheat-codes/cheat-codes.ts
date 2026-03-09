@@ -135,7 +135,12 @@ const cheatButtons = {
     cheatCreateHighScoreMockData: createCheatButton('create high score mock data', createHighScoreMockData),
     cheatGiveLadder: createCheatButton('give ladder', handleGiveLadder),
     cheatGiveFishStatue: createCheatButton('give fish statue', handleGiveFishStatue),
-    cheatGiveRubberDuck: createCheatButton('give rubber duck', handleGiveRubberDuck)
+    cheatGiveRubberDuck: createCheatButton('give rubber duck', handleGiveRubberDuck),
+    cheatGiveKey: createCheatButton('give key', handleGiveKey),
+    cheatGiveFeather: createCheatButton('give feather', handleGiveFeather),
+    cheatGiveWalkingPot: createCheatButton('give walking pot', handleGiveWalkingPot),
+    cheatGiveAmethyst: createCheatButton('give amethyst', handleGiveAmethyst),
+
 };
 // ===================================
 
@@ -178,6 +183,19 @@ function handleGiveRubberDuck() {
     setRoom4HasRubberDuckArtifact(true);
     setRoom4CliffMonumentIsBeaten(true);
 }
+function handleGiveKey() {
+    triggerArtifact('room2', 'key', 0);
+}
+function handleGiveFeather() {
+    triggerArtifact('room1', 'feather', 0);
+}
+function handleGiveWalkingPot() {
+    triggerArtifact('room3', 'walking-pot', 0);
+}
+function handleGiveAmethyst() {
+    triggerArtifact('room5', 'amethyst', 0);
+}
+
 // =============================
 
 showCheatCodesButton?.addEventListener('click', toggleCheatCodeButtons);
@@ -208,7 +226,12 @@ function toggleCheatCodeButtons() {
             cheatButtons.cheatCreateHighScoreMockData,
             cheatButtons.cheatGiveLadder,
             cheatButtons.cheatGiveFishStatue,
-            cheatButtons.cheatGiveRubberDuck
+            cheatButtons.cheatGiveRubberDuck,
+            cheatButtons.cheatGiveKey,
+            cheatButtons.cheatGiveFeather,
+            cheatButtons.cheatGiveWalkingPot,
+            cheatButtons.cheatGiveAmethyst,
+
             // ==================================================
         );
     } else {
