@@ -186,3 +186,24 @@
   filter: grayscale(60%);
 }
 
+// artefact correct animation
+
+.correct-artifact {
+    animation: correctPulse 1.2s infinite;
+    border-radius: 50%;
+}
+
+@keyframes correctPulse {
+
+    0% {
+        box-shadow: 0 0 0px rgba(0,255,100,0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(0,255,100,0.9);
+    }
+
+    100% {
+        box-shadow: 0 0 0px rgba(0,255,100,0.4);
+    }
+}
