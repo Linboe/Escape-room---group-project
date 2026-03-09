@@ -1,7 +1,28 @@
-import { getArtifactById } from '../../../components/status-bar/status-bar'; //test drop-artefakt
+import { getArtifactById, removeArtifactFromStatusBar, addArtifactToStatusBar } from '../../../components/status-bar/status-bar';
+
 
 // ===============================
-// 1.Här ändras innehållet i boken som visas i room6
+// 1. ROOM6 STATE
+// ===============================
+
+type PlacedArtifact = {
+    id: string;
+    name: string;
+    image: string;
+};
+
+const room6State: Record<string, PlacedArtifact | null> = {
+    'drop-zone-1': null,
+    'drop-zone-2': null,
+    'drop-zone-3': null,
+    'drop-zone-4': null,
+    'drop-zone-5': null,
+    'drop-zone-6': null
+};
+
+
+// ===============================
+// 2. BOOK CONTENT
 // ===============================
 
 export interface BookPage {
@@ -20,19 +41,19 @@ export const room6Book: BookPage[] = [
     },
     {
         title: 'Part I',
-        text: 'Strange Woods tightens around you as an old stone awakens. Two marks glow faintly. One speaks of wandering close to the earth, carrying life step by step through mud and roots. The other whispers of currents and scales shaped by water. You offer the <div id="drop-zone-1" class="drop-zone">Släpp här</div> and the <div id="drop-zone-2" class="drop-zone">Släpp här</div>, and the forest listens.',
+        text: 'Strange Woods tightens around you as an old stone awakens. Two marks glow faintly. One speaks of wandering close to the earth, carrying life step by step through mud and roots. The other whispers of currents and scales shaped by water. You offer the <div id="drop-zone-1" class="drop-zone">Drop zone</div> and the <div id="drop-zone-2" class="drop-zone">Drop zone</div>, and the forest listens.',
         hasPrev: true,
         hasNext: true
     },
     {
         title: 'Part II',
-        text: 'The path opens to a second carving, higher now, where escape is measured in height and lightness. One mark demands a way upward beyond grasping branches. The other is weightless, etched as if by wind alone. You place the <div id="drop-zone-3" class="drop-zone">Släpp här</div> and the <div id="drop-zone-4" class="drop-zone">Släpp här</div>. The trees shift. Air stirs.',
+        text: 'The path opens to a second carving, higher now, where escape is measured in height and lightness. One mark demands a way upward beyond grasping branches. The other is weightless, etched as if by wind alone. You place the <div id="drop-zone-3" class="drop-zone">Drop zone</div> and the <div id="drop-zone-4" class="drop-zone">Drop zone</div>. The trees shift. Air stirs.',
         hasPrev: true,
         hasNext: true
     },
     {
         title: 'Part III',
-        text: 'At the forest’s core, power and freedom wait together. A violet scar pulses like a living crystal, resisting your touch. Beside it rests a simple promise of release, shaped to turn and open. When you set the <div id="drop-zone-5" class="drop-zone">Släpp här</div> and use the <div id="drop-zone-6" class="drop-zone">Släpp här</div>, Strange Woods finally lets go.',
+        text: 'At the forest’s core, power and freedom wait together. A violet scar pulses like a living crystal, resisting your touch. Beside it rests a simple promise of release, shaped to turn and open. When you set the <div id="drop-zone-5" class="drop-zone">Drop zone</div> and use the <div id="drop-zone-6" class="drop-zone">Drop zone</div>, Strange Woods finally lets go.',
         hasPrev: true,
         isEscape: true
     }
@@ -40,7 +61,21 @@ export const room6Book: BookPage[] = [
 
 
 // ===============================
-// 3. Här hanterar vi dropp-zonerna i room6 där artefakter kan släppas
+// 3. CORRECT SOLUTION
+// ===============================
+
+export const room6Solution = {
+    'drop-zone-1': 'walking-pot',
+    'drop-zone-2': 'fish-statue',
+    'drop-zone-3': 'ladder',
+    'drop-zone-4': 'feather',
+    'drop-zone-5': 'amethyst',
+    'drop-zone-6': 'key'
+};
+
+
+// ===============================
+// 4. DROP LOGIC
 // ===============================
 
 export function initRoom6Drop(sceneWrapper: HTMLDivElement) {
@@ -52,21 +87,222 @@ export function initRoom6Drop(sceneWrapper: HTMLDivElement) {
         zone.addEventListener('dragover', (e) => e.preventDefault());
 
         zone.addEventListener('drop', (e) => {
-            const artifactId = (e as DragEvent).dataTransfer?.getData('artifactId');
-            const artifact = getArtifactById(artifactId ?? '');
 
-            if (artifact) {
-                (zone as HTMLDivElement).innerHTML = `
-                <img
-                  src="${artifact.image}"
-                  alt="${artifact.name}"
-                  style="width:100%; height:100%; object-fit:cover; border-radius:50%"
-                />
-                `;
-            }
+            const artifactId = (e as DragEvent).dataTransfer?.getData('artifactId');
+            if (!artifactId) return;
+
+            if (room6State[zone.id]) return;
+
+            const artifact = getArtifactById(artifactId);
+            if (!artifact) return;
+
+            room6State[zone.id] = {
+                id: artifact.id,
+                name: artifact.name,
+                image: artifact.image
+            };
+
+            removeArtifactFromStatusBar(artifactId);
+
+            renderRoom6State(sceneWrapper);
+
+            updateRoom6Progress();
+
         });
 
     });
 
 }
-// -------------------
+
+
+// ===============================
+// 5. RENDER STATE
+// ===============================
+
+export function renderRoom6State(sceneWrapper: HTMLDivElement) {
+
+    for (const [zoneId, artifact] of Object.entries(room6State)) {
+
+        const zone = sceneWrapper.querySelector(`#${zoneId}`) as HTMLElement;
+        if (!zone) continue;
+
+        if (!artifact) {
+            zone.innerHTML = 'Drop zone';
+            zone.removeAttribute('data-artifact');
+            continue;
+        }
+
+        zone.innerHTML = `
+            <div class="placed-artifact" data-tooltip="Click to remove">
+                <img
+                    src="${artifact.image}"
+                    alt="${artifact.name}"
+                />
+            </div>
+        `;
+
+        zone.setAttribute('data-artifact', artifact.id);
+
+        const img = zone.querySelector('img') as HTMLImageElement;
+
+        img.addEventListener('click', () => {
+
+            addArtifactToStatusBar({
+                id: artifact.id,
+                name: artifact.name,
+                image: artifact.image,
+                description: ''
+            });
+
+            room6State[zoneId] = null;
+
+            zone.innerHTML = 'Drop zone';
+            zone.removeAttribute('data-artifact');
+
+            updateRoom6Progress();
+
+        });
+    }
+
+}
+
+
+// ===============================
+// 6. CHECK SOLUTION
+// ===============================
+
+export function checkRoom6Solution(sceneWrapper: HTMLDivElement) {
+
+    let correct = 0;
+    const total = Object.keys(room6Solution).length;
+
+    for (const [zoneId, correctArtifact] of Object.entries(room6Solution)) {
+
+        const placed = room6State[zoneId];
+        const zone = sceneWrapper.querySelector(`#${zoneId}`) as HTMLElement;
+
+        if (!zone) continue;
+
+        // rubber duck specialfall
+        if (placed?.id === 'rubber-duck') {
+
+            const warning = document.getElementById('roomWarning');
+
+            if (warning) {
+                warning.textContent = `
+                The forest stares at the rubber duck...
+                and is not impressed.
+                `;
+            }
+
+            zone.classList.add('duck-reject');
+
+            setTimeout(() => {
+
+                addArtifactToStatusBar({
+                    id: placed.id,
+                    name: placed.name,
+                    image: placed.image,
+                    description: ''
+                });
+
+                room6State[zoneId] = null;
+
+                zone.innerHTML = 'Drop zone';
+                zone.removeAttribute('data-artifact');
+
+                updateRoom6Progress();
+
+                zone.classList.remove('duck-reject');
+
+            }, 450);
+
+            return { correct: 0, total };
+        }
+
+        if (placed?.id === correctArtifact) {
+            zone.classList.add('correct-artifact');
+            correct++;
+        }
+
+        else if (placed) {
+
+            addArtifactToStatusBar({
+                id: placed.id,
+                name: placed.name,
+                image: placed.image,
+                description: ''
+            });
+
+            room6State[zoneId] = null;
+
+            zone.innerHTML = 'Drop zone';
+            zone.removeAttribute('data-artifact');
+
+            updateRoom6Progress();
+        }
+
+    }
+
+    return { correct, total };
+}
+
+
+
+// ===============================
+// 7. HELPER
+// ===============================
+
+export function getPlacedArtifactsCount() {
+
+    return Object.values(room6State).filter(Boolean).length;
+
+}
+
+// ===============================
+// 8. UPDATE PROGRESS
+// ===============================
+
+export function updateRoom6Progress() {
+
+    const progress = document.getElementById('roomProgress');
+    const warning = document.getElementById('roomWarning');
+    const escapeBtn = document.getElementById('escapeBtn') as HTMLButtonElement | null;
+
+    if (!progress) return;
+
+    const placed = Object.values(room6State).filter(Boolean).length;
+
+    progress.textContent = `Artifacts placed: ${placed} / 6`;
+
+    if (placed === 6) {
+
+        progress.classList.add('progress-complete');
+
+        if (escapeBtn) {
+            escapeBtn.disabled = false;
+            escapeBtn.classList.add('escape-ready');
+        }
+
+        if (warning) {
+            warning.textContent =
+                'The forest listens... You may attempt to escape.';
+        }
+
+    } else {
+
+        progress.classList.remove('progress-complete');
+
+        if (escapeBtn) {
+            escapeBtn.disabled = true;
+            escapeBtn.classList.remove('escape-ready');
+        }
+
+        if (warning) {
+            warning.textContent =
+                'The forest awaits all six offerings.';
+        }
+
+    }
+
+}

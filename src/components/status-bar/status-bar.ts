@@ -136,6 +136,19 @@ function renderArtifacts() {
     }
 }
 
+// tar bort artefakten från statusbaren när den droppas i room6
+
+export function removeArtifactFromStatusBar(id: string) {
+
+    const index = collectedArtifacts.findIndex(a => a.id === id);
+
+    if (index !== -1) {
+        collectedArtifacts.splice(index, 1);
+    }
+
+    renderArtifacts();
+}
+
 //återställer insamlade artifakter när spelaren klickar på retry 
 export function setCollectedArtifacts(artifacts: Artifact[]) {
     artifacts.forEach(a => addArtifactToStatusBar(a));

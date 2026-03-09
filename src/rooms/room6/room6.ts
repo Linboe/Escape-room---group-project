@@ -1,73 +1,105 @@
 import './room6.scss';
-import { room6Book, initRoom6Drop } from './story/room6story';
+
 import {
-    setRoom6Mode,
-} from '../../components/status-bar/status-bar'; //test drop-artefakt
+    room6Book,
+    initRoom6Drop,
+    renderRoom6State,
+    checkRoom6Solution,
+    getPlacedArtifactsCount,
+    updateRoom6Progress
+} from './story/room6story';
+
+import { setRoom6Mode } from '../../components/status-bar/status-bar';
+import { renderGameOverScene } from '../../scenes/game-over-scene/game-over-scene';
+import { renderVictoryScene } from '../../scenes/victory-scene/victory-scene';
 
 export function renderRoom6Scene() {
     const sceneWrapper = document.getElementById('sceneWrapper');
     if (!sceneWrapper) return;
 
     sceneWrapper.innerHTML = `
-      <section class="room room-6">
-        <h1>Room 6</h1>
-      </section>
+        <section class="room room-6">
+            <h1>Room 6</h1>
+        </section>
     `;
 }
 
 export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
+
     if (!sceneWrapper) return;
 
-    setRoom6Mode(true); //test drop-artefakt
-    document.addEventListener('dragover', (e) => e.preventDefault()); //test drop-artefakt tar bort röd varning
+    setRoom6Mode(true);
 
+    document.addEventListener('dragover', (e) => e.preventDefault());
+
+    let attempts = 0;
+    const maxAttempts = 3;
 
     // ===============================
-    // 1. HTML
+    // HTML
     // ===============================
+
     sceneWrapper.innerHTML = `
-      <section class="room room-6">
-        <div class="room-frame">
-          <div class="game-session-wrapper">
+        <section class="room room-6">
+            <div class="room-frame">
+                <div class="game-session-wrapper">
 
-          <h2 id="roomTitleText">END GAME</h2>
+                    <h2 id="roomTitleText">END GAME</h2>
+                    <p id="roomWarning" class="warning-text"></p>
+                    <p id="roomProgress" class="progress-text"></p>
 
-            <!-- BOOK -->
-            <div class="book" id="book"></div>
+                    <div class="book" id="book"></div>
 
-            <!-- PICK ART -->
-            <div class="pick-art-style">
+                </div>
             </div>
-
-          </div>
-        </div>
-      </section>
+        </section>
     `;
 
-
-    // ===============================
-    // 2. BOOK-LOGIK
-    // ===============================
     const book = sceneWrapper.querySelector('#book') as HTMLDivElement;
     if (!book) return;
 
     let page = 0;
 
+    // ===============================
+    // BOOK RENDER
+    // ===============================
+
     function renderBook() {
+
         const current = room6Book[page];
 
         book.innerHTML = `
-        <h2 class='book-title'>${current.title}</h2>
-        <div class='event-text'>
-            ${current.text}
-        
-          <div class='bookNav'>
-              ${current.hasPrev ? '<button id=\'prevPage\'>Back</button>' : ''}
-              ${current.hasNext ? '<button id=\'nextPage\'>Next</button>' : ''}
-              ${current.isEscape ? '<button id=\'escapeBtn\'>ESCAPE</button>' : ''}
-          </div>
-        </div>
-    `;
+            <h2 class="book-title">${current.title}</h2>
+
+            <div class="event-text">
+                ${current.text}
+
+                <div class="bookNav">
+                    ${current.hasPrev ? '<button id="prevPage">Back</button>' : ''}
+                    ${current.hasNext ? '<button id="nextPage">Next</button>' : ''}
+                    ${current.isEscape ? '<button id="escapeBtn">ESCAPE</button>' : ''}
+                </div>
+            </div>
+        `;
+
+        // ===============================
+        // PROGRESS
+        // ===============================
+
+        const progress = document.getElementById('roomProgress');
+        if (progress) {
+            progress.textContent = 'Artifacts placed: 0 / 6';
+        }
+
+        renderRoom6State(sceneWrapper!);
+
+        updateRoom6Progress();
+
+
+
+        // ===============================
+        // NAVIGATION
+        // ===============================
 
         book.querySelector('#prevPage')?.addEventListener('click', () => {
             page--;
@@ -79,28 +111,60 @@ export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
             renderBook();
         });
 
+        // ===============================
+        // ESCAPE BUTTON
+        // ===============================
+
         book.querySelector('#escapeBtn')?.addEventListener('click', () => {
-            next();
+
+            const placed = getPlacedArtifactsCount();
+
+            if (placed < 6) {
+
+                const warning = document.getElementById('roomWarning');
+
+                if (warning) {
+                    warning.textContent = `
+                        The ritual is incomplete.
+                        You placed ${placed} / 6 artifacts.
+                    `;
+                }
+
+                return;
+            }
+
+            const result = checkRoom6Solution(sceneWrapper!);
+
+            if (result.correct === result.total) {
+                renderVictoryScene();
+                return;
+            }
+
+            attempts++;
+
+            const warning = document.getElementById('roomWarning');
+
+            if (warning) {
+                warning.textContent = `
+                    The forest rejects your offering.
+                    Correct placements: ${result.correct} / ${result.total}
+                    (${attempts}/3 attempts)
+                `;
+            }
+
+            if (attempts >= maxAttempts) {
+                renderGameOverScene();
+            }
+
         });
 
-        // koppla dropp igen
         initRoom6Drop(sceneWrapper!);
+
     }
+
     renderBook();
 
-    // ===============================
-    // 3. PICK-ART LOGIK
-    // ===============================
-    const buttons = sceneWrapper.querySelectorAll('.pick-art');
-    const message = sceneWrapper.querySelector('#message') as HTMLParagraphElement | null;
-
-    buttons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            if (btn.textContent === '3') {
-                next();
-            } else if (message) {
-                message.textContent = 'Wrong item!';
-            }
-        });
-    });
 }
+
+
+
