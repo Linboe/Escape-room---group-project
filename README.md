@@ -1,5 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/PLwZQtiP)
-
 Live link: (medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers)[https://medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers/]
 
 # Strange Woods
@@ -56,6 +54,7 @@ If the correct password (dopefish) is entered, the entire highscore list is perm
 - **SCSS**
 - **JSON**
 - **Vite**
+- **ESLint**
 
 ---
 
@@ -63,10 +62,10 @@ If the correct password (dopefish) is entered, the entire highscore list is perm
 
 [Alma Isaksson](https://github.com/MidnattLantern),
 [Linn Boekhout](https://github.com/Linboe),
-[Alda Catovic](),
-[Isabelle Reynolds](),
-[Kimi Leminaho](),
-[Rasmus Fransson]()
+[Alda Catovic](https://github.com/aldacat-fed),
+[Isabelle Reynolds](https://github.com/isabelletherese),
+[Kimi Leminaho](https://github.com/Prxjec-t),
+[Rasmus Fransson](https://github.com/RasmusFranssonHub)
 
 ---
 
