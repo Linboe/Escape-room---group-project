@@ -379,7 +379,6 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
                 setTimeout(() => {
                     const closeBtn = document.querySelector('#close-artifact-btn');
-                    console.log('closeBtn found:', closeBtn);
 
                     closeBtn?.addEventListener('click', () => {
                         sceneWrapper.querySelector('.artifact-wrapper')?.classList.remove('hidden');

@@ -4,8 +4,6 @@ import { render } from '../../main';
 import { loadGameFromLocalStorage, saveGameToLocalStorage } from '../../store/database/local-storage-database';
 import { refetchGamestate, stopAllStatusBarTimers, startStatusBarTimers } from '../../components/status-bar/status-bar';
 
-console.log('connected game over scene');
-
 const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement | null;
 
 export function renderGameOverScene(score: number = 0) {

@@ -50,14 +50,12 @@ const cheatButtons = {
         () => {
             state.screen = 'gameover';
             render();
-            console.log('Showing game over scene');
         },
     ),
 
     cheatRenderVictoryScene: createCheatButton('render victory scene', () => {
         state.screen = 'victory';
         render();
-        console.log('Showing victory scene');
     }),
 
     cheatRenderRoom1: createCheatButton(
