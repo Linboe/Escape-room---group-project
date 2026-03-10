@@ -87,6 +87,7 @@ export function renderNextRoom() {
         state.artifacts = state.artifacts.filter(a => a.id !== roomArtifactIds[state.currentRoom]);
         state.codes[state.currentRoom] = [];
         state.questionIndex[state.currentRoom] = 0;
+        state.completed[state.currentRoom] = false;
         saveGameToLocalStorage();
     }
 
