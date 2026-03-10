@@ -205,7 +205,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
             updateUI(`
                 <div class="sequence-overlay-wrapper">
                     <div class="sequence-wrapper">
-                        <img src="./public/roompic/isabelleroom2.png" loading="lazy" aria-label="Inside a greenhouse with a pink flower, a hanging fern, a giant lily, an info sign, a glass ceiling, and a red plant">
+                        <img src="./roompic/isabelleroom2.png" loading="lazy" aria-label="Inside a greenhouse with a pink flower, a hanging fern, a giant lily, an info sign, a glass ceiling, and a red plant">
                         <button id="flower" class="sequence-btn invisible-btn" aria-label="Pink Flower"></button>
                         <button id="hangingFern" class="sequence-btn invisible-btn" aria-label="Hanging Fern"></button>
                         <button id="lilyLeaf" class="sequence-btn invisible-btn" aria-label="Giant Lily"></button>

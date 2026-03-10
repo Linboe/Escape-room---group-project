@@ -5,6 +5,7 @@ import { getSecondsElapsed, stopAllStatusBarTimers } from '../../components/stat
 import { render } from '../../main';
 import { state } from '../../state/gamestate';
 import { attachHack } from '../../components/high-score/high-score';
+import { saveGameToLocalStorage } from '../../store/database/local-storage-database';
 
 const sceneWrapper: HTMLDivElement | null =
     document.querySelector('#sceneWrapper');
@@ -39,6 +40,14 @@ export function renderVictoryScene() {
     shareResultsButton.textContent = 'Share results (copy to clipboard)';
     shareResultsButton.addEventListener('click', handleCopyResultsToClipboard);
 
+    const mainMenuButton = document.createElement('button');
+    mainMenuButton.textContent = 'Main Menu';
+    mainMenuButton.addEventListener('click', () => {
+        saveGameToLocalStorage();
+        state.screen = 'menu';
+        render();
+    });
+
     const highScoreWrapper = document.createElement('div');
     highScoreWrapper.id = 'highScoreWrapper';
 
@@ -47,6 +56,7 @@ export function renderVictoryScene() {
         victorySceneUndertitleElement,
         displayPlayersElapsedTimeElement,
         shareResultsButton,
+        mainMenuButton
     );
     sceneWrapper.append(victorySceneWrapperElement, highScoreWrapper);
     // ==========

@@ -26,8 +26,10 @@ let countupIntervalState: ReturnType<typeof setInterval> | null = null;
 
 // parent
 const timersContainerElement = document.createElement('section');
+timersContainerElement.classList.add('timers-container');
 
-const artifactAndRoomContainerElement = document.createElement('section');
+const lowerStatusContainerElement = document.createElement('section');
+lowerStatusContainerElement.classList.add('lower-status-container');
 
 // children
 const spanStatusBarElement = document.createElement('span');
@@ -45,14 +47,15 @@ const roomSelectElement = document.createElement('select');
 roomSelectElement.id = 'roomSelect';
 
 const labelElement = document.createElement('span');
-spanRoomsElement.appendChild(labelElement);
+//spanRoomsElement.appendChild(labelElement);
 spanRoomsElement.appendChild(roomSelectElement);
 
 const divArtifactsElement = document.createElement('div'); //added Artefact
 divArtifactsElement.classList.add('status-bar-artifacts'); //added Artefact
 
 export const logoutBtn = document.createElement('button');
-logoutBtn.textContent = 'Log out';
+logoutBtn.classList.add('logout-btn');
+logoutBtn.textContent = 'Save & quit';
 logoutBtn.id = 'logOutBtn';
 
 // ----------------------------------------------------
@@ -203,14 +206,16 @@ export function renderStatusBar() {
     }
 
     timersContainerElement.append(
-        divArtifactsElement,
-        spanRoomsElement,
-        logoutBtn,
+        spanTimerElement,
+        countupSpanElement
     );
 
-    artifactAndRoomContainerElement.append(spanTimerElement, countupSpanElement);
+    lowerStatusContainerElement.append(
+        divArtifactsElement,
+        spanRoomsElement
+    );
 
-    statusBarWrapper.append(artifactAndRoomContainerElement, timersContainerElement);
+    statusBarWrapper.append(logoutBtn, timersContainerElement, lowerStatusContainerElement);
     renderArtifacts();
 }
 

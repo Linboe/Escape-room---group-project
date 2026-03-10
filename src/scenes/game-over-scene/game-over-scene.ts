@@ -55,7 +55,6 @@ export function renderGameOverScene(score: number = 0) {
 
     buttonsContainer.appendChild(retryButton);
     buttonsContainer.appendChild(mainMenuButton);
-    buttonsContainer.appendChild(loggOutButton);
 
     container.append(title, scoreText, buttonsContainer);
 

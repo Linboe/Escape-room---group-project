@@ -31,6 +31,8 @@ h1 {
     z-index: 1;
     font-size: 1.6rem;
     text-align: center;
+
+    overflow: hidden; // prevent pulsing animation from causing a horizontal scroll
 }
 
 // status-bar h1 style
@@ -111,7 +113,7 @@ button {
     height: fit-content;
     cursor: pointer;
     text-align: center;
-//    border-radius: var(--pillify);
+    //border-radius: var(--pillify);
     border-radius: 5px;
     padding: 10px;
     transition: all 0.2s ease;
