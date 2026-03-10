@@ -32,7 +32,7 @@ type Room5State =
 // --------------------------- State -----------------------------
 // ---------------------------------------------------------------
 
-let currentState: Room5State = 'story';
+
 let selectedCards: Card[] = [];
 let cards: Card[] = [];
 
@@ -44,7 +44,6 @@ function setState(
     sceneWrapper: HTMLDivElement,
     next: () => void,
 ): void {
-    currentState = state;
 
     switch (state) {
         case 'story':
