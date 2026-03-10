@@ -84,7 +84,10 @@ export function triggerArtifact(
             overlay.remove();
             previouslyFocused?.focus();
             addArtifactToStatusBar(artifact);
-            state.artifacts.push(artifact);
+            
+            if (!state.artifacts.find(a => a.id === artifact.id)) {
+                state.artifacts.push(artifact);
+            }
             saveGameToLocalStorage();
         });
     }, delay); // Här används fördröjningen (i millisekunder)

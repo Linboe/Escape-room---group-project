@@ -6,6 +6,7 @@ import {
     stopAllStatusBarTimers,
 } from '../../components/status-bar/status-bar';
 import { showRoomIntro } from '../../components/room-intro/room-intro';
+import { state } from '../../state/gamestate';
 
 export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
     if (!sceneWrapper) return;
@@ -144,6 +145,7 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
                 actionBtn.classList.remove('hidden');
                 disableGameButtons(true);
                 triggerArtifact('room1', 'feather', 0);
+                state.completed[0] = true;
                 saveGameToLocalStorage();
                 stopAllStatusBarTimers();
                 actionBtn.onclick = () => next();
@@ -197,6 +199,7 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
                     actionBtn.classList.remove('hidden');
                     disableGameButtons(true);
                     triggerArtifact('room1', 'feather', 0);
+                    state.completed[0] = true;
                     saveGameToLocalStorage();
                     stopAllStatusBarTimers();
                     actionBtn.onclick = () => next();
