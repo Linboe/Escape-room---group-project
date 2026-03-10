@@ -6,7 +6,9 @@ import {
     renderRoom6State,
     checkRoom6Solution,
     getPlacedArtifactsCount,
-    updateRoom6Progress
+    updateRoom6Progress,
+    lockRoom6Result,
+    unlockRoom6Result
 } from './story/room6story';
 
 import { setRoom6Mode } from '../../components/status-bar/status-bar';
@@ -84,6 +86,8 @@ export function room6(sceneWrapper: HTMLDivElement | null) {
 
         book.querySelector('#escapeBtn')?.addEventListener('click', () => {
 
+            lockRoom6Result();
+
             const placed = getPlacedArtifactsCount();
 
             if (placed < 6) {
@@ -102,6 +106,8 @@ export function room6(sceneWrapper: HTMLDivElement | null) {
 
             const result = checkRoom6Solution(sceneWrapper!);
 
+            unlockRoom6Result();
+
             if (result.correct === result.total) {
                 renderVictoryScene();
                 return;
@@ -112,11 +118,15 @@ export function room6(sceneWrapper: HTMLDivElement | null) {
             const warning = document.getElementById('roomWarning');
 
             if (warning) {
+                const message = result.duckUsed
+                    ? 'The forest stares at the rubber duck... and is not impressed.'
+                    : 'The forest rejects your offering.';
+
                 warning.textContent = `
-                    The forest rejects your offering.
-                    Correct placements: ${result.correct} / ${result.total}
-                    (${attempts}/3 attempts)
-                `;
+    ${message}
+    Correct placements: ${result.correct} / ${result.total}
+    (${attempts}/3 attempts)
+`;
             }
 
             if (attempts >= maxAttempts) {

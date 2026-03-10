@@ -1,5 +1,18 @@
 import { getArtifactById, removeArtifactFromStatusBar, addArtifactToStatusBar } from '../../../components/status-bar/status-bar';
 
+let room6ResultLocked = false;
+
+export function lockRoom6Result() {
+    room6ResultLocked = true;
+}
+
+export function unlockRoom6Result() {
+    room6ResultLocked = false;
+}
+
+export function isRoom6ResultLocked() {
+    return room6ResultLocked;
+}
 
 // ===============================
 // 1. ROOM6 STATE
@@ -9,6 +22,7 @@ type PlacedArtifact = {
     id: string;
     name: string;
     image: string;
+    correct?: boolean;
 };
 
 const room6State: Record<string, PlacedArtifact | null> = {
@@ -143,6 +157,10 @@ export function renderRoom6State(sceneWrapper: HTMLDivElement) {
 
         zone.setAttribute('data-artifact', artifact.id);
 
+        if (artifact.correct) {
+            zone.classList.add('correct-artifact');
+        }
+
         const img = zone.querySelector('img') as HTMLImageElement;
 
         img.addEventListener('click', () => {
@@ -173,59 +191,28 @@ export function renderRoom6State(sceneWrapper: HTMLDivElement) {
 
 export function checkRoom6Solution(sceneWrapper: HTMLDivElement) {
 
+    let duckUsed = false;
+    
     let correct = 0;
-    const total = Object.keys(room6Solution).length;
 
     for (const [zoneId, correctArtifact] of Object.entries(room6Solution)) {
 
         const placed = room6State[zoneId];
-        const zone = sceneWrapper.querySelector(`#${zoneId}`) as HTMLElement;
+        const zone = sceneWrapper.querySelector(`#${zoneId}`) as HTMLElement | null;
 
-        if (!zone) continue;
+        if (!placed) continue;
 
         // rubber duck specialfall
         if (placed?.id === 'rubber-duck') {
 
-            const warning = document.getElementById('roomWarning');
+            duckUsed = true;
 
-            if (warning) {
-                warning.textContent = `
-                The forest stares at the rubber duck...
-                and is not impressed.
-                `;
+            lockRoom6Result();
+
+            if (zone) {
+                zone.classList.add('duck-reject');
             }
 
-            zone.classList.add('duck-reject');
-
-            setTimeout(() => {
-
-                addArtifactToStatusBar({
-                    id: placed.id,
-                    name: placed.name,
-                    image: placed.image,
-                    description: ''
-                });
-
-                room6State[zoneId] = null;
-
-                zone.innerHTML = 'Drop zone';
-                zone.removeAttribute('data-artifact');
-
-                updateRoom6Progress();
-
-                zone.classList.remove('duck-reject');
-
-            }, 450);
-
-            return { correct: 0, total };
-        }
-
-        if (placed?.id === correctArtifact) {
-            zone.classList.add('correct-artifact');
-            correct++;
-        }
-
-        else if (placed) {
 
             addArtifactToStatusBar({
                 id: placed.id,
@@ -236,26 +223,72 @@ export function checkRoom6Solution(sceneWrapper: HTMLDivElement) {
 
             room6State[zoneId] = null;
 
-            zone.innerHTML = 'Drop zone';
-            zone.removeAttribute('data-artifact');
+            if (zone) {
+                zone.innerHTML = 'Släpp här';
+                zone.removeAttribute('data-artifact');
+            }
+
+            updateRoom6Progress();
+
+            if (zone) {
+                zone.classList.remove('duck-reject');
+            }
+
+
+
+            continue;
+        }
+        
+
+        if (placed.id === correctArtifact) {
+
+            correct++;
+
+            placed.correct = true;
+
+            zone?.classList.add('correct-artifact');
+
+        }
+        
+        else {
+
+            addArtifactToStatusBar({
+                id: placed.id,
+                name: placed.name,
+                image: placed.image,
+                description: ''
+            });
+
+            room6State[zoneId] = null;
+
+            if (zone) {
+                zone.innerHTML = 'Släpp här';
+                zone.removeAttribute('data-artifact');
+            }
 
             updateRoom6Progress();
         }
-
     }
 
-    return { correct, total };
+    return { correct, total: 6, duckUsed };
 }
 
 
-
 // ===============================
-// 7. HELPER
+// 7. HELPERS
 // ===============================
 
 export function getPlacedArtifactsCount() {
 
     return Object.values(room6State).filter(Boolean).length;
+
+}
+
+export function resetRoom6State() {
+
+    Object.keys(room6State).forEach(zone => {
+        room6State[zone] = null;
+    });
 
 }
 
@@ -284,9 +317,9 @@ export function updateRoom6Progress() {
             escapeBtn.classList.add('escape-ready');
         }
 
-        if (warning) {
+        if (warning && !room6ResultLocked) {
             warning.textContent =
-                'The forest listens... You may attempt to escape.';
+                'The forest awaits six offerings.';
         }
 
     } else {
@@ -298,7 +331,7 @@ export function updateRoom6Progress() {
             escapeBtn.classList.remove('escape-ready');
         }
 
-        if (warning) {
+        if (warning && !room6ResultLocked) {
             warning.textContent =
                 'The forest awaits six offerings.';
         }
