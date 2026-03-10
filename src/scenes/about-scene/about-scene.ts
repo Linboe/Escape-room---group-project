@@ -47,8 +47,7 @@ export function renderAboutScene() {
         'Complete the game fast enough and you may earn a place on the Top 10 Highscore — and share your results with the world.',
         'Log in with a username to start the game.',
         'If you leave the game, your progress and remaining time are automatically saved so you can pick up exactly where you left off.',
-        'To start over or play under a different username, simply log out and start a new game.',
-        'A hidden feature exists to clear the highscore list.',
+        'To start over or play under a different username, simply start a new game.',
     ];
 
     instructions.forEach((text) => {
@@ -73,7 +72,7 @@ export function renderAboutScene() {
     const photoCredits = document.createElement('p');
     photoCredits.classList.add('credits-font');
     photoCredits.innerHTML = `<em>Images: 
-        <a href="" target="_blank">Background by [photographer name]</a>,
+        <a href="https://www.peakpx.com/en/hd-wallpaper-desktop-ervkg" target="_blank">Wallpaper via Peakpx.</a>,
         <a href="https://x.com/Giorgio51589046/status/2030344017657954455" target="_blank">Background Room1 by [Stazio Koppenberg]</a>, 
         <a href="https://se.pinterest.com/pin/602567625183196158/" target="_blank">Background Room2 via Pinterest</a>,
         <a href="https://www.tumblr.com/thewoodbetween/185853037261/passion-amongst-the-palms-phil-lockwood" target="_blank">Background Room3 by [Phil Lockwood]</a>,
@@ -87,16 +86,16 @@ export function renderAboutScene() {
         <a href="https://lawlovepqr.click/product_details/16579977.html" target="_blank">Ladder by lawlovepqr</a>,
         <a href="https://www.ubuy.com.se/en/product/FNLFXU46G-wonuu-car-rubber-duck-yellow-duck-decoration-dashboard-with-sun-hat-swim-ring-necklace-sunglasses-for-car-dashboard-decorations-white-spots-black-co?ref=hm-google-redirect" target="_blank">Rubber-duck via Ubuy</a>,
         <a href="https://cults3d.com/en/3d-model/game/living-jar-pot-boy-plant-pot-from-elden-ring" target="_blank">Walking-pot via Cults3d.</a>,
-        <a href="" target="_blank">Dragon by [photographer name]</a>, 
-        <a href="" target="_blank">Red Dragon by [photographer name]</a>,
-        <a href="" target="_blank">Tiger by [photographer name]</a>,
-        <a href="" target="_blank">Deer by [photographer name]</a>,
-        <a href="" target="_blank">Roedeer by [photographer name]</a>,
-        <a href="" target="_blank">Fox by [photographer name]</a>,
-        <a href="" target="_blank">Horse by [photographer name]</a>,
-        <a href="" target="_blank">Fairys by [photographer name]</a>,
+        <a href="https://wall.alphacoders.com/big.php?i=585535" target="_blank">Dragon by [Xiaodi Jin]</a>, 
+        <a href="https://es.pinterest.com/pin/827114287843767261/" target="_blank">Red Dragon via Pinterest</a>,
+        <a href="https://se.pinterest.com/pin/319051954871960990/" target="_blank">Tiger by [Wenqing Yan] via Pinterest</a>,
+        <a href="https://uk.pinterest.com/pin/4644405861263709/" target="_blank">Deer via Pinterest</a>,
+        <a href="https://uk.pinterest.com/pin/12173861489614146/" target="_blank">Fawn via Pinterest</a>,
+        <a href="https://x.com/StephenGeoRae/status/1980280037447254490" target="_blank">Fox by [Stephanie Bayles]</a>,
+        <a href="https://se.pinterest.com/pin/653936808430811517/" target="_blank">Horse via Pinterest</a>,
+        <a href="https://se.pinterest.com/pin/13370130139310807/" target="_blank">Fairys via Pinterest</a>,
         <a href="https://i.pinimg.com/736x/3a/ae/86/3aae86896045c9c523b50fefa80de41f.jpg" target="_blank">Celestial night sky via Pinterest</a>,
-</em>`; //TODO: Lägg till mer info om bilderna, t.ex. länkar eller specifika användare, fråga gruppen
+</em>`;
 
     creditSection.append(creditTitle, devText, photoCredits);
 
