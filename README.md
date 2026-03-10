@@ -1,33 +1,72 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/PLwZQtiP)
-
 Live link: (medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers)[https://medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers/]
+
+# Strange Woods
+
+> _Enter if you dare — but beware, not all who wander return._
+
+## About the Game
+
+Strange Woods is a digital escape room experience set in a mysterious woodland filled with secrets and wonders. Legend has it that those who enter may never return — but brave souls who dare to venture in may discover incredible things.
+
+The game consists of 6 interconnected rooms. The first five each conceal hidden artifacts, and collecting them is the key to unlocking and conquering the Final Room and claiming your escape. However, not all artifacts are what they seem, one is an impostor. Using it in the Final Room will make it unsolvable, so choose wisely. If you find yourself stuck, you may need to retrace your steps and hunt down the correct artifact before time runs out.
+
+## How to Play
+
+- You have a 50-minute total timer to escape the forest. Every second counts.
+
+- Each room has its own individual timer, solve the room before time runs out. If you fail, you must replay it and the lost time is deducted from your total.
+
+- Collect the artifacts hidden in each of the first five rooms. The artifacts are required to complete the Final Room.
+
+- Complete the game fast enough and you may earn a place on the Top 10 Highscore — and share your results with the world.
+
+## Getting Started
+
+- Log in with a username to start the game.
+
+- If you leave the game, your progress and remaining time are automatically saved so you can pick up exactly where you left off.
+
+- To start over or play under a different username, simply log out and start a new game.
 
 ## Special Hack — Clear Highscore
 
-A hidden admin feature exists to clear the highscore list.
+A hidden feature exists to clear the highscore list.
 
-### How to unlock it
+#### How to unlock it
 
 1. Navigate to the victory screen
 2. Triple-click the **🏆 Top 10 Highscores** title quickly
 3. A password prompt will appear
 4. Enter the secret password
 
-### Hint
+#### Hint
 
 If you enter the wrong password, a hint is embedded in the error message.
 
-### What happens
+#### What happens
 
 If the correct password (dopefish) is entered, the entire highscore list is permanently cleared from localStorage.
 
-Developed by The Dopefish Admirers team:
+## Technologies
 
-[Alma Isaksson](https://github.com/MidnattLantern)
-[Linn Boekhout](https://github.com/Linboe)
-[]()
-[]()
-[]()
-[]()
+- **TypeScript**
+- **HTML**
+- **SCSS**
+- **JSON**
+- **Vite**
+- **ESLint**
+
+---
+
+#### Developed by The Dopefish Admirers team:
+
+[Alma Isaksson](https://github.com/MidnattLantern),
+[Linn Boekhout](https://github.com/Linboe),
+[Alda Catovic](https://github.com/aldacat-fed),
+[Isabelle Reynolds](https://github.com/isabelletherese),
+[Kimi Leminaho](https://github.com/Prxjec-t),
+[Rasmus Fransson](https://github.com/RasmusFranssonHub)
+
+---
 
 wallpaper: https://wallpaperaccess.com/minimalist-forest
