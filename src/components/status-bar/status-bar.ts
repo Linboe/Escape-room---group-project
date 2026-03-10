@@ -1,11 +1,7 @@
 import './status-bar.scss';
 import { state } from '../../state/gamestate';
 import type { Artifact } from '../artifacts/artifactSystem';
-import {
-    getRoomStates,
-    getGameState,
-    setRoomTime,
-} from '../../state/gamestate';
+import { getRoomStates, getGameState, setRoomTime } from '../../state/gamestate';
 import { renderGameOverScene } from '../../scenes/game-over-scene/game-over-scene';
 import { render } from '../../main';
 import { saveGameToLocalStorage } from '../../store/database/local-storage-database';
@@ -72,9 +68,7 @@ export function setRoom6Mode(active: boolean) {
 
 // Lägger till en artefakt i statusbaren — ignorerar dubletter
 export function addArtifactToStatusBar(artifact: Artifact) {
-    const alreadyCollected = collectedArtifacts.find(
-        (existingArtifact) => existingArtifact.id === artifact.id,
-    );
+    const alreadyCollected = collectedArtifacts.find((existingArtifact) => existingArtifact.id === artifact.id);
     if (alreadyCollected) return;
 
     collectedArtifacts.push(artifact);
@@ -87,10 +81,7 @@ export function getArtifactById(id: string): Artifact | undefined {
 }
 
 function renderArtifacts() {
-    console.log(
-        'renderArtifacts called, collectedArtifacts:',
-        collectedArtifacts,
-    );
+    console.log('renderArtifacts called, collectedArtifacts:', collectedArtifacts);
     console.log('isRoom6:', isRoom6);
     const slots = Array.from({ length: 7 }).map((_, i) => {
         const artifact = collectedArtifacts[i];
@@ -117,40 +108,30 @@ function renderArtifacts() {
     divArtifactsElement.innerHTML = slots.join('');
 
     if (isRoom6) {
-        divArtifactsElement
-            .querySelectorAll('.artifact-slot.draggable')
-            .forEach((slot) => {
-                slot.addEventListener('dragstart', (e) => {
-                    const artifactId = (slot as HTMLElement).dataset.id ?? '';
-                    console.log('dragstart artifactId:', artifactId);
-                    (e as DragEvent).dataTransfer?.setData(
-                        'artifactId',
-                        artifactId,
-                    );
+        divArtifactsElement.querySelectorAll('.artifact-slot.draggable').forEach((slot) => {
+            slot.addEventListener('dragstart', (e) => {
+                const artifactId = (slot as HTMLElement).dataset.id ?? '';
+                console.log('dragstart artifactId:', artifactId);
+                (e as DragEvent).dataTransfer?.setData('artifactId', artifactId);
 
-                    const img = slot.querySelector('img') as HTMLImageElement;
-                    if (img) {
-                        const canvas = document.createElement('canvas');
-                        canvas.width = 30;
-                        canvas.height = 30;
-                        const ctx = canvas.getContext('2d');
-                        ctx?.drawImage(img, 0, 0, 30, 30);
-                        (e as DragEvent).dataTransfer?.setDragImage(
-                            canvas,
-                            15,
-                            15,
-                        );
-                    }
-                });
+                const img = slot.querySelector('img') as HTMLImageElement;
+                if (img) {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = 30;
+                    canvas.height = 30;
+                    const ctx = canvas.getContext('2d');
+                    ctx?.drawImage(img, 0, 0, 30, 30);
+                    (e as DragEvent).dataTransfer?.setDragImage(canvas, 15, 15);
+                }
             });
+        });
     }
 }
 
 // tar bort artefakten från statusbaren när den droppas i room6
 
 export function removeArtifactFromStatusBar(id: string) {
-
-    const index = collectedArtifacts.findIndex(a => a.id === id);
+    const index = collectedArtifacts.findIndex((a) => a.id === id);
 
     if (index !== -1) {
         collectedArtifacts.splice(index, 1);
@@ -159,7 +140,7 @@ export function removeArtifactFromStatusBar(id: string) {
     renderArtifacts();
 }
 
-//återställer insamlade artifakter när spelaren klickar på retry 
+//återställer insamlade artifakter när spelaren klickar på retry
 export function setCollectedArtifacts(artifacts: Artifact[]) {
     artifacts.forEach(a => addArtifactToStatusBar(a));
 }
@@ -167,7 +148,7 @@ export function setCollectedArtifacts(artifacts: Artifact[]) {
 export const roomArtifactIds = ['feather', 'key', 'walking-pot', 'ladder', 'rubber-duck', 'fish-statue', 'amethyst'];
 
 export function removeArtifactByRoomIndex(roomIndex: number) {
-    if (roomIndex === 3) return; 
+    if (roomIndex === 3) return;
 
     const artifactId = roomArtifactIds[roomIndex];
     const index = collectedArtifacts.findIndex(a => a.id === artifactId);
@@ -229,10 +210,7 @@ export function renderStatusBar() {
         logoutBtn,
     );
 
-    artifactAndRoomContainerElement.append(
-        spanTimerElement,
-        countupSpanElement,
-    );
+    artifactAndRoomContainerElement.append(spanTimerElement, countupSpanElement);
 
     statusBarWrapper.append(artifactAndRoomContainerElement, timersContainerElement);
     renderArtifacts();
@@ -244,6 +222,8 @@ export function renderStatusBar() {
 // ===============
 // Timer functions
 // ===============
+
+const maxRoomTime = 50 * 60; // 50 minutes in seconds
 
 // ticks
 function handleCountdownTick() {
@@ -260,6 +240,13 @@ function handleCountdownTick() {
 }
 function handleCountupTick() {
     updateCountupTextContent();
+
+    if (secondsElapsed >= maxRoomTime) {
+        stopCountdown();
+        stopCountup();
+        countupSpanElement.textContent = 'Total time is up!';
+        renderGameOverScene();
+    }
 }
 
 // play & pause
