@@ -7,13 +7,8 @@ import {
     setRoomTime,
 } from '../../state/gamestate';
 import { renderGameOverScene } from '../../scenes/game-over-scene/game-over-scene';
-import { saveGameToLocalStorage } from '../../store/database/local-storage-database';
-saveGameToLocalStorage;
 import { render } from '../../main';
-
-const statusBarWrapper = document.getElementById(
-    'statusBarWrapper',
-) as HTMLDivElement;
+import { saveGameToLocalStorage } from '../../store/database/local-storage-database';
 
 // ===============
 // Timer variables
@@ -48,12 +43,19 @@ spanTimerElement.textContent = '--:--';
 const countupSpanElement = document.createElement('span');
 countupSpanElement.textContent = '--:--';
 
+// room-dropdown 
 const spanRoomsElement = document.createElement('span');
+const roomSelectElement = document.createElement('select');
+roomSelectElement.id = 'roomSelect';
+
+const labelElement = document.createElement('span');
+spanRoomsElement.appendChild(labelElement);
+spanRoomsElement.appendChild(roomSelectElement);
 
 const divArtifactsElement = document.createElement('div'); //added Artefact
 divArtifactsElement.classList.add('status-bar-artifacts'); //added Artefact
 
-const logoutBtn = document.createElement('button');
+export const logoutBtn = document.createElement('button');
 logoutBtn.textContent = 'Log out';
 logoutBtn.id = 'logOutBtn';
 
@@ -149,6 +151,20 @@ export function setCollectedArtifacts(artifacts: Artifact[]) {
     artifacts.forEach(a => addArtifactToStatusBar(a));
 }
 
+export const roomArtifactIds = ['feather', 'key', 'walking-pot', 'ladder', 'rubber-duck', 'fish-statue', 'amethyst'];
+
+export function removeArtifactByRoomIndex(roomIndex: number) {
+    if (roomIndex === 3) return; 
+
+    const artifactId = roomArtifactIds[roomIndex];
+    const index = collectedArtifacts.findIndex(a => a.id === artifactId);
+    if (index !== -1) {
+        collectedArtifacts.splice(index, 1);
+    }
+
+    renderArtifacts();
+}
+
 // ----------------------------------------------------
 // ----------------------------------------------------
 // ----------------------------------------------------
@@ -160,16 +176,39 @@ export function startStatusBarTimers() {
 }
 
 export function renderStatusBar() {
+    const statusBarWrapper = document.getElementById('statusBarWrapper') as HTMLDivElement;
     if (!statusBarWrapper) return;
 
     if (state.screen === 'login' || state.screen === 'menu') {
-        statusBarWrapper.innerHTML = ''; 
-        return; 
+        statusBarWrapper.innerHTML = '';
+        return;
     }
 
-    statusBarWrapper.innerHTML = '';
+    labelElement.textContent = `Progress: ${state.currentRoom}/6`;
 
-    spanRoomsElement.textContent = `Progress: ${state.currentRoom}/6`;
+    roomSelectElement.innerHTML = '';
+    const roomNames = ['The Gravity Glitch', 'Victoria House', 'Inner Jungle', 'Escape The Silent Tide', 'Shadows of the Grove', 'Final Trial'];
+
+    for (let i = 0; i < 6; i++) {
+        const option = document.createElement('option');
+        option.value = String(i);
+
+        const isUnlocked = i <= state.currentRoom;
+
+        if (isUnlocked) {
+            option.textContent = `${i + 1}. ${roomNames[i]}`;
+            option.disabled = false;
+        } else {
+            option.textContent = `${i + 1}. ${roomNames[i]}(Locked)`;
+            option.disabled = true;
+        }
+
+        if (i === state.currentRoom) {
+            option.selected = true;
+
+        }
+        roomSelectElement.appendChild(option);
+    }
 
     timersContainerElement.append(
         divArtifactsElement,
@@ -184,6 +223,9 @@ export function renderStatusBar() {
 
     statusBarWrapper.append(artifactAndRoomContainerElement, timersContainerElement);
     renderArtifacts();
+
+    console.log('currentRoom:', state.currentRoom, 'completed:', state.completed);
+
 }
 
 // ===============
@@ -264,14 +306,43 @@ export function setSecondsElapsed(value: number) {
     secondsElapsed = value; // Gör att den återstående tiden visas i statusbar istället för att visa 0 när spelar trycker på retry
 }
 
-// Log out 
+// room-dropdown
 
-logoutBtn.addEventListener('click', () => {
-    saveGameToLocalStorage();
+roomSelectElement.addEventListener('change', () => {
+    const selectedRoomIndex = Number(roomSelectElement.value);
+
+    if (selectedRoomIndex === state.currentRoom) return;
+
+    if (state.completed[selectedRoomIndex]) {
+        const userConfirmed = confirm('Do you want to replay this room? Your progress in this room will be removed.');
+        if (!userConfirmed) {
+            roomSelectElement.value = String(state.currentRoom); // reset dropdown
+            return;
+        }
+        removeArtifactByRoomIndex(selectedRoomIndex);
+    }
+
+    state.currentRoom = selectedRoomIndex;
     stopAllStatusBarTimers();
-    state.screen = 'login';
-    render(); 
+    refetchGamestate();
+    saveGameToLocalStorage();
+    startStatusBarTimers();
+    render();
 });
+
+// reset progress 
+
+export function resetStatusBarProgress() {
+    setSecondsElapsed(0);  // nollställer tiden
+
+    collectedArtifacts.length = 0;  // tar bort alla artifakter
+
+    // Uppdaterar UI texterna
+    countupSpanElement.textContent = 'Elapsed Time: 0:00';
+    spanTimerElement.textContent = '--:--';
+
+    renderArtifacts();
+}
 // ===============
 
 

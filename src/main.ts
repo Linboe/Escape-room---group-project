@@ -13,7 +13,7 @@ import { room6 } from './rooms/room6/room6';
 import { renderAboutScene } from './scenes/about-scene/about-scene';
 import './components/high-score/high-score';
 import { renderVictoryScene } from './scenes/victory-scene/victory-scene';
-import { getSecondsElapsed, renderStatusBar } from './components/status-bar/status-bar';
+import { getSecondsElapsed, renderStatusBar, stopAllStatusBarTimers, removeArtifactByRoomIndex, roomArtifactIds } from './components/status-bar/status-bar';
 import { saveHighscore } from './components/high-score/high-score';
 import { saveGameToLocalStorage, clearLocalStorageSave } from './store/database/local-storage-database';
 
@@ -65,8 +65,7 @@ export function render() {
 
 const allRooms = [room1, room2, room3, room4, room5, room6];
 
-export function renderNextRoom() { // TODO koppla på timers
-    console.log('renderNextRoom called. currentRoom:', state.currentRoom);
+export function renderNextRoom() {
 
     if (state.currentRoom >= allRooms.length) {
         saveHighscore(state.username, getSecondsElapsed());
@@ -76,19 +75,42 @@ export function renderNextRoom() { // TODO koppla på timers
         return;
     }
 
+    if (sceneWrapper) {
+        sceneWrapper.innerHTML = '';
+    }
+
     const room = allRooms[state.currentRoom];
+    const isRevisiting = state.completed[state.currentRoom];
+
+    if (isRevisiting) {
+        removeArtifactByRoomIndex(state.currentRoom);
+        state.artifacts = state.artifacts.filter(a => a.id !== roomArtifactIds[state.currentRoom]);
+        state.codes[state.currentRoom] = [];
+        state.questionIndex[state.currentRoom] = 0;
+        saveGameToLocalStorage();
+    }
 
     room(sceneWrapper, () => {
-        console.log('Room completed:', state.currentRoom);
-        if (state.screen === 'victory') return;
-
         state.completed[state.currentRoom] = true;
-        saveGameToLocalStorage();
+        state.highestRoom = Math.max(state.highestRoom, state.currentRoom + 1);
+        state.currentRoom = state.highestRoom;
 
-        state.currentRoom++;
         saveGameToLocalStorage();
-        renderNextRoom();
+        if (state.screen === 'victory') return;
+        render();
     });
 }
+
+// Log out 
+
+document.getElementById('statusBarWrapper')?.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.id === 'logOutBtn') {
+        saveGameToLocalStorage();
+        stopAllStatusBarTimers();
+        state.screen = 'login';
+        render();
+    }
+});
 
 render();
