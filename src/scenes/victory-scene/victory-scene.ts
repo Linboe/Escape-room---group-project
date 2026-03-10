@@ -1,3 +1,5 @@
+
+import './victory-scene.scss';
 import { renderHighScore, saveHighscore } from '../../components/high-score/high-score';
 import { getSecondsElapsed, stopAllStatusBarTimers } from '../../components/status-bar/status-bar';
 import { render } from '../../main';
