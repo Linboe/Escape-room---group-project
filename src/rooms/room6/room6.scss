@@ -69,3 +69,119 @@
     font-size: 0.7rem;
 }
 
+.correct-artifact {
+  border: 3px solid #4caf50;
+  box-shadow: 0 0 12px #4caf50;
+  border-radius: 50%;
+}
+
+.placed-artifact {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.placed-artifact img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* tooltip */
+
+.placed-artifact::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.85);
+  color: white;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.placed-artifact:hover::after {
+  opacity: 1;
+}
+
+// animation for artifact pop when placed in correct zone
+
+.artifact-pop {
+  animation: artifactPop 0.25s ease;
+}
+
+@keyframes artifactPop {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  60% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+// progress styling
+
+.progress-complete {
+  color: #6cff9a;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(108,255,154,0.8);
+}
+
+// escape ready animation
+
+.escape-ready {
+  animation: escapeGlow 1.2s ease-in-out infinite alternate;
+  border: 2px solid #6cff9a;
+}
+
+@keyframes escapeGlow {
+  from {
+    box-shadow: 0 0 4px rgba(108,255,154,0.4);
+  }
+  to {
+    box-shadow: 0 0 14px rgba(108,255,154,1);
+  }
+}
+
+//escape not ready
+
+#escapeBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  filter: grayscale(60%);
+}
+
+// artefact correct animation
+
+.correct-artifact {
+    animation: correctPulse 1.2s infinite;
+    border-radius: 50%;
+}
+
+@keyframes correctPulse {
+
+    0% {
+        box-shadow: 0 0 0px rgba(0,255,100,0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(0,255,100,0.9);
+    }
+
+    100% {
+        box-shadow: 0 0 0px rgba(0,255,100,0.4);
+    }
+}

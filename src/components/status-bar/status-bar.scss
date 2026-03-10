@@ -35,9 +35,7 @@
 .artifact-slot {
     width: 30px;
     height: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.05);
 }
 
 .status-bar-artifact {
@@ -52,3 +50,51 @@
         cursor: grabbing;
     }
 }
+
+// status-bar h1 style
+
+
+.title-main {
+  font-family: "strangerwoods";
+  color: #ff0000;
+
+}
+
+.title-sub {
+  font-family: "strangerwoods2";
+}
+
+.title-sub {
+    color: #ff0000;
+  letter-spacing: 2px;
+  text-shadow:
+    0 0 5px #ff0000;
+
+}
+
+// title glow animation
+
+
+.title-main {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+
+  0%, 100% {
+    transform: scale(1);
+    text-shadow:
+      0 0 4px #ff2a2a,
+      0 0 8px #990000;
+  }
+
+  50% {
+    transform: scale(1.01);
+    text-shadow:
+      0 0 6px #ff2a2a,
+      0 0 12px #990000;
+  }
+
+}
+
+

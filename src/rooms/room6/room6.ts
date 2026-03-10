@@ -1,141 +1,147 @@
-import './room6.scss';
-import { room6Book } from './story/room6story';
+import "./room6.scss";
+import { showRoomIntro } from "../../components/room-intro/room-intro";
 import {
-    setRoom6Mode,
-    getArtifactById,
-} from '../../components/status-bar/status-bar'; //test drop-artefakt
-import { showRoomIntro } from '../../components/room-intro/room-intro';
+  room6Book,
+  initRoom6Drop,
+  renderRoom6State,
+  checkRoom6Solution,
+  getPlacedArtifactsCount,
+  updateRoom6Progress,
+  lockRoom6Result,
+  unlockRoom6Result,
+} from "./story/room6story";
 
-/*
-export function renderRoom6Scene() {
-  const sceneWrapper = document.getElementById("sceneWrapper");
+import { setRoom6Mode } from "../../components/status-bar/status-bar";
+import { renderGameOverScene } from "../../scenes/game-over-scene/game-over-scene";
+import { renderVictoryScene } from "../../scenes/victory-scene/victory-scene";
+
+export function room6(sceneWrapper: HTMLDivElement | null) {
   if (!sceneWrapper) return;
 
-  sceneWrapper.innerHTML = `
-      <section class="room room-6">
-        <h1>Room 6</h1>
-      </section>
-    `;
-}
-*/
+  showRoomIntro(
+    6,
+    () => {
+      /* pauseTimer */
+    },
+    () => {
+      /* resumeTimer */
+    },
+    () => {
+      setRoom6Mode(true);
 
-export function room6(sceneWrapper: HTMLDivElement | null, next: () => void) {
-    if (!sceneWrapper) return;
+      document.addEventListener("dragover", (e) => e.preventDefault());
 
-    showRoomIntro(
-        6,
-        () => {
-            /* pauseTimer */
-        },
-        () => {
-            /* resumeTimer */
-        },
-        () => {
-            setRoom6Mode(true); //test drop-artefakt
-            document.addEventListener('dragover', (e) => e.preventDefault()); //test drop-artefakt tar bort röd varning
+      let attempts = 0;
+      const maxAttempts = 3;
 
+      sceneWrapper.innerHTML = `
+        <section class="room room-6">
+            <div class="room-frame">
+                <div class="game-session-wrapper">
 
-            // ===============================
-            // 1. HTML
-            // ===============================
-            sceneWrapper.innerHTML = `
-      <section class="room room-6">
-        <div class="room-frame">
-          <div class="game-session-wrapper">
+                    <h2 id="roomTitleText">END GAME</h2>
+                    <p id="roomWarning" class="warning-text"></p>
+                    <p id="roomProgress" class="progress-text"></p>
 
-          <h2 id="roomTitleText">END GAME</h2>
+                    <div class="book" id="book"></div>
 
-            <!-- BOOK -->
-            <div class="book" id="book"></div>
-
-            <!-- PICK ART -->
-            <div class="pick-art-style">
+                </div>
             </div>
+        </section>
+        `;
 
-          </div>
-        </div>
-      </section>
-    `;
+      const book = sceneWrapper.querySelector("#book") as HTMLDivElement;
+      if (!book) return;
 
-            // ===============================
-            // 2. BOOK-LOGIK
-            // ===============================
-            const book = sceneWrapper.querySelector('#book') as HTMLDivElement;
-            if (!book) return;
+      let page = 0;
 
-            let page = 0;
+      function renderBook() {
+        const current = room6Book[page];
 
-            function renderBook() {
-                const current = room6Book[page];
+        book.innerHTML = `
+            <h2 class="book-title">${current.title}</h2>
 
-                book.innerHTML = `
+            <div class="event-text">
+                ${current.text}
 
-        <h2 class='book-title'>${current.title}</h2>
-        <div class='event-text'>
-            ${current.text}
-        
-          <div class='bookNav'>
-              ${current.hasPrev ? '<button id=\'prevPage\'>Back</button>' : ''}
-              ${current.hasNext ? '<button id=\'nextPage\'>Next</button>' : ''}
-              ${current.isEscape ? '<button id=\'escapeBtn\'>ESCAPE</button>' : ''}
-          </div>
-        </div>
-    `;
+                <div class="bookNav">
+                    ${current.hasPrev ? '<button id="prevPage">Back</button>' : ""}
+                    ${current.hasNext ? '<button id="nextPage">Next</button>' : ""}
+                    ${current.isEscape ? '<button id="escapeBtn">ESCAPE</button>' : ""}
+                </div>
+            </div>
+        `;
 
-                book.querySelector('#prevPage')?.addEventListener('click', () => {
-                    page--;
-                    renderBook();
-                });
+        const progress = document.getElementById("roomProgress");
+        if (progress) {
+          progress.textContent = "Artifacts placed: 0 / 6";
+        }
 
-                book.querySelector('#nextPage')?.addEventListener('click', () => {
-                    page++;
-                    renderBook();
-                });
+        renderRoom6State(sceneWrapper!);
+        updateRoom6Progress();
 
-                book.querySelector('#escapeBtn')?.addEventListener('click', () => {
-                    next();
-                });
+        book.querySelector("#prevPage")?.addEventListener("click", () => {
+          page--;
+          renderBook();
+        });
 
+        book.querySelector("#nextPage")?.addEventListener("click", () => {
+          page++;
+          renderBook();
+        });
+
+        book.querySelector("#escapeBtn")?.addEventListener("click", () => {
+          lockRoom6Result();
+
+          const placed = getPlacedArtifactsCount();
+
+          if (placed < 6) {
+            const warning = document.getElementById("roomWarning");
+
+            if (warning) {
+              warning.textContent = `
+                        The ritual is incomplete.
+                        You placed ${placed} / 6 artifacts.
+                    `;
             }
 
-            renderBook();
+            return;
+          }
 
-            // ===============================
-            // 3. PICK-ART LOGIK
-            // ===============================
-            const buttons = sceneWrapper.querySelectorAll('.pick-art');
-            const message = sceneWrapper.querySelector(
-                '#message',
-            ) as HTMLParagraphElement | null;
+          const result = checkRoom6Solution(sceneWrapper!);
 
-            //test drop-artefakt
-            const dropZone = document.getElementById('drop-zone-1');
-            dropZone?.addEventListener('dragover', (e) => e.preventDefault());
-            dropZone?.addEventListener('drop', (e) => {
-                const artifactId = (e as DragEvent).dataTransfer?.getData('artifactId');
-                const artifact = getArtifactById(artifactId ?? '');
+          unlockRoom6Result();
 
-                if (artifact && dropZone) {
-                    dropZone.innerHTML = `
-            <img 
-                src="${artifact.image}" 
-                alt="${artifact.name}"
-                style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"
-            />
-        `;
-                }
-            });
-            // -------------------
+          if (result.correct === result.total) {
+            renderVictoryScene();
+            return;
+          }
 
-            buttons.forEach((btn) => {
-                btn.addEventListener('click', () => {
-                    if (btn.textContent === '3') {
-                        next();
-                    } else if (message) {
-                        message.textContent = 'Wrong item!';
-                    }
-                });
-            });
-        },
-    );
+          attempts++;
+
+          const warning = document.getElementById("roomWarning");
+
+          if (warning) {
+            const message = result.duckUsed
+              ? "The forest stares at the rubber duck... and is not impressed."
+              : "The forest rejects your offering.";
+
+            warning.textContent = `
+               ${message}
+               Correct placements: ${result.correct} / ${result.total}
+               (${attempts}/3 attempts)
+            `;
+          }
+
+          if (attempts >= maxAttempts) {
+            renderGameOverScene();
+          }
+        });
+
+        initRoom6Drop(sceneWrapper!);
+      }
+
+      renderBook();
+    },
+  );
 }

@@ -23,8 +23,9 @@ export function triggerArtifact(
     artifactId: string,
     delay: number = 0,
 ) {
+    // hittar alla artefakter för det aktuella rummet
     const roomItems = artifactData[roomKey];
-
+    // hittar en specifik artefakt med hjälp av id
     const artifact = roomItems?.find((item) => item.id === artifactId);
 
     if (!artifact) {
@@ -32,33 +33,71 @@ export function triggerArtifact(
         return;
     }
 
-    // 2. Skapa HTML för popupen dynamiskt
+    
     setTimeout(() => {
+
+        // Skapa HTML för popupen dynamiskt
         const popupHtml = `
-        <div id="artifact-popup-overlay" class="artifact-overlay">
-            <div class="artifact-card">
-                <h2 class="artifact-title"> Congratulations!</h2>
-                <p class="arifact-p">A new artifact has been unlocked - <br>
-                click to collect</p>
-                <div class="artifact-image-container">
-                    <img id="close-artifact-btn" src="${artifact.image}" alt="${artifact.name}" class="artifact-img-large">
+            <div id="artifact-popup-overlay" class="artifact-overlay"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="artifact-dialog-title"
+                tabindex="-1">
+                <div class="artifact-card">
+                    <h2 class="artifact-title" id="artifact-dialog-title">Congratulations!</h2>
+                    <p class="arifact-p">A new artifact has been unlocked - <br>
+                    click to collect</p>
+                    <div class="artifact-image-container">
+                        <button id="close-artifact-btn" class="artifact-img-btn" aria-label="Collect ${artifact.name}">
+                            <img src="${artifact.image}" alt="${artifact.name}" class="artifact-img-large">
+                        </button>
+                    </div>
+                    <h3 class="artifact-name">${artifact.name}</h3>
+                    <p class="artifact-desc">${artifact.description}</p>
                 </div>
-                <h3 class="artifact-name">${artifact.name}</h3>
-                <p class="artifact-desc">${artifact.description}</p>
             </div>
-        </div>
-    `;
+        `;
 
         document.body.insertAdjacentHTML('beforeend', popupHtml);
 
-        document
-            .getElementById('close-artifact-btn')
-            ?.addEventListener('click', () => {
-                document.getElementById('artifact-popup-overlay')?.remove();
-                addArtifactToStatusBar(artifact);
+        const overlay = document.getElementById(
+            'artifact-popup-overlay',
+        ) as HTMLElement;
+        const closeBtn = document.getElementById(
+            'close-artifact-btn',
+        ) as HTMLElement;
+
+        const previouslyFocused = document.activeElement as HTMLElement;
+
+        //Flyttar fokus till popup för tillgängligheten
+        setTimeout(() => overlay.focus(), 0);
+
+        // Hanterar tangentbordsnavigering inuti popup 
+        overlay.addEventListener('keydown', (e: KeyboardEvent) => {
+            if (e.key === 'Tab') {
+                // Endast en fokusbar knapp — förhindra att fokus lämnar popupen
+                e.preventDefault();
+                closeBtn.focus();
+            }
+            if (e.key === 'Escape') {
+                // Stäng popupen med Escape och återställ fokus
+                overlay.remove();
+                previouslyFocused?.focus();
+            }
+        });
+
+        // När spelaren klickar på artefaktens bild för att samla den
+        closeBtn.addEventListener('click', () => {
+            overlay.remove(); // ta bort popup från DOM
+            previouslyFocused?.focus(); // återställ fokus till föregående element
+            addArtifactToStatusBar(artifact); // visa artefakt i statusbar
+
+            // Lägg till i state om artfekten inte redan finns (förhindrar dubbletter)
+            if (!state.artifacts.find(a => a.id === artifact.id)) {
                 state.artifacts.push(artifact);
-                saveGameToLocalStorage();
-            });
+            }
+            saveGameToLocalStorage(); 
+        });
     }, delay); // Här används fördröjningen (i millisekunder)
 }
 
