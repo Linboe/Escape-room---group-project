@@ -4,16 +4,12 @@
 
 @font-face {
     font-family: "strangerwoods";
-    src: url("../assets/fonts/strangerThings/StrangerThings.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
+    src: url("/fonts/StrangerThings.ttf") format("truetype");
 }
 
-@font-face{
+@font-face {
     font-family: "strangerwoods2";
-    src: url("../assets/fonts/strangerThings/StrangerThingsOu.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
+    src: url("/fonts/StrangerThingsOu.ttf") format("truetype");
 }
 
 // Note to Copiot: CSS is currently in the proccess of getting centralizezd and organized
