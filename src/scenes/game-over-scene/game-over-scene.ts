@@ -1,7 +1,7 @@
 import './game-over-scene.scss';
 import { state } from '../../state/gamestate';
 import { render } from '../../main';
-import { loadGameFromLocalStorage } from '../../store/database/local-storage-database';
+import { loadGameFromLocalStorage, saveGameToLocalStorage } from '../../store/database/local-storage-database';
 import { refetchGamestate, stopAllStatusBarTimers, startStatusBarTimers } from '../../components/status-bar/status-bar';
 
 console.log('connected game over scene');
@@ -30,7 +30,7 @@ export function renderGameOverScene(score: number = 0) {
     retryButton.addEventListener('click', () => {
         stopAllStatusBarTimers(); // stoppar alla timers 
         loadGameFromLocalStorage(); // läser in all data från localstorage och lägger tillbaka i state
-        refetchGamestate(); 
+        refetchGamestate();
         state.screen = 'room';
         render();
         startStatusBarTimers(); // startar timers igen när spelare klickat på retry
@@ -41,23 +41,21 @@ export function renderGameOverScene(score: number = 0) {
     const mainMenuButton = document.createElement('button');
     mainMenuButton.textContent = 'Main Menu';
     mainMenuButton.addEventListener('click', () => {
-        if (state.screen === 'gameover')
-            state.screen = 'menu';
+        saveGameToLocalStorage();
+        state.screen = 'menu';
         render();
     });
 
-    const loggOutButton = document.createElement('button');
-    loggOutButton.textContent = 'End Game';
-    loggOutButton.addEventListener('click', () => {
-        // Logic to log out the user
-        console.log('Log Out button clicked');
-        if (state.screen === 'gameover')
-            state.screen = 'login';
+    const logOutButton = document.createElement('button');
+    logOutButton.textContent = 'End Game';
+    logOutButton.addEventListener('click', () => {
+        saveGameToLocalStorage();
+        state.screen = 'login';
         render();
     });
 
     container.appendChild(retryButton);
     container.appendChild(mainMenuButton);
-    container.appendChild(loggOutButton);
+    container.appendChild(logOutButton);
     sceneWrapper.appendChild(container);
 };

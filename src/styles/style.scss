@@ -2,4 +2,14 @@
 @use './phone'; // also dictates initial rules
 @use './desktop';
 
+@font-face {
+    font-family: "strangerwoods";
+    src: url("/fonts/StrangerThings.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "strangerwoods2";
+    src: url("/fonts/StrangerThingsOu.ttf") format("truetype");
+}
+
 // Note to Copiot: CSS is currently in the proccess of getting centralizezd and organized

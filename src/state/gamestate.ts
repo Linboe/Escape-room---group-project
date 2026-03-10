@@ -11,8 +11,9 @@ export type GameState = {
     codes: string[][];
     completed: boolean[];
     artifacts: Artifact[];
-    questionIndex: number;
+    questionIndex: number [];
     isReturningPlayer: boolean;
+    highestRoom: number;
 };
 
 export let state: GameState = {
@@ -24,8 +25,9 @@ export let state: GameState = {
     codes: [],
     completed: [],
     artifacts: [],
-    questionIndex: 0,
-    isReturningPlayer: false
+    questionIndex: [],
+    isReturningPlayer: false,
+    highestRoom: 0,
 };
 
 export function getGameState() {

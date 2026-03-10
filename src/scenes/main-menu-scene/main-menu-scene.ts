@@ -1,9 +1,7 @@
 import './main-menu-scene.scss';
 import { state } from '../../state/gamestate';
-import { loadGameFromLocalStorage } from '../../store/database/local-storage-database';
-import { startStatusBarTimers, stopAllStatusBarTimers, refetchGamestate, renderStatusBar } from '../../components/status-bar/status-bar';
-
-console.log('connected main menu scene');
+import { loadGameFromLocalStorage,clearLocalStorageSave } from '../../store/database/local-storage-database';
+import { startStatusBarTimers, stopAllStatusBarTimers, refetchGamestate, resetStatusBarProgress } from '../../components/status-bar/status-bar';
 
 export function renderMainMenuScene(
     sceneWrapper: HTMLDivElement | null,
@@ -37,21 +35,29 @@ export function renderMainMenuScene(
 
     startGameBtn?.addEventListener('click', () => { //? betyder om det inte är null
         if (state.screen === 'menu') {
-            state.currentRoom = 0;          // Starta från första rummet
+            resetStatusBarProgress();
+            clearLocalStorageSave();
+
+            state.currentRoom = 0; // Starta från första rummet
+            state.completed = [false, false, false, false, false, false];
+
             state.screen = 'room';
-            renderStatusBar();
             render();               // Kör render() som kommer anropa renderNextRoom()
+
+            startStatusBarTimers();
         }
     });
 
-    loadGameBtn?.addEventListener('click', () => { // TODO
+    loadGameBtn?.addEventListener('click', () => { 
         if (state.screen === 'menu') {
             loadGameFromLocalStorage();
             refetchGamestate();
+
             stopAllStatusBarTimers();
-            renderStatusBar();
+   
             state.screen = 'room';
             render();
+
             startStatusBarTimers();
         }
     });
