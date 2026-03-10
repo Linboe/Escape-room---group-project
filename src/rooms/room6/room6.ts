@@ -62,7 +62,7 @@ export function room6(sceneWrapper: HTMLDivElement | null) {
             <h2 class="book-title">${current.title}</h2>
 
             <div class="event-text">
-                ${current.text}
+                <span>${current.text}</span>
 
                 <div class="bookNav">
                     ${current.hasPrev ? '<button id="prevPage">Back</button>' : ""}

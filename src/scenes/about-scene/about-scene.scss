@@ -1,5 +1,5 @@
 .about-container {
-    width: 100vw;
+    width: calc(100vw - 20px);
     max-width: 700px;
     display: flex;
     flex-direction: column;
@@ -12,6 +12,7 @@
     }
 
     h3 {
+        width: calc(100% - 25px);
         padding-left: 1.5rem;
         padding-top: 0.75rem;
         padding-bottom: 0.25rem;
