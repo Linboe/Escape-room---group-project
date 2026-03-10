@@ -45,7 +45,6 @@ function setState(
     next: () => void,
 ): void {
     currentState = state;
-    console.log('Current state:', currentState);
 
     switch (state) {
         case 'story':

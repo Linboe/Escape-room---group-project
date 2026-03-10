@@ -1,1 +1,0 @@
-Bilder som inte ska finnas med bör tas bort innan produktion
