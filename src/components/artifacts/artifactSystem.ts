@@ -68,9 +68,7 @@ export function triggerArtifact(
         ) as HTMLElement;
 
         const previouslyFocused = document.activeElement as HTMLElement;
-
-        //Flyttar fokus till popup för tillgängligheten
-        setTimeout(() => overlay.focus(), 0);
+        setTimeout(() => closeBtn.focus(), 0);
 
         // Hanterar tangentbordsnavigering inuti popup 
         overlay.addEventListener('keydown', (e: KeyboardEvent) => {
