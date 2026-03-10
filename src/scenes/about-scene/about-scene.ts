@@ -31,7 +31,7 @@ export function renderAboutScene() {
 
     const storyText = document.createElement('p');
     storyText.textContent =
-        'Strange Woods is a digital escape room experience set in a mysterious woodland filled with secrets and wonders. Legend has it that those who enter may never return — but brave souls who dare to venture in may discover incredible things. The game consists of 6 interconnected rooms. The first five each conceal hidden artifacts, and collecting them is the key to unlocking and conquering the *Final Room* and claiming your escape. However, not all artifacts are what they seem, one is an impostor. Using it in the Final Room will make it unsolvable, so choose wisely. If you find yourself stuck, you may need to retrace your steps and hunt down the correct artifact before time runs out.';
+        'Strange Woods is a digital escape room experience set in a mysterious woodland filled with secrets and wonders. Legend has it that those who enter may never return — but brave souls who dare to venture in may discover incredible things. The game consists of 6 interconnected rooms. The first five each conceal hidden artifacts, and collecting them is the key to unlocking and conquering the *Final Room* and claiming your escape.';
     storySection.append(storyTitle, storyText); //TODO: Lägg till mer story senare
 
     // How to play
@@ -67,12 +67,36 @@ export function renderAboutScene() {
 
     const devText = document.createElement('p');
     devText.classList.add('credits-font');
-    devText.textContent =
-        'Created by: Alma Isaksson, Alda Catovic, Isabelle Reynolds , Kimi Leminaho, Linn Boekhout and Rasmus Andreas Fransson';
+    devText.innerHTML =
+        'Created by: <a href="https://github.com/MidnattLantern" target="_blank">Alma Isaksson</a>, <a href="https://github.com/aldacat-fed" target="_blank">Alda Catovic</a>, <a href="https://github.com/isabelletherese" target="_blank">Isabelle Reynolds</a>, <a href="https://github.com/Prxjec-t" target="_blank">Kimi Leminaho</a>, <a href="https://github.com/Linboe" target="_blank">Linn Boekhout</a> and <a href="https://github.com/RasmusFranssonHub" target="_blank">Rasmus Andreas Fransson</a>';
 
     const photoCredits = document.createElement('p');
     photoCredits.classList.add('credits-font');
-    photoCredits.innerHTML = '<em>Images: Sources will be added.</em>'; //TODO: Lägg till mer info om bilderna, t.ex. länkar eller specifika användare, fråga gruppen
+    photoCredits.innerHTML = `<em>Images: 
+        <a href="" target="_blank">Background by [photographer name]</a>, 
+        <a href="" target="_blank">Background room1 by [photographer name]</a>,
+        <a href="" target="_blank">Background room2 by [photographer name]</a>,
+        <a href="" target="_blank">Background room3 by [photographer name]</a>,
+        <a href="" target="_blank">Background room4 by [photographer name]</a>,
+        <a href="" target="_blank">Background room5 by [photographer name]</a>,
+        <a href="" target="_blank">Background room6 by [photographer name]</a>,
+        <a href="" target="_blank">Amethyst by [photographer name]</a>, 
+        <a href="" target="_blank">Feather by [photographer name]</a>,
+        <a href="" target="_blank">Fish-statue by [photographer name]</a>,
+        <a href="" target="_blank">Key by [photographer name]</a>,
+        <a href="" target="_blank">Ladder by [photographer name]</a>,
+        <a href="" target="_blank">Rubber-duck by [photographer name]</a>,
+        <a href="" target="_blank">Walking-pot by [photographer name]</a>,
+           <a href="" target="_blank">Dragon by [photographer name]</a>, 
+        <a href="" target="_blank">Red Dragon by [photographer name]</a>,
+        <a href="" target="_blank">Tiger by [photographer name]</a>,
+        <a href="" target="_blank">Deer by [photographer name]</a>,
+        <a href="" target="_blank">Roedeer by [photographer name]</a>,
+        <a href="" target="_blank">Fox by [photographer name]</a>,
+        <a href="" target="_blank">Horse by [photographer name]</a>,
+        <a href="" target="_blank">Fairys by [photographer name]</a>,
+        <a href="" target="_blank">Celestial night sky by [photographer name]</a>,
+</em>`; //TODO: Lägg till mer info om bilderna, t.ex. länkar eller specifika användare, fråga gruppen
 
     creditSection.append(creditTitle, devText, photoCredits);
 
