@@ -20,6 +20,7 @@ export function saveGameToLocalStorage() { // sparar data till localstorage
         questionIndex: state.questionIndex, // vilken fråga spelaren är på (används i rum 3)
         roomStates: getRoomStates(), // återstående tid för varje rum
         secondsElapsed: getSecondsElapsed(), // totala tiden som spelaren har spelat
+        highestRoom: state.highestRoom,
     };
 
     localStorage.setItem(getStorageKey(), JSON.stringify(data));
@@ -47,6 +48,7 @@ export function loadGameFromLocalStorage() { // läser in data från localstorag
                 setRoomTime(index, room.roomTime);  // återställer återstående tid för varje
             });
         }
+        if (data.highestRoom !== undefined) state.highestRoom = data.highestRoom;
         if (data.secondsElapsed !== undefined) setSecondsElapsed(data.secondsElapsed); // återställer återstående totala tiden
     } catch (e) {
         console.error('Failed to parse save data from localStorage', e);

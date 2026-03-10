@@ -40,6 +40,7 @@ export function renderMainMenuScene(
 
             state.currentRoom = 0; // Starta från första rummet
             state.completed = [false, false, false, false, false, false];
+            state.highestRoom = 0;
 
             state.screen = 'room';
             render();               // Kör render() som kommer anropa renderNextRoom()
