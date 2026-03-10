@@ -40,6 +40,11 @@
     flex-direction: column;
     align-items: stretch;
     width: 100%;
+
+    .event-text {
+        margin: 20px;
+        width: calc(100% - 80px);
+    }
 }
 
 .room-5 .room-title-text {
