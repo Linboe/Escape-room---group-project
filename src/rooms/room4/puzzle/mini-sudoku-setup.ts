@@ -18,7 +18,6 @@ export function setTableToUse(table: string) {
             tableToUse = table1;
             break;
     }
-    console.log(tableToUse);
 }
 
 // using .map() a model with proerties is automatically generated

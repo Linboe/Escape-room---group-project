@@ -2,8 +2,6 @@ import { state } from '../../state/gamestate';
 import { render } from '../../main';
 import './about-scene.scss';
 
-console.log('connected about scene');
-
 const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement | null;
 
 export function renderAboutScene() {
@@ -60,7 +58,7 @@ export function renderAboutScene() {
 
     const devText = document.createElement('p');
     devText.classList.add('credits-font');
-    devText.textContent = 'Created by: Alma Isaksson, Alda Catovic, Isabelle Reynolds , Kimi Leminaho, Linn Boekhout and Rasmus Andreas Fransson'; 
+    devText.textContent = 'Created by: Alma Isaksson, Alda Catovic, Isabelle Reynolds, Kimi Leminaho, Linn Boekhout and Rasmus Andreas Fransson'; 
 
     const photoCredits = document.createElement('p');
     photoCredits.classList.add('credits-font');
@@ -73,7 +71,6 @@ export function renderAboutScene() {
     backBtn.id = 'backToMenuBtn';
     backBtn.textContent = 'Back to main menu';
     backBtn.addEventListener('click', () => {
-        console.log('Back to main menu clicked');
         state.screen = 'menu';
         render();
     });

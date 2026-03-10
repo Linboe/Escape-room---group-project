@@ -81,8 +81,7 @@ export function getArtifactById(id: string): Artifact | undefined {
 }
 
 function renderArtifacts() {
-    console.log('renderArtifacts called, collectedArtifacts:', collectedArtifacts);
-    console.log('isRoom6:', isRoom6);
+
     const slots = Array.from({ length: 7 }).map((_, i) => {
         const artifact = collectedArtifacts[i];
         const slotIsEmpty = !artifact;
@@ -111,7 +110,6 @@ function renderArtifacts() {
         divArtifactsElement.querySelectorAll('.artifact-slot.draggable').forEach((slot) => {
             slot.addEventListener('dragstart', (e) => {
                 const artifactId = (slot as HTMLElement).dataset.id ?? '';
-                console.log('dragstart artifactId:', artifactId);
                 (e as DragEvent).dataTransfer?.setData('artifactId', artifactId);
 
                 const img = slot.querySelector('img') as HTMLImageElement;
@@ -214,9 +212,6 @@ export function renderStatusBar() {
 
     statusBarWrapper.append(artifactAndRoomContainerElement, timersContainerElement);
     renderArtifacts();
-
-    console.log('currentRoom:', state.currentRoom, 'completed:', state.completed);
-
 }
 
 // ===============

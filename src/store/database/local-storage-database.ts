@@ -54,10 +54,7 @@ export function loadGameFromLocalStorage() { // läser in data från localstorag
 }
 
 export function hasSaveGame(): boolean {
-    console.log('checking save for username:', state.username); 
-    console.log('storage key:', getStorageKey());
     const raw = localStorage.getItem(getStorageKey());
-    console.log('raw save:', raw);
     if (!raw) return false;
 
     try {
