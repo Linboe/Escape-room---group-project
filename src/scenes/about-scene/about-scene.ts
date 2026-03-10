@@ -2,15 +2,11 @@ import { state } from '../../state/gamestate';
 import { render } from '../../main';
 import './about-scene.scss';
 
-<<<<<<< linn-readme
 console.log('connected about scene');
 
 const sceneWrapper = document.getElementById(
     'sceneWrapper',
 ) as HTMLDivElement | null;
-=======
-const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement | null;
->>>>>>> main
 
 export function renderAboutScene() {
     if (!sceneWrapper) {
@@ -70,12 +66,8 @@ export function renderAboutScene() {
 
     const devText = document.createElement('p');
     devText.classList.add('credits-font');
-<<<<<<< linn-readme
     devText.innerHTML =
         'Created by: <a href="https://github.com/MidnattLantern" target="_blank">Alma Isaksson</a>, <a href="https://github.com/aldacat-fed" target="_blank">Alda Catovic</a>, <a href="https://github.com/isabelletherese" target="_blank">Isabelle Reynolds</a>, <a href="https://github.com/Prxjec-t" target="_blank">Kimi Leminaho</a>, <a href="https://github.com/Linboe" target="_blank">Linn Boekhout</a> and <a href="https://github.com/RasmusFranssonHub" target="_blank">Rasmus Andreas Fransson</a>';
-=======
-    devText.textContent = 'Created by: Alma Isaksson, Alda Catovic, Isabelle Reynolds, Kimi Leminaho, Linn Boekhout and Rasmus Andreas Fransson'; 
->>>>>>> main
 
     const photoCredits = document.createElement('p');
     photoCredits.classList.add('credits-font');
