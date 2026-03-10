@@ -3,9 +3,6 @@ import { state } from '../../state/gamestate';
 import { saveGameToLocalStorage } from '../../store/database/local-storage-database';
 import { hasSaveGame } from '../../store/database/local-storage-database';
 
-
-console.log('connected sign in scene');
-
 export function renderSignInScene(
     sceneWrapper: HTMLDivElement | null,
     render: () => void

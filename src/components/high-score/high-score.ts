@@ -32,7 +32,6 @@ export function getHighScores(): HighscoreEntry[] {
     // konvertera JSON-string till array med JSON.parse //try --> om koden kraschar (ogilitg json) hoppar det dirket till catch istället för att appen kraschar
     try {
         const parsedScores = JSON.parse(stored) as HighscoreEntry[];
-        console.log(parsedScores);
         return parsedScores;
     } catch (error) {
         // om JSON.parse misslyckas (korrupt data) --> logga felet
@@ -45,7 +44,6 @@ export function getHighScores(): HighscoreEntry[] {
 // ---------------------- save Highscore ------------------------
 // --------------------------------------------------------------
 export function saveHighscore(name: string, score: number): void {
-    console.log('saving high score');
     // validera input
     const nameIsEmpty = !name.trim(); // trim() tar bort mellanslag, kolla om tomt
     const scoreIsInvalid = score < 0;
@@ -71,7 +69,6 @@ export function saveHighscore(name: string, score: number): void {
     const playerExists: boolean = existingPlayerIndex !== -1;
 
     if (playerExists) {
-        console.log('player in database');
         // om spelaren finns
         const oldScore: number = allScores[existingPlayerIndex].score;
         //const newScoreIsBetter: boolean = score > oldScore;
@@ -85,7 +82,6 @@ export function saveHighscore(name: string, score: number): void {
             };
         }
     } else {
-        console.log('new player');
         // ny spelare - lägg till
         const newEntry: HighscoreEntry = {
             name: cleanName,
@@ -113,7 +109,7 @@ export function renderHighScore(): void {
     const highScoreWrapperElement = document.getElementById(
         'highScoreWrapper',
     ) as HTMLDivElement | null;
-    console.log('highScoreWrapper:', highScoreWrapperElement);
+
     if (!highScoreWrapperElement) return;
 
     const scores = getHighScores();
@@ -171,10 +167,8 @@ export function renderHighScore(): void {
 let detach: (() => void) | undefined; // håller cleanup-funktionen
 
 function onHackSuccess(): void {
-    console.log('hack lyckades! rensar highscore...');
-    console.log('innan rensning:', localStorage.getItem(HIGHSCORE_KEY));
     localStorage.removeItem(HIGHSCORE_KEY);
-    console.log('efter rensning:', localStorage.getItem(HIGHSCORE_KEY));
+
     renderHighScore();
     attachHack();
 }

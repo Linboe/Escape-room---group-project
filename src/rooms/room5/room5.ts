@@ -4,8 +4,10 @@ import { triggerArtifact } from '../../components/artifacts/artifactSystem';
 import { showRoomIntro } from '../../components/room-intro/room-intro';
 import {
     startStatusBarTimers,
-    stopAllStatusBarTimers,
+    stopAllStatusBarTimers, 
 } from '../../components/status-bar/status-bar';
+import { state } from '../../state/gamestate';
+import { saveGameToLocalStorage } from '../../store/database/local-storage-database';
 
 const COLUMNS = 4;
 
@@ -43,7 +45,6 @@ function setState(
     next: () => void,
 ): void {
     currentState = state;
-    console.log('Current state:', currentState);
 
     switch (state) {
         case 'story':
@@ -420,6 +421,8 @@ function showCompleted(sceneWrapper: HTMLDivElement, next: () => void): void {
 
         triggerArtifact('room5', 'amethyst');
         stopAllStatusBarTimers(); //OBS - all tid stannar
+        state.completed[state.currentRoom] = true;
+        saveGameToLocalStorage();
 
         // 3. Knapp för att faktiskt lämna rummet och gå till nästa (next)
         document

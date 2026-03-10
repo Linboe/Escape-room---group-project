@@ -194,7 +194,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
             <h2 class="room-title-text">The Watcher of Victoria House</h2>
 
             <div class="game-wrapper sequence-game-wrapper">
-                <p class="event-text">The greenhouse breathes around you. Something stirs in the leaves — a hidden order, waiting to be found. Follow the hierarchy of life: from the smallest bloom, through the reaching fronds, all the way up to the glass above.</p>
+                <p class="event-text">The greenhouse holds a secret order. Seek out the flower closest to the ground, then follow the hanging ferns reaching upward, and finally touch the glass ceiling above. Find them and click them in order!</p>
                 <button id="startSequenceBtn" class="interaction-button">Begin</button>
             </div>
         `);
@@ -374,10 +374,11 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                     `);
 
                 triggerArtifact('room2', 'key', 0);
+                state.completed[state.currentRoom] = true;
+                saveGameToLocalStorage();
 
                 setTimeout(() => {
                     const closeBtn = document.querySelector('#close-artifact-btn');
-                    console.log('closeBtn found:', closeBtn);
 
                     closeBtn?.addEventListener('click', () => {
                         sceneWrapper.querySelector('.artifact-wrapper')?.classList.remove('hidden');
