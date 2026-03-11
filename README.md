@@ -1,4 +1,4 @@
-Live link: (medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers)[https://medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers/]
+Live link: [medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers](https://medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers/)
 
 # Strange Woods
 
