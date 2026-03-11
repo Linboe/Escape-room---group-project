@@ -21,7 +21,7 @@ export function renderAboutScene() {
 
     // Title
     const title = document.createElement('h2');
-    title.textContent = 'About Strange Woods';
+    title.textContent = 'About Stranger Woods';
     aboutContainer.append(title);
 
     // Story
@@ -31,7 +31,7 @@ export function renderAboutScene() {
 
     const storyText = document.createElement('p');
     storyText.textContent =
-        'Strange Woods is a digital escape room experience set in a mysterious woodland filled with secrets and wonders. Legend has it that those who enter may never return — but brave souls who dare to venture in may discover incredible things. The game consists of 6 interconnected rooms. The first five each conceal hidden artifacts, and collecting them is the key to unlocking and conquering the *Final Room* and claiming your escape.';
+        'Stranger Woods is a digital escape room experience set in a mysterious woodland filled with secrets and wonders. Legend has it that those who enter may never return — but brave souls who dare to venture in may discover incredible things. The game consists of 6 interconnected rooms. The first five each conceal hidden artifacts, and collecting them is the key to unlocking and conquering the *Final Room* and claiming your escape.';
     storySection.append(storyTitle, storyText); //TODO: Lägg till mer story senare
 
     // How to play

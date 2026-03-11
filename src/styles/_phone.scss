@@ -15,7 +15,7 @@ body {
 h1, h2, h3 {
     font-family: var(--font-sans);
     color: var(--color-text-body);
-    text-shadow: 0 2px 5px var(--color-shadow);
+    text-shadow: 0 2px 2px var(--color-shadow);
     text-transform: uppercase;
     margin: 0;
     width: 100%;
@@ -31,6 +31,8 @@ h1 {
     z-index: 1;
     font-size: 1.6rem;
     text-align: center;
+
+    overflow: hidden; // prevent pulsing animation from causing a horizontal scroll
 }
 
 // status-bar h1 style
@@ -47,6 +49,10 @@ h1 {
 }
 
 h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60px;
     font-size: 1.6rem;
     text-align: center;
 }
@@ -107,9 +113,10 @@ button {
     height: fit-content;
     cursor: pointer;
     text-align: center;
-//    border-radius: var(--pillify);
+    //border-radius: var(--pillify);
     border-radius: 5px;
     padding: 10px;
+    transition: all 0.2s ease;
 
     &:focus,
     &:hover {
@@ -120,13 +127,23 @@ button {
             var(--color-interactive-body) 100%,
         );
         transition: all 0.3s ease;
-        outline: none;
+    }
+
+   &:focus-visible {
+    outline: 3px solid rgba(180, 210, 195, 1);
+    outline-offset: 3px;
+    background:
+        linear-gradient(90deg,
+        var(--color-interactive-body) 0%,
+        var(--color-interactive-body-highlighted) 50%,
+        var(--color-interactive-body) 100%,
+        );
     }
 
     &:active {
         box-shadow: none;
         transform: translate(0, 2px);
-        transition: all 0.1s ease;
+        transition: all 0.05s ease;
     }
 
     &:disabled {

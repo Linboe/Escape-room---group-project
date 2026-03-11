@@ -9,6 +9,13 @@
     height: calc(100vh - var(--status-bar-height));
     display: flex;
     justify-content: center;
+
+    h2 {
+        background: linear-gradient( 0deg,
+            var(--color-clear) 0%,
+            var(--color-heavy-dim) 40%
+        );
+    }
 }
 
 .room-frame {
@@ -21,23 +28,16 @@
     background-position: center;
     background-repeat: no-repeat;
     height: 100%;
-
-    h2 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 60px;
-    }
 }
 
 .event-text {
-    background: rgba(20, 30, 25, 0.75);
-    color: #dde8e2;
-    font-size: 0.95rem;
-    line-height: 1.7;
-    padding: 1.25rem 1.5rem;
-    margin: 0;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: var(--color-surface-body);
+    backdrop-filter: blur(50px);
+    color: var(--color-text-body);
+    margin: 20px;
+    padding: 20px;
+    width: calc(100% - 80px);
+    border: 1px solid var(--color-border-transparent);
 }
 
 .game-session-style {

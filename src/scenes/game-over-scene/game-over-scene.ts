@@ -15,13 +15,8 @@ export function renderGameOverScene(score: number = 0) {
     const container = document.createElement('div');
     container.classList.add('game-over-container');
 
-    const title = document.createElement('h2');
-    title.textContent = 'GAME OVER';
-    container.appendChild(title);
-
-    const scoreText = document.createElement('p');
-    scoreText.textContent = `Your score: ${score}`;
-    container.appendChild(scoreText);
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.classList.add('game-over-buttons-container');
 
     const retryButton = document.createElement('button');
     retryButton.textContent = 'Retry';
@@ -52,8 +47,16 @@ export function renderGameOverScene(score: number = 0) {
         render();
     });
 
-    container.appendChild(retryButton);
-    container.appendChild(mainMenuButton);
-    container.appendChild(logOutButton);
+    const title = document.createElement('h2');
+    title.textContent = 'GAME OVER';
+
+    const scoreText = document.createElement('p');
+    scoreText.textContent = `Your score: ${score}`;
+
+    buttonsContainer.appendChild(retryButton);
+    buttonsContainer.appendChild(mainMenuButton);
+
+    container.append(title, scoreText, buttonsContainer);
+
     sceneWrapper.appendChild(container);
 };
