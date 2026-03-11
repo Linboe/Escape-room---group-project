@@ -16,6 +16,7 @@ export type GameState = {
     isReturningPlayer: boolean;
     highestRoom: number;
     gameOverReason: 'room-timeout' | 'total-timeout' | 'too-many-attempts';
+    room2Path: 'A' | 'B' | null;
 };
 
 export let state: GameState = {
@@ -31,6 +32,8 @@ export let state: GameState = {
     isReturningPlayer: false,
     highestRoom: 0,
     gameOverReason: 'room-timeout',
+    room2Path: null,
+    
 };
 
 export function getGameState() {

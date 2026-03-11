@@ -44,6 +44,7 @@ export function renderMainMenuScene(
             state.codes = [];
             state.artifacts = [];
             state.questionIndex = [];
+            state.room2Path = null;
 
             state.screen = 'room';
             render();               // Kör render() som kommer anropa renderNextRoom()
