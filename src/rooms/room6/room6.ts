@@ -12,14 +12,10 @@ import {
 } from './story/room6story';
 
 import { setRoom6Mode } from '../../components/status-bar/status-bar';
-<<<<<<< HEAD
-import { renderGameOverScene } from '../../scenes/game-over-scene/game-over-scene';
 import { renderVictoryScene } from '../../scenes/victory-scene/victory-scene';
-=======
-import { renderVictoryScene } from '../../scenes/victory-scene/victory-scene';
+
 import { render } from '../../main';
 import { state } from '../../state/gamestate';
->>>>>>> origin/main
 
 export function room6(sceneWrapper: HTMLDivElement | null) {
     if (!sceneWrapper) return;
@@ -27,17 +23,10 @@ export function room6(sceneWrapper: HTMLDivElement | null) {
     showRoomIntro(
         6,
         () => {
-<<<<<<< HEAD
-        /* pauseTimer */
-        },
-        () => {
-        /* resumeTimer */
-=======
             /* pauseTimer */
         },
         () => {
             /* resumeTimer */
->>>>>>> origin/main
         },
         () => {
             setRoom6Mode(true);
