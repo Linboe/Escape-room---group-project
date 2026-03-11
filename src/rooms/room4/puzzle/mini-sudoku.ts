@@ -3,8 +3,6 @@ import './mini-sudoku.scss';
 import { getGameSessionMiniSudokuSeup, setGameSessionBeatenState, updateMiniSudokuSetup } from './mini-sudoku-states';
 import { checkCellElement } from './mini-sudoku-helper';
 
-const sceneWrapper = document.getElementById('sceneWrapper') as HTMLDivElement | null;
-
 // ================================
 // Table chain generation fractions
 // ================================
@@ -52,7 +50,8 @@ function generateRowElement(rowItem: ICellModel[], rowDataset: string) {
 // ================================
 
 export function renderMiniSudoku() { // also initialize
-    if (!sceneWrapper) return;
+    const room4Section = document.getElementById('room4Section') as HTMLDivElement | null;
+    if (!room4Section) return;
 
     updateMiniSudokuSetup(); // syncorize setup UI and state
     const miniSudokuSetup = getGameSessionMiniSudokuSeup();
@@ -74,7 +73,7 @@ export function renderMiniSudoku() { // also initialize
     miniSudokuGameContainer.append(sudokuTableBody);
 
     //compile
-    sceneWrapper.append(miniSudokuGameContainer);
+    room4Section.append(miniSudokuGameContainer);
 }
 
 export function closeMiniSudokuGameSession() {
