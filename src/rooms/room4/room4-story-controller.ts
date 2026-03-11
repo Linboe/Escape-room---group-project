@@ -442,7 +442,35 @@ export function handleRoom4ClickStoryEventButton(event: Event) {
     }
 }
 
+function checkCompleted() {
+    setRoom4HasLadder(false);
+    setRoom4HasRubberDuckArtifact(false);
+    setRoom4HasFishStatueArtifact(false);
+    setRoom4CrossroadsMonumentIsBeaten(false);
+    setRoom4RavineMonumentIsBeaten(false);
+    setRoom4CliffMonumentIsBeaten(false);
+
+    const artefactsData = state.artifacts;
+    for (let i = 0; i < artefactsData.length; i++) {
+        const artefactItem = artefactsData[i];
+        if (artefactItem.id === 'ladder') {
+            setRoom4HasLadder(true);
+            setRoom4CrossroadsMonumentIsBeaten(true);
+        }
+        if (artefactItem.id === 'fish-statue') {
+            setRoom4HasFishStatueArtifact(true);
+            setRoom4RavineMonumentIsBeaten(true);
+        }
+        if (artefactItem.id === 'rubber-duck') {
+            setRoom4HasRubberDuckArtifact(true);
+            setRoom4CliffMonumentIsBeaten(true);
+        }
+    }
+}
+
 function updateRoom4StoryController() {
+    checkCompleted();
+
     const currentStoryObject = room4StoryToUse[room4StoryIndex];
     room4TextEvent = currentStoryObject.textEvent!;
     room4EventMarker = currentStoryObject.eventMarker!;

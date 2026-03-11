@@ -50,7 +50,7 @@ export interface BookPage {
 export const room6Book: BookPage[] = [
     {
         title: 'The Mysterious Book',
-        text: 'This is the end, enter to escape.',
+        text: 'This is the end, enter to escape...',
         hasNext: true
     },
     {
@@ -61,7 +61,7 @@ export const room6Book: BookPage[] = [
     },
     {
         title: 'Part II',
-        text: 'The path opens to a second carving, higher now, where escape is measured in height and lightness. One mark demands a way upward beyond grasping branches. The other is weightless, etched as if by wind alone. You place the <div id="drop-zone-3" class="drop-zone">Drop zone</div> and the <div id="drop-zone-4" class="drop-zone">Drop zone</div>. The trees shift. Air stirs.',
+        text: 'The path opens to a second carving, higher now, where escape is measured in height and lightness. One mark demands a way upward beyond grasping branches. The other is weightless, etched as if by wind alone. <br>You place the <div id="drop-zone-3" class="drop-zone">Drop zone</div> and the <div id="drop-zone-4" class="drop-zone">Drop zone</div>. The trees shift. Air stirs.',
         hasPrev: true,
         hasNext: true
     },
@@ -306,7 +306,7 @@ export function updateRoom6Progress() {
 
     const placed = Object.values(room6State).filter(Boolean).length;
 
-    progress.textContent = `Artifacts placed: ${placed} / 6`;
+    progress.textContent = `Offerings: ${placed} / 6`;
 
     if (placed === 6) {
 
