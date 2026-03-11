@@ -50,7 +50,7 @@ export interface BookPage {
 export const room6Book: BookPage[] = [
     {
         title: 'The Mysterious Book',
-        text: 'This is the end, enter to escape.',
+        text: 'This is the end, enter to escape...',
         hasNext: true
     },
     {

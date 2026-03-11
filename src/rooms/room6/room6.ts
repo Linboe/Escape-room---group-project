@@ -1,40 +1,40 @@
-import "./room6.scss";
-import { showRoomIntro } from "../../components/room-intro/room-intro";
+import './room6.scss';
+import { showRoomIntro } from '../../components/room-intro/room-intro';
 import {
-  room6Book,
-  initRoom6Drop,
-  renderRoom6State,
-  checkRoom6Solution,
-  getPlacedArtifactsCount,
-  updateRoom6Progress,
-  lockRoom6Result,
-  unlockRoom6Result,
-} from "./story/room6story";
+    room6Book,
+    initRoom6Drop,
+    renderRoom6State,
+    checkRoom6Solution,
+    getPlacedArtifactsCount,
+    updateRoom6Progress,
+    lockRoom6Result,
+    unlockRoom6Result,
+} from './story/room6story';
 
-import { setRoom6Mode } from "../../components/status-bar/status-bar";
-import { renderGameOverScene } from "../../scenes/game-over-scene/game-over-scene";
-import { renderVictoryScene } from "../../scenes/victory-scene/victory-scene";
+import { setRoom6Mode } from '../../components/status-bar/status-bar';
+import { renderGameOverScene } from '../../scenes/game-over-scene/game-over-scene';
+import { renderVictoryScene } from '../../scenes/victory-scene/victory-scene';
 
 export function room6(sceneWrapper: HTMLDivElement | null) {
-  if (!sceneWrapper) return;
+    if (!sceneWrapper) return;
 
-  showRoomIntro(
-    6,
-    () => {
-      /* pauseTimer */
-    },
-    () => {
-      /* resumeTimer */
-    },
-    () => {
-      setRoom6Mode(true);
+    showRoomIntro(
+        6,
+        () => {
+        /* pauseTimer */
+        },
+        () => {
+        /* resumeTimer */
+        },
+        () => {
+            setRoom6Mode(true);
 
-      document.addEventListener("dragover", (e) => e.preventDefault());
+            document.addEventListener('dragover', (e) => e.preventDefault());
 
-      let attempts = 0;
-      const maxAttempts = 3;
+            let attempts = 0;
+            const maxAttempts = 3;
 
-      sceneWrapper.innerHTML = `
+            sceneWrapper.innerHTML = `
         <section class="room room-6">
             <div class="room-frame">
                 <div class="game-session-wrapper">
