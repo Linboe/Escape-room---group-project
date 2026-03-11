@@ -154,9 +154,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
                 if (btn.id === 'surface') {
                     saveCode('11');
-                    message!.classList.remove('hidden');
-                    message!.textContent = 'Your sharp mind saw through the mystery. Fragment found: 11';
-                    setTimeout(() => nextGame(), 4000);
+                    fragmentFound('11', 'Your sharp mind saw through the mystery of the brass plaque.');
                 }
 
                 else {
@@ -289,9 +287,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
             if (inputValue === 12) {
                 saveCode('55');
-                message!.classList.remove('hidden');
-                message!.textContent = 'The fog clears! Fragment found: 55';
-                setTimeout(() => nextGame(), 4000);
+                fragmentFound('55', 'The fog clears!');
 
             } else {
                 attempts++;
