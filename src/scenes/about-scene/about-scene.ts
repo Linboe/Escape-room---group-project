@@ -2,8 +2,6 @@ import { state } from '../../state/gamestate';
 import { render } from '../../main';
 import './about-scene.scss';
 
-console.log('connected about scene');
-
 const sceneWrapper = document.getElementById(
     'sceneWrapper',
 ) as HTMLDivElement | null;
