@@ -31,10 +31,6 @@ timersContainerElement.classList.add('timers-container');
 const lowerStatusContainerElement = document.createElement('section');
 lowerStatusContainerElement.classList.add('lower-status-container');
 
-// children
-const spanStatusBarElement = document.createElement('span');
-spanStatusBarElement.textContent = 'Status Bar';
-
 const spanTimerElement = document.createElement('span');
 spanTimerElement.textContent = '--:--';
 
@@ -235,6 +231,7 @@ function handleCountdownTick() {
         stopCountdown();
         stopCountup();
         spanTimerElement.textContent = 'Time\'s up!';
+        state.gameOverReason = 'room-timeout';
         renderGameOverScene();
     }
 }
@@ -245,6 +242,7 @@ function handleCountupTick() {
         stopCountdown();
         stopCountup();
         countupSpanElement.textContent = 'Total time is up!';
+        state.gameOverReason = 'total-timeout';
         renderGameOverScene();
     }
 }

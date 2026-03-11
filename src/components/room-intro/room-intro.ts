@@ -37,13 +37,13 @@ export function showRoomIntro(
     }, 300);
 
     overlay.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        e.preventDefault();
-        e.stopPropagation();
-        overlay.remove();
-        resumeTimer();
-        onEnter();
-    }
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            e.stopPropagation();
+            overlay.remove();
+            resumeTimer();
+            onEnter();
+        }
     });
 
     overlay.querySelector('.room-intro-btn')!.addEventListener('click', () => {

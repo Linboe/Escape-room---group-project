@@ -299,6 +299,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                     }
                     setTimeout(() => {
                         stopAllStatusBarTimers();
+                        state.gameOverReason = 'too-many-attempts';
                         saveGameToLocalStorage();
                         state.screen = 'gameover';
                         render();
@@ -395,6 +396,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
                     setTimeout(() => {
                         stopAllStatusBarTimers();
+                        state.gameOverReason = 'too-many-attempts';
                         saveGameToLocalStorage();
                         state.screen = 'gameover';
                         render();
