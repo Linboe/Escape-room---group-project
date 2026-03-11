@@ -16,11 +16,6 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
     }
 
     let currentPath: 'A' | 'B' | null = null;
-    const savedPath = localStorage.getItem('room2-path');
-
-    if (savedPath === 'A' || savedPath === 'B') {
-        currentPath = savedPath;
-    }
 
     //------------------ 1. FLOW CONTROL --------------------
 
@@ -100,8 +95,6 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
     function choosePath(choice: 'A' | 'B') {
         currentPath = choice;
-        localStorage.setItem('room2-path', choice);
-
         if (choice === 'A') {
             riddleGame();
         } else {
