@@ -15,7 +15,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
         collectedCodes = state.codes[state.currentRoom];
     }
 
-    let currentPath: 'A' | 'B' | null = null;
+    let currentPath: 'A' | 'B' | null = state.room2Path;
 
     //------------------ 1. FLOW CONTROL --------------------
 
@@ -95,6 +95,8 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
     function choosePath(choice: 'A' | 'B') {
         currentPath = choice;
+        state.room2Path = choice;
+        
         if (choice === 'A') {
             riddleGame();
         } else {
