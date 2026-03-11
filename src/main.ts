@@ -85,7 +85,7 @@ export function renderNextRoom() {
     if (isRevisiting) {
         removeArtifactByRoomIndex(state.currentRoom);
         state.artifacts = state.artifacts.filter(a => a.id !== roomArtifactIds[state.currentRoom]);
-        state.codes[state.currentRoom] = [];
+        delete state.codes[state.currentRoom];
         state.questionIndex[state.currentRoom] = 0;
         state.completed[state.currentRoom] = false;
         saveGameToLocalStorage();
