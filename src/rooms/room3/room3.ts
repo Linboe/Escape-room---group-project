@@ -157,6 +157,7 @@ export function room3(sceneWrapper: HTMLDivElement | null, next: () => void) {
                             buttons.forEach((b) => (b.disabled = true));
                             setTimeout(() => {
                                 stopAllStatusBarTimers();
+                                state.gameOverReason = 'too-many-attempts';
                                 saveGameToLocalStorage();
                                 state.screen = 'gameover';
                                 render();

@@ -11,6 +11,11 @@ function getStorageKey(): string {
 
 // SAVE
 export function saveGameToLocalStorage() { // sparar data till localstorage
+    if (!state.username || state.username.trim() === '') {
+        console.warn('Save aborted: No username found in state.');
+        return;
+    }
+    
     const data = {
         currentRoom: state.currentRoom, // rummet som spelaren befinner sig i
         username: state.username, // spelarens användarnamn
