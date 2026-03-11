@@ -1,6 +1,6 @@
 import './main-menu-scene.scss';
 import { state } from '../../state/gamestate';
-import { loadGameFromLocalStorage,clearLocalStorageSave } from '../../store/database/local-storage-database';
+import { loadGameFromLocalStorage, clearLocalStorageSave } from '../../store/database/local-storage-database';
 import { startStatusBarTimers, stopAllStatusBarTimers, refetchGamestate, resetStatusBarProgress } from '../../components/status-bar/status-bar';
 
 export function renderMainMenuScene(
@@ -14,7 +14,7 @@ export function renderMainMenuScene(
     sceneWrapper.innerHTML = `
         <div class="main-menu">
             <div class="menu-buttons">
-                <button id="startGame" class="menu-btn primary">Start game</button>
+                <button id="startGame" class="menu-btn primary">New game</button>
                 ${state.isReturningPlayer ? '<button id="loadGame" class="menu-btn">Load game</button>' : ''}
                 <button id="about" class="menu-btn">About</button>
                 <button id="logout" class="menu-btn secondary">Log out</button>
@@ -41,6 +41,10 @@ export function renderMainMenuScene(
             state.currentRoom = 0; // Starta från första rummet
             state.completed = [false, false, false, false, false, false];
             state.highestRoom = 0;
+            state.codes = [];
+            state.artifacts = [];
+            state.questionIndex = [];
+            state.room2Path = null;
 
             state.screen = 'room';
             render();               // Kör render() som kommer anropa renderNextRoom()
@@ -49,13 +53,13 @@ export function renderMainMenuScene(
         }
     });
 
-    loadGameBtn?.addEventListener('click', () => { 
+    loadGameBtn?.addEventListener('click', () => {
         if (state.screen === 'menu') {
             loadGameFromLocalStorage();
             refetchGamestate();
 
             stopAllStatusBarTimers();
-   
+
             state.screen = 'room';
             render();
 

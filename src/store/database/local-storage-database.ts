@@ -11,11 +11,11 @@ function getStorageKey(): string {
 
 // SAVE
 export function saveGameToLocalStorage() { // sparar data till localstorage
-    if (!state.username || state.username.trim() === '') { // spara aldrig om användarnamnet är tomt
+    if (!state.username || state.username.trim() === '') {
         console.warn('Save aborted: No username found in state.');
         return;
     }
-
+    
     const data = {
         currentRoom: state.currentRoom, // rummet som spelaren befinner sig i
         username: state.username, // spelarens användarnamn
@@ -25,7 +25,8 @@ export function saveGameToLocalStorage() { // sparar data till localstorage
         questionIndex: state.questionIndex, // vilken fråga spelaren är på (används i rum 3)
         roomStates: getRoomStates(), // återstående tid för varje rum
         secondsElapsed: getSecondsElapsed(), // totala tiden som spelaren har spelat
-        highestRoom: state.highestRoom,
+        highestRoom: state.highestRoom, // högsta rummet spelaren kommit till
+        room2Path: state.room2Path, // vald väg i rum 2
     };
 
     localStorage.setItem(getStorageKey(), JSON.stringify(data));
@@ -54,6 +55,7 @@ export function loadGameFromLocalStorage() { // läser in data från localstorag
             });
         }
         if (data.highestRoom !== undefined) state.highestRoom = data.highestRoom;
+        if (data.room2Path !== undefined) state.room2Path = data.room2Path;
         if (data.secondsElapsed !== undefined) setSecondsElapsed(data.secondsElapsed); // återställer återstående totala tiden
     } catch (e) {
         console.error('Failed to parse save data from localStorage', e);

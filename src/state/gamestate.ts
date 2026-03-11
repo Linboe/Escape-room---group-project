@@ -2,6 +2,7 @@ import type { Artifact } from '../components/artifacts/artifactSystem';
 
 export type Screen = 'login' | 'menu' | 'room' | 'savedgame' | 'settings' | 'about' | 'victory' | 'gameover';
 
+
 export type GameState = {
     screen: Screen;
     username: string;
@@ -14,6 +15,8 @@ export type GameState = {
     questionIndex: number [];
     isReturningPlayer: boolean;
     highestRoom: number;
+    gameOverReason: 'room-timeout' | 'total-timeout' | 'too-many-attempts';
+    room2Path: 'A' | 'B' | null;
 };
 
 export let state: GameState = {
@@ -28,6 +31,9 @@ export let state: GameState = {
     questionIndex: [],
     isReturningPlayer: false,
     highestRoom: 0,
+    gameOverReason: 'room-timeout',
+    room2Path: null,
+    
 };
 
 export function getGameState() {
@@ -38,26 +44,15 @@ export function getGameState() {
 // Timers
 // ======
 
+export const roomTimes = [400, 400, 400, 570, 400, 400];
+
 let roomStates = [
-    {
-        //isUnlocked: true,
-        roomTime: 400// TODO: make it possible to fetch room time from localstorage
-    },
-    {
-        roomTime: 400
-    },
-    {
-        roomTime: 400
-    },
-    {
-        roomTime: 570
-    },
-    {
-        roomTime: 400
-    },
-    {
-        roomTime: 400
-    }
+    { roomTime: roomTimes[0] },
+    { roomTime: roomTimes[1] },
+    { roomTime: roomTimes[2] },
+    { roomTime: roomTimes[3] },
+    { roomTime: roomTimes[4] },
+    { roomTime: roomTimes[5] },
 ];
 
 export function getRoomStates() {

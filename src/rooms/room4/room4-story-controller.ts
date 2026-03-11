@@ -1,10 +1,10 @@
 import type { IButtonEvent, IScriptEvent } from './models';
 import { reRenderRoom4 } from './room4';
-import { renderGameOverScene } from '../../scenes/game-over-scene/game-over-scene';
 import { closeMiniSudokuGameSession, renderMiniSudoku } from './puzzle/mini-sudoku';
 import { setTableToUse } from './puzzle/mini-sudoku-setup';
 import { getGameSessionBeatenState } from './puzzle/mini-sudoku-states';
 import { validateTable } from './puzzle/mini-sudoku-helper';
+import { state } from '../../state/gamestate';
 
 // enter silent tide stories
 import room4Story from '../../data/stories-data/room4-story/room4-story.json';
@@ -36,6 +36,7 @@ import inspectCliffMonumentStory from '../../data/stories-data/room4-story/inspe
 import cliffMonumentWinStory from '../../data/stories-data/room4-story/cliff-monument-win.json';
 import cliffMonumentLoseStory from '../../data/stories-data/room4-story/cliff-monument-lose.json';
 import { triggerArtifact } from '../../components/artifacts/artifactSystem';
+import { render } from '../../main';
 
 let room4StoryToUse: IScriptEvent[] = room4Story;
 let room4StoryIndex: number = 0;
@@ -95,8 +96,8 @@ export function traverseResetRoom4() { // softer resetter fit for a current game
     room4TitleText = 'The silent tide';
     room4TextEvent = '';
     room4EventMarker = '';
-    room4StoryEventButtons = [];  
-    refreshRoom4UI();  
+    room4StoryEventButtons = [];
+    refreshRoom4UI();
 }
 
 function resetRoom4() {
@@ -285,7 +286,7 @@ export function handleRoom4ClickStoryEventButton(event: Event) {
     const clickedStoryEventButton = event.currentTarget as HTMLElement;
     const _functionMarker = clickedStoryEventButton.dataset.functionMarker;
 
-    switch(_functionMarker) {
+    switch (_functionMarker) {
         // no event next
         case 'no-event-next':
             turnPage();
@@ -365,7 +366,9 @@ export function handleRoom4ClickStoryEventButton(event: Event) {
             return;
         case 'ravine-trip-continue':
             resetRoom4();
-            renderGameOverScene();
+            state.gameOverReason = 'too-many-attempts';
+            state.screen = 'gameover';
+            render();
             return;
         case 'across-ravine-turn-around':
             returnToCrossroads();
@@ -439,7 +442,35 @@ export function handleRoom4ClickStoryEventButton(event: Event) {
     }
 }
 
+function checkCompleted() {
+    setRoom4HasLadder(false);
+    setRoom4HasRubberDuckArtifact(false);
+    setRoom4HasFishStatueArtifact(false);
+    setRoom4CrossroadsMonumentIsBeaten(false);
+    setRoom4RavineMonumentIsBeaten(false);
+    setRoom4CliffMonumentIsBeaten(false);
+
+    const artefactsData = state.artifacts;
+    for (let i = 0; i < artefactsData.length; i++) {
+        const artefactItem = artefactsData[i];
+        if (artefactItem.id === 'ladder') {
+            setRoom4HasLadder(true);
+            setRoom4CrossroadsMonumentIsBeaten(true);
+        }
+        if (artefactItem.id === 'fish-statue') {
+            setRoom4HasFishStatueArtifact(true);
+            setRoom4RavineMonumentIsBeaten(true);
+        }
+        if (artefactItem.id === 'rubber-duck') {
+            setRoom4HasRubberDuckArtifact(true);
+            setRoom4CliffMonumentIsBeaten(true);
+        }
+    }
+}
+
 function updateRoom4StoryController() {
+    checkCompleted();
+
     const currentStoryObject = room4StoryToUse[room4StoryIndex];
     room4TextEvent = currentStoryObject.textEvent!;
     room4EventMarker = currentStoryObject.eventMarker!;
