@@ -2,8 +2,6 @@ import { state } from '../../state/gamestate';
 import { render } from '../../main';
 import './about-scene.scss';
 
-console.log('connected about scene');
-
 const sceneWrapper = document.getElementById(
     'sceneWrapper',
 ) as HTMLDivElement | null;
@@ -94,7 +92,7 @@ export function renderAboutScene() {
         <a href="https://x.com/StephenGeoRae/status/1980280037447254490" target="_blank">Fox by [Stephanie Bayles]</a>,
         <a href="https://se.pinterest.com/pin/653936808430811517/" target="_blank">Horse via Pinterest</a>,
         <a href="https://se.pinterest.com/pin/13370130139310807/" target="_blank">Fairys via Pinterest</a>,
-        <a href="https://i.pinimg.com/736x/3a/ae/86/3aae86896045c9c523b50fefa80de41f.jpg" target="_blank">Celestial night sky via Pinterest</a>,
+        <a href="https://i.pinimg.com/736x/3a/ae/86/3aae86896045c9c523b50fefa80de41f.jpg" target="_blank">Celestial night sky via Pinterest</a>
 </em>`;
 
     creditSection.append(creditTitle, devText, photoCredits);

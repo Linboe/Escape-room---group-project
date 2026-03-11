@@ -3,6 +3,7 @@
     background-size: cover;
     background-position: top;
     background-repeat: no-repeat;
+    position: relative;
 }
 
 .room-4-scene-wrapper {
@@ -16,7 +17,6 @@
 .room-4-event-text {
     min-height: fit-content;
     margin: 20px;
-    margin-top: 0;
     padding: 20px;
     width: calc(100% - 80px);
     background-color: var(--color-surface-body);
@@ -26,6 +26,9 @@
 .escape-room-4-button {
     z-index: 2;
     position: absolute;
+    left: calc(50% - 100px);
+    bottom: 300px;
+    width: 200px;
 }
 
 .room-4-interaction-button {

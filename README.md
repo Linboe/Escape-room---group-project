@@ -1,4 +1,4 @@
-Live link: (medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers)[https://medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers/]
+Live link: [medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers](https://medieinstitutet.github.io/fed25d-js-intro-grupparbete-the-dopefish-admirers/)
 
 # Strange Woods
 
@@ -66,7 +66,3 @@ If the correct password (dopefish) is entered, the entire highscore list is perm
 [Isabelle Reynolds](https://github.com/isabelletherese),
 [Kimi Leminaho](https://github.com/Prxjec-t),
 [Rasmus Fransson](https://github.com/RasmusFranssonHub)
-
----
-
-wallpaper: https://wallpaperaccess.com/minimalist-forest
