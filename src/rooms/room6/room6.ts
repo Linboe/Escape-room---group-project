@@ -128,8 +128,7 @@ export function room6(sceneWrapper: HTMLDivElement | null) {
 
             warning.textContent = `
                ${message}
-               Correct placements: ${result.correct} / ${result.total}
-               (${attempts}/3 attempts)
+               ${attempts} of 3 attempts used.
             `;
           }
 
