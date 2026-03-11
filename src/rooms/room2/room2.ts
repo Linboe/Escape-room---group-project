@@ -143,12 +143,12 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
             <div class="game-wrapper riddle-game-wrapper">
                 <p class="event-text">"I am the mirror that never breaks, I cradle the giant but have no arms. What am I?"</p>
+                <p class="event-text game-message hidden"></p>
                 <div class="riddle-game-btns">
                     <button id= "roof" class="answer-btn interaction-button">The Glass Roof</button>
                     <button id= "surface" class="answer-btn interaction-button">The Water's Surface</button>
                     <button id= "shadows" class="answer-btn interaction-button">The Deep Shadows</button>
                 </div>
-                <p class="event-text game-message hidden"></p>
             </div>
         `);
 
@@ -204,13 +204,16 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
             updateUI(`
                 <div class="sequence-overlay-wrapper">
-                    <button id="flower" class="sequence-btn invisible-btn" aria-label="Pink Flower"></button>
-                    <button id="hangingFern" class="sequence-btn invisible-btn" aria-label="Hanging Fern"></button>
-                    <button id="lilyLeaf" class="sequence-btn invisible-btn" aria-label="Giant Lily"></button>
-                    <button id="sign" class="sequence-btn invisible-btn" aria-label="Info sign"></button>
-                    <button id="ceiling" class="sequence-btn invisible-btn" aria-label="Glass ceiling"></button>
-                    <button id="redPlant" class="sequence-btn invisible-btn" aria-label="Red Plant"></button>
-                    <p class="event-text game-message hidden"></p> 
+                    <div class="sequence-wrapper">
+                        <img src="./roompic/isabelleroom2.png" loading="lazy" aria-label="Inside a greenhouse with a pink flower, a hanging fern, a giant lily, an info sign, a glass ceiling, and a red plant">
+                        <button id="flower" class="sequence-btn invisible-btn" aria-label="Pink Flower"></button>
+                        <button id="hangingFern" class="sequence-btn invisible-btn" aria-label="Hanging Fern"></button>
+                        <button id="lilyLeaf" class="sequence-btn invisible-btn" aria-label="Giant Lily"></button>
+                        <button id="sign" class="sequence-btn invisible-btn" aria-label="Info sign"></button>
+                        <button id="ceiling" class="sequence-btn invisible-btn" aria-label="Glass ceiling"></button>
+                        <button id="redPlant" class="sequence-btn invisible-btn" aria-label="Red Plant"></button>
+                    </div>
+                    <p class="event-text game-message">Interact with the image</p>
                 </div>         
             `);
 
@@ -227,7 +230,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                         playerChoice.push(id);
 
                         if (message) {
-                            message.classList.remove('hidden');
+                        // message.classList.remove('hidden');
 
                             if (playerChoice.length === 1) {
                                 message.textContent = 'The plants lean closer...';
@@ -273,11 +276,11 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
             <div class="game-wrapper number-guess-wrapper">
                 <p class="event-text">The glass is fogged up. Adjust the humidity (1-20) to see the code.</p>
+                <p class="event-text game-message hidden"></p>  
                 <div class="input-wrapper">
                     <input type="number" id="guessInput" min="1" max="20">
                     <button id="guessBtn" class="interaction-button">Adjust</button>
                 </div>
-                <p class="event-text game-message hidden"></p>  
             </div>
         `);
 
@@ -425,6 +428,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                 <p class="event-text fragment-found-text">
                 <i>${specificText}</i>
                 <span>Fragment found: <strong>${code}</strong></span>
+                </p>
                     
                 <button id="continueBtn" class="interaction-button continue-btn">Continue</button>
             </div>    

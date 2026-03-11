@@ -68,7 +68,7 @@ function renderRoom4() {
 
     // gameSessionWrapper's children
     const roomTitleTextElement = document.createElement('h2');
-    roomTitleTextElement.classList.add('room-4-title-text');
+    //roomTitleTextElement.classList.add('room-4-title-text');
     roomTitleTextElement.id = 'roomTitleText';
 
     const eventTextElement = document.createElement('p');
@@ -168,7 +168,7 @@ export function reRenderRoom4() { // accessible for story-controller
         }
 
         newStoryEventButton.innerText = room4StoryEventButtons[i].label!;
-        newStoryEventButton.classList.add('option');
+        //newStoryEventButton.classList.add('option');
         newStoryEventButton.classList.add('room-4-interaction-button');
         newStoryEventButton.addEventListener('click', handleRoom4ClickStoryEventButton);
 

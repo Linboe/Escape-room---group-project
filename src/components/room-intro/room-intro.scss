@@ -24,7 +24,7 @@
 }
 
 .room-intro-title {
-    font-family: "Cinzel", serif;
+    font-family: var(--font-sans);
     font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: 0.12em;
@@ -35,7 +35,7 @@
 
 .room-intro-description {
     color: #dde8e2;
-    font-family: "Georgia", serif;
+    font-family: var(--font-sans);
     font-size: 0.95rem;
     line-height: 1.7;
     font-style: italic;
@@ -43,22 +43,4 @@
     padding: 0;
     background: none;
     border: none;
-}
-
-.room-intro-btn {
-    background: rgba(10, 15, 12, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-    font-family: "Georgia", serif;
-    font-size: 1rem;
-    padding: 0.75rem 2rem;
-    cursor: pointer;
-    text-align: center;
-    transition: background 0.2s;
-    border-radius: 6px;
-    margin-top: 0.5rem;
-
-    &:hover {
-        background: rgba(30, 40, 35, 0.95);
-    }
 }
