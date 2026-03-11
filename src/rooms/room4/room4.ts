@@ -5,6 +5,7 @@ import { showRoomIntro } from '../../components/room-intro/room-intro';
 
 export function room4(sceneWrapper: HTMLDivElement | null, nextRoom: () => void) {
     if (!sceneWrapper) return;
+
     traverseResetRoom4();
     stopAllStatusBarTimers();
     startStatusBarTimers();
@@ -14,7 +15,6 @@ export function room4(sceneWrapper: HTMLDivElement | null, nextRoom: () => void)
         () => { /* pauseTimer */ },
         () => { /* resumeTimer */ },
         () => {
-            sceneWrapper.classList.add('room-4-scene-wrapper');
             sceneWrapper.innerHTML = ''; // reset
 
             sceneWrapper.append(renderRoom4());
@@ -59,22 +59,23 @@ function renderRoom4() {
     const room4Section = document.createElement('section');
     room4Section.classList.add('room');
     room4Section.classList.add('room-4');
+    room4Section.id = 'room4Section';
 
     const roomFrame = document.createElement('div');
     roomFrame.classList.add('room-frame');
+    roomFrame.classList.add('room-4-scene-wrapper');
 
     const gameSessionWrapper = document.createElement('div');
     gameSessionWrapper.classList.add('game-session-wrapper');
 
     // gameSessionWrapper's children
     const roomTitleTextElement = document.createElement('h2');
-    roomTitleTextElement.classList.add('room-4-title-text');
     roomTitleTextElement.id = 'roomTitleText';
 
     const eventTextElement = document.createElement('p');
     eventTextElement.id = 'eventText';
     eventTextElement.classList.add('room-4-event-text');
-    eventTextElement.classList.add('event-text');
+    // eventTextElement.classList.add('event-text');
 
     const gameSessionDiv = document.createElement('div');
     gameSessionDiv.classList.add('game-session-style');
@@ -85,15 +86,12 @@ function renderRoom4() {
 
     // assemble wrapper
     room4Section.append(roomFrame);
-    roomFrame.append(gameSessionWrapper);
+    roomFrame.append(roomTitleTextElement, eventTextElement, gameSessionDiv);
 
     // assemble children & append to scene wrapper
 
     gameSessionDiv.append(storyEventButtonsWrapperElement);
 
-    gameSessionWrapper.append(
-        roomTitleTextElement, eventTextElement, gameSessionDiv
-    );
     return room4Section;
 }
 
@@ -168,7 +166,7 @@ export function reRenderRoom4() { // accessible for story-controller
         }
 
         newStoryEventButton.innerText = room4StoryEventButtons[i].label!;
-        newStoryEventButton.classList.add('option');
+        //newStoryEventButton.classList.add('option');
         newStoryEventButton.classList.add('room-4-interaction-button');
         newStoryEventButton.addEventListener('click', handleRoom4ClickStoryEventButton);
 

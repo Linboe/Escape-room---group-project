@@ -47,14 +47,14 @@ export function room3(sceneWrapper: HTMLDivElement | null, next: () => void) {
         () => { /* pauseTimer */ },
         () => { /* resumeTimer */ },
         () => {
-            currentQuestionIndex = 0;
+            currentQuestionIndex = state.questionIndex[state.currentRoom] || 0;
             hasArtifactRoom3 = false;
             wrongAttempts = 0;
 
             sceneWrapper.innerHTML = `
                 <section class="room room-3">
-                  <div class="room3-overlay">
-                    <h1>The Inner Jungle (Archive of Illusions)</h1>
+                  <div class="room3-overlay room-frame">
+                    <h2>The Inner Jungle (Archive of Illusions)</h2>
                     <p class="story" id="story1">
                       You step into a grand inner jungle, hidden inside a glass palace.
                       Everything feels unreal — a dream, a memory, or a map of the forest itself.
@@ -128,16 +128,19 @@ export function room3(sceneWrapper: HTMLDivElement | null, next: () => void) {
                     if (btn.textContent === current.correct) {
                         message.textContent = 'Correct. The jungle shifts slightly...';
                         currentQuestionIndex++;
-                        state.questionIndex = currentQuestionIndex;
+                        state.questionIndex[state.currentRoom] = currentQuestionIndex;
                         saveGameToLocalStorage();
 
                         if (currentQuestionIndex === questions.length) {
-                            state.questionIndex = 0;
+                            state.questionIndex[state.currentRoom] = 0;
+                            state.completed[state.currentRoom] = true;
                             saveGameToLocalStorage();
-                            hasArtifactRoom3 = true;
-                            message.textContent = 'The man nods. The boat is now safe to enter.';
-                            triggerArtifact('room3', 'walking-pot', 0);
                             stopAllStatusBarTimers();
+
+                            triggerArtifact('room3', 'walking-pot', 0);
+                    
+                            message.textContent = 'The man nods. The boat is now safe to enter.';
+                            
                             setTimeout(() => next(), 3000);
                         } else {
                             setTimeout(renderQuestion, 700);
@@ -154,6 +157,7 @@ export function room3(sceneWrapper: HTMLDivElement | null, next: () => void) {
                             buttons.forEach((b) => (b.disabled = true));
                             setTimeout(() => {
                                 stopAllStatusBarTimers();
+                                state.gameOverReason = 'too-many-attempts';
                                 saveGameToLocalStorage();
                                 state.screen = 'gameover';
                                 render();
@@ -163,14 +167,16 @@ export function room3(sceneWrapper: HTMLDivElement | null, next: () => void) {
                 });
             });
 
-            if (state.questionIndex > 0) {
-                story1.remove();
-                hint1.remove();
-                approachBtn.remove();
-                story2.remove();
-                startBtn.remove();
+            if (currentQuestionIndex > 0) {
+                story1?.remove();
+                hint1?.remove();
+                approachBtn?.remove();
+                story2?.remove();
+                startBtn?.remove();
                 quiz.classList.remove('hidden');
                 renderQuestion();
+
+                startStatusBarTimers();
             }
         }
     );

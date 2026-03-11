@@ -15,12 +15,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
         collectedCodes = state.codes[state.currentRoom];
     }
 
-    let currentPath: 'A' | 'B' | null = null;
-    const savedPath = localStorage.getItem('room2-path');
-
-    if (savedPath === 'A' || savedPath === 'B') {
-        currentPath = savedPath;
-    }
+    let currentPath: 'A' | 'B' | null = state.room2Path;
 
     //------------------ 1. FLOW CONTROL --------------------
 
@@ -100,8 +95,8 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
     function choosePath(choice: 'A' | 'B') {
         currentPath = choice;
-        localStorage.setItem('room2-path', choice);
-
+        state.room2Path = choice;
+        
         if (choice === 'A') {
             riddleGame();
         } else {
@@ -143,12 +138,12 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
             <div class="game-wrapper riddle-game-wrapper">
                 <p class="event-text">"I am the mirror that never breaks, I cradle the giant but have no arms. What am I?"</p>
+                <p class="event-text game-message hidden"></p>
                 <div class="riddle-game-btns">
                     <button id= "roof" class="answer-btn interaction-button">The Glass Roof</button>
                     <button id= "surface" class="answer-btn interaction-button">The Water's Surface</button>
                     <button id= "shadows" class="answer-btn interaction-button">The Deep Shadows</button>
                 </div>
-                <p class="event-text game-message hidden"></p>
             </div>
         `);
 
@@ -194,7 +189,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
             <h2 class="room-title-text">The Watcher of Victoria House</h2>
 
             <div class="game-wrapper sequence-game-wrapper">
-                <p class="event-text">The greenhouse breathes around you. Something stirs in the leaves — a hidden order, waiting to be found. Follow the hierarchy of life: from the smallest bloom, through the reaching fronds, all the way up to the glass above.</p>
+                <p class="event-text">The greenhouse holds a secret order. Seek out the flower closest to the ground, then follow the hanging ferns reaching upward, and finally touch the glass ceiling above. Find them and click them in order!</p>
                 <button id="startSequenceBtn" class="interaction-button">Begin</button>
             </div>
         `);
@@ -204,13 +199,16 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
             updateUI(`
                 <div class="sequence-overlay-wrapper">
-                    <button id="flower" class="sequence-btn invisible-btn" aria-label="Pink Flower"></button>
-                    <button id="hangingFern" class="sequence-btn invisible-btn" aria-label="Hanging Fern"></button>
-                    <button id="lilyLeaf" class="sequence-btn invisible-btn" aria-label="Giant Lily"></button>
-                    <button id="sign" class="sequence-btn invisible-btn" aria-label="Info sign"></button>
-                    <button id="ceiling" class="sequence-btn invisible-btn" aria-label="Glass ceiling"></button>
-                    <button id="redPlant" class="sequence-btn invisible-btn" aria-label="Red Plant"></button>
-                    <p class="event-text game-message hidden"></p> 
+                    <div class="sequence-wrapper">
+                        <img src="./roompic/isabelleroom2.png" loading="lazy" aria-label="Inside a greenhouse with a pink flower, a hanging fern, a giant lily, an info sign, a glass ceiling, and a red plant">
+                        <button id="flower" class="sequence-btn invisible-btn" aria-label="Pink Flower"></button>
+                        <button id="hangingFern" class="sequence-btn invisible-btn" aria-label="Hanging Fern"></button>
+                        <button id="lilyLeaf" class="sequence-btn invisible-btn" aria-label="Giant Lily"></button>
+                        <button id="sign" class="sequence-btn invisible-btn" aria-label="Info sign"></button>
+                        <button id="ceiling" class="sequence-btn invisible-btn" aria-label="Glass ceiling"></button>
+                        <button id="redPlant" class="sequence-btn invisible-btn" aria-label="Red Plant"></button>
+                    </div>
+                    <p class="event-text game-message">Interact with the image</p>
                 </div>         
             `);
 
@@ -227,7 +225,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                         playerChoice.push(id);
 
                         if (message) {
-                            message.classList.remove('hidden');
+                        // message.classList.remove('hidden');
 
                             if (playerChoice.length === 1) {
                                 message.textContent = 'The plants lean closer...';
@@ -273,11 +271,11 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
             <div class="game-wrapper number-guess-wrapper">
                 <p class="event-text">The glass is fogged up. Adjust the humidity (1-20) to see the code.</p>
+                <p class="event-text game-message hidden"></p>  
                 <div class="input-wrapper">
                     <input type="number" id="guessInput" min="1" max="20">
                     <button id="guessBtn" class="interaction-button">Adjust</button>
                 </div>
-                <p class="event-text game-message hidden"></p>  
             </div>
         `);
 
@@ -303,6 +301,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                     }
                     setTimeout(() => {
                         stopAllStatusBarTimers();
+                        state.gameOverReason = 'too-many-attempts';
                         saveGameToLocalStorage();
                         state.screen = 'gameover';
                         render();
@@ -374,10 +373,11 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                     `);
 
                 triggerArtifact('room2', 'key', 0);
+                state.completed[state.currentRoom] = true;
+                saveGameToLocalStorage();
 
                 setTimeout(() => {
                     const closeBtn = document.querySelector('#close-artifact-btn');
-                    console.log('closeBtn found:', closeBtn);
 
                     closeBtn?.addEventListener('click', () => {
                         sceneWrapper.querySelector('.artifact-wrapper')?.classList.remove('hidden');
@@ -398,6 +398,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
                     setTimeout(() => {
                         stopAllStatusBarTimers();
+                        state.gameOverReason = 'too-many-attempts';
                         saveGameToLocalStorage();
                         state.screen = 'gameover';
                         render();
@@ -424,6 +425,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                 <p class="event-text fragment-found-text">
                 <i>${specificText}</i>
                 <span>Fragment found: <strong>${code}</strong></span>
+                </p>
                     
                 <button id="continueBtn" class="interaction-button continue-btn">Continue</button>
             </div>    

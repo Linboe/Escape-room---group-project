@@ -5,18 +5,11 @@
     background-repeat: no-repeat;
 
     .event-text {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
         margin: 10px;
         padding: 10px;
         width: calc(100% - 40px);
         height: fit-content;
-        min-height: 100px;
-        background-color: var(--color-surface-body);
         backdrop-filter: blur(50px);
-        border: 1px ridge var(--color-border-transparent);
     }
 }
 
@@ -27,15 +20,14 @@
     justify-content: space-between;
 }
 
-.room-title-text {
-    background: linear-gradient( 0deg,
-        var(--color-clear) 0%,
-        var(--color-heavy-dim) 30%
-    )
-}
-
 .fragment-found-wrapper {
+    width: 100%;
+    position: relative;
+    height: 100%;
 
+    p {
+        height: 100%;
+    }
 }
 
 .sequence-game-wrapper {
@@ -46,8 +38,9 @@
     }
 }
 
-.artifact-wrapper {
-
+.artifact-wrapper button{
+    width: calc(100% - 40px);
+    margin: 20px;
 }
 
 .game-message {
@@ -79,10 +72,11 @@
 .choose-path-wrapper {
     top: 20%;
 
-    p.event-text {
+    p .event-text {
         display: flex;
         justify-content: center;
         text-align: center;
+        backdrop-filter: blur(50px);
     }
 
     .option-wrapper {
@@ -106,13 +100,32 @@
 }
 
 .sequence-overlay-wrapper {
-    position: relative;
     width: 100%;
     height: 100%;
+    backdrop-filter: blur(50px);
+    background: var(--color-heavy-dim);
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    position: relative;
 
-    .game-message {
-        position: absolute;
-        bottom: 0;
+    & p {
+        height: 100px;
+        max-height: 100px;
+    }
+}
+
+.sequence-wrapper {
+    width: 350px;
+    height: auto;
+    position: relative;
+
+    img {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
     }
 
     .invisible-btn {
@@ -121,109 +134,107 @@
         backdrop-filter: none;
         border-color: var(--color-border);
         border-radius: var(--pillify);
+        font-size: 2rem;
+    }
+    .invisible-btn:hover,
+    .invisible-btn:focus {
+        background-color: var(--color-heavy-dim);
     }
     .invisible-btn:hover::after,
     .invisible-btn:focus::after {
         content: "!";
     }
-    .invisible-btn:hover,
-    .invisible-btn:focus {
-        backdrop-filter: blur(50px);
-    }
 
     #flower {
-        top: 75%;
-        left: 15%;
-        width: 80px;
-        height: 80px;
-    }
-
-    #lilyLeaf {
-        top: 55%;
-        left: 40%;
-        width: 150px;
-        height: 100px;
-    }
-
-    #ceiling {
-        top: 3%;
-        right: 5%;
-        width: 30%;
-        height: 15%;
-    }
-
-    #hangingFern {
-        top: 35%;
-        left: 10%;
+        bottom: 90px;
+        left: 70px;
         width: 60px;
         height: 60px;
     }
 
+    #lilyLeaf {
+        bottom: 170px;
+        right: 80px;
+        width: 140px;
+        height: 80px;
+    }
+
+    #ceiling {
+        top: 5px;
+        right: 5px;
+        width: 150px;
+        height: 110px;
+    }
+
+    #hangingFern {
+        top: 160px;
+        left: 30px;
+        width: 90px;
+        height: 90px;
+    }
+
     #sign {
-        top: 50%;
-        left: 75%;
-        width: 100px;
-        height: 100px;
+        bottom: 180px;
+        right: 30px;
+        width: 40px;
+        height: 70px;
     }
 
     #redPlant {
-        top: 5%;
-        left: 35%;
-        width: 20%;
-        height: 10%;
+        top: 5px;
+        left: 125px;
+        width: 70px;
+        height: 70px;
     }
 }
 
 .number-guess-wrapper {
-    top: 20%;
-
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 
     .input-wrapper {
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 8px;
+        margin: 20px;
+        width: calc(100% - 40px);
+        gap: 10px;
+    }
 
+}
+
+.continue-btn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 20px;
+    width: calc(100% - 40px);
+}
+
+.final-code-wrapper {
+
+    .event-text {
+        min-height: 120px;
+    }
+
+    p {
+        display: flex;
+        justify-content: center;
+    }
+
+    span {
+        margin-top: 10px;
+        text-align: center;
     }
 
     input {
-        padding: 10px;
-        margin-bottom: 10px;
-        text-align: center;
-        margin: 0;
-
-    }
-
-    button {
-        padding: 10px 20px;
-        background-color: black;
-        margin: 0;
-    }
-}
-
-
-.final-code-wrapper {
-    top: 20%;
-
-    .event-text {
-        display: flex;
-        flex-direction: column;
-
-        p {
-            display: flex;
-            justify-content: center;
-        }
-
-        span {
-            margin-top: 10px;
-            text-align: center;
-        }
+        background-color:var(--color-surface-body);
     }
 
     .final-exit-inputs {
+        margin: 20px;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -233,8 +244,66 @@
             width: 40px;
             padding: 10px;
             text-align: center;
-            border: none;
-            border-radius: 4px;
+            border-radius: 5px;
+            background-color: var(--color-interactive-body);
+        }
+    }
+
+    button {
+        margin: 20px;
+        width: calc(100% - 40px);
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .invisible-btn {
+        border: none;
+        box-shadow: none;
+    }
+
+    .sequence-wrapper {
+        width: 420px;
+
+        #flower {
+            bottom: 105px;
+            left: 85px;
+            width: 80px;
+            height: 80px;
+        }
+
+        #lilyLeaf {
+            bottom: 205px;
+            right: 100px;
+            width: 170px;
+            height: 90px;
+        }
+
+        #ceiling {
+            top: 5px;
+            right: 5px;
+            width: 180px;
+            height: 130px;
+        }
+
+        #hangingFern {
+            top: 180px;
+            left: 30px;
+            width: 130px;
+            height: 130px;
+        }
+
+        #sign {
+            bottom: 220px;
+            right: 35px;
+            width: 55px;
+            height: 80px;
+        }
+
+        #redPlant {
+            top: 5px;
+            left: 155px;
+            width: 80px;
+            height: 80px;
         }
     }
 }

@@ -28,6 +28,24 @@ export function showRoomIntro(
 
     document.body.appendChild(overlay);
 
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+
+    setTimeout(() => {
+        const enterBtn = overlay.querySelector('.room-intro-btn') as HTMLButtonElement;
+        enterBtn?.focus();
+    }, 300);
+
+    overlay.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            e.stopPropagation();
+            overlay.remove();
+            resumeTimer();
+            onEnter();
+        }
+    });
+
     overlay.querySelector('.room-intro-btn')!.addEventListener('click', () => {
         overlay.remove();
         resumeTimer();

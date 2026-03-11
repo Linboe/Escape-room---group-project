@@ -1,10 +1,7 @@
 import './sign-in-scene.scss';
 import { state } from '../../state/gamestate';
-import { saveGameToLocalStorage } from '../../store/database/local-storage-database';
-import { hasSaveGame } from '../../store/database/local-storage-database';
-
-
-console.log('connected sign in scene');
+import { saveGameToLocalStorage, hasSaveGame } from '../../store/database/local-storage-database';
+import { resetStatusBarProgress } from '../../components/status-bar/status-bar';
 
 export function renderSignInScene(
     sceneWrapper: HTMLDivElement | null,
@@ -37,16 +34,40 @@ export function renderSignInScene(
     // ------ EVENT HANDLERS & FUNCTIONS ---------
     // ----------------------------------------------
 
+    // Focus on input immediately
+    setTimeout(() => {
+        usernameInput?.focus();
+    }, 50);
+
+    // Enter on input triggers sign in
+    usernameInput?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            signInBtn?.click();
+        }
+    });
+
 
     signInBtn?.addEventListener('click', () => {
 
         if (usernameInput && usernameInput.value.trim() !== '') {
             errorSpan?.classList.add('hidden');
             const enteredUsername = usernameInput.value.trim();
-            let popupTimerInterval: ReturnType<typeof setInterval> | null = null;
-            let popupTimerValue: number = 2;
+
+            state.codes = [];
+            state.completed = [false, false, false, false, false, false];
+            state.currentRoom = 0;
+            state.highestRoom = 0;
+            state.artifacts = [];
+            state.questionIndex = [];
+            state.room2Path = null;
+
             state.username = enteredUsername;
             state.isReturningPlayer = hasSaveGame();
+            resetStatusBarProgress();
+
+            let popupTimerInterval: ReturnType<typeof setInterval> | null = null;
+            let popupTimerValue: number = 2;
 
             const popupContainerElement = document.createElement('div');
             popupContainerElement.classList.add('popup-container');
@@ -59,7 +80,7 @@ export function renderSignInScene(
             if (state.isReturningPlayer) {
                 popupTextContentElement.textContent = `Welcome back, ${state.username}! Your progress has been saved.`;
             } else {
-                popupTextContentElement.textContent = `Welcome, ${ state.username } !`;
+                popupTextContentElement.textContent = `Welcome, ${state.username} !`;
                 saveGameToLocalStorage();
             }
 

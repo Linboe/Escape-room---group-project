@@ -3,6 +3,7 @@
     background-size: cover;
     background-position: top;
     background-repeat: no-repeat;
+    position: relative;
 }
 
 .room-4-scene-wrapper {
@@ -14,48 +15,35 @@
 }
 
 .room-4-event-text {
-    min-height: 150px;
-    width: calc(100% - 48px);
+    min-height: fit-content;
+    margin: 20px;
+    padding: 20px;
+    width: calc(100% - 80px);
+    background-color: var(--color-surface-body);
+    backdrop-filter: blur(50px);
 }
 
 .escape-room-4-button {
     z-index: 2;
     position: absolute;
-}
-
-.room-4-title-text { // rules pulled from room 3 then modified
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #ffffff;
-    text-align: center;
-    padding: 0.75rem;
-    padding-left: 0;
-    padding-right: 0;
-    background: rgba(0, 0, 0, 0.55);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    margin: 0;
-//    width: 100%;
+    left: calc(50% - 100px);
+    bottom: 300px;
+    width: 200px;
 }
 
 .room-4-interaction-button {
     padding: 16px;
 }
 
-.room-4-story-event-buttons-wrapper { // rules pulled from room 3 then modified
+.room-4-story-event-buttons-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 20px;
+    margin: 20px;
     position: absolute;
     bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    padding: 0.75rem 0 1.5rem;
-    background: rgba(20, 30, 25, 0.75);
-    backdrop-filter: blur(6px);
-    z-index: 10;
+    width: calc(100% - 40px);
+    z-index: 2;
 }
 
 .room-4-interaction-button:disabled,
@@ -66,5 +54,4 @@
     cursor: default;
     visibility: hidden;
     position: fixed;
-//    width: 100%;
 }
