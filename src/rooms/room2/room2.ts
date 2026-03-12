@@ -271,7 +271,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                 <p class="event-text">The glass is fogged up. Adjust the humidity (1-20) to see the code.</p>
                 <p class="event-text game-message hidden"></p>  
                 <div class="input-wrapper">
-                    <input type="number" id="guessInput" class="guess-input" min="1" max="20">
+                    <input type="text" inputmode="numeric" id="guessInput" class="guess-input" maxlength="2" pattern="[0-9]*">
                     <button id="guessBtn" class="interaction-button">Adjust</button>
                 </div>
             </div>
@@ -281,15 +281,18 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
         const guessInput: HTMLInputElement | null = sceneWrapper.querySelector('#guessInput');
         const message: HTMLParagraphElement | null = sceneWrapper.querySelector('.game-message');
 
-        guessInput?.addEventListener('input', () => {
-            if (guessInput.value.length > 2) {
-                guessInput.value = guessInput.value.slice(0, 2);
-            }
-        });
-        
         guessBtn?.addEventListener('click', () => {
+            if (guessInput?.value.trim() === '') return;
 
             const inputValue = Number(guessInput?.value);
+
+            if (isNaN(inputValue) || inputValue < 1 || inputValue > 20) {
+                if (message) {
+                    message.classList.remove('hidden');
+                    message.innerHTML = 'Please enter a number between 1 and 20.';
+                }
+                return;
+            }
 
             if (inputValue === 12) {
                 saveCode('55');
