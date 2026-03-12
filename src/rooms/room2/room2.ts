@@ -279,6 +279,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
         const guessBtn: HTMLButtonElement | null = sceneWrapper.querySelector('#guessBtn');
         const guessInput: HTMLInputElement | null = sceneWrapper.querySelector('#guessInput');
+        guessInput?.focus();
         const message: HTMLParagraphElement | null = sceneWrapper.querySelector('.game-message');
 
         guessBtn?.addEventListener('click', () => {
@@ -346,9 +347,9 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                 <div class="event-text exit-fragment-text">
                     <p>Your fragments: <strong>${collectedCodes[0]}</strong> - <strong>${collectedCodes[1]}</strong> - <strong>${collectedCodes[2]}</strong></p>
                     <div class="final-exit-inputs">
-                        <input type="text" id="input0" class="code-input" maxlength="2" pattern="[0-9]">
-                        <input type="text" id="input1" class="code-input" maxlength="2" pattern="[0-9]">
-                        <input type="text" id="input2" class="code-input" maxlength="2" pattern="[0-9]">
+                        <input type="text" id="input0" class="code-input" maxlength="2" inputmode="numeric" pattern="[0-9]">
+                        <input type="text" id="input1" class="code-input" maxlength="2" inputmode="numeric" pattern="[0-9]">
+                        <input type="text" id="input2" class="code-input" maxlength="2" inputmode="numeric" pattern="[0-9]">
                     </div>
                     <p class="game-message hidden"></p>
                 </div>
@@ -358,8 +359,16 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
         `);
 
         const input0: HTMLInputElement | null = sceneWrapper.querySelector('#input0');
+        input0?.focus();
         const input1: HTMLInputElement | null = sceneWrapper.querySelector('#input1');
         const input2: HTMLInputElement | null = sceneWrapper.querySelector('#input2');
+
+        input0?.addEventListener('input', () => {
+            if (input0.value.length === 2) input1?.focus();
+        });
+        input1?.addEventListener('input', () => {
+            if (input1.value.length === 2) input2?.focus();
+        });
 
         const unlockBtn = sceneWrapper.querySelector('#unlockBtn');
         const message = sceneWrapper.querySelector('.game-message');

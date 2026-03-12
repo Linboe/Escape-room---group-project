@@ -1,6 +1,6 @@
 // functions and other code live here for easier code management
 
-export function createCheatButton(
+/*export function createCheatButton(
     label: string,
     callFunction: () => void
 ): HTMLButtonElement {
@@ -8,4 +8,4 @@ export function createCheatButton(
     newCheatButton.textContent = label;
     newCheatButton.addEventListener('click', callFunction);
     return newCheatButton;
-}
+}*/
