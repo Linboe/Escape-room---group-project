@@ -13,6 +13,7 @@ import {
 
 import { setRoom6Mode } from '../../components/status-bar/status-bar';
 import { renderVictoryScene } from '../../scenes/victory-scene/victory-scene';
+
 import { render } from '../../main';
 import { state } from '../../state/gamestate';
 
@@ -129,8 +130,7 @@ export function room6(sceneWrapper: HTMLDivElement | null) {
 
                         warning.textContent = `
                ${message}
-               Correct placements: ${result.correct} / ${result.total}
-               (${attempts}/3 attempts)
+               ${attempts} of 3 attempts used.
             `;
                     }
 

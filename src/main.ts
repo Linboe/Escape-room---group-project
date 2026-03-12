@@ -95,6 +95,7 @@ export function renderNextRoom() {
         delete state.codes[state.currentRoom];
         state.questionIndex[state.currentRoom] = 0;
         state.completed[state.currentRoom] = false;
+        state.room2Path = null;
         saveGameToLocalStorage();
     }
 

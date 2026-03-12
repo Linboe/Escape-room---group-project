@@ -10,6 +10,7 @@
         width: calc(100% - 40px);
         height: fit-content;
         backdrop-filter: blur(50px);
+        text-align: center;
     }
 }
 
@@ -38,7 +39,7 @@
     }
 }
 
-.artifact-wrapper button{
+.artifact-wrapper button {
     width: calc(100% - 40px);
     margin: 20px;
 }
@@ -47,15 +48,21 @@
     font-style: italic;
 }
 
-.quest strong {
+.fragment-found-text {
     display: block;
+    text-align: center;
 }
 
-.fragment-found-text {
-    i {
-        display: block;
-        margin-bottom: 8px;
-    }
+.fragment-found-wrapper .fragment-found-text span {
+    display: inline;
+    text-align: center;
+}
+
+.fragment-found-text strong {
+    display: inline;
+    text-align: inherit;
+    margin: 0;
+    white-space: nowrap;
 }
 
 .start-journey-btn {
@@ -136,10 +143,12 @@
         border-radius: var(--pillify);
         font-size: 2rem;
     }
+
     .invisible-btn:hover,
     .invisible-btn:focus {
         background-color: var(--color-heavy-dim);
     }
+
     .invisible-btn:hover::after,
     .invisible-btn:focus::after {
         content: "!";
@@ -202,7 +211,12 @@
         width: calc(100% - 40px);
         gap: 10px;
     }
+}
 
+.guess-input {
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
 }
 
 .continue-btn {
@@ -230,7 +244,14 @@
     }
 
     input {
-        background-color:var(--color-surface-body);
+        background-color: var(--color-surface-body);
+    }
+
+    .exit-fragment-text {
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       justify-content: center;
     }
 
     .final-exit-inputs {

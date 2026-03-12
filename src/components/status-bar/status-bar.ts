@@ -306,26 +306,67 @@ export function setSecondsElapsed(value: number) {
 
 // room-dropdown
 
+function showConfirmDialog(message: string, onConfirm: () => void, onCancel: () => void): void {
+    const overlay = document.createElement('div');
+    overlay.classList.add('room-intro-overlay');
+    overlay.innerHTML = `
+        <div class="room-intro-card">
+            <p class="room-intro-description">${message}</p>
+            <div style="display: flex; gap: 0.5rem; width: 100%;">
+                <button class="confirm-cancel-btn">Cancel</button>
+                <button class="confirm-ok-btn">OK</button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    setTimeout(() => {
+        const okBtn = overlay.querySelector('.confirm-ok-btn') as HTMLButtonElement;
+        okBtn?.focus();
+    }, 100);
+
+    overlay.querySelector('.confirm-ok-btn')!.addEventListener('click', () => {
+        overlay.remove();
+        onConfirm();
+    });
+
+    overlay.querySelector('.confirm-cancel-btn')!.addEventListener('click', () => {
+        overlay.remove();
+        onCancel();
+    });
+}
+
+
 roomSelectElement.addEventListener('change', () => {
     const selectedRoomIndex = Number(roomSelectElement.value);
 
     if (selectedRoomIndex === state.currentRoom) return;
 
     if (state.completed[selectedRoomIndex]) {
-        const userConfirmed = confirm('Do you want to replay this room? Your progress in this room will be removed.');
-        if (!userConfirmed) {
-            roomSelectElement.value = String(state.currentRoom); // reset dropdown
-            return;
-        }
-        removeArtifactByRoomIndex(selectedRoomIndex);
+       showConfirmDialog(
+            'Do you want to replay this room? Your progress in this room will be removed.',
+            () => {
+                removeArtifactByRoomIndex(selectedRoomIndex);
+                state.currentRoom = selectedRoomIndex;
+                stopAllStatusBarTimers();
+                refetchGamestate();
+                saveGameToLocalStorage();
+                startStatusBarTimers();
+                render();
+            },
+            () => {
+                roomSelectElement.value = String(state.currentRoom);
+            }
+        );
+    } else {
+        state.currentRoom = selectedRoomIndex;
+        stopAllStatusBarTimers();
+        refetchGamestate();
+        saveGameToLocalStorage();
+        startStatusBarTimers();
+        render();
     }
-
-    state.currentRoom = selectedRoomIndex;
-    stopAllStatusBarTimers();
-    refetchGamestate();
-    saveGameToLocalStorage();
-    startStatusBarTimers();
-    render();
 });
 
 // reset progress 

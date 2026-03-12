@@ -60,6 +60,7 @@ export function renderSignInScene(
             state.highestRoom = 0;
             state.artifacts = [];
             state.questionIndex = [];
+            state.room2Path = null;
 
             state.username = enteredUsername;
             state.isReturningPlayer = hasSaveGame();
