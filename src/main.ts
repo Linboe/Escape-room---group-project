@@ -120,7 +120,10 @@ function enableKeyboardNavigation() {
                 document.querySelectorAll<HTMLButtonElement>(
                     '#sceneWrapper button:not(:disabled), .room-intro-overlay button:not(:disabled)'
                 )
-            ).filter(btn => btn.offsetParent !== null); // filtrerar bort dolda knappar
+            ).filter(btn => {
+                const rect = btn.getBoundingClientRect();
+                return rect.width > 0 && rect.height > 0;
+            }); // filtrerar bort dolda knappar
 
             const currentIndex = buttons.indexOf(focused as HTMLButtonElement);
 
