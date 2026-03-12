@@ -281,6 +281,12 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
         const guessInput: HTMLInputElement | null = sceneWrapper.querySelector('#guessInput');
         const message: HTMLParagraphElement | null = sceneWrapper.querySelector('.game-message');
 
+        guessInput?.addEventListener('input', () => {
+            if (guessInput.value.length > 2) {
+                guessInput.value = guessInput.value.slice(0, 2);
+            }
+        });
+        
         guessBtn?.addEventListener('click', () => {
 
             const inputValue = Number(guessInput?.value);
