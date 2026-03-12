@@ -13,6 +13,7 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
       /* pauseTimer */
     },
     () => {
+      stopAllStatusBarTimers();
       /* resumeTimer */
     },
     () => {
@@ -76,9 +77,9 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
       nextBtn.addEventListener('click', () => {
         currentLine++;
         if (currentLine < lines.length) {
-          startStatusBarTimers();
           dialogueText.textContent = lines[currentLine];
         } else {
+          startStatusBarTimers();
           dialogueBox.classList.add('hidden');
           gameSession.classList.remove('hidden');
         }
@@ -130,16 +131,12 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
         computerDisplay.textContent = `Strange Man: ${computerChoice}`;
         resultDisplay.textContent = result;
 
-        resultDisplay.classList.remove('green-text', 'red-text');
-
         switch (result) {
           case 'YOU WIN!':
-            resultDisplay.classList.add('green-text');
             playerScore++;
             playerScoreDisplay.textContent = playerScore.toString();
             break;
           case 'YOU LOSE!':
-            resultDisplay.classList.add('red-text');
             computerScore++;
             computerScoreDisplay.textContent = computerScore.toString();
             break;
@@ -174,8 +171,6 @@ export function room1(sceneWrapper: HTMLDivElement | null, next: () => void) {
         playerDisplay.textContent = 'Player: ';
         computerDisplay.textContent = 'Computer: ';
         resultDisplay.textContent = '';
-
-        resultDisplay.classList.remove('green-text', 'red-text');
 
         disableGameButtons(false);
         actionBtn.classList.add('hidden');
