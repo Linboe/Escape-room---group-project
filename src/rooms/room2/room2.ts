@@ -49,9 +49,8 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
 
                     <div class="game-wrapper show-start-wrapper">
                         <div class="event-text">
-                            <p class="text"> The air in the Victoria House is thick with humidity and the scent of damp earth.</p>
-                            <p class="text"> Ahead of you, the path vanishes into a wall of green.</p>
-                            <p class="quest"> You know the code out of here is hidden in <strong>three fragments.</strong></p>
+                            <p class="text"> The air in the Victoria House is thick with humidity and the scent of damp earth.
+                            Ahead of you, the path vanishes into a wall of green.You know the code out of here is hidden in <strong>three fragments.</strong></p>
                         </div>
                         <button id="startJourney" class="interaction-button start-journey-btn">Begin Search</button>
                     </div>
@@ -74,7 +73,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                     <p class="event-text">Where do you begin your search?</p>
 
                     <div class="option-wrapper">
-                        <button id="ferns" class="interaction-button">Push through the dense ferns and hanging air roots to the right. It’s dark, but you feel something watching you from the leaves.</button>
+                        <button id="ferns" class="interaction-button">The right path vanishes into a dense thicket of ferns and broad leaves. You take a breath and push through — something in the shadows is watching your every move.</button>
                         <button id= "lilyPads" class="interaction-button">Step onto the giant lily pads. They look like floating plates, sturdy enough to hold your weight, shimmering under the glass roof.</button>
                     </div>
                 </div>
@@ -96,7 +95,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
     function choosePath(choice: 'A' | 'B') {
         currentPath = choice;
         state.room2Path = choice;
-        
+
         if (choice === 'A') {
             riddleGame();
         } else {
@@ -201,12 +200,13 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                 <div class="sequence-overlay-wrapper">
                     <div class="sequence-wrapper">
                         <img src="./roompic/isabelleroom2.png" loading="lazy" aria-label="Inside a greenhouse with a pink flower, a hanging fern, a giant lily, an info sign, a glass ceiling, and a red plant">
+                        <button id="redPlant" class="sequence-btn invisible-btn" aria-label="Red Plant"></button>
                         <button id="flower" class="sequence-btn invisible-btn" aria-label="Pink Flower"></button>
                         <button id="hangingFern" class="sequence-btn invisible-btn" aria-label="Hanging Fern"></button>
                         <button id="lilyLeaf" class="sequence-btn invisible-btn" aria-label="Giant Lily"></button>
                         <button id="sign" class="sequence-btn invisible-btn" aria-label="Info sign"></button>
                         <button id="ceiling" class="sequence-btn invisible-btn" aria-label="Glass ceiling"></button>
-                        <button id="redPlant" class="sequence-btn invisible-btn" aria-label="Red Plant"></button>
+                        
                     </div>
                     <p class="event-text game-message">Interact with the image</p>
                 </div>         
@@ -225,8 +225,6 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                         playerChoice.push(id);
 
                         if (message) {
-                        // message.classList.remove('hidden');
-
                             if (playerChoice.length === 1) {
                                 message.textContent = 'The plants lean closer...';
                             }
@@ -273,7 +271,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                 <p class="event-text">The glass is fogged up. Adjust the humidity (1-20) to see the code.</p>
                 <p class="event-text game-message hidden"></p>  
                 <div class="input-wrapper">
-                    <input type="number" id="guessInput" min="1" max="20">
+                    <input type="number" id="guessInput" class="guess-input" min="1" max="20">
                     <button id="guessBtn" class="interaction-button">Adjust</button>
                 </div>
             </div>
@@ -336,7 +334,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
                 <p class="event-text">You've reached the Victoria House exit. The electronic lock requires the combined sequence of the fragments you've discovered among the leaves and water. 
                 The air here is thinner, cooler — the exit is just one correct code away.</p>
 
-                <div class="event-text">
+                <div class="event-text exit-fragment-text">
                     <p>Your fragments: <strong>${collectedCodes[0]}</strong> - <strong>${collectedCodes[1]}</strong> - <strong>${collectedCodes[2]}</strong></p>
                     <div class="final-exit-inputs">
                         <input type="text" id="input0" class="code-input" maxlength="2" pattern="[0-9]">
@@ -423,8 +421,7 @@ export function room2(sceneWrapper: HTMLDivElement | null, next: () => void) {
         updateUI(`
             <div class="game-wrapper fragment-found-wrapper">
                 <p class="event-text fragment-found-text">
-                <i>${specificText}</i>
-                <span>Fragment found: <strong>${code}</strong></span>
+                <span>${specificText} Fragment found: <strong>${code}</strong></span>
                 </p>
                     
                 <button id="continueBtn" class="interaction-button continue-btn">Continue</button>
