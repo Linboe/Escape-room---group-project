@@ -219,6 +219,12 @@
     border-radius: 5px;
 }
 
+.guess-input::-webkit-outer-spin-button,
+.guess-input::-webkit-inner-spin-button {
+    -webkit-appearance: inner-spin-button;
+    opacity: 1;
+}
+
 .continue-btn {
     position: absolute;
     bottom: 0;
