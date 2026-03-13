@@ -1,4 +1,4 @@
-Daily Standup: tisdag 2026-03-12
+Daily Standup: torsdag 2026-03-12
 
 Dagens scrum master: Alda Catovic
 
