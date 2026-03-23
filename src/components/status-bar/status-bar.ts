@@ -178,7 +178,7 @@ export function renderStatusBar() {
     labelElement.textContent = `Progress: ${state.currentRoom}/6`;
 
     roomSelectElement.innerHTML = '';
-    const roomNames = ['The Gravity Glitch', 'Victoria House', 'Inner Jungle', 'Escape The Silent Tide', 'Shadows of the Grove', 'Final Trial'];
+    const roomNames = ['Escape The Silent Tide', 'Victoria House', 'Inner Jungle', 'The Gravity Glitch', 'Shadows of the Grove', 'Final Trial'];
 
     for (let i = 0; i < 6; i++) {
         const option = document.createElement('option');
@@ -344,7 +344,7 @@ roomSelectElement.addEventListener('change', () => {
     if (selectedRoomIndex === state.currentRoom) return;
 
     if (state.completed[selectedRoomIndex]) {
-       showConfirmDialog(
+        showConfirmDialog(
             'Do you want to replay this room? Your progress in this room will be removed.',
             () => {
                 removeArtifactByRoomIndex(selectedRoomIndex);

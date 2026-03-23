@@ -1,6 +1,6 @@
 // Cheat Codes is created for the development team to test the logic responsiveness of logic by clicking on buttons
 // Do not make this accessible for production
-/*import {
+import {
     renderStatusBar,
     startStatusBarTimers,
     stopAllStatusBarTimers,
@@ -236,4 +236,3 @@ function toggleCheatCodeButtons() {
         cheatCodesWrapper.innerHTML = '';
     }
 }
-*/
