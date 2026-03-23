@@ -70,7 +70,7 @@ export function render() {
     renderStatusBar();
 }
 
-const allRooms = [room4, room2, room3, room1, room5, room6];
+const allRooms = [room1, room2, room3, room4, room5, room6];
 
 export function renderNextRoom() {
 
